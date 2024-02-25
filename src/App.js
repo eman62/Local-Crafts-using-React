@@ -1,12 +1,13 @@
 
 import './App.css';
-import Footer from './Components/footer';
+import HomePage from './Pages/homePage';
+
 
 function App() {
   return (
     <div className="App">
-       local crafts
-       <Footer></Footer>
+       
+       <HomePage></HomePage>
     </div>
   );
 }
