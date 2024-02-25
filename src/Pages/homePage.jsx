@@ -1,9 +1,11 @@
+import Categories from "../Components/categories";
 import HomeHeader from "../Components/homeHeader";
 
 const HomePage = () => {
   return (
     <>
       <HomeHeader></HomeHeader>
+      <Categories></Categories>
     </>
   );
 };
