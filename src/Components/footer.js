@@ -21,7 +21,7 @@ const Footer = () => {
           <Typography sx={{textAlign:"start",margin:"2vh 5vw 0 0",fontSize:"13px",color:"white"}}> موقعنا يتيح لك شراء العديد من المنتجات والحصول علي خدمات مميزه وسريعه ويمكنك شراء العديد من المنتجات </Typography>
         </Grid>
 
-        <Grid item xs={5} >
+        <Grid item xs={5}  sx={{textAlign:"center"}}>
           <Typography sx={{ display: "block", backgroundColor: "rgba(255, 255, 255, 0.08)" ,padding:"3vh 0",color:"white",fontSize:"1.6vw"}}>الصفح</Typography>
           <Link sx={{ display: "block",color:"white",textDecoration:"none",margin:"3vh"}}>الرئيسيه</Link>
           <Link sx={{ display: "block", color:"white",textDecoration:"none",margin:"3vh" }}>المنتجات</Link>
@@ -47,8 +47,7 @@ const Footer = () => {
       </Grid>
         
      </Box>
-      <Divider sx={{color:"wheat"}}></Divider>
-          <p>cfvbnm,.jhg</p>
+     
       
       
     </>

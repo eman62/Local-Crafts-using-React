@@ -1,0 +1,50 @@
+.header {
+    position: relative;
+    padding: 20px;
+  }
+  
+  .header-left {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    z-index: 1; /* Ensure left div is above the right div */
+  }
+  
+  .header-right {
+    position: absolute;
+    top: 20px; /* Adjust top position as needed */
+    right: 20px; /* Adjust right position as needed */
+    background-color: #fff;
+    padding: 10px;
+    transition: transform 0.5s ease; /* Add transition property */
+  }
+  
+  .header-right.enter-left {
+    transform: translateX(-100%); /* Move the right div to the left */
+  }
+  
+  .header-right h2 {
+    font-size: 24px;
+  }
+  
+  .header-right input {
+    margin: 10px 0;
+    padding: 5px;
+    width: 200px;
+    display: block;
+  }
+  
+  .header-right button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .header-right button:hover {
+    background-color: #0056b3;
+  }
+  
