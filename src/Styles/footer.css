@@ -1,0 +1,14 @@
+.footer{
+    width: 100vw;
+    height: 35vh;
+    background-color: #091242;
+    position: absolute;
+    bottom: 0;
+    
+}
+.name{
+    color: white;
+    font-weight: 600;
+    font-family: 'Rubik';
+    
+}
