@@ -1,13 +1,13 @@
 
 import './App.css';
-import HomePage from './Pages/homePage';
+import AboutInfo from './Components/aboutInfo';
 
 
 function App() {
   return (
     <div className="App">
-       
-       <HomePage></HomePage>
+       <AboutInfo/>
+     
     </div>
   );
 }
