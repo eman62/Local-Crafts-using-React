@@ -3,6 +3,7 @@ import "../Styles/about.css"
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography"
+import HomeIcon from '@mui/icons-material/Home';
 const AboutInfo = () => {
 
     return (
@@ -21,10 +22,13 @@ const AboutInfo = () => {
                             left: "65%",
                             background: "linear-gradient(90deg, #FFB629 0%, #FFDA56 50%, #FFD7A6 100%)",
                             padding: "1.7rem",
-                            
-                            transform: "translate(-50%, -50%)"
+                            display:"flex",
+                            transform: "translate(-50%, -50%)",
+                            justifyContent:"space-around",
+
                         }}>
-                            <Typography variant="p" sx={{width:"40%"}}>ستجد جميع خدمات التى يحتاجها منزلك</Typography>
+                            <HomeIcon sx={{color:"white",fontSize:"2.5rem" }}></HomeIcon>
+                            <Typography variant="p" sx={{}}>ستجد جميع خدمات التى يحتاجها منزلك</Typography>
                         </Box>
                     </Grid>
 
