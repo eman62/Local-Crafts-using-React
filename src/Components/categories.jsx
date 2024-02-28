@@ -6,14 +6,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import React, { useRef, useState } from "react";
-import {
-  Card,
-  CardMedia,
-  makeStyles,
-  Box,
-  Typography,
-  Grid,
-} from "@mui/material";
+import { Card, CardMedia, Box, Typography, Grid } from "@mui/material";
 
 const Categories = () => {
   const [centerIndex, setCenterIndex] = useState(0);
@@ -40,7 +33,7 @@ const Categories = () => {
         margin: "20vh 0",
         backgroundColor: "lightgray",
         direction: "rtl",
-        position: "relative", // Added position relative to handle absolute positioning of buttons
+        position: "relative",
       }}
     >
       <Box sx={{ display: "flex" }}>
