@@ -1,13 +1,19 @@
 
 import './App.css';
-import HomePage from './Pages/homePage';
+import PopularProducts from './Components/popularProducts';
+import PopularServices from './Components/popularServices';
+// import HomePage from './Pages/homePage';
 
 
 
 function App() {
   return (
     <div className="App">
-      <HomePage></HomePage>
+      <PopularServices/>
+      <PopularProducts/>
+      
+      
+      {/* <HomePage></HomePage> */}
      
     </div>
   );
