@@ -10,7 +10,7 @@ const ServiceCard = () => {
 
     return (
 
-        <Box mt={10} >
+        <Box  >
             <Card sx={{ width: "20vw"}} mb={10}>
                 <CardMedia
                     component="img"

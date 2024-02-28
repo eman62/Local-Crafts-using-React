@@ -2,18 +2,17 @@
 import './App.css';
 import PopularProducts from './Components/popularProducts';
 import PopularServices from './Components/popularServices';
-// import HomePage from './Pages/homePage';
+import ProductDetiles from './Components/productDetiles';
+import HomePage from './Pages/homePage';
 
 
 
 function App() {
   return (
     <div className="App">
-      <PopularServices/>
-      <PopularProducts/>
-      
       
       {/* <HomePage></HomePage> */}
+      <ProductDetiles/>
      
     </div>
   );

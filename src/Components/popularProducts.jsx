@@ -10,8 +10,6 @@ const PopularProducts = () => {
         direction: " rtl",
         width: "86%",
         padding: "5%",
-
-
     }
 
     return (
@@ -35,18 +33,21 @@ const PopularProducts = () => {
                     </Box>
                     <Typography variant="h4" sx={{ fontFamily: " 'Rubik', sans-serif" }}>المنتجات الأكثر طلبا</Typography>
                 </Box>
-                <Grid container >
-                    <Grid sm={4}>
-                        <ServiceCard />
+                <Grid container spacing={4}mt={10} sx={{}}  >
+                        <Grid xs={12} md={6} lg={3} >
+                            <ServiceCard />
+                        </Grid>
+                        <Grid xs={12} md={6} lg={3} >
+                            <ServiceCard />
+                        </Grid>
+                        <Grid xs={12} md={6} lg={3}>
+                            <ServiceCard />
+                        </Grid>
+                        <Grid xs={12} md={6} lg={3} >
+                            <ServiceCard />
+                        </Grid>
+
                     </Grid>
-                    <Grid  sm={4}>
-                        <ServiceCard />
-                    </Grid>
-                    <Grid  sm={4}>
-                        <ServiceCard />
-                    </Grid>
-                    
-                </Grid>
 
             </Box>
         </Box>
