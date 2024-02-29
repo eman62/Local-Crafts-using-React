@@ -1,7 +1,14 @@
-import React from 'react';
-import '../Styles/login.css';
+import React, { useState } from 'react';
+import '../Styles/register.css';
 
-const Login = () => {
+const Register = () => {
+  const [userType, setUserType] = useState(''); // State to store selected user type
+
+  // Function to handle user type selection
+  const handleUserTypeChange = (event) => {
+    setUserType(event.target.value);
+  };
+
   return (
     <div className="container">
       <div className="login-container">
@@ -14,7 +21,10 @@ const Login = () => {
           </div>
         </div>
         <div className="login-form">
-          <div>تسجيل الدخول</div>
+          <div>انشاء حساب جديد</div>
+          <div>
+            <input type="text" placeholder="الاسم" />
+          </div>
           <div>
             <input type="text" placeholder="البريد" />
           </div>
@@ -22,11 +32,22 @@ const Login = () => {
             <input type="password" placeholder="كلمة السر" />
           </div>
           <div>
-            <input type="submit" value="تسجيل الدخول" />
+            <input type="password" placeholder="تاكيد كلمه السر"/>
+          </div>
+          {/* User type selection dropdown */}
+          <div>
+            <select value={userType} onChange={handleUserTypeChange}>
+              <option value="">نوع الحساب</option>
+              <option value="buyer">مشتري</option>
+              <option value="seller">بائع</option>
+            </select>
+          </div>
+          <div>
+            <input type="submit" value="انشاء حساب" />
           </div>
           <div className="no-account-create">
-            <div className="no-account">ليس لديك حساب؟</div>
-            <div className="create-account">انشاء حساب</div>
+            <div className="no-account">لديك بالفعل حساب</div>
+            <div className="create-account">سجل دخول</div>
           </div>
           <div className="google-login">
             <button className="google-login-button">
@@ -46,7 +67,4 @@ const Login = () => {
   );
 };
 
-export default Login;
-
-
-
+export default Register;

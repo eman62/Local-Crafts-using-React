@@ -3,7 +3,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color:transparent;
+    background-color: transparent;
     color: black;
 }
 
@@ -13,7 +13,7 @@
 }
 
 .navbar-left input {
-    margin-right: 500px; 
+    margin-right: 500px;
     margin-left: 50px;
     padding: 5px;
     border: none;
@@ -22,29 +22,31 @@
 
 .login-box {
     background-color: white;
-    padding: 5px 3px; /* Adjusted padding to decrease width */
+    padding: 5px 3px;
+    /* Adjusted padding to decrease width */
     border-radius: 5px;
     display: flex;
     align-items: center;
 }
 
 .login-box span {
-    margin-right: 40px; /* Adjusted margin */
+    margin-right: 40px;
+    /* Adjusted margin */
 }
 
 .navbar-logo img {
     width: 50px;
-    margin-right: 120px; 
+    margin-right: 120px;
 }
 
 .navbar-menu {
     list-style-type: none;
     display: flex;
-    margin-left: auto; 
+    margin-left: auto;
 }
 
 .navbar-menu li {
-    margin-left: 50px; 
+    margin-left: 50px;
 }
 
 .navbar-menu li:first-child {

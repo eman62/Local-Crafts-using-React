@@ -1,0 +1,124 @@
+.login-container {
+    background-color: #091242;
+    color: white;
+    padding: 40px; /* Increase padding */
+    display: flex;
+    justify-content: space-between; /* Align items at the left and right */
+    align-items: center;
+    height: 400px; /* Increase the height */
+    position: absolute; /* Position the container */
+    bottom: 0; /* Align the container to the bottom of the page */
+    width: 100%; /* Make the container span the full width of the page */
+}
+
+.login-form {
+    background-color: white;
+    border-radius: 10px;
+    padding: 40px; /* Increase padding */
+    text-align: right;
+    height: 400px; /* Increase the height */
+    width: 1200px; /* Increase the width */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+}
+
+.login-container img {
+    width: 150px; /* Increase logo size */
+    height: auto;
+}
+
+.login-form > div:first-child {
+    color: #091242; /* Change color of the first div within login-form */
+    font-size: 24px; /* Increase font size of header */
+    margin-bottom: 20px; /* Increase space below header */
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"],
+.login-form input[type="submit"] {
+    font-size: 18px; /* Increase font size of input fields */
+    padding: 10px 0; /* Increase padding of input fields */
+    width: 100%; /* Increase width of input fields */
+    margin-bottom: 20px; /* Decrease space between input fields */
+    border: none; /* Remove default border */
+    border-bottom: 2px solid blueviolet; /* Blue bottom border */
+    border-radius: 0; /* Remove border radius */
+    background-color: transparent; /* Make background transparent */
+}
+
+.no-account-create {
+    display: flex; /* Display items in a row */
+}
+
+.no-account {
+    color: black; /* Change color of "ليس لديك حساب؟" to black */
+}
+
+.create-account {
+    color: blue; /* Change color of "انشاء حساب" to blue */
+}
+
+.google-login-text {
+    color: black; /* تحديد لون النص باللون الأسود */
+}
+
+.google-login {
+    display: flex;
+    align-items: center;
+    margin-top: 10px; /* Decrease space above the Google login button */
+}
+
+.google-login-button {
+    background-color: white; /* Background color of the Google login button */
+    color: blue; /* Text color of the Google login button */
+    padding: 15px 30px; /* Increase padding */
+    border-radius: 5px;
+    font-size: 20px; /* Increase font size of button */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-right: 10px; /* Decrease space between buttons */
+}
+
+.google-login-button svg {
+    margin-right: 10px; /* Space between the icon and text */
+}
+
+.google-login-button:last-child {
+    margin-right: 0; /* Remove right margin from the last button */
+}
+
+.google-login-button:hover {
+    background-color: #f0f0f0; /* Lighter background color on hover */
+}
+
+.login-form input[type="submit"] {
+    background-color: #091242; /* Change background color of the "تسجيل الدخول" button to blue */
+    color: white; /* Change text color of the "تسجيل الدخول" button to white */
+    border-radius: 4px;
+    padding: 15px 40px; /* Increase padding horizontally */
+}
+
+.header-image {
+    width: 100%; /* Make the image take up the full width of the page */
+    height: auto; /* Maintain aspect ratio */
+    position: absolute; /* Position the image behind other content */
+    top: 0; /* Align the image to the top of the page */
+    left: 0; /* Align the image to the left of the page */
+    z-index: -1; /* Place the image behind other content */
+}
+/* CSS for the user type dropdown */
+.user-type-dropdown {
+    width: 100%; /* Set the width to match input fields */
+    padding: 15px 0; /* Match padding of input fields */
+    font-size: 18px; /* Match font size of input fields */
+    margin-bottom: 30px; /* Match margin bottom of input fields */
+    border: none; /* Remove default border */
+    border-bottom: 2px solid blueviolet; /* Add bottom border */
+    border-radius: 0; /* Remove border radius */
+    background-color: transparent; /* Make background transparent */
+    color: black; /* Match text color of input fields */
+  }
+  
