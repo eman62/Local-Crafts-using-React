@@ -1,20 +1,14 @@
-
-import './App.css';
-import PopularProducts from './Components/popularProducts';
-import PopularServices from './Components/popularServices';
+import { ThemeProvider } from "@mui/material";
+import "./App.css";
+import HomePage from "./Pages/homePage";
 // import HomePage from './Pages/homePage';
-
-
 
 function App() {
   return (
     <div className="App">
-      <PopularServices/>
-      <PopularProducts/>
-      
-      
+      <HomePage></HomePage>
+
       {/* <HomePage></HomePage> */}
-     
     </div>
   );
 }
