@@ -1,15 +1,14 @@
-
-import './App.css';
-import AboutInfo from './Components/aboutInfo';
-import Navbar from './Components/navBar';
-
+import "./App.css";
+import PopularProducts from "./Components/popularProducts";
+import PopularServices from "./Components/popularServices";
+import ProductDetiles from "./Components/productDetiles";
+import HomePage from "./Pages/homePage";
 
 function App() {
   return (
     <div className="App">
-       <AboutInfo/>
-       <Navbar></Navbar>
-     
+      {/* <HomePage></HomePage> */}
+      <ProductDetiles />
     </div>
   );
 }
