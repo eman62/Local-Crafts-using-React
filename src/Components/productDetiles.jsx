@@ -5,6 +5,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import IconButton from "@mui/material/IconButton";
 import EngineeringIcon from '@mui/icons-material/Engineering';
+import PersonIcon from '@mui/icons-material/Person';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -29,6 +32,11 @@ const ProductDetiles = () => {
 
     const handleSlideChange = (swiper) => {
         setCenterIndex(swiper.realIndex + 1);
+    };
+    const [isFavorite, setIsFavorite] = useState(false);
+
+    const toggleFavorite = () => {
+        setIsFavorite(!isFavorite);
     };
     return (
 
@@ -57,11 +65,11 @@ const ProductDetiles = () => {
                     </Box>
 
                     <Grid container mt={10} >
-                        <Grid xs={12} lg={6} SX={{
+                        <Grid xs={12} lg={6} sx={{
                             position: "relative",
                         }}>
-
-                            <Swiper
+                            <Box mb={5}>
+                            <Swiper 
                                 ref={swiperRef}
                                 modules={[Navigation, Pagination, Scrollbar, A11y]}
                                 slidesPerView={1}
@@ -70,21 +78,22 @@ const ProductDetiles = () => {
                                 navigation={{ nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }}
                             >
                                 <SwiperSlide>
-                                    <img width={400} src='https://s3-alpha-sig.figma.com/img/612d/be90/a1f53fd2458ab4004cf484363eb87688?Expires=1710115200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=J52P5aQU7uXlco~Ed-a8g1y24QkdRf5JmG7tv0nLWfkpiwvJggH~P7SjedCkndhqB~xgiIic5N1NYoKhgzds9Boy2BXw9hPKq9bFiaE3pnKWIbO8XQYlLIrGhNHGDbPRaWzp6qG4TwLBLdhP2jHOSfQZqqQtDf7Ulpa9OFEVLXEcObt9G4KANjd9zthqON-~B~aw-JT-kUABn~quZ1rgn-gV366Y0pCKfKdvDRig7BUjQwXToihEG18NOprA0qKk5-H2tsQtG5K3RA-6IetC~xpY~gDa7LdrwEesKhvqCe98p~oNAmK2lNYKexxciJI5xRdMt9xm39R18keHKHlfcg__' alt='slide1' />
+                                    <img style={{width:"67%", marginRight:"9%"}}  src='https://s3-alpha-sig.figma.com/img/612d/be90/a1f53fd2458ab4004cf484363eb87688?Expires=1710115200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=J52P5aQU7uXlco~Ed-a8g1y24QkdRf5JmG7tv0nLWfkpiwvJggH~P7SjedCkndhqB~xgiIic5N1NYoKhgzds9Boy2BXw9hPKq9bFiaE3pnKWIbO8XQYlLIrGhNHGDbPRaWzp6qG4TwLBLdhP2jHOSfQZqqQtDf7Ulpa9OFEVLXEcObt9G4KANjd9zthqON-~B~aw-JT-kUABn~quZ1rgn-gV366Y0pCKfKdvDRig7BUjQwXToihEG18NOprA0qKk5-H2tsQtG5K3RA-6IetC~xpY~gDa7LdrwEesKhvqCe98p~oNAmK2lNYKexxciJI5xRdMt9xm39R18keHKHlfcg__' alt='slide1' />
                                 </SwiperSlide>
                                 <SwiperSlide>
-                                    <img width={400} src='https://s3-alpha-sig.figma.com/img/612d/be90/a1f53fd2458ab4004cf484363eb87688?Expires=1710115200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=J52P5aQU7uXlco~Ed-a8g1y24QkdRf5JmG7tv0nLWfkpiwvJggH~P7SjedCkndhqB~xgiIic5N1NYoKhgzds9Boy2BXw9hPKq9bFiaE3pnKWIbO8XQYlLIrGhNHGDbPRaWzp6qG4TwLBLdhP2jHOSfQZqqQtDf7Ulpa9OFEVLXEcObt9G4KANjd9zthqON-~B~aw-JT-kUABn~quZ1rgn-gV366Y0pCKfKdvDRig7BUjQwXToihEG18NOprA0qKk5-H2tsQtG5K3RA-6IetC~xpY~gDa7LdrwEesKhvqCe98p~oNAmK2lNYKexxciJI5xRdMt9xm39R18keHKHlfcg__' alt='slide2' />
+                                    <img style={{width:"67%", marginRight:"9%"}} src='https://s3-alpha-sig.figma.com/img/612d/be90/a1f53fd2458ab4004cf484363eb87688?Expires=1710115200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=J52P5aQU7uXlco~Ed-a8g1y24QkdRf5JmG7tv0nLWfkpiwvJggH~P7SjedCkndhqB~xgiIic5N1NYoKhgzds9Boy2BXw9hPKq9bFiaE3pnKWIbO8XQYlLIrGhNHGDbPRaWzp6qG4TwLBLdhP2jHOSfQZqqQtDf7Ulpa9OFEVLXEcObt9G4KANjd9zthqON-~B~aw-JT-kUABn~quZ1rgn-gV366Y0pCKfKdvDRig7BUjQwXToihEG18NOprA0qKk5-H2tsQtG5K3RA-6IetC~xpY~gDa7LdrwEesKhvqCe98p~oNAmK2lNYKexxciJI5xRdMt9xm39R18keHKHlfcg__' alt='slide2' />
                                 </SwiperSlide>
                                 <SwiperSlide>
-                                    <img width={400} src='https://s3-alpha-sig.figma.com/img/612d/be90/a1f53fd2458ab4004cf484363eb87688?Expires=1710115200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=J52P5aQU7uXlco~Ed-a8g1y24QkdRf5JmG7tv0nLWfkpiwvJggH~P7SjedCkndhqB~xgiIic5N1NYoKhgzds9Boy2BXw9hPKq9bFiaE3pnKWIbO8XQYlLIrGhNHGDbPRaWzp6qG4TwLBLdhP2jHOSfQZqqQtDf7Ulpa9OFEVLXEcObt9G4KANjd9zthqON-~B~aw-JT-kUABn~quZ1rgn-gV366Y0pCKfKdvDRig7BUjQwXToihEG18NOprA0qKk5-H2tsQtG5K3RA-6IetC~xpY~gDa7LdrwEesKhvqCe98p~oNAmK2lNYKexxciJI5xRdMt9xm39R18keHKHlfcg__' alt='slide3' />
+                                    <img style={{width:"67%", marginRight:"9%"}} src='https://s3-alpha-sig.figma.com/img/612d/be90/a1f53fd2458ab4004cf484363eb87688?Expires=1710115200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=J52P5aQU7uXlco~Ed-a8g1y24QkdRf5JmG7tv0nLWfkpiwvJggH~P7SjedCkndhqB~xgiIic5N1NYoKhgzds9Boy2BXw9hPKq9bFiaE3pnKWIbO8XQYlLIrGhNHGDbPRaWzp6qG4TwLBLdhP2jHOSfQZqqQtDf7Ulpa9OFEVLXEcObt9G4KANjd9zthqON-~B~aw-JT-kUABn~quZ1rgn-gV366Y0pCKfKdvDRig7BUjQwXToihEG18NOprA0qKk5-H2tsQtG5K3RA-6IetC~xpY~gDa7LdrwEesKhvqCe98p~oNAmK2lNYKexxciJI5xRdMt9xm39R18keHKHlfcg__' alt='slide3' />
                                 </SwiperSlide>
                             </Swiper>
+                            </Box>
                             <IconButton
                                 className="swiper-button-prev"
                                 sx={{
                                     position: 'absolute',
                                     top: '50%',
-                                    left: '55%',
+                                    left: '15%',
                                     transform: 'translateY(-50%)',
                                     zIndex: 999,
                                     background: 'linear-gradient(90deg, #FFB629 0%, #FFDA56 50%, #FFD7A6 100%)',
@@ -99,7 +108,7 @@ const ProductDetiles = () => {
                                 sx={{
                                     position: 'absolute',
                                     top: '50%',
-                                    right: '5px',
+                                    right: '.09%',
                                     transform: 'translateY(-50%)',
                                     zIndex: 999,
                                     background: '#091242',
@@ -112,7 +121,15 @@ const ProductDetiles = () => {
                         </Grid>
 
                         <Grid xs={12} md={6} >
-                            <Typography variant='h4' sx={{ fontFamily: " 'Rubik', sans-serif" }}> أسم المنتج أو الخدمة</Typography>
+                            <Box sx={{display:"flex" ,justifyContent:"space-between"}}>
+                                <Typography variant='h4' sx={{ fontFamily: " 'Rubik', sans-serif" }}>
+                                    أسم المنتج أو الخدمة<PersonIcon fontSize='2.5rem' />
+                                </Typography>
+                                <Box onClick={toggleFavorite}>
+                                    {isFavorite ? <FavoriteIcon sx={{ color: 'red', fontSize:"40px" }} /> : <FavoriteBorderIcon sx={{fontSize:"40px"}}  />}
+                                </Box>
+
+                            </Box>
                             <Box mt={3} sx={{ width: "60%", display: "flex", justifyContent: "space-between", color: "#999999;" }}>
                                 <Typography variant='p'> التصنيف</Typography>
                                 <Typography variant='p'> التصنيف الفرعي</Typography>
@@ -135,7 +152,7 @@ const ProductDetiles = () => {
 
                     <Box mt={3} sx={{ display: 'flex', justifyContent: "flex-end" }}>
                         <Box mt={4}>
-                            <Typography sx={{color:"#3A4980", fontWeight:"bold"}} variant='p'> -  Counter  +</Typography>
+                            <Typography sx={{ color: "#3A4980", fontWeight: "bold" }} variant='p'> -  Counter  +</Typography>
                         </Box>
                         <Button
                             sx={{
