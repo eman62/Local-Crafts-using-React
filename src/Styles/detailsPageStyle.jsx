@@ -15,14 +15,16 @@ export const positionBox = {
     right: "5%",
     width: "80%",
     bottom: "10%",
-    padding: "5%",
-    height: "100vh"
+    padding: "6%",
+    // height: "100vh"
 }
 
 export const mainBox = {
     position: "relative",
     textAlign: "right",
-    direction: "rtl"
+    direction: "rtl",
+    marginBottom:"60%"
+    
 }
 
 export default { imgStyle, positionBox, mainBox }
