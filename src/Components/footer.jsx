@@ -47,7 +47,7 @@ const Footer = () => {
             </Typography>
           </Grid>
 
-          <Grid item xs={5}>
+          <Grid item xs={5} sx={{ textAlign: "center" }}>
             <Typography
               sx={{
                 display: "block",
