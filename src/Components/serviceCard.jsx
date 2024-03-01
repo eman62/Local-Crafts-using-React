@@ -2,16 +2,24 @@ import React from 'react';
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography"
 import Card from '@mui/material/Card';
+import  { useState } from 'react'
+
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const ServiceCard = () => {
+    const [isFavorite, setIsFavorite] = useState(false);
+
+    const toggleFavorite = () => {
+        setIsFavorite(!isFavorite);
+    };
 
     return (
-
-        <Box  >
-            <Card sx={{ width: "20vw"}} mb={10}>
+        <Box sx={{ direction: "rtl" }} >
+            <Card sx={{ width: "20vw" }} mb={10}>
                 <CardMedia
                     component="img"
                     height="200"
@@ -21,8 +29,7 @@ const ServiceCard = () => {
                 <CardContent>
                     <Box sx={{
                         display: "flex",
-                        justifyContent: "space-around", // Changed to space-between for spacing
-
+                        justifyContent: "space-around",
                     }}>
                         <Box sx={{ borderRadius: "50%" }}>
                             <img height="35" width="35" src="https://www.figma.com/file/KoAR42FTHSt4h6oCQSSZOL/image/b0b5575b38d94edf1272fe60bcdd977fef76cd81" alt="Person" style={{ borderRadius: "50%" }} />
@@ -30,16 +37,19 @@ const ServiceCard = () => {
                         <Typography gutterBottom variant="h6" component="div" sx={{ fontFamily: " 'Rubik', sans-serif" }}>
                             عنوان الخدمة
                         </Typography>
+                        <Box onClick={toggleFavorite}>
+                            {isFavorite ? <FavoriteIcon sx={{ color: 'red', fontSize: "30px" }} /> : <FavoriteBorderIcon sx={{ fontSize: "30px" }} />}
+                        </Box>
 
                     </Box>
                     <Box mt={2} sx={{
                         display: "flex",
-                        justifyContent: "space-around", // Changed to space-between for spacing
+                        justifyContent: "space-around",
 
                     }}>
 
 
-                        <Typography  gutterBottom variant="p" sx={{ fontFamily: " 'Rubik', sans-serif" }}>
+                        <Typography gutterBottom variant="p" sx={{ fontFamily: " 'Rubik', sans-serif" }}>
                             التصنيف
                         </Typography>
                         <Typography gutterBottom variant="p" sx={{ fontFamily: " 'Rubik', sans-serif" }}>
@@ -50,8 +60,8 @@ const ServiceCard = () => {
 
                     <Typography mt={2} variant="body2">
                         Iحماده بالزنجبيلحماده بالزنجبيلحماده بالزنج بالزنجبيلحماده بالزنجبيلحماده بالالزنجبيلحماده بالزنجبيل                                </Typography>
-                    
-                    <Box  mt={2} sx={{
+
+                    <Box mt={2} sx={{
                         display: "flex",
                         justifyContent: "space-around", // Changed to space-between for spacing
 
@@ -59,18 +69,18 @@ const ServiceCard = () => {
 
 
                         <Typography gutterBottom variant="p" sx={{ fontFamily: " 'Rubik', sans-serif" }}>
-                            السعر : 200 ج 
-                                                            
-                        </Typography>
-                       <Box>
-                        <StarBorderIcon/>
-                        <StarBorderIcon/>
-                        <StarBorderIcon/>
-                        <StarBorderIcon/>
-                        <StarBorderIcon/>
+                            السعر : 200 ج
 
-                        
-                        </Box> 
+                        </Typography>
+                        <Box>
+                            <StarBorderIcon />
+                            <StarBorderIcon />
+                            <StarBorderIcon />
+                            <StarBorderIcon />
+                            <StarBorderIcon />
+
+
+                        </Box>
 
                     </Box>
 
