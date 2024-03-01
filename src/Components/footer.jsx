@@ -47,37 +47,6 @@ const Footer = () => {
             </Typography>
           </Grid>
 
-<<<<<<< HEAD
-        <Grid item xs={5}  sx={{textAlign:"center"}}>
-          <Typography sx={{ display: "block", backgroundColor: "rgba(255, 255, 255, 0.08)" ,padding:"3vh 0",color:"white",fontSize:"1.6vw"}}>الصفح</Typography>
-          <Link sx={{ display: "block",color:"white",textDecoration:"none",margin:"3vh"}}>الرئيسيه</Link>
-          <Link sx={{ display: "block", color:"white",textDecoration:"none",margin:"3vh" }}>المنتجات</Link>
-          <Link sx={{ display: "block", color:"white",textDecoration:"none",margin:"3vh"  }}>الخدمات</Link>
-        </Grid>
-        <Grid item xs={3} >
-          <Typography sx={{ display: "block", backgroundColor: "rgba(255, 255, 255, 0.08)",padding:"3vh 0" ,textAlign:"start",color:"white",fontSize:"1.6vw"}}>تواصل معنا</Typography>
-          <Box sx={{display:"flex",alignItems:"center",marginTop:"6vh"}}>
-            <Box sx={{display:"block"}}>
-             <Typography sx={{ textAlign:"left",color:"white",marginLeft:"1vw",fontSize:"1vw"}}>Email</Typography>
-             <Typography sx={{color:"white",marginLeft:"1vw",fontSize:"1vw"}}>Eman@gmail.com</Typography>
-             </Box>
-             <MailOutlineIcon sx={{backgroundColor:"rgba(255, 255, 255, 0.08)",borderRadius:"10vw",padding:"1vw",color:"gold",width:"1.5vw"}}></MailOutlineIcon>
-          </Box>
-          <Box sx={{display:"flex",alignItems:"left", color:"white",justifyContent:"start",marginTop:"5vh"}}>
-            <LinkedInIcon></LinkedInIcon>
-            <TwitterIcon></TwitterIcon>
-            <FacebookIcon></FacebookIcon>
-          </Box>
-          
-        </Grid>
-        
-      </Grid>
-        
-     </Box>
-     
-      
-      
-=======
           <Grid item xs={5}>
             <Typography
               sx={{
@@ -192,7 +161,6 @@ const Footer = () => {
       >
         Copyright &copy;2024 LocalCrafts. All rights reserved.
       </Typography>
->>>>>>> 1911c99adb31cc22392a40abd2c1c2bffb5fa167
     </>
   );
 };

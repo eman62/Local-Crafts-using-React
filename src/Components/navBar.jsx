@@ -1,19 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import '../Styles/navBar.css'; 
- import PersonIcon from '@material-ui/icons/Person'; // استيراد الأيقونة من مكتبة Material Icons
-
-
-const Navbar = () => {
-    return (
-      <nav className="navbar">
-        <div className="navbar-left">
-          <div className="login-box">
-             <PersonIcon /> 
-            <span>تسجيل دخول</span>
-          </div>
-          <input type="text" placeholder="ابحث" />
-=======
 import React from "react";
 import "../Styles/navBar.css";
 import PersonIcon from "@mui/icons-material/Person";
@@ -24,7 +8,6 @@ const Navbar = () => {
         <div className="login-box">
           <PersonIcon />
           <span>تسجيل دخول</span>
->>>>>>> 1911c99adb31cc22392a40abd2c1c2bffb5fa167
         </div>
         <input type="text" placeholder="ابحث" />
       </div>
