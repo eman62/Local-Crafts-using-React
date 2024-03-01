@@ -2,6 +2,7 @@ import "./App.css";
 import PopularProducts from "./Components/popularProducts";
 import PopularServices from "./Components/popularServices";
 import ProductDetiles from "./Components/productDetiles";
+import ServiceCard from "./Components/serviceCard";
 import { DetalisPage } from "./Pages/detalisPage";
 import HomePage from "./Pages/homePage";
 import Login from "./Pages/login";
@@ -15,11 +16,7 @@ function App() {
   return (
     <div className="App">
       {/* <HomePage></HomePage> */}
-      {/* <DetalisPage /> */}
-      {/* <Login></Login> */}
-      {/* <Register></Register> */}
-      {/* <LoginPage></LoginPage> */}
-      <UserRegister></UserRegister>
+      <ServiceCard />
     </div>
   );
 }
