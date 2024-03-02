@@ -8,12 +8,14 @@ import Vendor from './Pages/vendor';
 import Products from './Pages/products';
 import ProductCards from './Pages/productCards';
 import Services from './Pages/Services';
+import Orders from './Pages/orders';
+import ServicesProducts from './Pages/servicesProduct';
+
 
 function App() {
   return (
     <div className="App">
-      <Navbar></Navbar>
-      <Services></Services>
+      <Login></Login>
     </div>
   );
 }
