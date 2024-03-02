@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Grid } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import ServiceCard from '../serviceCard'; 
-const CardPaggenation = () => {
+const FaverotPaggenation = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const cardsPerPage = 8; 
     const totalCards = 30; 
@@ -15,8 +15,8 @@ const CardPaggenation = () => {
     const endIndex = startIndex + cardsPerPage;
 
     return (
-        <Box mt={10}>
-            <Grid container spacing={4}  sx={{ width: "90%" }}>
+        <Box mt={10} mb={7}>
+            <Grid container spacing={4} sx={{ width: "90%" }}>
                 {Array.from({ length: totalCards }).slice(startIndex, endIndex).map((_, index) => (
                     <Grid key={index} xs={12} md={6} lg={3} mb={5}>
                         <ServiceCard />
@@ -30,4 +30,4 @@ const CardPaggenation = () => {
     );
 };
 
-export default CardPaggenation;
+export default FaverotPaggenation;

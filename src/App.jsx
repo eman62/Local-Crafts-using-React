@@ -12,13 +12,19 @@ import LoginPage from "./Pages/loginPage";
 import UserRegister from "./Pages/userRegister";
 import Vendor from "./Pages/vendor";
 import NotFound from "./Pages/NotFoundPage/NotFound";
+import FavouritePage from "./Pages/favouritePage";
+import VendorOrdersPage from "./Pages/venorOrdersPage";
+import ProductsPage from "./Pages/productsPage";
 
 function App() {
   return (
     <div className="App">
-      {/* <HomePage></HomePage> */}
-      {/* <ServiceCard /> */}
+      {/* <HomePage></HomePage>
+      <ProductsPage/> */}
+      {/* <DetalisPage/> */}
       <NotFound/>
+      {/* <FavouritePage/> */}
+      {/* <VendorOrdersPage/> */}
     </div>
   );
 }

@@ -23,6 +23,7 @@ const ServiceCard = () => {
                 <CardMedia
                     component="img"
                     
+                    
                     image="https://s3-alpha-sig.figma.com/img/612d/be90/a1f53fd2458ab4004cf484363eb87688?Expires=1710115200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=J52P5aQU7uXlco~Ed-a8g1y24QkdRf5JmG7tv0nLWfkpiwvJggH~P7SjedCkndhqB~xgiIic5N1NYoKhgzds9Boy2BXw9hPKq9bFiaE3pnKWIbO8XQYlLIrGhNHGDbPRaWzp6qG4TwLBLdhP2jHOSfQZqqQtDf7Ulpa9OFEVLXEcObt9G4KANjd9zthqON-~B~aw-JT-kUABn~quZ1rgn-gV366Y0pCKfKdvDRig7BUjQwXToihEG18NOprA0qKk5-H2tsQtG5K3RA-6IetC~xpY~gDa7LdrwEesKhvqCe98p~oNAmK2lNYKexxciJI5xRdMt9xm39R18keHKHlfcg__"
                     alt="Random"
                 />
