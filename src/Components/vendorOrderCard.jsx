@@ -85,7 +85,7 @@ const VendorOrderCard = () => {
             رساله:
           </Typography>
         </Grid>
-        <Grid item sx={{ mt: "16vh" }} xs={4}>
+        <Grid item sx={{ mt: "16vh" }}>
           <Typography sx={{ mb: "1vh", fontFamily: "Rubik" }}>
             اسم المستخدم كامل
           </Typography>
@@ -106,7 +106,7 @@ const VendorOrderCard = () => {
             رساله رساله رساله
           </Typography>
         </Grid>
-        <Grid item sx={{ mr: "8vw", mt: "3vh" }} xs={4}>
+        <Grid item sx={{ mr: "8vw", mt: "3vh" }}>
           <ServiceCard></ServiceCard>
         </Grid>
       </Grid>

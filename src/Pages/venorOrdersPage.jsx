@@ -15,8 +15,7 @@ const VendorOrdersPage = () => {
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           position: "relative",
-        }}
-      >
+        }}>
         <Box
           sx={{
             position: "absolute",

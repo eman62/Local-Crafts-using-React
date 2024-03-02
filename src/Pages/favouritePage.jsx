@@ -12,6 +12,8 @@ import "swiper/css/scrollbar";
 import React, { useRef, useState } from "react";
 import Button from "@mui/material/Button";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
+import FaverotPaggenation from "../Components/Favirot/FavirotPagenation";
+import { Container } from "@mui/material";
 const FavouritePage = () => {
   const [centerIndex, setCenterIndex] = useState(0);
   const swiperRef = useRef(null);
@@ -94,7 +96,11 @@ const FavouritePage = () => {
               المفضلة
             </Typography>
           </Box>
-          <Swiper
+          <Container>
+             <FaverotPaggenation/>
+          </Container>
+         
+          {/* <Swiper
             style={{ margin: "7vh 0" }}
             ref={swiperRef}
             modules={[Navigation, Pagination, Scrollbar, A11y]}
@@ -123,7 +129,7 @@ const FavouritePage = () => {
                 </Grid>
               </Grid>
             </SwiperSlide>
-          </Swiper>
+          </Swiper> */}
           <Button
             sx={{
               background: "linear-gradient(90deg, #1F2A69  0%, #091242 100%)",

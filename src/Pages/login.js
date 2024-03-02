@@ -1,7 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../Styles/login.css';
 
 const Login = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!email.trim()) {
+      setEmailError('يرجى إدخال البريد الإلكتروني');
+    } else {
+      setEmailError('');
+    }
+    if (!password.trim()) {
+      setPasswordError('يرجى إدخال كلمة المرور');
+    } else {
+      setPasswordError('');
+    }
+    // Here you can perform further actions like submitting the form if all fields are filled.
+  };
+
   return (
     <div className="container">
       <div className="login-container">
@@ -16,13 +44,15 @@ const Login = () => {
         <div className="login-form">
           <div>تسجيل الدخول</div>
           <div>
-            <input type="text" placeholder="البريد" />
+            <input type="text" placeholder="البريد" value={email} onChange={handleEmailChange} />
+            {emailError && <div className="error" style={{ color: 'red' }}>{emailError}</div>}
           </div>
           <div>
-            <input type="password" placeholder="كلمة السر" />
+            <input type="password" placeholder="كلمة السر" value={password} onChange={handlePasswordChange} />
+            {passwordError && <div className="error" style={{ color: 'red' }}>{passwordError}</div>}
           </div>
           <div>
-            <input type="submit" value="تسجيل الدخول" />
+            <input type="submit" value="تسجيل الدخول" onClick={handleSubmit} />
           </div>
           <div className="no-account-create">
             <div className="no-account">ليس لديك حساب؟</div>
@@ -47,6 +77,7 @@ const Login = () => {
 };
 
 export default Login;
+
 
 
 
