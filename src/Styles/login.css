@@ -301,3 +301,6 @@
     width: 5px; /* Adjust this value to make the icons smaller */
     height: auto;
 }
+.error {
+    color: red; /* Setting the color of error messages to red */
+  }
