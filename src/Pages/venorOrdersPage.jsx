@@ -36,7 +36,7 @@ const VendorOrdersPage = () => {
             borderRadius: "30px",
             top: "10vh",
             left: "50%",
-            height: "205vh",
+            height: "225vh",
             transform: "translateX(-50%)",
             zIndex: 1,
             direction: "rtl",
@@ -87,9 +87,9 @@ const VendorOrdersPage = () => {
         </Box>
       </Box>
       {/*box of blue and white box */}
-      <Box sx={{ height: "180vh", position: "relative" }}>
+      <Box sx={{ height: "200vh", position: "relative" }}>
         {/*blue box */}
-        <Grid container sx={{ height: "180vh" }}>
+        <Grid container sx={{ height: "200vh" }}>
           <Grid item xs={6} sx={{ backgroundColor: "#091242" }}>
             <Box
               sx={{
