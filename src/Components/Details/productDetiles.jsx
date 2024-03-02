@@ -1,6 +1,6 @@
 import { Box, Button, Container, Grid, Typography } from '@mui/material'
 import React, { useRef, useState } from 'react'
-import { imgStyle, positionBox, mainBox } from '../Styles/detailsPageStyle'
+import { imgStyle, positionBox, mainBox } from '../../Styles/detailsPageStyle'
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import IconButton from "@mui/material/IconButton";

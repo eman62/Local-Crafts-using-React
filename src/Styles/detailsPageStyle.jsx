@@ -16,7 +16,7 @@ export const positionBox = {
     width: "80%",
     bottom: "10%",
     padding: "6%",
-    // height: "100vh"
+    height: "100vh"
 }
 
 export const mainBox = {

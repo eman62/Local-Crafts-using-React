@@ -1,7 +1,7 @@
 import "./App.css";
 import PopularProducts from "./Components/popularProducts";
 import PopularServices from "./Components/popularServices";
-import ProductDetiles from "./Components/productDetiles";
+import ProductDetiles from "./Components/Details/productDetiles";
 import ServiceCard from "./Components/serviceCard";
 import { DetalisPage } from "./Pages/detalisPage";
 import HomePage from "./Pages/homePage";
@@ -11,16 +11,12 @@ import Register from "./Pages/register";
 import LoginPage from "./Pages/loginPage";
 import UserRegister from "./Pages/userRegister";
 import Vendor from "./Pages/vendor";
-import Products from "./Pages/products";
-import FavouritePage from "./Pages/favouritePage";
-import VendorOrdersPage from "./Pages/venorOrdersPage";
 
 function App() {
   return (
     <div className="App">
       {/* <HomePage></HomePage> */}
-      <FavouritePage></FavouritePage>
-      {/* <VendorOrdersPage></VendorOrdersPage> */}
+      <ServiceCard />
     </div>
   );
 }
