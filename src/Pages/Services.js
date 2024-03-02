@@ -6,9 +6,7 @@
  import image1 from './Best-Apps-To-Sell-Handmade-Items-on-Android-and-iOS.jpg';
  
  const Services = () => {
-   // Assume you have an array of separate images for each card
    const serviceImages = [image1, image2, image1, image2, image1, image2, image1, image2];
- 
    return (
      <Container>
        <div>
@@ -16,7 +14,7 @@
          <Typography variant="h1">قائمه المنتجات</Typography>
        </div>
        <Grid container spacing={2}>
-         {/* Header Section */}
+       
          <Grid item xs={12}>
            
          </Grid>
@@ -24,7 +22,7 @@
            <div>
              <Typography variant="h2">الخدمات</Typography>
              <Grid container spacing={2}>
-               {/* Cards */}
+             
                {[...Array(8)].map((_, index) => (
                  <Grid key={index} item xs={3}>
                    <Paper style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '10px' }}>
@@ -35,21 +33,21 @@
                      <Typography variant="body1">الوصف: وصف الخدمة</Typography>
                      <Typography variant="body1">LE250: السعر</Typography>
                      <Rating name="half-rating" defaultValue={3.5} precision={0.5} readOnly />
-                     {/* Rating by Stars */}
+                     
                    </Paper>
                  </Grid>
                ))}
              </Grid>
            </div>
          </Grid>
-         {/* Sidebar Section */}
+        
          <Grid item xs={3}>
            <Paper style={{ backgroundColor: '#f0f0f0', padding: '50px' }}>
              <Typography variant="h3">التصنيف</Typography>
              <FormControlLabel control={<Checkbox />} label="اسم المنتج 1" />
              <FormControlLabel control={<Checkbox />} label="اسم المنتج 2" />
              <FormControlLabel control={<Checkbox />} label="اسم المنتج 3" />
-             {/* More categories go here */}
+             
              <Typography variant="h3">التصنيف الفرعي</Typography>
              <FormControlLabel control={<Checkbox />} label="اسم المنتج 1" />
              <FormControlLabel control={<Checkbox />} label="اسم المنتج 2" />
