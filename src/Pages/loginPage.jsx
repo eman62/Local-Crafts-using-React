@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -6,6 +7,18 @@ import { Link, TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 
 const LoginPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleLogin = () => {
+    if (!email.trim() || !password.trim()) {
+      setErrorMessage('من فضلك ادخل البريد وكلمة السر');
+      return;
+    }
+    // Handle login logic
+  };
+
   return (
     <Box sx={{ position: "relative" }}>
       <Box
@@ -39,7 +52,6 @@ const LoginPage = () => {
             top: "35vh",
             right: 0,
             height: "120vh",
-            // transform: "translateX(-50%)",
             zIndex: 1,
           }}
         >
@@ -85,24 +97,35 @@ const LoginPage = () => {
           </Box>
           <Box sx={{ direction: "rtl", mt: "5vh", mr: "15vw" }}>
             <TextField
-              id="standard-basic"
+              id="email"
               label="البريد"
               variant="standard"
               placeholder="ادخل البريد الإلكتروني"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               inputProps={{ style: { direction: "rtl" } }}
               sx={{ width: "30vw", direction: "rtl", mb: "1vh" }}
               InputLabelProps={{ direction: "rtl" }}
             />
             <TextField
-              id="standard-basic"
+              id="password"
               label="كلمه السر"
               variant="standard"
               placeholder="ادخل كلمه السر"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               inputProps={{ style: { direction: "rtl" } }}
               sx={{ width: "30vw", textAlign: "start" }}
               InputLabelProps={{ direction: "rtl", textAlign: "start" }}
             />
+            {errorMessage && (
+              <Typography sx={{ color: 'red', mt: '1vh' }}>
+                {errorMessage}
+              </Typography>
+            )}
             <Button
+              onClick={handleLogin}
               sx={{
                 background: "#091242",
                 color: "white",
@@ -164,8 +187,6 @@ const LoginPage = () => {
               </svg>
             </Button>
           </Box>
-
-          {/* box البيانات */}
         </Box>
       </Box>
       {/*box of blue and white box */}
@@ -236,3 +257,4 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
