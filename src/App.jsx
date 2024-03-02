@@ -11,12 +11,14 @@ import Register from "./Pages/register";
 import LoginPage from "./Pages/loginPage";
 import UserRegister from "./Pages/userRegister";
 import Vendor from "./Pages/vendor";
+import NotFound from "./Pages/NotFoundPage/NotFound";
 
 function App() {
   return (
     <div className="App">
       {/* <HomePage></HomePage> */}
-      <ServiceCard />
+      {/* <ServiceCard /> */}
+      <NotFound/>
     </div>
   );
 }
