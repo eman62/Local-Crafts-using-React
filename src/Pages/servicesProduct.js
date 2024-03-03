@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import ServiceCard from '../Components/serviceCard';
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -10,7 +10,7 @@ const ServicesProducts = () => {
   const cardData = [1, 2, 3]; // Example array to map over
 
   return (
-    <Box sx={{ position: "relative" }}>
+    <Box sx={{ position: "relative" }}mb={10}>
       <Box
         sx={{
           backgroundImage:
@@ -65,13 +65,70 @@ const ServicesProducts = () => {
             {cardData.map((item, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
                 <ServiceCard data={item} />
-                <Box sx={{ display: 'flex', marginTop: 1 }}>
-                  <Button variant="contained" color="primary" sx={{ marginRight: 1 }}>
-                    تعديل
-                  </Button>
-                  <Button variant="contained" color="secondary">
-                    الغاء
-                  </Button>
+                <Box sx={{ display: 'flex', marginTop: 1,justifyContent:"space-evenly",marginLeft:"20%" }}>
+                <Button
+                sx={{
+                  background:
+                    "linear-gradient(90deg, #1F2A69  0%, #091242 100%)",
+                  border: 0,
+                  color: "White",
+                  height: 48,
+                  padding: "0 2vw",
+                  boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+                  
+                  marginTop: "2vh",
+                  position: "relative",
+                  borderRadius: 0,
+                  textWrap: "nowrap",
+                  fontSize: "1.5vw",
+                }}
+              >
+                تعديل
+                <Box
+                  sx={{
+                    position: "absolute",
+                    background: "#1F2A69",
+                    width: "20%",
+                    borderRadius: "50% 0 0",
+                    bottom: "0",
+                    height: "40%",
+                    opacity: "70%",
+                    right: "0",
+                  }}
+                ></Box>
+              </Button>
+                <Button
+               sx={{
+                background: "linear-gradient(90deg, #CCCCCC 0%, #CCCCCC 100%)", // Change color code to gray
+                border: 0,
+                color: "black",
+                height: 48,
+                padding: "0 2vw",
+                boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+                
+                marginTop: "2vh",
+                position: "relative",
+                borderRadius: 0,
+                textWrap: "nowrap",
+                fontSize: "1.5vw",
+              }}
+              
+              >
+                حذف
+                <Box
+                  sx={{
+                    position: "absolute",
+                    background: "#1F2A69",
+                    width: "20%",
+                    borderRadius: "50% 0 0",
+                    bottom: "0",
+                    height: "40%",
+                    opacity: "70%",
+                    right: "0",
+                  }}
+                ></Box>
+              </Button>
+                 
                 </Box>
               </Grid>
             ))}

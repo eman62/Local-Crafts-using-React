@@ -18,7 +18,7 @@ const CardPaggenation = () => {
         <Box mt={10}>
             <Grid container spacing={4}  sx={{ width: "90%" }}>
                 {Array.from({ length: totalCards }).slice(startIndex, endIndex).map((_, index) => (
-                    <Grid key={index} xs={12} md={6} lg={3} mb={5}>
+                    <Grid item key={index} xs={12} md={6} lg={3} mb={5}>
                         <ServiceCard />
                     </Grid>
                 ))}

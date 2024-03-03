@@ -130,7 +130,7 @@ const FavouritePage = () => {
               </Grid>
             </SwiperSlide>
           </Swiper> */}
-          <Button
+          <Button 
             sx={{
               background: "linear-gradient(90deg, #1F2A69  0%, #091242 100%)",
               border: 0,

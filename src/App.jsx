@@ -15,6 +15,7 @@ import NotFound from "./Pages/NotFoundPage/NotFound";
 import FavouritePage from "./Pages/favouritePage";
 import VendorOrdersPage from "./Pages/venorOrdersPage";
 import ProductsPage from "./Pages/productsPage";
+import ServicesProducts from "./Pages/servicesProduct";
 
 function App() {
   return (
@@ -22,9 +23,11 @@ function App() {
       {/* <HomePage></HomePage>
       <ProductsPage/> */}
       {/* <DetalisPage/> */}
-      <NotFound/>
+
+      {/* <NotFound/> */}
       {/* <FavouritePage/> */}
-      {/* <VendorOrdersPage/> */}
+      <ServicesProducts/>
+      <VendorOrdersPage/>
     </div>
   );
 }
