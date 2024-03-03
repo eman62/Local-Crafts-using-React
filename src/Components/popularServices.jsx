@@ -18,7 +18,7 @@ const PopularServices = () => {
     const positionBox = {
         position: "absolute",
         borderRadius: "5%",
-        backgroundColor: "white",
+        backgroundColor: "white", 
         top: "65%",
         right: "5%",
         width: "80%",

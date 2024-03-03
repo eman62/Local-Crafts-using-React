@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Footer from "./../Components/footer";
 import VendorOrderCard from "../Components/vendorOrderCard";
+import VendorPaggenation from "../Components/Vendor/VendorPaggenation";
 const VendorOrdersPage = () => {
   return (
     <Box sx={{ position: "relative" }}>
@@ -35,7 +36,7 @@ const VendorOrdersPage = () => {
             borderRadius: "30px",
             top: "10vh",
             left: "50%",
-            height: "205vh",
+            height: "225vh",
             transform: "translateX(-50%)",
             zIndex: 1,
             direction: "rtl",
@@ -80,15 +81,14 @@ const VendorOrdersPage = () => {
             </Typography>
           </Box>
           <Box>
-            <VendorOrderCard></VendorOrderCard>
-            <VendorOrderCard></VendorOrderCard>
+            <VendorPaggenation/>
           </Box>
         </Box>
       </Box>
       {/*box of blue and white box */}
-      <Box sx={{ height: "180vh", position: "relative" }}>
+      <Box sx={{ height: "200vh", position: "relative" }}>
         {/*blue box */}
-        <Grid container sx={{ height: "180vh" }}>
+        <Grid container sx={{height: "200vh" }}>
           <Grid item xs={6} sx={{ backgroundColor: "#091242" }}>
             <Box
               sx={{

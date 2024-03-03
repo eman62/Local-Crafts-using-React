@@ -1,6 +1,6 @@
 import AboutInfo from "../Components/aboutInfo";
 import Categories from "../Components/categories";
-import HomeHeader from "../Components/homeHeader";
+import HomeHeader from "../Components/Home/homeHeader";
 import OrderServiceSteps from "../Components/orderServiceSteps";
 import Footer from "../Components/footer";
 import Navbar from "../Components/navBar";
