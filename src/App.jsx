@@ -19,8 +19,8 @@ function App() {
     <div className="App">
       {/* <HomePage></HomePage> */}
       {/* <ServiceCard /> */}
-      <FavouritePage></FavouritePage>
-      {/* <VendorOrdersPage></VendorOrdersPage> */}
+      {/* <FavouritePage></FavouritePage> */}
+      <VendorOrdersPage></VendorOrdersPage>
     </div>
   );
 }

@@ -48,6 +48,17 @@ const FavouritePage = () => {
         {/* Red Box */}
         <Box
           sx={{
+            // position: "absolute",
+            // width: "70vw",
+            // backgroundColor: "white",
+            // borderRadius: "30px",
+            // top: "30vh",
+            // left: "50%",
+            // height: "170vh",
+            // transform: "translateX(-50%)",
+            // zIndex: 1,
+            // overflow: "auto",
+            // padding: "20px",
             position: "absolute",
             width: "70vw",
             backgroundColor: "white",
@@ -97,9 +108,9 @@ const FavouritePage = () => {
             </Typography>
           </Box>
           <Container>
-             <FaverotPaggenation/>
+            <FaverotPaggenation />
           </Container>
-         
+
           {/* <Swiper
             style={{ margin: "7vh 0" }}
             ref={swiperRef}
