@@ -5,6 +5,7 @@
     padding: 10px 20px;
     background-color: transparent;
     color: black;
+    position: absolute;
 }
 
 .navbar-left {
@@ -43,6 +44,7 @@
     list-style-type: none;
     display: flex;
     margin-left: auto;
+    justify-content: space-between;
 }
 
 .navbar-menu li {

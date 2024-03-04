@@ -15,17 +15,20 @@ import VendorOrdersPage from "./Pages/venorOrdersPage";
 import ProductsPage from "./Pages/productsPage";
 import FavouritePage from "./Pages/favouritePage";
 import ServicesProducts from "./Pages/servicesProduct";
+import Navbar from "./Components/navBar";
+import { BrowserRouter } from "react-router-dom";
+import RouterPages from "./Router/Router";
 
 function App() {
   return (
-    <div className="App">
-      {/* <HomePage></HomePage>
-      <ProductsPage/>
-      <DetalisPage/> */}
-      <FavouritePage/>
-      <VendorOrdersPage/>
-      <ServicesProducts/>
-    </div>
+
+    <BrowserRouter >
+    <Navbar/>
+    <RouterPages/>
+   
+    
+    </BrowserRouter>
+       
   );
 }
 

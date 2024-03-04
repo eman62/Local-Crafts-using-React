@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 
 const HomeHeader = () => {
   return (
-    <Box sx={{ direction: "rtl" }}>
+    <Box sx={{ direction: "rtl" ,color:"black"}}>
       <Box
         sx={{
           backgroundImage:

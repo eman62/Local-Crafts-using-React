@@ -3,8 +3,11 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Footer from "../Components/footer";
-import { Link, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
+import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
+import logo from '../assets/logo.png';
+import header from "../assets/Header2.jpeg"
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -23,8 +26,7 @@ const LoginPage = () => {
     <Box sx={{ position: "relative" }}>
       <Box
         sx={{
-          backgroundImage:
-            "url('https://s3-alpha-sig.figma.com/img/0d66/363b/6f00d7173f94ca7d7ab6bcc39bde6406?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Y-dGzk1BZ7AzXsytxPi6tPDQGedhQNe-fnxuhUubZEHGmJGV3Mv7ViyEdH~h1mEoLCLZ8bGvOMHOac9P10gmWkZUvNbdtKWNZFPEeVUDFqS~ZRZfxiSZ-Bfn0ETk6BhRY67QaLL7ERh4Tt5XNHQJoa9j6TeSL6C5SuJc79nQ37shNjVlPVaXOzUxa5SY6cvUscKDALerDU7CDku6S5EHwZ1hlb2sUHyC6a71TKY~D00y8~YzvGecVrgd3XjbDRMF1mhq5Tgo~TxSxoDkjuf3ZxQ-wlKLEi1C30bdkPyA9ezOh37aeshkILVrPjvVBKeJKsfNXN5CUsrMZj7KM5BWoQ__')",
+          backgroundImage: `url(${header})`,
           height: "35vh",
           width: "100%",
           backgroundRepeat: "no-repeat",
@@ -148,7 +150,7 @@ const LoginPage = () => {
               }}
             >
               ليس لديك حساب؟{" "}
-              <Link sx={{ textDecoration: "none", color: "blue" }}>
+              <Link to="/user-register" sx={{ textDecoration: "none", color: "blue" }}>
                 انشاء حساب
               </Link>
             </Typography>
@@ -243,7 +245,7 @@ const LoginPage = () => {
                 }}
               >
                 <img
-                  src="https://s3-alpha-sig.figma.com/img/58fa/77b1/c4116a603798eb5034b06c16696f7a8d?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=izNvOJ6N5sREq3uJ1wxHkwYOIsPud0PEjHdmCqA8LoIOYcEKfSpj3XIla1qSKMxCBH03VSsZ2eDJwKG9ngfUESp78eXT7ubvu1BLsoXhkUqMc~7x2s~IIft8Z9hD2jc0KELpbMicepfJCKYny07nQjfZ20L6b02QXqipx7suK6sHi9QV3DDtmRfJqH6Pys-ERDLvTmbsk9elD0kATYAGVHlWsNcDcE8Fi1cGUE6AEpZhkWNtGFJuHirwbkq9N9zjc7fhVyrmgzJ9BZoI9rxLND5vyOadgxzUE61EFWQedeETLMFMNv1QaAnwieEGjW6ChmwvSRc31oucjsGW8-Hfrg__"
+                  src={logo}
                   style={{ width: "50%", height: "50%", padding: "3vw" }}
                 ></img>
               </Box>
