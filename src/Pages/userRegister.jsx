@@ -301,12 +301,12 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import { MenuItem } from "@mui/material";
 import logo from '../assets/logo.png';
 import header from "../assets/Header2.jpeg"
 import { axiosInstance } from "../api/config";
+import { Link } from "react-router-dom";
 
 const UserRegister = () => {
  console.log(process.env.REACT_APP_API_URL)
@@ -465,7 +465,6 @@ const UserRegister = () => {
                 value={formData.password}
                 onChange={handleChange}
                 type="password"
-
                 label="كلمه السر"
                 variant="standard"
                 placeholder="ادخل كلمه السر"
@@ -524,7 +523,7 @@ const UserRegister = () => {
                 }}
               >
                 لديك حساب بالفعل ؟{" "}
-                <Link sx={{ textDecoration: "none", color: "blue" }}>
+                <Link to="/" sx={{ textDecoration: "none", color: "blue" }}>
                   سجل الدخول
                 </Link>
               </Typography>
