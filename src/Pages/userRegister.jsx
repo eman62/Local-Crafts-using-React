@@ -310,7 +310,7 @@ import { axiosInstance } from "../api/config";
 
 const UserRegister = () => {
  console.log(process.env.REACT_APP_API_URL)
-  const [selectedValueState, setSelectedValueState] = useState("القاهره");
+  const [selectedValueState, setSelectedValueState] = useState("vendor");
   const handleStateChange = (event) => {
    setSelectedValueState(event.target.value) ;
    formData.role=event.target.value;
