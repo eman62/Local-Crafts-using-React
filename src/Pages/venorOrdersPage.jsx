@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Footer from "./../Components/footer";
 import VendorOrderCard from "../Components/vendorOrderCard";
+import VendorPaggenation from "../Components/Vendor/VendorPaggenation";
 const VendorOrdersPage = () => {
   return (
     <Box sx={{ position: "relative" }}>
@@ -31,7 +32,7 @@ const VendorOrdersPage = () => {
         <Box
           sx={{
             position: "absolute",
-            width: "70vw",
+            width: "80vw",
             backgroundColor: "white",
             borderRadius: "30px",
             top: "10vh",
@@ -81,8 +82,7 @@ const VendorOrdersPage = () => {
             </Typography>
           </Box>
           <Box>
-            <VendorOrderCard></VendorOrderCard>
-            <VendorOrderCard></VendorOrderCard>
+            <VendorPaggenation />
           </Box>
         </Box>
       </Box>

@@ -12,7 +12,10 @@ import LoginPage from "./Pages/loginPage";
 import UserRegister from "./Pages/userRegister";
 import Vendor from "./Pages/vendor";
 import VendorOrdersPage from "./Pages/venorOrdersPage";
+import ProductsPage from "./Pages/productsPage";
 import FavouritePage from "./Pages/favouritePage";
+import ServicesProducts from "./Pages/servicesProduct";
+import VendorEditProfilePage from "./Pages/vendoEditProfile";
 
 function App() {
   return (
@@ -20,7 +23,8 @@ function App() {
       {/* <HomePage></HomePage> */}
       {/* <ServiceCard /> */}
       {/* <FavouritePage></FavouritePage> */}
-      <VendorOrdersPage></VendorOrdersPage>
+      {/* <VendorOrdersPage></VendorOrdersPage> */}
+      <VendorEditProfilePage></VendorEditProfilePage>
     </div>
   );
 }

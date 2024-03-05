@@ -12,11 +12,22 @@ export const positionBox = {
     borderRadius: "5%",
     backgroundColor: "white",
     top: "65%",
-    right: "5%",
+    // right: "5%",
     width: "80%",
     bottom: "10%",
     padding: "6%",
-    height: "100vh"
+    // height: "5vh",
+    // position: "absolute",
+    // width: "70vw",
+    // backgroundColor: "white",
+    // borderRadius: "30px",
+    // top: "20vh",
+    left: "50%",
+    height: "95vh",
+    transform: "translateX(-50%)",
+    zIndex: 1,
+    overflow: "auto",
+    // padding: "20px",
 }
 
 export const mainBox = {

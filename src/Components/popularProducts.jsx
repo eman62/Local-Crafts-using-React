@@ -34,16 +34,16 @@ const PopularProducts = () => {
                     <Typography variant="h4" sx={{ fontFamily: " 'Rubik', sans-serif" }}>المنتجات الأكثر طلبا</Typography>
                 </Box>
                 <Grid container spacing={4}mt={10} sx={{}}  >
-                        <Grid xs={12} md={6} lg={3} >
+                        <Grid item xs={12} md={6} lg={3} >
                             <ServiceCard />
                         </Grid>
-                        <Grid xs={12} md={6} lg={3} >
+                        <Grid item xs={12} md={6} lg={3} >
                             <ServiceCard />
                         </Grid>
-                        <Grid xs={12} md={6} lg={3}>
+                        <Grid item xs={12} md={6} lg={3}>
                             <ServiceCard />
                         </Grid>
-                        <Grid xs={12} md={6} lg={3} >
+                        <Grid item xs={12} md={6} lg={3} >
                             <ServiceCard />
                         </Grid>
 

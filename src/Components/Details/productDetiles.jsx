@@ -41,7 +41,7 @@ const ProductDetiles = () => {
     };
     return (
 
-        <Box sx={mainBox} >
+        <Box sx={mainBox} mb={100} >
             <Box>
                 <Box sx={imgStyle}></Box>
             </Box>
@@ -193,7 +193,6 @@ const ProductDetiles = () => {
                             ></Box>
                         </Button>
                     </Box>
-                    <Review />
                 </Box>
             </Box>
         </Box>

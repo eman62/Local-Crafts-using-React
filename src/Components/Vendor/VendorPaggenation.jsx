@@ -1,25 +1,22 @@
 import React, { useState } from 'react';
 import { Box, Grid } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
-import ServiceCard from '../serviceCard'; 
-const CardPaggenation = () => {
+import VendorOrderCard from '../vendorOrderCard';
+const VendorPaggenation = () => {
     const [currentPage, setCurrentPage] = useState(1);
-    const cardsPerPage = 8; 
-    const totalCards = 30; 
-
+    const cardsPerPage = 2; 
+    const totalCards = 9; 
     const handleChange = (event, value) => {
         setCurrentPage(value);
     };
-
     const startIndex = (currentPage - 1) * cardsPerPage;
     const endIndex = startIndex + cardsPerPage;
-
     return (
-        <Box mt={10}>
-            <Grid container spacing={4}  sx={{ width: "90%" }}>
+        <Box mt={10} mb={7}>
+            <Grid container >
                 {Array.from({ length: totalCards }).slice(startIndex, endIndex).map((_, index) => (
-                    <Grid item key={index} xs={12} md={6} lg={3} mb={5}>
-                        <ServiceCard />
+                    <Grid item key={index} xs={12} mr={3} >
+                        <VendorOrderCard/>
                     </Grid>
                 ))}
             </Grid>
@@ -30,4 +27,4 @@ const CardPaggenation = () => {
     );
 };
 
-export default CardPaggenation;
+export default VendorPaggenation;
