@@ -150,7 +150,7 @@ const LoginPage = () => {
               }}
             >
               ليس لديك حساب؟{" "}
-              <Link to="/user-register" sx={{ textDecoration: "none", color: "blue" }}>
+              <Link to="/user-register" style={{ textDecoration: "none", color: "blue" }}>
                 انشاء حساب
               </Link>
             </Typography>
