@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import VendorRegister from '../Pages/vendorRegister';
 
 
 
@@ -17,6 +18,7 @@ export default function RouterPages() {
       <Route path="/home" element={<HomePage />} />
       <Route path="/user-register" element={<UserRegister />} />
       <Route path="/products" element={<ProductsPage />} />
+      <Route path="/vedorRegister" element={<VendorRegister/>} />
       <Route path="*" element={<NotFound/>} />
     </Routes>
     </Suspense>

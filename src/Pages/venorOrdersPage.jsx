@@ -16,7 +16,8 @@ const VendorOrdersPage = () => {
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           position: "relative",
-        }}>
+        }}
+      >
         <Box
           sx={{
             position: "absolute",
@@ -31,7 +32,7 @@ const VendorOrdersPage = () => {
         <Box
           sx={{
             position: "absolute",
-            width: "70vw",
+            width: "80vw",
             backgroundColor: "white",
             borderRadius: "30px",
             top: "10vh",
@@ -81,14 +82,14 @@ const VendorOrdersPage = () => {
             </Typography>
           </Box>
           <Box>
-            <VendorPaggenation/>
+            <VendorPaggenation />
           </Box>
         </Box>
       </Box>
       {/*box of blue and white box */}
       <Box sx={{ height: "200vh", position: "relative" }}>
         {/*blue box */}
-        <Grid container sx={{height: "200vh" }}>
+        <Grid container sx={{ height: "200vh" }}>
           <Grid item xs={6} sx={{ backgroundColor: "#091242" }}>
             <Box
               sx={{

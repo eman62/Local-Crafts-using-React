@@ -108,9 +108,9 @@ const FavouritePage = () => {
             </Typography>
           </Box>
           <Container>
-             <FaverotPaggenation/>
+            <FaverotPaggenation />
           </Container>
-         
+
           {/* <Swiper
             style={{ margin: "7vh 0" }}
             ref={swiperRef}
