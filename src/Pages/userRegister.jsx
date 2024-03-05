@@ -344,14 +344,13 @@ const UserRegister = () => {
   };
 
   const handleSubmit = async (event) => {
-    console.log(formData);
-   
-
     event.preventDefault();
     try {
-      await axiosInstance.post("/auth/register", formData);
+      await axiosInstance.post("/auth/register", {
+        ...formData,
+        role: "vendor", // change this to formData.role to english
+      });
       console.log("User registered successfully!");
-
     } catch (error) {
       console.error("Error registering user:", error);
     }
