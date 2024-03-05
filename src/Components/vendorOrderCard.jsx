@@ -8,15 +8,15 @@ const VendorOrderCard = () => {
     <Box
       sx={{
         backgroundColor: "#E9E9E9",
-        width: "50vw",
-        height: "80vh",
-        // mr: "3vw",
+        width: "60vw",
+        height: "95%",
+        mr: "5vw",
         mt: "5vh",
         borderRadius: "5px",
       }}
     >
       <Grid container>
-        <Grid item xs={2}>
+        <Grid item xs={3}>
           <Box sx={{ display: "flex", direction: "rtl" }}>
             <svg
               style={{ margin: "4.5vh 2vw 0 0" }}
@@ -85,7 +85,7 @@ const VendorOrderCard = () => {
             رساله:
           </Typography>
         </Grid>
-        <Grid item sx={{ mt: "16vh" }} xs={6}>
+        <Grid item sx={{ mt: "16vh" }} xs={5}>
           <Typography sx={{ mb: "1vh", fontFamily: "Rubik" }}>
             اسم المستخدم كامل
           </Typography>
@@ -106,7 +106,7 @@ const VendorOrderCard = () => {
             رساله رساله رساله
           </Typography>
         </Grid>
-        <Grid item sx={{ mt:"5vh"}} xs={3} md={4}>
+        <Grid item sx={{ mt: "5vh" }} xs={3} md={4}>
           <ServiceCard></ServiceCard>
         </Grid>
       </Grid>

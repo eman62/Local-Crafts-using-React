@@ -20,15 +20,12 @@ import VendorRegister from "./Pages/vendorRegister";
 
 function App() {
   return (
-
-    <BrowserRouter >
-    <Navbar/>
-    <VendorRegister/>
-    <RouterPages/>
-   
-    
-    </BrowserRouter>
-       
+    <>
+      <BrowserRouter>
+        <Navbar />
+        <RouterPages />
+      </BrowserRouter>
+    </>
   );
 }
 
