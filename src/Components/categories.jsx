@@ -7,6 +7,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import React, { useRef, useState } from "react";
 import { Card, CardMedia, Box, Typography, Grid } from "@mui/material";
+import serviceSection from "../assets/serviceSection.jpeg"
 
 const Categories = () => {
   const [centerIndex, setCenterIndex] = useState(0);
@@ -114,7 +115,43 @@ const Categories = () => {
                     component="img"
                     height="100%"
                     width="100%"
-                    image="https://s3-alpha-sig.figma.com/img/6ddc/9d59/22feb3c659b120afd82706a6314557cd?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=HZco2CzaarrS3FBl3a~DsxPEsQY13sxInPKzvAZa3YVVvEMpo4RJwH8ued~VoqjGp7oymIsXDwlbOdu7GDgPw1vOhG3YVWEBDkahZUZPqsbspPoN7QgS-3RTF~v7IqQMnLx0g1JYC4MbK1C1A2uk77CtKFf~D5ZuOr0aDbiMG7LhjgzK2PLhjs3CSomt9Z-nAs3-UUr3kGUkvup3vLv8teZ-iItE8K5cJ0CEhR4~QYBdAGvpWity9yD2VzfKIgIEKuMTYF31T6NUDyqvQ7hejfU9vXhAnh2UETJt3-kIt6CXLCzpTEjXRJ2Y9-bhAVjWjN6efX7I8xKTYTEnZj7tLw__"
+                    image={serviceSection}
+                  />
+                </Card>
+              </Grid>
+            </Grid>
+          </SwiperSlide>
+          <SwiperSlide>
+            <Grid container>
+              <Grid item xs={2}>
+                <Card
+                  sx={{
+                    height: "22vh",
+                    width: "15vw",
+                    position: "relative",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      color: "white",
+                      textAlign: "center",
+                      height: "100%",
+                      backgroundColor: "rgb(50,50,50,.3)",
+                    }}
+                  >
+                    <Typography sx={{ fontSize: "3vw", marginTop: "5vh" }}>
+                      نجاره
+                    </Typography>
+                  </Box>
+                  <CardMedia
+                    component="img"
+                    height="100%"
+                    width="100%"
+                    image={serviceSection}
                     title="Image Title"
                   />
                 </Card>
@@ -151,7 +188,7 @@ const Categories = () => {
                     component="img"
                     height="100%"
                     width="100%"
-                    image="https://s3-alpha-sig.figma.com/img/6ddc/9d59/22feb3c659b120afd82706a6314557cd?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=HZco2CzaarrS3FBl3a~DsxPEsQY13sxInPKzvAZa3YVVvEMpo4RJwH8ued~VoqjGp7oymIsXDwlbOdu7GDgPw1vOhG3YVWEBDkahZUZPqsbspPoN7QgS-3RTF~v7IqQMnLx0g1JYC4MbK1C1A2uk77CtKFf~D5ZuOr0aDbiMG7LhjgzK2PLhjs3CSomt9Z-nAs3-UUr3kGUkvup3vLv8teZ-iItE8K5cJ0CEhR4~QYBdAGvpWity9yD2VzfKIgIEKuMTYF31T6NUDyqvQ7hejfU9vXhAnh2UETJt3-kIt6CXLCzpTEjXRJ2Y9-bhAVjWjN6efX7I8xKTYTEnZj7tLw__"
+                    image={serviceSection}
                     title="Image Title"
                   />
                 </Card>
@@ -188,7 +225,7 @@ const Categories = () => {
                     component="img"
                     height="100%"
                     width="100%"
-                    image="https://s3-alpha-sig.figma.com/img/6ddc/9d59/22feb3c659b120afd82706a6314557cd?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=HZco2CzaarrS3FBl3a~DsxPEsQY13sxInPKzvAZa3YVVvEMpo4RJwH8ued~VoqjGp7oymIsXDwlbOdu7GDgPw1vOhG3YVWEBDkahZUZPqsbspPoN7QgS-3RTF~v7IqQMnLx0g1JYC4MbK1C1A2uk77CtKFf~D5ZuOr0aDbiMG7LhjgzK2PLhjs3CSomt9Z-nAs3-UUr3kGUkvup3vLv8teZ-iItE8K5cJ0CEhR4~QYBdAGvpWity9yD2VzfKIgIEKuMTYF31T6NUDyqvQ7hejfU9vXhAnh2UETJt3-kIt6CXLCzpTEjXRJ2Y9-bhAVjWjN6efX7I8xKTYTEnZj7tLw__"
+                    image={serviceSection}
                     title="Image Title"
                   />
                 </Card>
@@ -225,7 +262,7 @@ const Categories = () => {
                     component="img"
                     height="100%"
                     width="100%"
-                    image="https://s3-alpha-sig.figma.com/img/6ddc/9d59/22feb3c659b120afd82706a6314557cd?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=HZco2CzaarrS3FBl3a~DsxPEsQY13sxInPKzvAZa3YVVvEMpo4RJwH8ued~VoqjGp7oymIsXDwlbOdu7GDgPw1vOhG3YVWEBDkahZUZPqsbspPoN7QgS-3RTF~v7IqQMnLx0g1JYC4MbK1C1A2uk77CtKFf~D5ZuOr0aDbiMG7LhjgzK2PLhjs3CSomt9Z-nAs3-UUr3kGUkvup3vLv8teZ-iItE8K5cJ0CEhR4~QYBdAGvpWity9yD2VzfKIgIEKuMTYF31T6NUDyqvQ7hejfU9vXhAnh2UETJt3-kIt6CXLCzpTEjXRJ2Y9-bhAVjWjN6efX7I8xKTYTEnZj7tLw__"
+                    image={serviceSection}
                     title="Image Title"
                   />
                 </Card>
@@ -262,7 +299,7 @@ const Categories = () => {
                     component="img"
                     height="100%"
                     width="100%"
-                    image="https://s3-alpha-sig.figma.com/img/6ddc/9d59/22feb3c659b120afd82706a6314557cd?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=HZco2CzaarrS3FBl3a~DsxPEsQY13sxInPKzvAZa3YVVvEMpo4RJwH8ued~VoqjGp7oymIsXDwlbOdu7GDgPw1vOhG3YVWEBDkahZUZPqsbspPoN7QgS-3RTF~v7IqQMnLx0g1JYC4MbK1C1A2uk77CtKFf~D5ZuOr0aDbiMG7LhjgzK2PLhjs3CSomt9Z-nAs3-UUr3kGUkvup3vLv8teZ-iItE8K5cJ0CEhR4~QYBdAGvpWity9yD2VzfKIgIEKuMTYF31T6NUDyqvQ7hejfU9vXhAnh2UETJt3-kIt6CXLCzpTEjXRJ2Y9-bhAVjWjN6efX7I8xKTYTEnZj7tLw__"
+                    image={serviceSection}
                     title="Image Title"
                   />
                 </Card>
@@ -299,45 +336,7 @@ const Categories = () => {
                     component="img"
                     height="100%"
                     width="100%"
-                    image="https://s3-alpha-sig.figma.com/img/6ddc/9d59/22feb3c659b120afd82706a6314557cd?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=HZco2CzaarrS3FBl3a~DsxPEsQY13sxInPKzvAZa3YVVvEMpo4RJwH8ued~VoqjGp7oymIsXDwlbOdu7GDgPw1vOhG3YVWEBDkahZUZPqsbspPoN7QgS-3RTF~v7IqQMnLx0g1JYC4MbK1C1A2uk77CtKFf~D5ZuOr0aDbiMG7LhjgzK2PLhjs3CSomt9Z-nAs3-UUr3kGUkvup3vLv8teZ-iItE8K5cJ0CEhR4~QYBdAGvpWity9yD2VzfKIgIEKuMTYF31T6NUDyqvQ7hejfU9vXhAnh2UETJt3-kIt6CXLCzpTEjXRJ2Y9-bhAVjWjN6efX7I8xKTYTEnZj7tLw__"
-                    title="Image Title"
-                  />
-                </Card>
-              </Grid>
-            </Grid>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Grid container>
-              <Grid item xs={2}>
-                <Card
-                  sx={{
-                    height: "22vh",
-                    width: "15vw",
-                    position: "relative",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      color: "white",
-                      textAlign: "center",
-                      height: "100%",
-                      backgroundColor: "rgb(50,50,50,.3)",
-                    }}
-                  >
-                    <Typography sx={{ fontSize: "3vw", marginTop: "5vh" }}>
-                      نجاره
-                    </Typography>
-                  </Box>
-                  <CardMedia
-                    component="img"
-                    height="100%"
-                    width="100%"
-                    image="https://s3-alpha-sig.figma.com/img/6ddc/9d59/22feb3c659b120afd82706a6314557cd?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=HZco2CzaarrS3FBl3a~DsxPEsQY13sxInPKzvAZa3YVVvEMpo4RJwH8ued~VoqjGp7oymIsXDwlbOdu7GDgPw1vOhG3YVWEBDkahZUZPqsbspPoN7QgS-3RTF~v7IqQMnLx0g1JYC4MbK1C1A2uk77CtKFf~D5ZuOr0aDbiMG7LhjgzK2PLhjs3CSomt9Z-nAs3-UUr3kGUkvup3vLv8teZ-iItE8K5cJ0CEhR4~QYBdAGvpWity9yD2VzfKIgIEKuMTYF31T6NUDyqvQ7hejfU9vXhAnh2UETJt3-kIt6CXLCzpTEjXRJ2Y9-bhAVjWjN6efX7I8xKTYTEnZj7tLw__"
-                    title="Image Title"
+                    image={serviceSection}
                   />
                 </Card>
               </Grid>

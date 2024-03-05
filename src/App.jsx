@@ -21,6 +21,8 @@ import RouterPages from "./Router/Router";
 
 function App() {
   return (
+    <>
+    
 
     <BrowserRouter >
     <Navbar/>
@@ -28,7 +30,7 @@ function App() {
    
     
     </BrowserRouter>
-       
+    </>   
   );
 }
 
