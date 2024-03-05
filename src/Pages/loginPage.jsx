@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -6,22 +6,41 @@ import Footer from "../Components/footer";
 import { TextField } from "@mui/material";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
-import logo from '../assets/logo.png';
-import header from "../assets/Header2.jpeg"
+import logo from "../assets/logo.png";
+import header from "../assets/Header2.jpeg";
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleLogin = () => {
-    if (!email.trim() || !password.trim()) {
-      setErrorMessage('من فضلك ادخل البريد وكلمة السر');
-      return;
-    }
-    // Handle login logic
+  const validateEmail = (email) => {
+    // Regular expression for validating email address
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
   };
 
+  const validatePassword = (password) => {
+    // Regular expression for validating password
+    const passwordRegex =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+    return passwordRegex.test(password);
+  };
+
+  const handleLogin = () => {
+    if (!validateEmail(email)) {
+      setErrorMessage("البريد الإلكتروني غير صالح");
+      return;
+    }
+    if (!validatePassword(password)) {
+      setErrorMessage(
+        "كلمة المرور يجب أن تحتوي على الأقل على رقم وحرف كبير وحرف صغير ورمز ويجب أن تكون طولها على الأقل 8 أحرف"
+      );
+      return;
+    }
+    setErrorMessage("");
+    // Perform login logic if both email and password are valid
+  };
   return (
     <Box sx={{ position: "relative" }}>
       <Box
@@ -111,9 +130,9 @@ const LoginPage = () => {
             />
             <TextField
               id="password"
-              label="كلمه السر"
+              label="كلمة السر"
               variant="standard"
-              placeholder="ادخل كلمه السر"
+              placeholder="ادخل كلمة السر"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -122,7 +141,7 @@ const LoginPage = () => {
               InputLabelProps={{ direction: "rtl", textAlign: "start" }}
             />
             {errorMessage && (
-              <Typography sx={{ color: 'red', mt: '1vh' }}>
+              <Typography sx={{ color: "red", mt: "1vh" }}>
                 {errorMessage}
               </Typography>
             )}
@@ -150,7 +169,10 @@ const LoginPage = () => {
               }}
             >
               ليس لديك حساب؟{" "}
-              <Link to="/user-register" style={{ textDecoration: "none", color: "blue" }}>
+              <Link
+                to="/user-register"
+                style={{ textDecoration: "none", color: "blue" }}
+              >
                 انشاء حساب
               </Link>
             </Typography>
@@ -259,4 +281,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-
