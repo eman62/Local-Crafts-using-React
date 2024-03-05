@@ -36,7 +36,7 @@ const ProductsPage = () => {
         <Box sx={{ direction: "rtl" }}>
             <Box sx={imgStyle}>
                 <Container>
-                    <Box sx={{ backgroundColor: "rgba(4, 28, 55, 0.5)", display: "flex", color: "rgba(255, 255, 255, 1)", width: "8%", padding: "3px", height: "23px" }}>
+                    <Box mt={2} sx={{ backgroundColor: "rgba(4, 28, 55, 0.5)", display: "flex", color: "rgba(255, 255, 255, 1)", width: {xs:"16%",md:"9%"}, padding: "3px", height: "23px" }}>
                         <Box ml={1}>
                             <svg width="5" height="23" viewBox="0 0 5 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="0.208008" width="4" height="23" fill="url(#paint0_linear_29_3859)" />
@@ -49,7 +49,7 @@ const ProductsPage = () => {
                                 </defs>
                             </svg>
                         </Box>
-                        <Typography variant='p'> منتجاتنا</Typography>
+                        <Typography sx={{fontSize:"1rem",fontFamily: 'Rubik'}} > منتجاتنا</Typography>
                     </Box>
                     <Typography variant='h2' sx={{ color: "rgba(255, 255, 255, 1)", fontFamily: "'Rubik', sans-serif" }}>قائمة المنتجات</Typography>
 

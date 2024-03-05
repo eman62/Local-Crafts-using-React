@@ -1,14 +1,15 @@
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import header from "../../assets/header.jpeg"
 
 const HomeHeader = () => {
   return (
-    <Box sx={{ direction: "rtl" }}>
+    <Box sx={{ direction: "rtl" ,color:"black"}}>
       <Box
         sx={{
           backgroundImage:
-            'url("https://s3-alpha-sig.figma.com/img/b970/2aac/6778bc2deae56c05315551cfa7c442be?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=JPwZPOb8aLRGdYtF832Fy7YmiLoKd~xZB6tADPWKD~LtfU7LtS0jBPar26QvqI5X9UTE5aMARTzNRaYPAWn9O0w9K~0zi87qsc6IcElgMOpBEdg8q3W3BEy7ndZxCX6D5kbgIKkfVTRua6H5gxZSJn26pUjvLkAJZ0MRFa01m9h8ZMfARUHvlRHL9eQzxsEZJohRdEWini3clJA-y2YNYXM~KkkcYRp8B9egp61I56xCVffbpzoNUofktDNY5X4Y6qIU1qj5vOeHDTpfdhtitnoQ2l4JpHO9CyBtYfjXgpsBmtiOew3Krcx7AT5yoN3Eg93O6904x9yvW8GyeJS~bg__")',
+            `url(${header})`,
           width: "100vw",
           height: "80vh",
           backgroundRepeat: "no-repeat",

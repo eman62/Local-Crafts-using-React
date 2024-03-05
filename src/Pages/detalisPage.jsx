@@ -8,6 +8,7 @@ export const DetalisPage = () => {
         <>
             <ProductDetiles  />
             <Review />
+            <Footer/>
            
         </>
 
