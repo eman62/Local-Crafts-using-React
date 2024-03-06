@@ -12,7 +12,7 @@ import { axiosInstance } from "../api/config";
 import { Link, useNavigate } from "react-router-dom";
 
 const UserRegister = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [selectedValueType, setSelectedValueType] = useState("");
   const [errors, setErrors] = useState({});
 
@@ -20,7 +20,7 @@ const UserRegister = () => {
     setSelectedValueType(event.target.value);
     formData.role = event.target.value;
   };
-  
+
   const [formData, setFormData] = useState({
     name: "",
     role: "",
@@ -71,15 +71,14 @@ const UserRegister = () => {
       console.log("User registered successfully!");
 
       if (formData.role === "vendor") {
-        navigate("/user-register/vedorRegister"); 
-      } else  if (formData.role === "customer"){
-        navigate("/"); 
+        navigate("/user-register/vedorRegister");
+      } else if (formData.role === "customer") {
+        navigate("/");
       }
     } catch (error) {
       console.error("Error registering user:", error);
     }
   };
-
 
   ////////////Validation Form
   const validateFormData = (data) => {
@@ -94,9 +93,11 @@ const UserRegister = () => {
     if (!data.email || !isValidEmail(data.email)) {
       errors.email = "بريد االكترني غير صالح";
     }
-    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+    const passwordRegex =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
     if (!data.password || !passwordRegex.test(data.password)) {
-      errors.password = "( !@#$%^&*) يجب ان تحتوي كلمه السر علي الاقل 8 حروف حرف كبير وحرف صغير وحروف مميزه!";
+      errors.password =
+        "( !@#$%^&*) يجب ان تحتوي كلمه السر علي الاقل 8 حروف حرف كبير وحرف صغير وحروف مميزه!";
     }
 
     // Validate role
@@ -203,9 +204,9 @@ const UserRegister = () => {
                 sx={{ width: "30vw", textAlign: "start" }}
                 InputLabelProps={{ direction: "rtl", textAlign: "start" }}
               />
-               {errors.name && (
-            <Typography sx={{ color: "red" }}>{errors.name}</Typography>
-          )}
+              {errors.name && (
+                <Typography sx={{ color: "red" }}>{errors.name}</Typography>
+              )}
               <TextField
                 id="standard-basic"
                 name="email"
@@ -217,11 +218,10 @@ const UserRegister = () => {
                 inputProps={{ style: { direction: "rtl" } }}
                 sx={{ width: "30vw", direction: "rtl", mb: "1vh" }}
                 InputLabelProps={{ direction: "rtl" }}
-                
               />
-               {errors.email && (
-            <Typography sx={{ color: "red" }}>{errors.email}</Typography>
-          )}
+              {errors.email && (
+                <Typography sx={{ color: "red" }}>{errors.email}</Typography>
+              )}
               <TextField
                 id="standard-basic"
                 name="password"
@@ -248,14 +248,16 @@ const UserRegister = () => {
                 sx={{ width: "30vw", textAlign: "start" }}
                 InputLabelProps={{ direction: "rtl", textAlign: "start" }}
               />
-              
+
               {errors.confirmPassword && (
-               <Typography sx={{ color: "red" }}>{errors.confirmPassword}</Typography>
-               )}
+                <Typography sx={{ color: "red" }}>
+                  {errors.confirmPassword}
+                </Typography>
+              )}
               <TextField
                 id="standard-select-currency"
                 name="role"
-                onChange={handleChange}
+                onChange={handleTypeChange}
                 value={selectedValueType}
                 select
                 label="نوع الحساب"
@@ -270,11 +272,11 @@ const UserRegister = () => {
                 ))}
               </TextField>
               {errors.role && (
-            <Typography sx={{ color: "red" }}>{errors.role}</Typography>
-          )}
+                <Typography sx={{ color: "red" }}>{errors.role}</Typography>
+              )}
               {errors.role && (
-            <Typography sx={{ color: "red" }}>{errors.role}</Typography>
-          )}
+                <Typography sx={{ color: "red" }}>{errors.role}</Typography>
+              )}
               <Button
                 type="submit"
                 sx={{
@@ -288,9 +290,7 @@ const UserRegister = () => {
                   "&:hover": { backgroundColor: "gray" },
                 }}
               >
-               
-                  انشاء حساب
-                
+                انشاء حساب
               </Button>
               <Typography
                 sx={{
