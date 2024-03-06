@@ -196,9 +196,7 @@ const UserRegister = () => {
                 sx={{ width: "30vw", direction: "rtl", mb: "1vh" }}
                 InputLabelProps={{ direction: "rtl" }}
               />
-              {errors.email && (
-            <Typography sx={{ color: "red" }}>{errors.email}</Typography>
-          )}
+               <Typography sx={{ color: "red" }}>{errors.email}</Typography>
               <TextField
                 id="standard-basic"
                 name="password"
