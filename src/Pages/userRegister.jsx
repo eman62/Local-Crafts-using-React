@@ -11,9 +11,21 @@ import logo from "../assets/logo.png";
 import header from "../assets/Header2.jpeg";
 import { axiosInstance } from "../api/config";
 import { Link } from "react-router-dom";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
 const UserRegister = () => {
   const [selectedValueType, setSelectedValueType] = useState("customer");
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleTogglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+  const handleTypeChange = (event) => {
+    setSelectedValueType(event.target.value);
+    formData.role = event.target.value;
+  };
   const [formData, setFormData] = useState({
     name: "",
     role: "",
@@ -35,7 +47,6 @@ const UserRegister = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-
     setFormData({
       ...formData,
       [name]: value,
@@ -73,9 +84,11 @@ const UserRegister = () => {
     if (!data.email || !isValidEmail(data.email)) {
       errors.email = "بريد االكترني غير صالح";
     }
-    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+    const passwordRegex =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
     if (!data.password || !passwordRegex.test(data.password)) {
-      errors.password = "( !@#$%^&*) يجب ان تحتوي كلمه السر علي الاقل 8 حروف حرف كبير وحرف صغير وحروف مميزه!";
+      errors.password =
+        "( !@#$%^&*) يجب ان تحتوي كلمه السر علي الاقل 8 حروف حرف كبير وحرف صغير وحروف مميزه!";
     }
 
     // Validate role
@@ -182,8 +195,8 @@ const UserRegister = () => {
                 InputLabelProps={{ direction: "rtl", textAlign: "start" }}
               />
               {errors.name && (
-            <Typography sx={{ color: "red" }}>{errors.name}</Typography>
-          )}
+                <Typography sx={{ color: "red" }}>{errors.name}</Typography>
+              )}
               <TextField
                 id="standard-basic"
                 name="email"
@@ -197,8 +210,8 @@ const UserRegister = () => {
                 InputLabelProps={{ direction: "rtl" }}
               />
               {errors.email && (
-            <Typography sx={{ color: "red" }}>{errors.email}</Typography>
-          )}
+                <Typography sx={{ color: "red" }}>{errors.email}</Typography>
+              )}
               <TextField
                 id="standard-basic"
                 name="password"
@@ -212,22 +225,42 @@ const UserRegister = () => {
                 sx={{ width: "30vw" }}
                 InputLabelProps={{ direction: "rtl", textAlign: "start" }}
               />
-               {errors.password && (
+              {errors.password && (
                 <Typography sx={{ color: "red" }}>{errors.password}</Typography>
               )}
               <TextField
                 id="standard-basic"
                 label="تأكيد كلمه السر"
-                type="password"
+                onChange={handleChange}
+                type={showPassword ? "text" : "password"}
                 variant="standard"
-                placeholder="ادخل كلمه السر مره أخري"
+                placeholder="ادخل كلمه السر مرة أخرى"
                 inputProps={{ style: { direction: "rtl" } }}
                 sx={{ width: "30vw", textAlign: "start" }}
                 InputLabelProps={{ direction: "rtl", textAlign: "start" }}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleTogglePasswordVisibility}
+                        edge="end"
+                      >
+                        {showPassword ? (
+                          <VisibilityIcon />
+                        ) : (
+                          <VisibilityOffIcon />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
               {errors.confirmPassword && (
-               <Typography sx={{ color: "red" }}>{errors.confirmPassword}</Typography>
-               )}
+                <Typography sx={{ color: "red" }}>
+                  {errors.confirmPassword}
+                </Typography>
+              )}
               <TextField
                 id="standard-select-currency"
                 name="role"
@@ -246,8 +279,8 @@ const UserRegister = () => {
                 ))}
               </TextField>
               {errors.role && (
-            <Typography sx={{ color: "red" }}>{errors.role}</Typography>
-          )}
+                <Typography sx={{ color: "red" }}>{errors.role}</Typography>
+              )}
               <Button
                 type="submit"
                 sx={{
@@ -261,7 +294,14 @@ const UserRegister = () => {
                   "&:hover": { backgroundColor: "gray" },
                 }}
               >
-                <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+                <Link
+                  to={
+                    formData.role == "customer"
+                      ? "/"
+                      : "/user-register/vedorRegister"
+                  }
+                  style={{ textDecoration: "none", color: "white" }}
+                >
                   {" "}
                   انشاء حساب
                 </Link>
