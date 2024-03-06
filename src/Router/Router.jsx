@@ -18,6 +18,7 @@ export default function RouterPages() {
       <Route path="/user-register" element={<UserRegister />} />
       <Route path="/user-register/products" element={<ProductsPage />} />
       <Route path="/vedorRegister" element={<VendorRegister/>} />
+      <Route path="/home" element={<HomePage/>} />
       <Route
           path="/user-register/vedorRegister"
           element={<VendorRegister />}/>

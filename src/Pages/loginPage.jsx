@@ -1,46 +1,47 @@
 import React, { useState } from "react";
+import Footer from "../Components/footer";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import Footer from "../Components/footer";
-import { TextField } from "@mui/material";
-import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import { MenuItem } from "@mui/material";
 import logo from "../assets/logo.png";
 import header from "../assets/Header2.jpeg";
+import { axiosInstance } from "../api/config";
+import { Link, useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const validateEmail = (email) => {
-    // Regular expression for validating email address
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailRegex.test(email);
+  const handleLogin = async () => {
+    try {
+      const response = await axiosInstance.post("/auth/login", {
+        email,
+        password,
+      });
+      const { token } = response.data; // Assuming the token is returned in the response
+      // Store token in local storage or in memory for subsequent requests
+      localStorage.setItem("token", token);
+      console.log("User logged in successfully");
+      // Redirect to dashboard or any other page upon successful login
+      // Replace '/dashboard' with your desired redirect route
+      window.location.replace("/home");
+    } catch (error) {
+      if (error.response) {
+        // Server responded with a status code outside of 2xx range
+        // Handle error messages returned from the server
+        setErrorMessage("خطأ في تسجيل الدخول. يرجى التحقق من البريد الإلكتروني وكلمة المرور.");
+      } else {
+        // Handle network errors
+        setErrorMessage("خطأ في الشبكة. يرجى المحاولة مرة أخرى لاحقًا.");
+      }
+      console.error("User login failed:", error);
+    }
   };
 
-  const validatePassword = (password) => {
-    // Regular expression for validating password
-    const passwordRegex =
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
-    return passwordRegex.test(password);
-  };
-
-  const handleLogin = () => {
-    if (!validateEmail(email)) {
-      setErrorMessage("البريد الإلكتروني غير صالح");
-      return;
-    }
-    if (!validatePassword(password)) {
-      setErrorMessage(
-        "كلمة المرور يجب أن تحتوي على الأقل على رقم وحرف كبير وحرف صغير ورمز ويجب أن تكون طولها على الأقل 8 أحرف"
-      );
-      return;
-    }
-    setErrorMessage("");
-    // Perform login logic if both email and password are valid
-  };
   return (
     <Box sx={{ position: "relative" }}>
       <Box
@@ -281,3 +282,4 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
