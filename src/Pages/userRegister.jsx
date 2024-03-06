@@ -41,6 +41,7 @@ const UserRegister = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+
     setFormData({
       ...formData,
       [name]: value,
@@ -240,10 +241,9 @@ const UserRegister = () => {
               <TextField
                 id="standard-basic"
                 label="تأكيد كلمه السر"
-                onChange={handleChange}
-                type={showPassword ? "text" : "password"}
+                type="password"
                 variant="standard"
-                placeholder="ادخل كلمه السر مرة أخرى"
+                placeholder="ادخل كلمه السر مره أخري"
                 inputProps={{ style: { direction: "rtl" } }}
                 sx={{ width: "30vw", textAlign: "start" }}
                 InputLabelProps={{ direction: "rtl", textAlign: "start" }}
@@ -257,7 +257,7 @@ const UserRegister = () => {
               <TextField
                 id="standard-select-currency"
                 name="role"
-                onChange={handleChange}
+                onChange={handleTypeChange}
                 value={selectedValueType}
                 select
                 label="نوع الحساب"

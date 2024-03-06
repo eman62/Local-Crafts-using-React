@@ -1,25 +1,69 @@
+import React, { useState, useEffect } from "react";
+import { Image } from "cloudinary-react";
+import IconButton from "@mui/material/IconButton";
+import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
+import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
+import Avatar from "@mui/material/Avatar";
+import { getGovernorates, getCities } from "../api/locations";
+import logo from "../assets/logo.png";
+import header from "../assets/Header2.jpeg";
 import Footer from "../Components/footer";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import { MenuItem } from "@mui/material";
-import logo from '../assets/logo.png';
-import header from "../assets/Header2.jpeg"
-import { Link } from "react-router-dom";
 
 const VendorRegister = () => {
-  const types = [
-    {
-      value: "carpenter",
-      label: "نجار",
-    },
-    {
-      value: "drawer",
-      label: "رسام",
-    },
-  ];
+  const [governorates, setGovernorates] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [selectedGovernorate, setSelectedGovernorate] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+  const [imageURL, setImageURL] = useState("");
+
+  useEffect(() => {
+    getGovernorates()
+      .then((res) => {
+        setGovernorates(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    if (selectedGovernorate) {
+      getCities(selectedGovernorate)
+        .then((response) => {
+          setCities(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching cities:", error);
+        });
+    }
+  }, [selectedGovernorate]);
+
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "LocalCrafts");
+
+      try {
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/dbtaj8rn6/image/upload",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        const data = await response.json();
+        setImageURL(data.secure_url);
+        console.log(data.secure_url); // Log the URL to the console
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    }
+  };
 
   return (
     <Box sx={{ position: "relative" }}>
@@ -94,10 +138,37 @@ const VendorRegister = () => {
                 fontFamily: "Rubik",
               }}
             >
-              بيانات حساب جديد لبائع 
+              بيانات حساب جديد لبائع
             </Typography>
           </Box>
-          <Box sx={{ direction: "rtl", mt: "5vh", mr: "15vw"}}>
+          <Box sx={{ direction: "rtl", mt: "5vh", mr: "15vw" }}>
+            {imageURL ? (
+              <Avatar
+                alt="Avatar"
+                src={imageURL}
+                sx={{ width: 150, height: 150, mr: "10vw" }}
+              />
+            ) : (
+              <label htmlFor="icon-button-file">
+                <IconButton
+                  sx={{ display: "block", ml: "10vw" }}
+                  color="primary"
+                  aria-label="upload picture"
+                  component="span"
+                >
+                  <PhotoCameraIcon
+                    sx={{ fontSize: "5em", textAlign: "center", ml: "10vw" }}
+                  />
+                  <input
+                    accept="image/*"
+                    id="icon-button-file"
+                    type="file"
+                    style={{ display: "none" }}
+                    onChange={handleFileChange}
+                  />
+                </IconButton>
+              </label>
+            )}
             <TextField
               id="standard-basic"
               label="المهنه"
@@ -111,46 +182,48 @@ const VendorRegister = () => {
               id="standard-basic"
               label=" رقم الهاتف"
               variant="standard"
+              type="number"
               placeholder="ادخل  رقم  الهاتف"
               inputProps={{ style: { direction: "rtl" } }}
               sx={{ width: "30vw", direction: "rtl", mb: "1vh" }}
               InputLabelProps={{ direction: "rtl" }}
             />
-            <TextField
-              id="standard-basic"
-              label=" العنوان"
-              variant="standard"
-              placeholder="ادخل العنوان "
-              inputProps={{ style: { direction: "rtl" } }}
-              sx={{ width: "30vw" }}
-              InputLabelProps={{ direction: "rtl", textAlign: "start" }}
-            />
-            <Box sx={{display:{md:"flex",xs:"inline"},width:"55%"}}>
+            <Box sx={{ display: "flex" }}>
               <TextField
                 id="standard-select-currency"
                 select
-                label="التصنيف الاساسي"
-                defaultValue="التصنيف الااساسي"
+                label=" المحافظه"
+                value={selectedGovernorate}
+                onChange={(e) => setSelectedGovernorate(e.target.value)}
                 variant="standard"
-                sx={{ width: "30vw", mt: "5vh" }}
+                sx={{ width: "14vw", mt: "5vh" }}
               >
-                {types.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
+                {governorates.map((option) => (
+                  <MenuItem key={option._id} value={option._id}>
+                    {" "}
+                    {/* Changed value to _id */}
+                    {option.name}
                   </MenuItem>
                 ))}
               </TextField>
               <TextField
                 id="standard-select-currency"
                 select
-                label="التصنيف  االفرعي"
-                defaultValue="التصنيف  الفرعي"
+                label="  المدينه"
+                value={selectedCity}
+                onChange={(e) => setSelectedCity(e.target.value)}
                 variant="standard"
-                sx={{ width: "30vw", mt: "5vh" ,marginRight:{md:"20%",xs:"0"}}}
+                sx={{
+                  width: "14vw",
+                  mt: "5vh",
+                  mr: "2vw",
+                }}
               >
-                {types.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
+                {cities.map((option) => (
+                  <MenuItem key={option._id} value={option._id}>
+                    {" "}
+                    {/* Changed value to _id */}
+                    {option.name}
                   </MenuItem>
                 ))}
               </TextField>
@@ -161,7 +234,7 @@ const VendorRegister = () => {
                 label="نبذه عنك"
                 multiline
                 maxRows={6}
-                sx={{ width:"30vw"}}
+                sx={{ width: "30vw" }}
               />
             </Box>
             <Button
@@ -178,7 +251,6 @@ const VendorRegister = () => {
             >
               استكمال
             </Button>
-             
           </Box>
 
           {/* box البيانات */}
