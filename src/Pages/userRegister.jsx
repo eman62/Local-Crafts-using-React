@@ -4,35 +4,29 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-
 import TextField from "@mui/material/TextField";
 import { MenuItem } from "@mui/material";
 import logo from "../assets/logo.png";
 import header from "../assets/Header2.jpeg";
 import { axiosInstance } from "../api/config";
-import { Link } from "react-router-dom";
-import InputAdornment from "@mui/material/InputAdornment";
-import IconButton from "@mui/material/IconButton";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { Link, useNavigate } from "react-router-dom";
 
 const UserRegister = () => {
-  const [selectedValueType, setSelectedValueType] = useState("customer");
-  const [showPassword, setShowPassword] = React.useState(false);
-  const handleTogglePasswordVisibility = () => {
-    setShowPassword((prevShowPassword) => !prevShowPassword);
-  };
+  const navigate = useNavigate();
+  const [selectedValueType, setSelectedValueType] = useState("");
+  const [errors, setErrors] = useState({});
+
   const handleTypeChange = (event) => {
     setSelectedValueType(event.target.value);
     formData.role = event.target.value;
   };
+
   const [formData, setFormData] = useState({
     name: "",
     role: "",
     password: "",
     email: "",
   });
-  const [errors, setErrors] = useState({});
 
   const types = [
     {
@@ -51,27 +45,41 @@ const UserRegister = () => {
       ...formData,
       [name]: value,
     });
+    setErrors({
+      ...errors,
+      [name]: "",
+    });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    const validationErrors = validateFormData(formData);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+    // if (formData.password !== formData.confirmPassword) {
+    //   setErrors({ confirmPassword: "كلمه السر غير متشابهه" });
+    //   return;
+    // }
     try {
-      const validationErrors = validateFormData(formData);
-      if (Object.keys(validationErrors).length > 0) {
-        setErrors(validationErrors);
-        return;
-      }
-      if (formData.password !== formData.confirmPassword) {
-        setErrors({ confirmPassword: "كلمه السر غير متشابهه" });
-        return;
-      }
-      await axiosInstance.post("/auth/register", formData);
+      await axiosInstance.post("/auth/register", {
+        ...formData,
+      });
       console.log("User registered successfully!");
+
+      if (formData.role === "vendor") {
+        navigate("/user-register/vedorRegister");
+      } else if (formData.role === "customer") {
+        navigate("/");
+      }
     } catch (error) {
       console.error("Error registering user:", error);
     }
   };
 
+  ////////////Validation Form
   const validateFormData = (data) => {
     let errors = {};
 
@@ -102,6 +110,7 @@ const UserRegister = () => {
   const isValidEmail = (email) => {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
   };
+
   return (
     <Box sx={{ position: "relative" }}>
       <Box
@@ -238,24 +247,8 @@ const UserRegister = () => {
                 inputProps={{ style: { direction: "rtl" } }}
                 sx={{ width: "30vw", textAlign: "start" }}
                 InputLabelProps={{ direction: "rtl", textAlign: "start" }}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleTogglePasswordVisibility}
-                        edge="end"
-                      >
-                        {showPassword ? (
-                          <VisibilityIcon />
-                        ) : (
-                          <VisibilityOffIcon />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
               />
+
               {errors.confirmPassword && (
                 <Typography sx={{ color: "red" }}>
                   {errors.confirmPassword}
@@ -281,6 +274,9 @@ const UserRegister = () => {
               {errors.role && (
                 <Typography sx={{ color: "red" }}>{errors.role}</Typography>
               )}
+              {errors.role && (
+                <Typography sx={{ color: "red" }}>{errors.role}</Typography>
+              )}
               <Button
                 type="submit"
                 sx={{
@@ -294,17 +290,7 @@ const UserRegister = () => {
                   "&:hover": { backgroundColor: "gray" },
                 }}
               >
-                <Link
-                  to={
-                    formData.role == "customer"
-                      ? "/"
-                      : "/user-register/vedorRegister"
-                  }
-                  style={{ textDecoration: "none", color: "white" }}
-                >
-                  {" "}
-                  انشاء حساب
-                </Link>
+                انشاء حساب
               </Button>
               <Typography
                 sx={{
@@ -315,7 +301,7 @@ const UserRegister = () => {
                 }}
               >
                 لديك حساب بالفعل ؟{" "}
-                <Link sx={{ textDecoration: "none", color: "blue" }}>
+                <Link to="/" sx={{ textDecoration: "none", color: "blue" }}>
                   سجل الدخول
                 </Link>
               </Typography>
