@@ -9,9 +9,11 @@ import CardMedia from '@mui/material/CardMedia';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { useNavigate } from 'react-router-dom';
 
-const ServiceCard = () => {
+const ServiceCard = ({ product }) => {
     const [isFavorite, setIsFavorite] = useState(false);
+    const navigate = useNavigate();
 
     const toggleFavorite = () => {
         setIsFavorite(!isFavorite);
@@ -19,11 +21,12 @@ const ServiceCard = () => {
 
     return (
         <Box sx={{ direction: "rtl" }}  width={200}>
+            
             <Card  mb={10}>
                 <CardMedia
                     component="img"                  
                     height={200}
-                    image="https://s3-alpha-sig.figma.com/img/612d/be90/a1f53fd2458ab4004cf484363eb87688?Expires=1710115200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=J52P5aQU7uXlco~Ed-a8g1y24QkdRf5JmG7tv0nLWfkpiwvJggH~P7SjedCkndhqB~xgiIic5N1NYoKhgzds9Boy2BXw9hPKq9bFiaE3pnKWIbO8XQYlLIrGhNHGDbPRaWzp6qG4TwLBLdhP2jHOSfQZqqQtDf7Ulpa9OFEVLXEcObt9G4KANjd9zthqON-~B~aw-JT-kUABn~quZ1rgn-gV366Y0pCKfKdvDRig7BUjQwXToihEG18NOprA0qKk5-H2tsQtG5K3RA-6IetC~xpY~gDa7LdrwEesKhvqCe98p~oNAmK2lNYKexxciJI5xRdMt9xm39R18keHKHlfcg__"
+                    image={product.photos[0]} 
                     alt="Random"
                 />
                 <CardContent>
@@ -34,8 +37,11 @@ const ServiceCard = () => {
                         <Box sx={{ borderRadius: "50%" }}>
                             <img height="35" width="35" src="https://www.figma.com/file/KoAR42FTHSt4h6oCQSSZOL/image/b0b5575b38d94edf1272fe60bcdd977fef76cd81" alt="Person" style={{ borderRadius: "50%" }} />
                         </Box>
-                        <Typography gutterBottom variant="p" component="div" sx={{ fontWeight:"bold" }}>
-                            عنوان الخدمة
+                        
+                        <Typography 
+                         gutterBottom variant="p" component="div" sx={{ fontWeight:"bold" }}
+                         >
+                        {product.name}
                         </Typography>
                         <Box onClick={toggleFavorite}>
                             {isFavorite ? <FavoriteIcon sx={{ color: 'red', fontSize: "1.5rem" }} /> : <FavoriteBorderIcon sx={{ fontSize: "1.5rem" }} />}
@@ -50,16 +56,16 @@ const ServiceCard = () => {
 
 
                         <Typography gutterBottom variant="p" sx={{ fontFamily: " 'Rubik', sans-serif" }}>
-                            التصنيف
+                        {product.category.main}
                         </Typography>
                         <Typography gutterBottom variant="p" sx={{ fontFamily: " 'Rubik', sans-serif" }}>
-                            التصنيف الفرعي
+                        {product.category.sub}
                         </Typography>
 
                     </Box>
 
                     <Typography mt={2} variant="body2">
-                        Iحماده بالزنجبيلحماده بالزنجبيلحماده بالزنج بالزنجبيلحماده بالزنجبيلحماده بالالزنجبيلحماده بالزنجبيل                                </Typography>
+                        I {product.description}     </Typography>
 
                     <Box mt={2} sx={{
                         display: "flex",
@@ -69,7 +75,7 @@ const ServiceCard = () => {
 
 
                         <Typography gutterBottom variant="p" sx={{ fontFamily: " 'Rubik', sans-serif" }}>
-                            السعر : 200 ج
+                            السعر :  {product.price}  ج
 
                         </Typography>
                         <Box mt={.5}>
