@@ -255,7 +255,7 @@ const UserRegister = () => {
               <TextField
                 id="standard-select-currency"
                 name="role"
-                onChange={handleTypeChange}
+                onChange={handleChange}
                 value={selectedValueType}
                 select
                 label="نوع الحساب"
@@ -269,6 +269,9 @@ const UserRegister = () => {
                   </MenuItem>
                 ))}
               </TextField>
+              {errors.role && (
+            <Typography sx={{ color: "red" }}>{errors.role}</Typography>
+          )}
               {errors.role && (
             <Typography sx={{ color: "red" }}>{errors.role}</Typography>
           )}
