@@ -4,9 +4,8 @@ import { useState } from 'react';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-const SideBare = ({data}) => {
+const SideBareservice = ({data ,subData}) => {
    
-    
     const [showCategory, setShowCategory] = useState(false);
     const [showSubCategory, setShowSubCategory] = useState(false);
     const toggleCategory = () => {
@@ -33,13 +32,13 @@ const SideBare = ({data}) => {
              <Box mt={3}>
                     <FormGroup>
                         {data.map(category => (
-                            <Box key={category._id} sx={{ display: "flex", justifyContent: "space-around" }}>
+                            <Box  sx={{ display: "flex", justifyContent: "space-around" }}>
                                 <FormControlLabel
                                     control={<Checkbox />}
                                     label={
                                         <Box >
                                             <Typography variant='p' sx={{ fontFamily: "'Rubik', sans-serif" }}>
-                                                {category.name}
+                                              
                                             </Typography>
                                         </Box>}
                                 />
@@ -69,8 +68,8 @@ const SideBare = ({data}) => {
             <Box mt={3} >
             
                    <FormGroup>
-                       {data.map(category => (
-                           <Box key={category._id} sx={{ display: "flex", justifyContent: "space-around" }}>
+                       {subData.map(category => (
+                           <Box  sx={{ display: "flex", justifyContent: "space-around" }}>
                                <FormControlLabel
                                    control={<Checkbox />}
                                    label={
@@ -96,4 +95,4 @@ const SideBare = ({data}) => {
     )
 }
 
-export default SideBare
+export default SideBareservice

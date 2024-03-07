@@ -18,7 +18,12 @@ import { Link } from "react-router-dom";
 import SearchInput from "./SharedComponnent/NaveBar/search";
 
 const pages = ["الرئيسية", "منتجات", "خدمات", "عن موقعنا"];
-const pagePaths = ["home", "products", "products", "about"];
+const pagePaths = [
+  "home",
+  "user-register/products",
+  "user-register/services",
+  "about",
+];
 
 function NaveBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
