@@ -3,6 +3,7 @@ import { Box, Grid } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import ServiceCard from '../serviceCard';
 import { getProductList } from '../../api/Products'; 
+import ProductCard from './ProductCard';
 
 const CardPagination = () => {
     const [products, setProducts] = useState([]);
@@ -35,7 +36,7 @@ const CardPagination = () => {
             <Grid container spacing={4} sx={{ width: "90%" }}>
                 {products.slice(startIndex, endIndex).map(product => (
                     <Grid item key={product.id} xs={12} md={6} lg={3} mb={5}>
-                        <ServiceCard product={product} />
+                        <ProductCard data={product} />
                     </Grid>
                 ))}
             </Grid>
