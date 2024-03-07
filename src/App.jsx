@@ -17,8 +17,15 @@ import Navbar from "./Components/navBar";
 import { BrowserRouter } from "react-router-dom";
 import RouterPages from "./Router/Router";
 import VendorRegister from "./Pages/vendorRegister";
+import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { changeLocation } from "./stores/slice/location";
 
 function App() {
+  const dispatch = useDispatch();
+
+  dispatch(changeLocation(window.location.pathname));
+
   return (
     <>
       <BrowserRouter>

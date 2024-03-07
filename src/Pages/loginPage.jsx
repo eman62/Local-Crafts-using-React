@@ -10,6 +10,7 @@ import logo from "../assets/logo.png";
 import header from "../assets/Header2.jpeg";
 import { axiosInstance } from "../api/config";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -17,23 +18,30 @@ const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
+
+  const prevLocation = useSelector((state) => state.location.prevLoction);
+
+  console.log(prevLocation);
+
+  const checkHistory = () => {
+    // if (history.location.pathname === "/user-register") {
+    //   history.push("/");
+    // }
+  };
+
   const handleLogin = async () => {
     try {
       const response = await axiosInstance.post("/auth/login", {
         email,
         password,
       });
-      const { token } = response.data; // Assuming the token is returned in the response
-      // Store token in local storage or in memory for subsequent requests
+      const { token } = response.data;
       localStorage.setItem("token", token);
       console.log("User logged in successfully");
-      // Redirect to dashboard or any other page upon successful login
-      // Replace '/dashboard' with your desired redirect route
+      checkHistory();
       navigate(-1);
     } catch (error) {
       if (error.response) {
-        // Server responded with a status code outside of 2xx range
-        // Handle error messages returned from the server
         setErrorMessage(
           "خطأ في تسجيل الدخول. يرجى التحقق من البريد الإلكتروني وكلمة المرور."
         );

@@ -1,7 +1,6 @@
 import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 
-
 export default function RouterPages() {
   const LoginPage = React.lazy(() => import("../Pages/loginPage"));
   const HomePage = React.lazy(() => import("../Pages/homePage"));
@@ -16,13 +15,9 @@ export default function RouterPages() {
         <Route path="/user-login" element={<LoginPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/user-register" element={<UserRegister />} />
-        <Route path="/user-register/products" element={<ProductsPage />} />
-        <Route path="/user-register/services" element={<ServicesPage />} />
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/services" element={<ServicesPage />} />
         <Route path="/vedorRegister" element={<VendorRegister />} />
-        <Route
-          path="/user-register/vedorRegister"
-          element={<VendorRegister />}
-        />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

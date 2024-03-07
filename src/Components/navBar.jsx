@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -16,14 +16,11 @@ import PersonIcon from "@mui/icons-material/Person";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import SearchInput from "./SharedComponnent/NaveBar/search";
+import { useDispatch } from "react-redux";
+import { changeLocation } from "../stores/slice/location";
 
 const pages = ["الرئيسية", "منتجات", "خدمات", "عن موقعنا"];
-const pagePaths = [
-  "home",
-  "user-register/products",
-  "user-register/services",
-  "about",
-];
+const pagePaths = ["/", "/products", "/services", "about"];
 
 function NaveBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -158,7 +155,7 @@ function NaveBar() {
               >
                 <Link
                   style={{ textDecoration: "none", color: "inherit" }}
-                  to={`/${pagePaths[index]}`}
+                  to={`${pagePaths[index]}`}
                 >
                   {page}
                 </Link>
