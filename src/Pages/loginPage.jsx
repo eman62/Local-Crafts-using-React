@@ -16,6 +16,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const navigate = useNavigate();
   const handleLogin = async () => {
     try {
       const response = await axiosInstance.post("/auth/login", {
@@ -28,12 +29,14 @@ const LoginPage = () => {
       console.log("User logged in successfully");
       // Redirect to dashboard or any other page upon successful login
       // Replace '/dashboard' with your desired redirect route
-      window.location.replace("/home");
+      navigate(-1);
     } catch (error) {
       if (error.response) {
         // Server responded with a status code outside of 2xx range
         // Handle error messages returned from the server
-        setErrorMessage("خطأ في تسجيل الدخول. يرجى التحقق من البريد الإلكتروني وكلمة المرور.");
+        setErrorMessage(
+          "خطأ في تسجيل الدخول. يرجى التحقق من البريد الإلكتروني وكلمة المرور."
+        );
       } else {
         // Handle network errors
         setErrorMessage("خطأ في الشبكة. يرجى المحاولة مرة أخرى لاحقًا.");
@@ -282,4 +285,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-

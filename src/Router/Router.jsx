@@ -11,8 +11,8 @@ export default function RouterPages() {
   return (
     <Suspense>
       <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/user-login" element={<LoginPage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/user-register" element={<UserRegister />} />
         <Route path="/user-register/products" element={<ProductsPage />} />
         <Route path="/vedorRegister" element={<VendorRegister />} />

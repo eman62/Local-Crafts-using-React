@@ -58,7 +58,7 @@ const VendorRegister = () => {
         );
         const data = await response.json();
         setImageURL(data.secure_url);
-        console.log(data.secure_url); // Log the URL to the console
+        console.log(data.secure_url);
       } catch (error) {
         console.error("Error uploading image:", error);
       }
@@ -201,7 +201,6 @@ const VendorRegister = () => {
                 {governorates.map((option) => (
                   <MenuItem key={option._id} value={option._id}>
                     {" "}
-                    {/* Changed value to _id */}
                     {option.name}
                   </MenuItem>
                 ))}
@@ -222,7 +221,6 @@ const VendorRegister = () => {
                 {cities.map((option) => (
                   <MenuItem key={option._id} value={option._id}>
                     {" "}
-                    {/* Changed value to _id */}
                     {option.name}
                   </MenuItem>
                 ))}
