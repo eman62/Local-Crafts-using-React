@@ -9,7 +9,7 @@ import { MenuItem } from "@mui/material";
 import logo from "../assets/logo.png";
 import header from "../assets/Header2.jpeg";
 import { axiosInstance } from "../api/config";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const LoginPage = () => {
@@ -18,15 +18,18 @@ const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
-
-  const prevLocation = useSelector((state) => state.location.prevLoction);
-
-  console.log(prevLocation);
+  const location = useLocation();
 
   const checkHistory = () => {
-    // if (history.location.pathname === "/user-register") {
-    //   history.push("/");
-    // }
+    if (
+      location.state?.previousPath === "/user-register" ||
+      location.state?.previousPath === "/vendor-register" ||
+      !location.state
+    ) {
+      navigate("/");
+      return;
+    }
+    navigate(-1);
   };
 
   const handleLogin = async () => {

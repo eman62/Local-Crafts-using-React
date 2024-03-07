@@ -176,14 +176,15 @@ function NaveBar() {
                 fontSize: { xs: ".5rem", md: "1.5rem" },
               }}
             >
-              <Typography sx={{ fontFamily: "Rubik" }} ml={1}>
-                <Link
-                  style={{ textDecoration: "none", color: "black" }}
-                  to="/user-login"
-                >
+              <Link
+                style={{ textDecoration: "none", color: "black" }}
+                state={{ previousPath: window.location.pathname }}
+                to={"/user-login"}
+              >
+                <Typography sx={{ fontFamily: "Rubik" }} ml={1}>
                   تسجيل الدخول
-                </Link>
-              </Typography>
+                </Typography>
+              </Link>
               <PersonIcon />
             </Box>
           </Box>

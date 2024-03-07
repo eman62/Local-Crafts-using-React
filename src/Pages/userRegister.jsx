@@ -64,19 +64,18 @@ const UserRegister = () => {
     //   setErrors({ confirmPassword: "كلمه السر غير متشابهه" });
     //   return;
     // }
-    try {
-      await axiosInstance.post("/auth/register", {
-        ...formData,
-      });
-      console.log("User registered successfully!");
-
-      if (formData.role === "vendor") {
-        navigate("/user-register/vedorRegister");
-      } else if (formData.role === "customer") {
-        navigate("/");
+    if (formData.role === "vendor") {
+      navigate("/vedorRegister", { state: { formData } });
+    } else if (formData.role === "customer") {
+      try {
+        await axiosInstance.post("/auth/register", {
+          ...formData,
+        });
+        console.log("User registered successfully!");
+        navigate("/user-login");
+      } catch (error) {
+        console.error("Error registering user:", error);
       }
-    } catch (error) {
-      console.error("Error registering user:", error);
     }
   };
 
@@ -301,7 +300,10 @@ const UserRegister = () => {
                 }}
               >
                 لديك حساب بالفعل ؟{" "}
-                <Link to="/" sx={{ textDecoration: "none", color: "blue" }}>
+                <Link
+                  to="/user-login"
+                  sx={{ textDecoration: "none", color: "blue" }}
+                >
                   سجل الدخول
                 </Link>
               </Typography>
