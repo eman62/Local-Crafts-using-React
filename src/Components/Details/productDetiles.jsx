@@ -13,12 +13,19 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Review } from './review';
+import OrderModel from '../SharedComponnent/OrderModel';
 
 
-const ProductDetiles = () => {
+const ProductDetiles = ({data}) => {
     const [centerIndex, setCenterIndex] = useState(0);
+    const [openModal, setOpenModal] = useState(false); 
+    
     const swiperRef = useRef(null);
 
+     const toggleModal = () => {
+       setOpenModal(!openModal);
+     };
+   
     const goNext = () => {
         if (swiperRef.current && swiperRef.current.swiper) {
             swiperRef.current.swiper.slideNext();
@@ -41,7 +48,7 @@ const ProductDetiles = () => {
     };
     return (
 
-        <Box sx={mainBox} mb={100} >
+        <Box sx={mainBox}  >
             <Box>
                 <Box sx={imgStyle}></Box>
             </Box>
@@ -83,13 +90,13 @@ const ProductDetiles = () => {
                                     navigation={{ nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" }}
                                 >
                                     <SwiperSlide>
-                                        <img style={{ width: "67%", marginRight: "9%" }} src='https://s3-alpha-sig.figma.com/img/612d/be90/a1f53fd2458ab4004cf484363eb87688?Expires=1710115200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=J52P5aQU7uXlco~Ed-a8g1y24QkdRf5JmG7tv0nLWfkpiwvJggH~P7SjedCkndhqB~xgiIic5N1NYoKhgzds9Boy2BXw9hPKq9bFiaE3pnKWIbO8XQYlLIrGhNHGDbPRaWzp6qG4TwLBLdhP2jHOSfQZqqQtDf7Ulpa9OFEVLXEcObt9G4KANjd9zthqON-~B~aw-JT-kUABn~quZ1rgn-gV366Y0pCKfKdvDRig7BUjQwXToihEG18NOprA0qKk5-H2tsQtG5K3RA-6IetC~xpY~gDa7LdrwEesKhvqCe98p~oNAmK2lNYKexxciJI5xRdMt9xm39R18keHKHlfcg__' alt='slide1' />
+                                        <img style={{ width: "67%", marginRight: "9%" }} src={data?.photos[0]} alt='slide1' />
                                     </SwiperSlide>
                                     <SwiperSlide>
-                                        <img style={{ width: "67%", marginRight: "9%" }} src='https://s3-alpha-sig.figma.com/img/612d/be90/a1f53fd2458ab4004cf484363eb87688?Expires=1710115200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=J52P5aQU7uXlco~Ed-a8g1y24QkdRf5JmG7tv0nLWfkpiwvJggH~P7SjedCkndhqB~xgiIic5N1NYoKhgzds9Boy2BXw9hPKq9bFiaE3pnKWIbO8XQYlLIrGhNHGDbPRaWzp6qG4TwLBLdhP2jHOSfQZqqQtDf7Ulpa9OFEVLXEcObt9G4KANjd9zthqON-~B~aw-JT-kUABn~quZ1rgn-gV366Y0pCKfKdvDRig7BUjQwXToihEG18NOprA0qKk5-H2tsQtG5K3RA-6IetC~xpY~gDa7LdrwEesKhvqCe98p~oNAmK2lNYKexxciJI5xRdMt9xm39R18keHKHlfcg__' alt='slide2' />
+                                        <img style={{ width: "67%", marginRight: "9%" }} src={data?.photos[1]} alt='slide2'/>
                                     </SwiperSlide>
                                     <SwiperSlide>
-                                        <img style={{ width: "67%", marginRight: "9%" }} src='https://s3-alpha-sig.figma.com/img/612d/be90/a1f53fd2458ab4004cf484363eb87688?Expires=1710115200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=J52P5aQU7uXlco~Ed-a8g1y24QkdRf5JmG7tv0nLWfkpiwvJggH~P7SjedCkndhqB~xgiIic5N1NYoKhgzds9Boy2BXw9hPKq9bFiaE3pnKWIbO8XQYlLIrGhNHGDbPRaWzp6qG4TwLBLdhP2jHOSfQZqqQtDf7Ulpa9OFEVLXEcObt9G4KANjd9zthqON-~B~aw-JT-kUABn~quZ1rgn-gV366Y0pCKfKdvDRig7BUjQwXToihEG18NOprA0qKk5-H2tsQtG5K3RA-6IetC~xpY~gDa7LdrwEesKhvqCe98p~oNAmK2lNYKexxciJI5xRdMt9xm39R18keHKHlfcg__' alt='slide3' />
+                                        <img style={{ width: "67%", marginRight: "9%" }} src={data?.photos[2]} alt='slide3' />
                                     </SwiperSlide>
                                 </Swiper>
                             </Box>
@@ -128,7 +135,7 @@ const ProductDetiles = () => {
                         <Grid xs={12} md={6} >
                             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                                 <Typography variant='h4' sx={{ fontFamily: " 'Rubik', sans-serif" }}>
-                                    أسم المنتج أو الخدمة<PersonIcon fontSize='2.5rem' />
+                                      {data.name} <PersonIcon fontSize='2.5rem' />
                                 </Typography>
                                 <Box onClick={toggleFavorite}>
                                     {isFavorite ? <FavoriteIcon sx={{ color: 'red', fontSize: "40px" }} /> : <FavoriteBorderIcon sx={{ fontSize: "40px" }} />}
@@ -136,22 +143,17 @@ const ProductDetiles = () => {
 
                             </Box>
                             <Box mt={3} sx={{ width: "60%", display: "flex", justifyContent: "space-between", color: "#999999;" }}>
-                                <Typography variant='p'> التصنيف</Typography>
-                                <Typography variant='p'> التصنيف الفرعي</Typography>
+                                <Typography variant='p'>  {data.category.main}</Typography>
+                                <Typography variant='p'>   {data.category.sub}</Typography>
                             </Box>
                             <Box mt={3} sx={{ maxWidth: "60%" }}>
                                 <Typography variant='p' >
-                                    حماده بالجتزبيلحماده بالجتزبيلحماده بالجتزبيلحماده بالجتزبيل
-                                    حماده بالجتزبيلحماده بالجتزبيلحماده بالجتزبيلحماده بالجتزبيل
-                                    حماده بالجتزبيلحماده بالجتزبيلحماده بالجتزبيل
-                                    حماده بالجتزبيلحماده بالجتزبيلحماده بالجتزبيلحماده با
-                                    حماده بالجتزبيلحماده بالجتزبيلحماده بالجتزبيلحماده بالجتزبيلححماده بالجتزبيلحماده بالجتزبيلحماده بالجتزبيلحماده بالجتزبيل
-                                    حماده بالجتزبيلحماده بالجتزبيلحماده بالجتزبيلحماده بالجتزبيل
-                                    حماده بالجتزبيلحماده بالجتزبيلحماده بالجتزبيل
+                                    {data.description}
+
 
                                 </Typography>
                             </Box>
-                            <Typography mt={3} variant='h5' sx={{ fontFamily: " 'Rubik', sans-serif" }}>السعر : 200 ج</Typography>
+                            <Typography mt={3} variant='h5' sx={{ fontFamily: " 'Rubik', sans-serif" }}>السعر : {data.price} ج</Typography>
                         </Grid>
                     </Grid>
 
@@ -175,6 +177,7 @@ const ProductDetiles = () => {
                                 // padding: "5%",
                                 width: "200px"
                             }}
+                            onClick={toggleModal}
                         >
 
                             تواصل مع البائع
@@ -192,6 +195,8 @@ const ProductDetiles = () => {
                                 }}
                             ></Box>
                         </Button>
+                        <OrderModel open={openModal} handleClose={toggleModal} />
+
                     </Box>
                 </Box>
             </Box>

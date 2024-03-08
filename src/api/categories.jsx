@@ -6,6 +6,7 @@ export const getMainCatogry = () => {
 export const getSubService = (categoryId) => {
     return axiosInstance.get(`/services/categories/${categoryId}`);
 }
+
 export const getMainCatogryProducts = () => {
     return axiosInstance.get('/products/categories');
 }

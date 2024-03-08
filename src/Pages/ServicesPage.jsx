@@ -11,7 +11,6 @@ import { getServiceList } from '../api/services';
 import SideBareservice from '../Components/Services/SideBar';
 import { getMainCatogry, getMainCatogryProducts, getSubService } from '../api/categories';
 const ServicesPage = () => {
-
     const [services, setServices] = useState([]);
     const [categories,setCategories]=useState([])
     const [selectedCategories, setSelectedCategories] = useState("");
@@ -43,17 +42,17 @@ const ServicesPage = () => {
           .catch((err) => console.log(err));
       }, []);
 
-    //   useEffect(() => {
-    //     if (selectedCategories) {
-    //       getSubService(selectedCategories)
-    //         .then((response) => {
-    //           setSelectedCategories(response.data);
-    //         })
-    //         .catch((error) => {
-    //           console.error("Error fetching cities:", error);
-    //         });
-    //     }
-    //   }, [selectedCategories]);
+      useEffect(() => {
+        if (selectedCategories) {
+          getSubService(selectedCategories)
+            .then((response) => {
+              setSelectedCategories(response.data);
+            })
+            .catch((error) => {
+              console.error("Error fetching cities:", error);
+            });
+        }
+      }, [selectedCategories]);
 
     const handlePaggnationChange = (event, value) => {
         setCurrentPage(value);

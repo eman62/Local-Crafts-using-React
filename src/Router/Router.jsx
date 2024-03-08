@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
+import { DetalisPage } from "../Pages/detalisPage";
 
 export default function RouterPages() {
   const LoginPage = React.lazy(() => import("../Pages/loginPage"));
@@ -9,6 +10,8 @@ export default function RouterPages() {
   const NotFound = React.lazy(() => import("../Pages/NotFoundPage/NotFound"));
   const VendorRegister = React.lazy(() => import("./../Pages/vendorRegister"));
   const ServicesPage = React.lazy(() => import("../Pages/ServicesPage"));
+  // const DetalisPage = React.lazy(() => import("../Pages/detalisPage"));
+
   return (
     <Suspense>
       <Routes>
@@ -18,6 +21,9 @@ export default function RouterPages() {
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/vedorRegister" element={<VendorRegister />} />
+        <Route path="/details/:serviceId" element={<DetalisPage />} />
+
+        
 
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -10,7 +10,7 @@ import logo from "../assets/logo.png";
 import header from "../assets/Header2.jpeg";
 import { axiosInstance } from "../api/config";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");

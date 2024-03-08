@@ -8,7 +8,7 @@ import Select from '@mui/material/Select';
 import SideBare from '../Components/Product/SideBare';
 import { getProductList } from '../api/Products';
 import ProductCard from '../Components/Product/ProductCard';
-import { getMainCatogryProducts } from '../api/categories';
+import { getMainCatogry, getMainCatogryProducts } from '../api/categories';
 const ProductsPage = () => {
 
     const [products, setProducts] = useState([]);

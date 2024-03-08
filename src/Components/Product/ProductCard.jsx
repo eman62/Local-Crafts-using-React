@@ -13,14 +13,12 @@ import { useNavigate } from 'react-router-dom';
 const ProductCard = ({ data }) => {
     const [isFavorite, setIsFavorite] = useState(false);
     const navigate = useNavigate();
-
     const toggleFavorite = () => {
         setIsFavorite(!isFavorite);
     };
 
     return (
         <Box sx={{ direction: "rtl" }}  width={200}>
-            
             <Card  mb={10}>
                 <CardMedia
                     component="img"                  
@@ -39,6 +37,8 @@ const ProductCard = ({ data }) => {
                         
                         <Typography 
                          gutterBottom variant="p" component="div" sx={{ fontWeight:"bold" }}
+                         onClick={() =>navigate(`/details/${data.id}`)}
+                         
                          >
                         {data.name}
                         </Typography>
