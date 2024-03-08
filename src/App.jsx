@@ -17,12 +17,14 @@ import Navbar from "./Components/navBar";
 import { BrowserRouter } from "react-router-dom";
 import RouterPages from "./Router/Router";
 import VendorRegister from "./Pages/vendorRegister";
+import AddProducts from "./Pages/addProducts";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Navbar />
+        <AddProducts></AddProducts>
         <RouterPages />
       </BrowserRouter>
     </>

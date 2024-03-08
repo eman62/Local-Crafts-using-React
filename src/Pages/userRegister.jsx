@@ -60,19 +60,18 @@ const UserRegister = () => {
       setErrors(validationErrors);
       return;
     }
-    // if (formData.password !== formData.confirmPassword) {
-    //   setErrors({ confirmPassword: "كلمه السر غير متشابهه" });
-    //   return;
-    // }
+    
     try {
-      await axiosInstance.post("/auth/register", {
-        ...formData,
-      });
-      console.log("User registered successfully!");
-
       if (formData.role === "vendor") {
+        // If the user is a vendor, store the data in a store and print a message
+        console.log("Data of vendor is stored in store:", formData);
         navigate("/user-register/vedorRegister");
-      } else if (formData.role === "customer") {
+      } else {
+        // If the user is a customer, proceed with regular registration
+        await axiosInstance.post("/auth/register", {
+          ...formData,
+        });
+        console.log("User registered successfully as a customer!");
         navigate("/");
       }
     } catch (error) {
@@ -117,7 +116,6 @@ const UserRegister = () => {
       <Box
         sx={{
           backgroundImage: `url(${header})`,
-
           height: "35vh",
           width: "100%",
           backgroundRepeat: "no-repeat",
@@ -145,7 +143,6 @@ const UserRegister = () => {
             top: "35vh",
             right: 0,
             height: "120vh",
-            // transform: "translateX(-50%)",
             zIndex: 1,
           }}
         >
@@ -271,9 +268,6 @@ const UserRegister = () => {
                   </MenuItem>
                 ))}
               </TextField>
-              {errors.role && (
-                <Typography sx={{ color: "red" }}>{errors.role}</Typography>
-              )}
               {errors.role && (
                 <Typography sx={{ color: "red" }}>{errors.role}</Typography>
               )}
