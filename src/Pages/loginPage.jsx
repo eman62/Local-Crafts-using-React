@@ -12,9 +12,9 @@ import { axiosInstance } from "../api/config";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUserDataFromLocalStorage } from "./loadUserDataFromLocalStorageAction";
-
+import { saveUserData,saveUserToken } from "../stores/slice/user";
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
+    const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -57,10 +57,17 @@ const LoginPage = () => {
         phone: user.phone,
         job: user.job,
       };
+
       localStorage.setItem("token", access_token);
       localStorage.setItem("userData", JSON.stringify(user));
+      
+      // Dispatch actions to save user data and token to Redux store
+      dispatch(saveUserData(userData));
+      dispatch(saveUserToken(access_token));
+
       console.log("User logged in successfully");
       console.log("User data:", userData);
+      
       checkHistory();
       navigate(-1);
     } catch (error) {
@@ -75,12 +82,16 @@ const LoginPage = () => {
       console.error("User login failed:", error);
     }
   };
-  const userData = useSelector((state) => state.user.userData);
+
   const token = useSelector((state) => state.user.token);
 
-  console.log("User Data:", userData);
-  console.log("Token:", token);
-
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (!storedToken || token !== storedToken) {
+      console.log("Token expired or not available in local storage");
+      // Perform any necessary action here
+    }
+  }, [token]);
   return (
     <Box sx={{ position: "relative" }}>
       <Box
