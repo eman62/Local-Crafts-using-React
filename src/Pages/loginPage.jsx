@@ -21,9 +21,13 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const userData = useSelector((state) => state.user.userData);
+  const token = useSelector((state) => state.user.token);
 
   useEffect(() => {
     dispatch(loadUserDataFromLocalStorage());
+    console.log("User Data:", userData);
+    console.log("Token:", token);
   }, []);
 
   const checkHistory = () => {
@@ -83,15 +87,6 @@ const LoginPage = () => {
     }
   };
 
-  const token = useSelector((state) => state.user.token);
-
-  useEffect(() => {
-    const storedToken = localStorage.getItem("token");
-    if (!storedToken || token !== storedToken) {
-      console.log("Token expired or not available in local storage");
-      // Perform any necessary action here
-    }
-  }, [token]);
   return (
     <Box sx={{ position: "relative" }}>
       <Box

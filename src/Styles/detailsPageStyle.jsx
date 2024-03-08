@@ -14,7 +14,7 @@ export const positionBox = {
     top: "65%",
     // right: "5%",
     width: "80%",
-    bottom: "10%",
+    // bottom: "10%",
     padding: "6%",
     // height: "5vh",
     // position: "absolute",
@@ -23,7 +23,7 @@ export const positionBox = {
     // borderRadius: "30px",
     // top: "20vh",
     left: "50%",
-    height: "95vh",
+    height: "75vh",
     transform: "translateX(-50%)",
     zIndex: 1,
     overflow: "auto",
@@ -34,7 +34,10 @@ export const mainBox = {
     position: "relative",
     textAlign: "right",
     direction: "rtl",
-    marginBottom:"60%"
+    marginBottom:{
+
+        lg:"30%",md:"45%", xs:"85%"
+    }
     
 }
 
