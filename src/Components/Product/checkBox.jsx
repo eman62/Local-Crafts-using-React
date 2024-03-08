@@ -8,69 +8,71 @@ const CheckBoxComponnent = () => {
     return (
         <Box mt={3} >
             <FormGroup >
-                <Box sx={{ display: "flex" ,justifyContent:"space-around"}}>
-                <FormControlLabel 
-                    control={<Checkbox defaultChecked />}
-                    label={
-                        <Box >
-                            <Typography variant='p' sx={{ fontFamily: "'Rubik', sans-serif" }}>
-                                أسم المنتج
-                            </Typography>
-                            
-                        </Box>}
-                />
-                <Typography variant='p' mt={1}>
-                    250
-                </Typography>
+                <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+                    <FormControlLabel
+                        control={<Checkbox defaultChecked />}
+                        label={
+                            <Box >
+                                <Typography variant='p' sx={{ fontFamily: "'Rubik', sans-serif" }}>
+                                    أسم المنتج
+                                </Typography>
+
+                            </Box>}
+                    />
+                    <Typography variant='p' mt={1}>
+                        250
+                    </Typography>
                 </Box>
-                <Box sx={{ display: "flex" ,justifyContent:"space-around"}}>
-                <FormControlLabel 
-                    control={<Checkbox  />}
-                    label={
-                        <Box >
-                            <Typography variant='p' sx={{ fontFamily: "'Rubik', sans-serif" }}>
-                                أسم المنتج
-                            </Typography>
-                            
-                        </Box>}
-                />
-                <Typography variant='p' mt={1}>
-                    250
-                </Typography>
-                </Box>
-                <Box sx={{ display: "flex" ,justifyContent:"space-around"}}>
-                <FormControlLabel 
-                    control={<Checkbox  />}
-                    label={
-                        <Box >
-                            <Typography variant='p' sx={{ fontFamily: "'Rubik', sans-serif" }}>
-                                أسم المنتج
-                            </Typography>
-                            
-                        </Box>}
-                />
-                <Typography variant='p' mt={1}>
-                    250
-                </Typography>
-                </Box>
-                <Box sx={{ display: "flex" ,justifyContent:"space-around"}}>
-                <FormControlLabel 
-                    control={<Checkbox  />}
-                    label={
-                        <Box >
-                            <Typography variant='p' sx={{ fontFamily: "'Rubik', sans-serif" }}>
-                                أسم المنتج
-                            </Typography>
-                            
-                        </Box>}
-                />
-                <Typography variant='p' mt={1}>
-                    250
-                </Typography>
-                </Box>
+
                 
-                
-              
+                {/* <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+                    <FormControlLabel
+                        control={<Checkbox />}
+                        label={
+                            <Box >
+                                <Typography variant='p' sx={{ fontFamily: "'Rubik', sans-serif" }}>
+                                    أسم المنتج
+                                </Typography>
+
+                            </Box>}
+                    />
+                    <Typography variant='p' mt={1}>
+                        250
+                    </Typography>
+                </Box>
+                <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+                    <FormControlLabel
+                        control={<Checkbox />}
+                        label={
+                            <Box >
+                                <Typography variant='p' sx={{ fontFamily: "'Rubik', sans-serif" }}>
+                                    أسم المنتج
+                                </Typography>
+
+                            </Box>}
+                    />
+                    <Typography variant='p' mt={1}>
+                        250
+                    </Typography>
+                </Box>
+                <Box sx={{ display: "flex", justifyContent: "space-around" }}>
+                    <FormControlLabel
+                        control={<Checkbox />}
+                        label={
+                            <Box >
+                                <Typography variant='p' sx={{ fontFamily: "'Rubik', sans-serif" }}>
+                                    أسم المنتج
+                                </Typography>
+
+                            </Box>}
+                    />
+                    <Typography variant='p' mt={1}>
+                        250
+                    </Typography>
+                </Box> */}
+
+
+
 
             </FormGroup>
         </Box>

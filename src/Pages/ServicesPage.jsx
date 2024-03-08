@@ -6,40 +6,55 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import SideBare from '../Components/Product/SideBare';
-import { getProductList } from '../api/Products';
 import ProductCard from '../Components/Product/ProductCard';
-import { getMainCatogryProducts } from '../api/categories';
-const ProductsPage = () => {
+import { getServiceList } from '../api/services';
+import SideBareservice from '../Components/Services/SideBar';
+import { getMainCatogry, getMainCatogryProducts, getSubService } from '../api/categories';
+const ServicesPage = () => {
 
-    const [products, setProducts] = useState([]);
+    const [services, setServices] = useState([]);
     const [categories,setCategories]=useState([])
+    const [selectedCategories, setSelectedCategories] = useState("");
+
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const cardsPerPage = 8;
 
     ////////////////// featch the data from api 
     useEffect(() => {
-        const fetchProductList = async () => {
+        const fetchServicsList = async () => {
             try {
-                const response = await getProductList();
-                setProducts(response.data.data);
+                const response = await getServiceList();
+                setServices(response.data.data);
                 setTotalPages(response.data.meta.pageCount);
             } catch (error) {
                 console.error('Error fetching product list:', error);
             }
         };
-        fetchProductList();
+        fetchServicsList();
     }, [currentPage]);
     
     ////////////featch categry
     useEffect(() => {
-        getMainCatogryProducts()
+        getMainCatogry()
           .then((res) => {
             setCategories(res.data);
           })
           .catch((err) => console.log(err));
       }, []);
-   
+
+    //   useEffect(() => {
+    //     if (selectedCategories) {
+    //       getSubService(selectedCategories)
+    //         .then((response) => {
+    //           setSelectedCategories(response.data);
+    //         })
+    //         .catch((error) => {
+    //           console.error("Error fetching cities:", error);
+    //         });
+    //     }
+    //   }, [selectedCategories]);
+
     const handlePaggnationChange = (event, value) => {
         setCurrentPage(value);
     };
@@ -55,7 +70,7 @@ const ProductsPage = () => {
         objectFit: "cover",
         padding: "10%",
     }
-
+   
     const [filter, setFilter] = React.useState('');
     const handleChange = (event) => {
         setFilter(event.target.value);
@@ -81,17 +96,14 @@ const ProductsPage = () => {
                         </Box>
                         <Typography sx={{ fontSize: "1rem", fontFamily: 'Rubik' }} > منتجاتنا</Typography>
                     </Box>
-                    <Typography variant='h2' sx={{ color: "rgba(255, 255, 255, 1)", fontFamily: "'Rubik', sans-serif" }}>قائمة المنتجات</Typography>
-
+                    <Typography variant='h2' sx={{ color: "rgba(255, 255, 255, 1)", fontFamily: "'Rubik', sans-serif" }}>قائمة الخدمات</Typography>
                 </Container>
-
-
             </Box>
             <Box mt={10}>
                 <Box sx={{ padding: "2%" }}>
                     <Grid container spacing={3}>
                         <Grid xs={3}>
-                            <SideBare data={categories} />
+                            <SideBareservice data={categories} />
 
                         </Grid>
                         <Grid xs={9}>
@@ -112,7 +124,7 @@ const ProductsPage = () => {
                                                 </svg>
                                             </Box>
                                             <Typography variant='h3' sx={{ fontFamily: "'Rubik', sans-serif" }}>
-                                                المنتجات
+                                                الخدمات
                                             </Typography>
                                         </Box>
                                         <Box sx={{ marginLeft: "13%", textAlign: "right" }} >
@@ -136,11 +148,14 @@ const ProductsPage = () => {
                                             </FormControl>
                                         </Box>
                                     </Box>
+
+                                    {/*  عرض جميع الخدمات */}
+
                                     <Box mt={10}>
                                         <Grid container spacing={4} sx={{ width: "90%" }}>
-                                            {products.slice(startIndex, endIndex).map(product => (
-                                                <Grid item key={product.id} xs={12} md={6} lg={3} mb={5}>
-                                                    <ProductCard data={product} />
+                                            {services.slice(startIndex, endIndex).map(services => (
+                                                <Grid item key={services.id} xs={12} md={6} lg={3} mb={5}>
+                                                    <ProductCard data={services} />
                                                 </Grid>
                                             ))}
                                         </Grid>
@@ -175,57 +190,4 @@ const ProductsPage = () => {
     )
 }
 
-export default ProductsPage
-// import { useState } from 'react';
-// import { Box, Container, Grid, Typography } from '@mui/material';
-// import CheckBoxComponent from './CheckBox';
-
-// const ProductsPage = () => {
-//     const [showCategory, setShowCategory] = useState(false);
-//     const [showSubCategory, setShowSubCategory] = useState(false);
-
-//     const toggleCategory = () => {
-//         setShowCategory(!showCategory);
-//     };
-
-//     const toggleSubCategory = () => {
-//         setShowSubCategory(!showSubCategory);
-//     };
-
-//     return (
-//         <Box sx={{ direction: "rtl" }}>
-//             {/* Your other code */}
-//             <Box mt={10}>
-//                 <Box sx={{ padding: "2%" }}>
-//                     <Grid container spacing={3}>
-//                         <Grid item xs={3}>
-//                             <Box>
-//                                 <Box sx={{ display: "flex", justifyContent: "space-around" }} onClick={toggleCategory}>
-//                                     <Typography variant='h4' sx={{ fontFamily: "'Rubik', sans-serif" }}> التصنيف</Typography>
-//                                     <Box mt={1.5} >
-//                                         <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-//                                             <path d="M12.5234 1L6.80115 7.93235L1.00718 1.08577" stroke="#1C1F35" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-//                                         </svg>
-//                                     </Box>
-//                                 </Box>
-//                                 {showCategory && <CheckBoxComponent />}
-//                                 <Box mt={5} sx={{ display: "flex", justifyContent: "space-around" }} onClick={toggleSubCategory}>
-//                                     <Typography variant='h5' sx={{ fontFamily: "'Rubik', sans-serif" }}> التصنيف الفرعي</Typography>
-//                                     <Box mt={1.5} ml={2}>
-//                                         <svg width="14" height="9" viewBox="0 0 14 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-//                                             <path d="M12.5234 1L6.80115 7.93235L1.00718 1.08577" stroke="#1C1F35" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-//                                         </svg>
-//                                     </Box>
-//                                 </Box>
-//                                 {showSubCategory && <CheckBoxComponent />}
-//                             </Box>
-//                         </Grid>
-//                         {/* Your other code */}
-//                     </Grid>
-//                 </Box>
-//             </Box>
-//         </Box>
-//     );
-// };
-
-// export default ProductsPage;
+export default ServicesPage

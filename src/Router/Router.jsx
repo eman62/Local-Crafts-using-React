@@ -8,18 +8,16 @@ export default function RouterPages() {
   const UserRegister = React.lazy(() => import("../Pages/userRegister"));
   const NotFound = React.lazy(() => import("../Pages/NotFoundPage/NotFound"));
   const VendorRegister = React.lazy(() => import("./../Pages/vendorRegister"));
+  const ServicesPage = React.lazy(() => import("../Pages/ServicesPage"));
   return (
     <Suspense>
       <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/user-login" element={<LoginPage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/user-register" element={<UserRegister />} />
-        <Route path="/user-register/products" element={<ProductsPage />} />
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/services" element={<ServicesPage />} />
         <Route path="/vedorRegister" element={<VendorRegister />} />
-        <Route
-          path="/user-register/vedorRegister"
-          element={<VendorRegister />}
-        />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

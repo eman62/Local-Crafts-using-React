@@ -7,11 +7,34 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import React, { useRef, useState } from "react";
 import { Card, CardMedia, Box, Typography, Grid } from "@mui/material";
-import serviceSection from "../assets/serviceSection.jpeg"
+import serviceSection from "../assets/serviceSection.jpeg";
+import { useEffect } from "react";
+import {
+  getProductCategories,
+  getServicesCategories,
+} from "../api/categoriesApi";
 
 const Categories = () => {
+  const [productCategories, setProductCategories] = useState([]);
+  const [serviceCategories, setServiceCategories] = useState([]);
   const [centerIndex, setCenterIndex] = useState(0);
   const swiperRef = useRef(null);
+
+  useEffect(() => {
+    getProductCategories()
+      .then((res) => {
+        setProductCategories(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    getServicesCategories()
+      .then((res) => {
+        setServiceCategories(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const goNext = () => {
     if (swiperRef.current && swiperRef.current.swiper) {
@@ -80,268 +103,50 @@ const Categories = () => {
         <Swiper
           ref={swiperRef}
           modules={[Navigation, Pagination, Scrollbar, A11y]}
-          slidesPerView={5}
+          slidesPerView={4}
           loop={true}
           onSlideChange={handleSlideChange}
         >
           {/* Swiper slides go here */}
-          <SwiperSlide>
-            <Grid container>
-              <Grid item xs={2}>
-                <Card
-                  sx={{
-                    height: "22vh",
-                    width: "15vw",
-                    position: "relative",
-                  }}
-                >
-                  <Box
+          <Grid container>
+            {serviceCategories.map((Categorie) => (
+              <SwiperSlide>
+                <Grid item>
+                  <Card
                     sx={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      color: "white",
-                      textAlign: "center",
-                      height: "100%",
-                      backgroundColor: "rgb(50,50,50,.3)",
+                      height: "22vh",
+                      width: "15vw",
+                      position: "relative",
+                      ml: "1.5em",
                     }}
                   >
-                    <Typography sx={{ fontSize: "3vw", marginTop: "5vh" }}>
-                      نجاره
-                    </Typography>
-                  </Box>
-                  <CardMedia
-                    component="img"
-                    height="100%"
-                    width="100%"
-                    image={serviceSection}
-                  />
-                </Card>
-              </Grid>
-            </Grid>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Grid container>
-              <Grid item xs={2}>
-                <Card
-                  sx={{
-                    height: "22vh",
-                    width: "15vw",
-                    position: "relative",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      color: "white",
-                      textAlign: "center",
-                      height: "100%",
-                      backgroundColor: "rgb(50,50,50,.3)",
-                    }}
-                  >
-                    <Typography sx={{ fontSize: "3vw", marginTop: "5vh" }}>
-                      نجاره
-                    </Typography>
-                  </Box>
-                  <CardMedia
-                    component="img"
-                    height="100%"
-                    width="100%"
-                    image={serviceSection}
-                    title="Image Title"
-                  />
-                </Card>
-              </Grid>
-            </Grid>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Grid container>
-              <Grid item xs={2}>
-                <Card
-                  sx={{
-                    height: "22vh",
-                    width: "15vw",
-                    position: "relative",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      color: "white",
-                      textAlign: "center",
-                      height: "100%",
-                      backgroundColor: "rgb(50,50,50,.3)",
-                    }}
-                  >
-                    <Typography sx={{ fontSize: "3vw", marginTop: "5vh" }}>
-                      نجاره
-                    </Typography>
-                  </Box>
-                  <CardMedia
-                    component="img"
-                    height="100%"
-                    width="100%"
-                    image={serviceSection}
-                    title="Image Title"
-                  />
-                </Card>
-              </Grid>
-            </Grid>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Grid container>
-              <Grid item xs={2}>
-                <Card
-                  sx={{
-                    height: "22vh",
-                    width: "15vw",
-                    position: "relative",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      color: "white",
-                      textAlign: "center",
-                      height: "100%",
-                      backgroundColor: "rgb(50,50,50,.3)",
-                    }}
-                  >
-                    <Typography sx={{ fontSize: "3vw", marginTop: "5vh" }}>
-                      نجاره
-                    </Typography>
-                  </Box>
-                  <CardMedia
-                    component="img"
-                    height="100%"
-                    width="100%"
-                    image={serviceSection}
-                    title="Image Title"
-                  />
-                </Card>
-              </Grid>
-            </Grid>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Grid container>
-              <Grid item xs={2}>
-                <Card
-                  sx={{
-                    height: "22vh",
-                    width: "15vw",
-                    position: "relative",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      color: "white",
-                      textAlign: "center",
-                      height: "100%",
-                      backgroundColor: "rgb(50,50,50,.3)",
-                    }}
-                  >
-                    <Typography sx={{ fontSize: "3vw", marginTop: "5vh" }}>
-                      نجاره
-                    </Typography>
-                  </Box>
-                  <CardMedia
-                    component="img"
-                    height="100%"
-                    width="100%"
-                    image={serviceSection}
-                    title="Image Title"
-                  />
-                </Card>
-              </Grid>
-            </Grid>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Grid container>
-              <Grid item xs={2}>
-                <Card
-                  sx={{
-                    height: "22vh",
-                    width: "15vw",
-                    position: "relative",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      color: "white",
-                      textAlign: "center",
-                      height: "100%",
-                      backgroundColor: "rgb(50,50,50,.3)",
-                    }}
-                  >
-                    <Typography sx={{ fontSize: "3vw", marginTop: "5vh" }}>
-                      نجاره
-                    </Typography>
-                  </Box>
-                  <CardMedia
-                    component="img"
-                    height="100%"
-                    width="100%"
-                    image={serviceSection}
-                    title="Image Title"
-                  />
-                </Card>
-              </Grid>
-            </Grid>
-          </SwiperSlide>
-          <SwiperSlide>
-            <Grid container>
-              <Grid item xs={2}>
-                <Card
-                  sx={{
-                    height: "22vh",
-                    width: "15vw",
-                    position: "relative",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      color: "white",
-                      textAlign: "center",
-                      height: "100%",
-                      backgroundColor: "rgb(50,50,50,.3)",
-                    }}
-                  >
-                    <Typography sx={{ fontSize: "3vw", marginTop: "5vh" }}>
-                      نجاره
-                    </Typography>
-                  </Box>
-                  <CardMedia
-                    component="img"
-                    height="100%"
-                    width="100%"
-                    image={serviceSection}
-                  />
-                </Card>
-              </Grid>
-            </Grid>
-          </SwiperSlide>
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        color: "white",
+                        textAlign: "center",
+                        height: "100%",
+                        backgroundColor: "rgb(50,50,50,.3)",
+                      }}
+                    >
+                      <Typography sx={{ fontSize: "3vw", marginTop: "5vh" }}>
+                        {Categorie.name}
+                      </Typography>
+                    </Box>
+                    <CardMedia
+                      component="img"
+                      height="100%"
+                      width="100%"
+                      image={Categorie.photo}
+                    />
+                  </Card>
+                </Grid>
+              </SwiperSlide>
+            ))}
+          </Grid>
         </Swiper>
       </Box>
       <IconButton
