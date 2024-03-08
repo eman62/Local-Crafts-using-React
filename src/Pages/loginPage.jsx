@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../Components/footer";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -10,15 +10,25 @@ import logo from "../assets/logo.png";
 import header from "../assets/Header2.jpeg";
 import { axiosInstance } from "../api/config";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-// import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { loadUserDataFromLocalStorage } from "./loadUserDataFromLocalStorageAction";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const userData = useSelector((state) => state.user.userData);
+  const token = useSelector((state) => state.user.token);
+
+  useEffect(() => {
+    dispatch(loadUserDataFromLocalStorage());
+    console.log("User Data:", userData);
+    console.log("Token:", token);
+  }, []);
 
   const checkHistory = () => {
     if (
@@ -38,9 +48,23 @@ const LoginPage = () => {
         email,
         password,
       });
-      const { token } = response.data;
-      localStorage.setItem("token", token);
+      const { user, access_token } = response.data;
+
+      const userData = {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        address: user.address,
+        photo: user.photo,
+        description: user.description,
+        phone: user.phone,
+        job: user.job,
+      };
+      localStorage.setItem("token", access_token);
+      localStorage.setItem("userData", JSON.stringify(user));
       console.log("User logged in successfully");
+      console.log("User data:", userData);
       checkHistory();
       navigate(-1);
     } catch (error) {
