@@ -16,9 +16,27 @@ const userSlice = createSlice({
     saveUserToken: (state, action) => {
       state.token = action.payload;
     },
+    clearUserData: (state) => {
+      state.userData = {};
+    },
+
+    clearUserToken: (state) => {
+      state.token = "";
+    },
+
+    clearUser: (state) => {
+      state.userData = {};
+      state.token = "";
+    },
   },
 });
 
-export const { saveUserData, saveUserToken } = userSlice.actions;
+export const {
+  saveUserData,
+  saveUserToken,
+  clearUserData,
+  clearUserToken,
+  clearUser,
+} = userSlice.actions;
 
 export default userSlice.reducer;

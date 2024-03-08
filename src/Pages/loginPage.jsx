@@ -21,9 +21,13 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const userData = useSelector((state) => state.user.userData);
+  const token = useSelector((state) => state.user.token);
 
   useEffect(() => {
     dispatch(loadUserDataFromLocalStorage());
+    console.log("User Data:", userData);
+    console.log("Token:", token);
   }, []);
 
   const checkHistory = () => {
@@ -75,11 +79,6 @@ const LoginPage = () => {
       console.error("User login failed:", error);
     }
   };
-  const userData = useSelector((state) => state.user.userData);
-  const token = useSelector((state) => state.user.token);
-
-  console.log("User Data:", userData);
-  console.log("Token:", token);
 
   return (
     <Box sx={{ position: "relative" }}>
