@@ -11,7 +11,7 @@ import header from "../assets/Header2.jpeg";
 import { axiosInstance } from "../api/config";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+//Aya_123@
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,8 +38,8 @@ const LoginPage = () => {
         email,
         password,
       });
-      const { token } = response.data;
-      localStorage.setItem("token", token);
+      const { access_token } = response.data;
+      localStorage.setItem("token", access_token);
       console.log("User logged in successfully");
       checkHistory();
       navigate(-1);

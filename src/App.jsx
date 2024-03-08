@@ -20,7 +20,7 @@ import VendorRegister from "./Pages/vendorRegister";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { changeLocation } from "./stores/slice/location";
-
+import AddProducts from "./Pages/addProducts";
 function App() {
   const dispatch = useDispatch();
 
@@ -30,7 +30,6 @@ function App() {
     <>
       <BrowserRouter>
         <Navbar />
-        <AddProducts></AddProducts>
         <RouterPages />
       </BrowserRouter>
     </>

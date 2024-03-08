@@ -16,7 +16,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import SearchInput from "./SharedComponnent/NaveBar/search";
-import { useDispatch } from "react-redux";
+//import { useDispatch } from "react-redux";
 import { changeLocation } from "../stores/slice/location";
 
 const pages = ["الرئيسية", "منتجات", "خدمات", "عن موقعنا"];
