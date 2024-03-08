@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Image } from "cloudinary-react";
 import IconButton from "@mui/material/IconButton";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import TextField from "@mui/material/TextField";
@@ -13,16 +12,22 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { axiosInstance } from "../api/config";
+
 const VendorRegister = () => {
   const [governorates, setGovernorates] = useState([]);
   const [cities, setCities] = useState([]);
   const [selectedGovernorate, setSelectedGovernorate] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
   const [imageURL, setImageURL] = useState("");
+  const [jobError, setJobError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  const [descriptionError, setDescriptionError] = useState("");
 
+  const navigate = useNavigate();
   const location = useLocation();
+
   const formData = location.state?.formData || {};
   console.log("formData from vendor register:", formData);
   const [vendorFormData, setVendorFormData] = useState({
@@ -34,9 +39,9 @@ const VendorRegister = () => {
     address: {
       gov: "",
       city: "",
-      street: "",
     },
   });
+
   useEffect(() => {
     getGovernorates()
       .then((res) => {
@@ -74,7 +79,10 @@ const VendorRegister = () => {
         );
         const data = await response.json();
         setImageURL(data.secure_url);
-        console.log(data.secure_url);
+        setVendorFormData({
+          ...vendorFormData,
+          photo: data.secure_url,
+        });
       } catch (error) {
         console.error("Error uploading image:", error);
       }
@@ -89,12 +97,46 @@ const VendorRegister = () => {
     });
   };
 
+  const validateForm = () => {
+    let isValid = true;
+    if (vendorFormData.job.length < 2 || vendorFormData.job.length > 50) {
+      setJobError("عدد حروف المهنه يجب أن يكون من 2 ألي 50 حرف");
+      isValid = false;
+    } else {
+      setJobError("");
+    }
+
+    if (!/^\d{10}$/g.test(vendorFormData.phone)) {
+      setPhoneError("رقم الهاتف يجب أن يتكون من 10 أرقام");
+      isValid = false;
+    } else {
+      setPhoneError("");
+    }
+
+    if (
+      vendorFormData.description.length < 20 ||
+      vendorFormData.description.length > 500
+    ) {
+      setDescriptionError("وصف الوظيفه يجب أن يتكون من 20 ألي 500 حرف");
+      isValid = false;
+    } else {
+      setDescriptionError("");
+    }
+
+    return isValid;
+  };
+
   const handleCompleteRegistration = (event) => {
     event.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
     axiosInstance
       .post("/auth/register", vendorFormData)
       .then((response) => {
-        console.log("Registration successful:", response.data);
+        navigate("/user-login");
       })
       .catch((error) => {
         console.error("Error registering:", error);
@@ -133,7 +175,7 @@ const VendorRegister = () => {
               borderRadius: "30px",
               top: "35vh",
               right: 0,
-              height: "120vh",
+              height: "130vh",
               zIndex: 1,
             }}
           >
@@ -202,6 +244,7 @@ const VendorRegister = () => {
                       id="icon-button-file"
                       type="file"
                       style={{ display: "none" }}
+                      value={vendorFormData.photo}
                       onChange={handleFileChange}
                     />
                   </IconButton>
@@ -218,6 +261,8 @@ const VendorRegister = () => {
                 InputLabelProps={{ direction: "rtl", textAlign: "start" }}
                 value={vendorFormData.job}
                 onChange={handleInputChange}
+                error={Boolean(jobError)}
+                helperText={jobError}
               />
               <TextField
                 id="phone"
@@ -227,17 +272,19 @@ const VendorRegister = () => {
                 type="number"
                 placeholder="ادخل  رقم  الهاتف"
                 inputProps={{ style: { direction: "rtl" } }}
-                sx={{ width: "30vw", direction: "rtl", mb: "1vh" }}
+                sx={{ width: "30vw", direction: "rtl", mt: "2vh" }}
                 InputLabelProps={{ direction: "rtl" }}
                 value={vendorFormData.phone}
                 onChange={handleInputChange}
+                error={Boolean(phoneError)}
+                helperText={phoneError}
               />
               <Box sx={{ display: "flex" }}>
                 <TextField
                   id="gov"
                   select
                   label=" المحافظه"
-                  value={`${selectedGovernorate}, ${vendorFormData.address.gov}`}
+                  value={selectedGovernorate}
                   onChange={(e) => {
                     setSelectedGovernorate(e.target.value);
                     setVendorFormData((prevState) => ({
@@ -247,6 +294,7 @@ const VendorRegister = () => {
                   }}
                   variant="standard"
                   sx={{ width: "14vw", mt: "5vh" }}
+                  required
                 >
                   {governorates.map((option) => (
                     <MenuItem key={option._id} value={option._id}>
@@ -259,7 +307,7 @@ const VendorRegister = () => {
                   id="city"
                   select
                   label="  المدينه"
-                  value={`${selectedCity}, ${vendorFormData.address.city}`}
+                  value={selectedCity}
                   onChange={(e) => {
                     setSelectedCity(e.target.value);
                     setVendorFormData((prevState) => ({
@@ -273,6 +321,7 @@ const VendorRegister = () => {
                     mt: "5vh",
                     mr: "2vw",
                   }}
+                  required
                 >
                   {cities.map((option) => (
                     <MenuItem key={option._id} value={option._id}>
@@ -285,12 +334,15 @@ const VendorRegister = () => {
               <Box sx={{ mt: "5vh", width: "55%" }}>
                 <TextField
                   id="description"
+                  name="description"
                   label="نبذه عنك"
                   multiline
                   maxRows={6}
                   sx={{ width: "30vw" }}
                   onChange={handleInputChange}
                   value={vendorFormData.description}
+                  error={Boolean(descriptionError)}
+                  helperText={descriptionError}
                 />
               </Box>
               <Button
@@ -314,7 +366,7 @@ const VendorRegister = () => {
           </Box>
         </Box>
         {/*box of blue and white box */}
-        <Box sx={{ height: "120vh", position: "relative" }}>
+        <Box sx={{ height: "130vh", position: "relative" }}>
           {/*blue box */}
           <Grid container sx={{ height: "100%" }}>
             <Grid item xs={12} sx={{ backgroundColor: "#091242" }}>
