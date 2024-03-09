@@ -10,8 +10,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useNavigate } from 'react-router-dom';
 
-
-const ProductCard = ({ data }) => {
+const ServicePageCard = ({ data }) => {
     const [isFavorite, setIsFavorite] = useState(false);
     const navigate = useNavigate();
     const toggleFavorite = () => {
@@ -38,7 +37,7 @@ const ProductCard = ({ data }) => {
                         
                         <Typography 
                          gutterBottom variant="p" component="div" sx={{ fontWeight:"bold" }}
-                         onClick={() =>navigate(`/productDetails/${data.id}`)}
+                         onClick={() =>navigate(`/servicesdetails/${data.id}`)}
                          
                          >
                         {data.name}
@@ -97,4 +96,4 @@ const ProductCard = ({ data }) => {
         </Box>
     )
 }
-export default ProductCard;
+export default ServicePageCard;

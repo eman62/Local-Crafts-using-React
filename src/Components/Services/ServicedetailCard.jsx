@@ -12,11 +12,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import { Review } from './review';
 import OrderModel from '../SharedComponnent/OrderModel';
 
 
-const ProductDetiles = ({data}) => {
+const ServicedetailCard = ({data}) => {
     const [centerIndex, setCenterIndex] = useState(0);
     const [openModal, setOpenModal] = useState(false); 
 
@@ -209,4 +208,4 @@ const ProductDetiles = ({data}) => {
     )
 }
 
-export default ProductDetiles
+export default ServicedetailCard
