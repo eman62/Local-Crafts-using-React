@@ -26,7 +26,10 @@ function NaveBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [searchValue, setSearchValue] = useState("");
-
+  const [token, setToken] = useState(localStorage.getItem("token"));
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("userData"))
+  );
   const handleSearchChange = (value) => {
     setSearchValue(value);
   };
@@ -38,7 +41,15 @@ function NaveBar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+  useEffect(() => {
+    const tokenFromStorage = localStorage.getItem("token");
+    const userDataFromStorage = JSON.parse(localStorage.getItem("userData"));
 
+    setToken(tokenFromStorage);
+    setUserData(userDataFromStorage);
+  }, []);
+
+  const userRole = userData ? userData.role : null;
   return (
     <AppBar
       position="static"
@@ -166,105 +177,45 @@ function NaveBar() {
             <Box ml={2} sx={{ width: "50%" }}>
               <SearchInput onChange={handleSearchChange} />
             </Box>
-            <Box
-              sx={{
-                backgroundColor: "white",
-                color: "black",
-                display: "flex",
-                padding: "1rem",
-                width: { xs: "70px", md: "140px" },
-                fontSize: { xs: ".5rem", md: "1.5rem" },
-              }}
-            >
-              <Link
-                style={{ textDecoration: "none", color: "black" }}
-                state={{ previousPath: window.location.pathname }}
-                to={"/user-login"}
+            {token ? (
+              userRole === "vendor" ? (
+                <IconButton>
+                  <PersonIcon
+                    sx={{ color: "white", fontSize: "1.5em" }}
+                  ></PersonIcon>
+                </IconButton>
+              ) : (
+                <IconButton>
+                  <PersonIcon sx={{ fontSize: "1.5em" }}></PersonIcon>
+                </IconButton>
+              )
+            ) : (
+              <Box
+                sx={{
+                  backgroundColor: "white",
+                  color: "black",
+                  display: "flex",
+                  padding: "1rem",
+                  width: { xs: "70px", md: "140px" },
+                  fontSize: { xs: ".5rem", md: "1.5rem" },
+                }}
               >
-                <Typography sx={{ fontFamily: "Rubik" }} ml={1}>
-                  تسجيل الدخول
-                </Typography>
-              </Link>
-              <PersonIcon />
-            </Box>
+                <Link
+                  style={{ textDecoration: "none", color: "black" }}
+                  state={{ previousPath: window.location.pathname }}
+                  to={"/user-login"}
+                >
+                  <Typography sx={{ fontFamily: "Rubik" }} ml={1}>
+                    تسجيل الدخول
+                  </Typography>
+                </Link>
+                <PersonIcon />
+              </Box>
+            )}
           </Box>
-
-          {/* <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box> */}
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
 export default NaveBar;
-
-// import React from "react";
-// import "../Styles/navBar.css";
-// import PersonIcon from "@mui/icons-material/Person";
-// import { Link } from "react-router-dom";
-// import logo from '../assets/logo.png';
-
-// const Navbar = () => {
-//   return (
-//     <nav className="navbar">
-//       <div className="navbar-left">
-//         <div className="login-box">
-//           <PersonIcon />
-//           <span><Link to="/user-register">تسجيل دخول</Link></span>
-
-//         </div>
-//         <input type="text" placeholder="ابحث" />
-//       </div>
-//       <ul className="navbar-menu">
-//         <li>
-//           <Link sx={{textDecoration:"none"}} to="/about">عن موقعنا</Link>
-//         </li>
-//         <li>
-//           <Link sx={{textDecoration:"none"}} to="/products">منتجات</Link>
-//         </li>
-//         <li>
-//           <Link to="/services">خدمات</Link>
-//         </li>
-//         <li>
-//           <Link to="/home">الرئيسية</Link>
-//         </li>
-//       </ul>
-//       <div className="navbar-logo">
-//         <img
-//           src={logo}
-//           alt="Logo"
-//         />{" "}
-//         {/* Use imported logo */}
-//       </div>
-//     </nav>
-//   );
-// };
-
-// export default Navbar;
