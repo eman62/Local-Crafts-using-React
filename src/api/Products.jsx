@@ -6,3 +6,4 @@ export const getProductList = () => {
 export const getProductListDetails = (productId) => {
     return axiosInstance.get(`/products/${productId}`);
 }
+

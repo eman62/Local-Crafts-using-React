@@ -6,3 +6,6 @@ export const getServiceList = () => {
 export const getServiceDetails = (serviceId) => {
     return axiosInstance.get(`/services/${serviceId}`);
 }
+export const postOrder = (serviceId,body,headers) => {
+    return axiosInstance.post(`/services/${serviceId}/order`,{body,headers});
+}

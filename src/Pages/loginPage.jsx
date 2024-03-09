@@ -43,6 +43,8 @@ const LoginPage = () => {
   };
 
   const handleLogin = async () => {
+
+    
     try {
       const response = await axiosInstance.post("/auth/login", {
         email,
@@ -67,6 +69,8 @@ const LoginPage = () => {
       console.log("User data:", userData);
       checkHistory();
       navigate(-1);
+    
+      
     } catch (error) {
       if (error.response) {
         setErrorMessage(

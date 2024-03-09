@@ -19,7 +19,8 @@ import OrderModel from '../SharedComponnent/OrderModel';
 const ProductDetiles = ({data}) => {
     const [centerIndex, setCenterIndex] = useState(0);
     const [openModal, setOpenModal] = useState(false); 
-    
+
+
     const swiperRef = useRef(null);
 
      const toggleModal = () => {
@@ -195,7 +196,7 @@ const ProductDetiles = ({data}) => {
                                 }}
                             ></Box>
                         </Button>
-                        <OrderModel open={openModal} handleClose={toggleModal} />
+                        <OrderModel open={openModal} serviceId={data._id} handleClose={toggleModal} />
 
                     </Box>
                 </Box>

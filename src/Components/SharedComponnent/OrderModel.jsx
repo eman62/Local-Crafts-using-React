@@ -1,11 +1,48 @@
-// ModalComponent.js
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { Button, Container, TextField } from '@mui/material';
+import { axiosInstance } from '../../api/config';
+// import { useSelector } from 'react-redux'; 
 
-const OrderModel = ({ open, handleClose }) => {
+const OrderModel = ({ open, handleClose ,serviceId}) => {
+  const [errors, setErrors] = useState({});
+  const token = localStorage.getItem("token")
+
+  const [orderData, setOrderData] = useState({
+    phone: "",
+    message: ""
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setOrderData({
+      ...orderData,
+      [name]: value,
+    });
+    setErrors({
+      ...errors,
+      [name]: "",
+    });
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+  
+    try {
+      await axiosInstance.post(`/services/${serviceId}/order`,orderData, {
+        headers: {
+          token
+          // 'Authorization': `Bearer ${token}`
+        }
+      });
+      console.log("Order sent successfully!");
+    } catch (error) {
+      console.error("Error submitting order:", error);
+    }
+  };
+
   const style = {
     position: 'absolute',
     top: '50%',
@@ -44,39 +81,32 @@ const OrderModel = ({ open, handleClose }) => {
             <Typography variant='h5' sx={{ fontFamily: "Rubik" }}> ارسال الطلب الى البائع </Typography>
 
           </Box>
-          <form >
+          <form onSubmit={handleSubmit}>
             <Box mt={5} >
               <TextField
-                name="name"
                 id="standard-basic"
-                label=" الأسم"
-                variant="standard"
-                placeholder="ادخل الأسم "
-
-                sx={{ width: "40vw", textAlign: "start", mb: "5vh" }}
-
-              />
-
-              <TextField
-                id="standard-basic"
-                name="phonNumber"
+                name="phone"
+                value={orderData.phone}
+                onChange={handleChange}
                 label="رقم الهاتف"
                 variant="standard"
                 placeholder=" أدخل رقم الهاتف "
                 sx={{ width: "40vw", direction: "rtl", mb: "5vh" }}
-
               />
               <TextField
+                name="message"
+                value={orderData.message}
+                onChange={handleChange}
                 id="outlined-multiline-static"
                 label="رسالة صغيرة"
                 multiline
                 rows={6}
                 sx={{ width: "40vw", direction: "rtl", mb: "5vh" }}
               />
-
             </Box>
             <Box sx={{ display: 'flex', marginTop: 1, justifyContent: "space-evenly", marginLeft: "20%" }}>
               <Button
+               type='submit'
                 sx={{
                   background:
                     "linear-gradient(90deg, #1F2A69  0%, #091242 100%)",
@@ -85,7 +115,6 @@ const OrderModel = ({ open, handleClose }) => {
                   height: 48,
                   padding: "0 2vw",
                   boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-
                   marginTop: "2vh",
                   position: "relative",
                   borderRadius: 0,
@@ -108,21 +137,20 @@ const OrderModel = ({ open, handleClose }) => {
                 ></Box>
               </Button>
               <Button
+                onClick={handleClose} 
                 sx={{
-                  background: "linear-gradient(45deg, #FFB629 0%, #FFDA56 50%, #FFD7A6 100%)", // Change color code to gray
+                  background: "linear-gradient(45deg, #FFB629 0%, #FFDA56 50%, #FFD7A6 100%)",
                   border: 0,
                   color: "black",
                   height: 48,
                   padding: "0 2vw",
                   boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-
                   marginTop: "2vh",
                   position: "relative",
                   borderRadius: 0,
                   textWrap: "nowrap",
                   fontSize: "1.5vw",
                 }}
-
               >
                 الغاء
                 <Box
@@ -138,15 +166,9 @@ const OrderModel = ({ open, handleClose }) => {
                   }}
                 ></Box>
               </Button>
-
             </Box>
-
-
           </form>
-
-
         </Container>
-
       </Box>
     </Modal>
   );
