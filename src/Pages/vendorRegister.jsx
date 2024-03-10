@@ -269,7 +269,7 @@ const VendorRegister = () => {
                 name="phone"
                 label=" رقم الهاتف"
                 variant="standard"
-                type="number"
+                
                 placeholder="ادخل  رقم  الهاتف"
                 inputProps={{ style: { direction: "rtl" } }}
                 sx={{ width: "30vw", direction: "rtl", mt: "2vh" }}

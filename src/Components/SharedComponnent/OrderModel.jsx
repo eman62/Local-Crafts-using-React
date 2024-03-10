@@ -6,7 +6,7 @@ import { Button, Container, TextField } from '@mui/material';
 import { axiosInstance } from '../../api/config';
 // import { useSelector } from 'react-redux'; 
 
-const OrderModel = ({ open, handleClose ,serviceId}) => {
+const OrderModel = ({ open, handleClose ,prodectId}) => {
   const [errors, setErrors] = useState({});
   const token = localStorage.getItem("token")
 
@@ -31,7 +31,7 @@ const OrderModel = ({ open, handleClose ,serviceId}) => {
     event.preventDefault()
   
     try {
-      await axiosInstance.post(`/services/${serviceId}/order`,orderData, {
+      await axiosInstance.post(`/services/${prodectId}/order`,orderData, {
         headers: {
           token
           // 'Authorization': `Bearer ${token}`
