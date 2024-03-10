@@ -18,6 +18,7 @@ import OrderModel from '../SharedComponnent/OrderModel';
 const ServicedetailCard = ({data}) => {
     const [centerIndex, setCenterIndex] = useState(0);
     const [openModal, setOpenModal] = useState(false); 
+    const [pageName ,setPageName]=useState("services")
 
 
     const swiperRef = useRef(null);
@@ -194,7 +195,7 @@ const ServicedetailCard = ({data}) => {
                                 }}
                             ></Box>
                         </Button>
-                        <OrderModel open={openModal} serviceId={data._id} handleClose={toggleModal} />
+                        <OrderModel open={openModal} namePage={pageName} Id={data._id} handleClose={toggleModal} />
 
                     </Box>
                 </Box>

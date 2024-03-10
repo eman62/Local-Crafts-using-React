@@ -19,7 +19,7 @@ const ProductsPage = () => {
     const handlePageChange = (newPage) => {
         setCurrentPage(newPage);
     };
-    ////////////////// featch the data from api 
+    ////////////////// featch the data from api \\\\\\\\\\\\\\\\\\\\\\\\
     useEffect(() => {
         const fetchProductList = async () => {
             try {

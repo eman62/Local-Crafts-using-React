@@ -4,6 +4,16 @@ export const getProductList = (page) => {
     return axiosInstance.get('/products',{
         params: {
             page: page,
+           
+            
+        }
+    });
+}
+export const getPopularProduct = (limit=8) => {
+    return axiosInstance.get('/products',{
+        params: {
+           
+            limit:limit,
             
         }
     });
