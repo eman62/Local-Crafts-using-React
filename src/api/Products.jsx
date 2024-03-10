@@ -1,4 +1,4 @@
-import { axiosInstance } from "./config"
+import { axiosInstance } from "./config";
 
 export const getProductList = (page) => {
     return axiosInstance.get('/products',{
@@ -19,6 +19,8 @@ export const getPopularProduct = (limit=8) => {
     });
 }
 export const getProductListDetails = (productId) => {
-    return axiosInstance.get(`/products/${productId}`);
-}
-
+  return axiosInstance.get(`/products/${productId}`);
+};
+export const addProduct = (body, headers) => {
+  return axiosInstance.post(`/products`, { body, headers });
+};

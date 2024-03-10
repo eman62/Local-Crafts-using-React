@@ -13,15 +13,14 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import PersonIcon from "@mui/icons-material/Person";
-import DesignServicesIcon from '@mui/icons-material/DesignServices';
-import Inventory2Icon from '@mui/icons-material/Inventory2';
+import DesignServicesIcon from "@mui/icons-material/DesignServices";
+import Inventory2Icon from "@mui/icons-material/Inventory2";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import SearchInput from "./SharedComponnent/NaveBar/search";
 import { useDispatch } from "react-redux";
 import { changeLocation } from "../stores/slice/location";
 import { Grid } from "@mui/material";
-
 
 const pages = ["الرئيسية", "منتجات", "خدمات", "عن موقعنا"];
 const pagePaths = ["/", "/products", "/services", "about"];
@@ -177,7 +176,7 @@ function NaveBar() {
               </Button>
             ))}
           </Box>
-          <Box sx={{ display: { md: "flex", } }}>
+          <Box sx={{ display: { md: "flex" } }}>
             <Box ml={2} sx={{ width: "50%" }}>
               <SearchInput onChange={handleSearchChange} />
             </Box>
@@ -207,7 +206,12 @@ function NaveBar() {
 
           {/* User Menu */}
           <Menu
-            sx={{ width: "30%", direction: "rtl", fontFamily: " 'Rubik', sans-serif", marginTop: "3%" }}
+            sx={{
+              width: "30%",
+              direction: "rtl",
+              fontFamily: "'Rubik', sans-serif",
+              marginTop: "3%",
+            }}
             id="menu-appbar"
             variant="selectedMenu"
             anchorEl={anchorElNav}
@@ -223,76 +227,78 @@ function NaveBar() {
             open={Boolean(anchorElNav)}
             onClose={handleCloseNavMenu}
           >
-            {token && userRole === "vendor" ? (
-              <>
-                <Grid p={1.5} onClick={handleCloseNavMenu}>
-                  <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-                    <Box mt={.5}>
-                      <Link
-                        style={{ textDecoration: "none", color: "inherit" }}
-                        to={"/orders"}
-                      >
-                        الصفحة الشخصية
+            {token && userRole === "vendor"
+              ? [
+                  <Grid p={1.5} onClick={handleCloseNavMenu}>
+                    <Box
+                      sx={{ display: "flex", justifyContent: "space-around" }}
+                    >
+                      <Box mt={0.5}>
+                        <Link
+                          style={{ textDecoration: "none", color: "inherit" }}
+                          to={"/orders"}
+                        >
+                          الصفحة الشخصية
+                        </Link>
+                      </Box>
+                      <Box>
+                        <PersonIcon />
+                      </Box>
+                    </Box>
+                  </Grid>,
+                  <Box onClick={handleCloseNavMenu}>
+                    <Grid
+                      p={1.5}
+                      sx={{ display: "flex", justifyContent: "space-between" }}
+                    >
+                      <Box mt={0.5}>
+                        <Link
+                          style={{ textDecoration: "none", color: "inherit" }}
+                          to={"/vendorOrders"}
+                        >
+                          خدماتي أو منتجاتي
+                        </Link>
+                      </Box>
 
-                      </Link>
-                    </Box>
-                    <Box>
-                      <PersonIcon />
-                    </Box>
-                  </Box>
-                </Grid>
-                <Box onClick={handleCloseNavMenu}>
-                  <Grid p={1.5} sx={{ display: "flex", justifyContent: "space-between" }}>
-                    <Box mt={.5}>
-                      <Link
-                        style={{ textDecoration: "none", color: "inherit" }}
-                        to={"/vendorOrders"}
-                      >
-                        خدماتي أو منتجاتي
-                      </Link>
-                    </Box>
-                    
-                     <DesignServicesIcon/>
-                    
-                  </Grid>
-                </Box>
-                <Box onClick={handleCloseNavMenu}>
-                  <Grid p={1.5} sx={{ display: "flex", justifyContent: "space-between" }}>
-                    <Box mt={.5}>
-                      <Link
-                        style={{ textDecoration: "none", color: "inherit" }}
-                       
-                      >
+                      <DesignServicesIcon />
+                    </Grid>
+                  </Box>,
+                  <Box onClick={handleCloseNavMenu}>
+                    <Grid
+                      p={1.5}
+                      sx={{ display: "flex", justifyContent: "space-between" }}
+                    >
+                      <Box mt={0.5}>
+                        <Link
+                          style={{ textDecoration: "none", color: "inherit" }}
+                          to={"/addService"}
+                        >
                           أضف خدمة أو منتج
-                      </Link>
-                    </Box>
-                    
-                     <Inventory2Icon/>
-                    
-                  </Grid>
-                </Box>
-                
-              </>
-            ) : (
-              <>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Link
-                    style={{ textDecoration: "none", color: "inherit" }}
-                    to={"/favorites"}
-                  >
-                    المفضلة
-                  </Link>
-                </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
-                  <Link
-                    style={{ textDecoration: "none", color: "inherit" }}
-                    to={"/profile"}
-                  >
-                    الصفحة الشخصية
-                  </Link>
-                </MenuItem>
-              </>
-            )}
+                        </Link>
+                      </Box>
+
+                      <Inventory2Icon />
+                    </Grid>
+                  </Box>,
+                ]
+              : [
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Link
+                      style={{ textDecoration: "none", color: "inherit" }}
+                      to={"/favorites"}
+                    >
+                      المفضلة
+                    </Link>
+                  </MenuItem>,
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Link
+                      style={{ textDecoration: "none", color: "inherit" }}
+                      to={"/profile"}
+                    >
+                      الصفحة الشخصية
+                    </Link>
+                  </MenuItem>,
+                ]}
           </Menu>
         </Toolbar>
       </Container>

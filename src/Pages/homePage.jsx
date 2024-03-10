@@ -16,11 +16,11 @@ const HomePage = () => {
   const userData = useSelector((state) => state.user.userData);
   const token = useSelector((state) => state.user.token);
 
-  useEffect(() => {
-    dispatch(loadUserDataFromLocalStorage());
-    console.log("User Data:", userData);
-    console.log("Token:", token);
-  }, []);
+  // useEffect(() => {
+  //   dispatch(loadUserDataFromLocalStorage());
+  //   console.log("User Data:", userData);
+  //   console.log("Token:", token);
+  // }, []);
 
   const handleLogout = () => {
     // Clear user data and token from Redux store

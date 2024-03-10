@@ -21,13 +21,9 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const userData = useSelector((state) => state.user.userData);
-  const token = useSelector((state) => state.user.token);
 
   useEffect(() => {
     dispatch(loadUserDataFromLocalStorage());
-    console.log("User Data:", userData);
-    console.log("Token:", token);
   }, []);
 
   const checkHistory = () => {
@@ -43,8 +39,6 @@ const LoginPage = () => {
   };
 
   const handleLogin = async () => {
-
-    
     try {
       const response = await axiosInstance.post("/auth/login", {
         email,
@@ -63,7 +57,7 @@ const LoginPage = () => {
         phone: user.phone,
         job: user.job,
       };
-      
+
       localStorage.setItem("token", access_token);
       localStorage.setItem("userData", JSON.stringify(user));
       console.log("User logged in successfully");
@@ -71,21 +65,23 @@ const LoginPage = () => {
       checkHistory();
       window.location.reload();
       // navigate(-1);
-    
-      
     } catch (error) {
       if (error.response) {
         setErrorMessage(
           "خطأ في تسجيل الدخول. يرجى التحقق من البريد الإلكتروني وكلمة المرور."
         );
       } else {
-        
         setErrorMessage("خطأ في الشبكة. يرجى المحاولة مرة أخرى لاحقًا.");
       }
 
       console.error("User login failed:", error);
     }
   };
+  const userData = useSelector((state) => state.user.userData);
+  const token = useSelector((state) => state.user.token);
+
+  console.log("User Data:", userData);
+  console.log("Token:", token);
 
   return (
     <Box sx={{ position: "relative" }}>
