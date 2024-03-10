@@ -195,7 +195,7 @@ const ProductDetiles = ({data}) => {
                                 }}
                             ></Box>
                         </Button>
-                        <OrderModel open={openModal} serviceId={data._id} handleClose={toggleModal} />
+                        <OrderModel open={openModal} productId={data._id} handleClose={toggleModal} />
 
                     </Box>
                 </Box>

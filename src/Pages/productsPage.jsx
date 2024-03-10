@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Pagination, Typography } from '@mui/material'
+import { Box, Button, Container, Grid, Pagination, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useState } from 'react';
 import InputLabel from '@mui/material/InputLabel';
@@ -12,34 +12,36 @@ import { getMainCatogry, getMainCatogryProducts } from '../api/categories';
 const ProductsPage = () => {
 
     const [products, setProducts] = useState([]);
-    const [categories,setCategories]=useState([])
+    const [categories, setCategories] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const cardsPerPage = 8;
-
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
     ////////////////// featch the data from api 
     useEffect(() => {
         const fetchProductList = async () => {
             try {
-                const response = await getProductList();
+                const response = await getProductList(currentPage);
                 setProducts(response.data.data);
-                setTotalPages(response.data.meta.pageCount);
+
             } catch (error) {
                 console.error('Error fetching product list:', error);
             }
         };
         fetchProductList();
     }, [currentPage]);
-    
+
     ////////////featch categry
     useEffect(() => {
         getMainCatogryProducts()
-          .then((res) => {
-            setCategories(res.data);
-          })
-          .catch((err) => console.log(err));
-      }, []);
-   
+            .then((res) => {
+                setCategories(res.data);
+            })
+            .catch((err) => console.log(err));
+    }, []);
+
     const handlePaggnationChange = (event, value) => {
         setCurrentPage(value);
     };
@@ -138,20 +140,29 @@ const ProductsPage = () => {
                                     </Box>
                                     <Box mt={10}>
                                         <Grid container spacing={4} sx={{ width: "90%" }}>
-                                            {products.slice(startIndex, endIndex).map(product => (
+                                            {products.map(product => (
                                                 <Grid item key={product.id} xs={12} md={6} lg={3} mb={5}>
                                                     <ProductCard data={product} />
                                                 </Grid>
                                             ))}
                                         </Grid>
-                                        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+                                        <Box style={{ padding: "10px", marginLeft: "39%" }}>
+                                            <Button  onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+                                                Previous
+                                            </Button>
+                                            <Button >{currentPage}</Button>
+                                            <Button  onClick={() => handlePageChange(currentPage + 1)}>
+                                                Next
+                                            </Button>
+                                        </Box>
+                                        {/* <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
                                             <Pagination
                                                 color='primary'
                                                 count={totalPages}
                                                 page={currentPage}
                                                 onChange={handlePaggnationChange}
                                             />
-                                        </Box>
+                                        </Box> */}
                                     </Box>
                                 </Container>
                             </Box>

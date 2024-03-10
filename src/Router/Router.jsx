@@ -12,7 +12,7 @@ export default function RouterPages() {
   const NotFound = React.lazy(() => import("../Pages/NotFoundPage/NotFound"));
   const VendorRegister = React.lazy(() => import("./../Pages/vendorRegister"));
   const ServicesPage = React.lazy(() => import("../Pages/ServicesPage"));
-//  const DetalisPage = React.lazy(() => import("../Pages/detalisPage"));
+  const VendorOrdersPage = React.lazy(() => import("../Pages/venorOrdersPage"));
 // const ProductDetiles = React.lazy(() => import("../Pages/productDetails"));
 
   return (
@@ -24,6 +24,7 @@ export default function RouterPages() {
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/vedorRegister" element={<VendorRegister />} />
+        <Route path="/vendorOrders" element={<VendorOrdersPage />} />
         <Route path="/servicesdetails/:serviceId" element={<ServicesDetalis />} />
         <Route path="/productDetails/:productId" element={<ProductsDetalis/>}/>
         <Route path="*" element={<NotFound />} />
