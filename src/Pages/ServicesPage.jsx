@@ -10,6 +10,7 @@ import ProductCard from '../Components/Product/ProductCard';
 import { getServiceList } from '../api/services';
 import SideBareservice from '../Components/Services/SideBar';
 import { getMainCatogry, getMainCatogryProducts, getSubService } from '../api/categories';
+import ServicePageCard from '../Components/Services/ServicePageCard';
 const ServicesPage = () => {
     const [services, setServices] = useState([]);
     const [categories,setCategories]=useState([])
@@ -154,7 +155,7 @@ const ServicesPage = () => {
                                         <Grid container spacing={4} sx={{ width: "90%" }}>
                                             {services.slice(startIndex, endIndex).map(services => (
                                                 <Grid item key={services.id} xs={12} md={6} lg={3} mb={5}>
-                                                    <ProductCard data={services} />
+                                                    <ServicePageCard data={services} />
                                                 </Grid>
                                             ))}
                                         </Grid>

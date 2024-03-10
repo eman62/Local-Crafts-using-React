@@ -36,7 +36,7 @@ export const mainBox = {
     direction: "rtl",
     marginBottom:{
 
-        lg:"30%",md:"45%", xs:"85%"
+        lg:"35%",md:"48%", xs:"85%"
     }
     
 }

@@ -1,31 +1,34 @@
 import React, { useEffect, useState } from 'react'
-import ProductDetiles from '../Components/Details/productDetiles'
+
 import { Review } from '../Components/Details/review'
 import Footer from '../Components/footer'
 import { useParams } from 'react-router-dom'
-import { getServiceDetails } from '../api/services'
+import { getProductList, getProductListDetails } from '../api/Products'
+import NaveBar from '../Components/navBar'
+import ProductDetiles from '../Components/Details/productDetiles'
 
-export const DetalisPage = () => {
-    const [serviceDetails, setServiceDetails] = useState()
+export const ProductsDetalis = () => {
+
+    const [productDetails, setProductDetails] = useState()
     const [isLoading, setIsLoading] = useState(false);
     const params = useParams();
     console.log(params);
     useEffect(() => {     
-        getServiceDetails(params.serviceId)
+        getProductListDetails(params.productId)
             .then((res) => {
                 console.log(res);
-                setServiceDetails(res.data)
+                setProductDetails(res.data)
             })
             .catch((err) => console.log(err,"error fetching"))
             
-    }, [params.serviceId]);
+    }, [params.productId]);
 
     
     
     return (
         <>
-         
-            { serviceDetails && <ProductDetiles data={serviceDetails} />}
+            
+            { productDetails && <ProductDetiles data={productDetails} />}
             <Review />
             <Footer />
 

@@ -57,21 +57,23 @@ const LoginPage = () => {
         phone: user.phone,
         job: user.job,
       };
+
       localStorage.setItem("token", access_token);
       localStorage.setItem("userData", JSON.stringify(user));
       console.log("User logged in successfully");
       console.log("User data:", userData);
       checkHistory();
-      navigate(-1);
+      window.location.reload();
+      // navigate(-1);
     } catch (error) {
       if (error.response) {
         setErrorMessage(
           "خطأ في تسجيل الدخول. يرجى التحقق من البريد الإلكتروني وكلمة المرور."
         );
       } else {
-        // Handle network errors
         setErrorMessage("خطأ في الشبكة. يرجى المحاولة مرة أخرى لاحقًا.");
       }
+
       console.error("User login failed:", error);
     }
   };

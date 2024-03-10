@@ -1,6 +1,8 @@
 import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import { DetalisPage } from "../Pages/detalisPage";
+
+import { ProductsDetalis } from "../Pages/productDetails";
+import { ServicesDetalis } from "../Pages/ServicesDetails";
 
 export default function RouterPages() {
   const LoginPage = React.lazy(() => import("../Pages/loginPage"));
@@ -10,7 +12,8 @@ export default function RouterPages() {
   const NotFound = React.lazy(() => import("../Pages/NotFoundPage/NotFound"));
   const VendorRegister = React.lazy(() => import("./../Pages/vendorRegister"));
   const ServicesPage = React.lazy(() => import("../Pages/ServicesPage"));
-  // const DetalisPage = React.lazy(() => import("../Pages/detalisPage"));
+//  const DetalisPage = React.lazy(() => import("../Pages/detalisPage"));
+// const ProductDetiles = React.lazy(() => import("../Pages/productDetails"));
 
   return (
     <Suspense>
@@ -21,10 +24,8 @@ export default function RouterPages() {
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/vedorRegister" element={<VendorRegister />} />
-        <Route path="/details/:serviceId" element={<DetalisPage />} />
-
-        
-
+        <Route path="/servicesdetails/:serviceId" element={<ServicesDetalis />} />
+        <Route path="/productDetails/:productId" element={<ProductsDetalis/>}/>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Suspense>
