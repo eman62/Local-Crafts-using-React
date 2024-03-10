@@ -21,13 +21,9 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const userData = useSelector((state) => state.user.userData);
-  const token = useSelector((state) => state.user.token);
 
   useEffect(() => {
     dispatch(loadUserDataFromLocalStorage());
-    console.log("User Data:", userData);
-    console.log("Token:", token);
   }, []);
 
   const checkHistory = () => {
@@ -43,8 +39,6 @@ const LoginPage = () => {
   };
 
   const handleLogin = async () => {
-
-    
     try {
       const response = await axiosInstance.post("/auth/login", {
         email,
@@ -69,8 +63,6 @@ const LoginPage = () => {
       console.log("User data:", userData);
       checkHistory();
       navigate(-1);
-    
-      
     } catch (error) {
       if (error.response) {
         setErrorMessage(
@@ -83,6 +75,11 @@ const LoginPage = () => {
       console.error("User login failed:", error);
     }
   };
+  const userData = useSelector((state) => state.user.userData);
+  const token = useSelector((state) => state.user.token);
+
+  console.log("User Data:", userData);
+  console.log("Token:", token);
 
   return (
     <Box sx={{ position: "relative" }}>
