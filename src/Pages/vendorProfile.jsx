@@ -5,7 +5,29 @@ import PersonIcon from "@mui/icons-material/Person";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import Footer from "../Components/footer";
+import { useEffect, useState } from "react";
+import { getUserData } from "../api/users";
+import { Avatar } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
 const VendorProfile = () => {
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  const token = localStorage.getItem("token");
+  const [user, setUser] = useState({});
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getUserData(userData._id, token)
+      .then((res) => {
+        setUser(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+  const handleEditProfile = () => {
+    navigate("/vendorEditProfile");
+  };
+
   return (
     <Box sx={{ position: "relative" }}>
       <Box
@@ -38,7 +60,7 @@ const VendorProfile = () => {
             borderRadius: "30px",
             top: "20vh",
             left: "50%",
-            height: "95vh",
+            height: "155vh",
             transform: "translateX(-50%)",
             zIndex: 1,
           }}
@@ -84,10 +106,22 @@ const VendorProfile = () => {
             }}
             spacing={3}
           >
-            <Grid item xs={2}>
-              <IconButton sx={{}}>
-                <PersonIcon sx={{ fontSize: "15vw", color: "black" }} />
-              </IconButton>
+            <Grid item md={2} xs={12} sx={{ mt: "7vh" }}>
+              {userData.photo ? (
+                <Avatar
+                  src={userData.photo}
+                  alt="User Photo"
+                  sx={{
+                    width: 150,
+                    height: 150,
+                    mr: "2vw",
+                  }}
+                />
+              ) : (
+                <IconButton>
+                  <PersonIcon sx={{ fontSize: "15vw", color: "black" }} />
+                </IconButton>
+              )}
               <Typography
                 sx={{
                   textAlign: "center",
@@ -95,7 +129,7 @@ const VendorProfile = () => {
                   paddingRight: "2vw",
                 }}
               >
-                اسم البائع
+                {userData.name}
               </Typography>
               <Typography
                 sx={{
@@ -104,9 +138,9 @@ const VendorProfile = () => {
                   paddingRight: "2vw",
                 }}
               >
-                البائع
+                {userData.job}
               </Typography>
-              <Button
+              {/* <Button
                 sx={{
                   background:
                     "linear-gradient(90deg, #1F2A69  0%, #091242 100%)",
@@ -136,13 +170,13 @@ const VendorProfile = () => {
                     right: "0",
                   }}
                 ></Box>
-              </Button>
+              </Button> */}
             </Grid>
             <Grid item xs={8} sx={{ margin: "3vw 5vw" }}>
               <Box
                 sx={{
                   backgroundColor: "#091242",
-                  height: "90%",
+                  height: "120%",
                   borderRadius: "20px",
                 }}
               >
@@ -199,26 +233,24 @@ const VendorProfile = () => {
                     <Typography>الهاتف</Typography>
                     <Typography>المحافظه</Typography>
                     <Typography>مدينه</Typography>
-                    <Typography>العنوان</Typography>
+                    <Typography>المهنه</Typography>
                     <Typography>نبذة</Typography>
                   </Grid>
                   <Grid item sx={{ marginRight: "1vw", color: "gray" }}>
-                    <Typography>اسم المستخدم كامل</Typography>
-                    <Typography>اسم المستخدم كامل</Typography>
-                    <Typography>اسم المستخدم كامل</Typography>
-                    <Typography>اسم المستخدم كامل</Typography>
-                    <Typography>اسم المستخدم كامل</Typography>
-                    <Typography>اسم المستخدم كامل</Typography>
+                    <Typography> {userData.name}</Typography>
+                    <Typography> {userData.email}</Typography>
+                    <Typography> {userData.phone}</Typography>
+                    <Typography> {userData.address.gov}</Typography>
+                    <Typography> {userData.address.city}</Typography>
+                    <Typography> {userData.job}</Typography>
                     <Typography sx={{ textWrap: "wrap", width: "30vw" }}>
-                      سم المستخدم كاملسم المستخدم اسم المستخدم كام سم المستخدم
-                      كاملسم المستخدم اسم المستخدم كام سم المستخدم كاملسم
-                      المستخدم اسم المستخدم كاسم المستخدم كام ل سم المستخدم اسم
-                      المستخدم كامل
+                      {userData.description}
                     </Typography>
                   </Grid>
                 </Grid>
               </Box>
               <Button
+                onClick={handleEditProfile}
                 sx={{
                   background:
                     "linear-gradient(45deg, #FFB629 0%, #FFDA56 50%, #FFD7A6 100%)",
@@ -226,10 +258,11 @@ const VendorProfile = () => {
                   color: "black",
                   height: 48,
                   padding: "0 30px",
-                  marginRight: "13vw",
+                  marginRight: "4vw",
                   marginTop: ".5vw",
                   position: "relative",
                   fontWeight: "bold",
+                  mt: "5vh",
                 }}
               >
                 تعديل
@@ -251,7 +284,7 @@ const VendorProfile = () => {
         </Box>
       </Box>
       {/*box of blue and white box */}
-      <Box sx={{ height: "80vh", position: "relative" }}>
+      <Box sx={{ height: "140vh", position: "relative" }}>
         {/*blue box */}
         <Grid container sx={{ height: "100%" }}>
           <Grid item xs={6} sx={{ backgroundColor: "#091242" }}>

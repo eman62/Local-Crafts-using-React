@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import ServiceCard from "./serviceCard";
 
-const VendorOrderCard = ({data}) => {
+const VendorOrderCard = ({ data }) => {
   return (
     <Box
       sx={{
@@ -98,7 +98,7 @@ const VendorOrderCard = ({data}) => {
             }}
           >
             {" "}
-            +02 010 1405 3994
+            {data.phone}
           </Typography>
           <Typography sx={{ width: "20vw", fontFamily: "Rubik" }}>
             {data.message}

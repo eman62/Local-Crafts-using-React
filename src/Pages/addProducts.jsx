@@ -254,12 +254,35 @@ const AddProducts = () => {
 
     try {
       const apiUrl = productType === "product" ? "/products" : "/services";
-      await axiosInstance.post(apiUrl, AddServiceOrProductData, {
+
+      const categoriesArray =
+        productType === "product" ? productCategorie : serviceCategorie;
+      const subCategoriesArray =
+        productType === "product" ? productSubCategories : serviceSubCategories;
+
+      const mainCategory = categoriesArray.find(
+        (category) => category._id === AddServiceOrProductData.category.main
+      );
+      const subCategory = subCategoriesArray.find(
+        (subcategory) =>
+          subcategory._id === AddServiceOrProductData.category.sub
+      );
+
+      const updatedData = {
+        ...AddServiceOrProductData,
+        category: {
+          main: mainCategory.name,
+          sub: subCategory.name,
+        },
+      };
+
+      await axiosInstance.post(apiUrl, updatedData, {
         headers: {
           token,
         },
       });
       console.log("Product added successfully!");
+
       setOpenDialog(true);
       resetForm();
     } catch (error) {
