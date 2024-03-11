@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { Box, Container, Grid, Pagination, Typography, FormControl, InputLabel, Select,Button } from '@mui/material';
 import SideBare from '../Components/Product/SideBare';
@@ -48,7 +49,6 @@ const ProductsPage = () => {
     useEffect(() => {
         const fetchProductList = async () => {
             try {
-                const response = await getProductList(currentPage);
                 const response = await getProductList(currentPage);
                 setProducts(response.data.data);
             } catch (error) {
@@ -129,8 +129,7 @@ const ProductsPage = () => {
                                         <Grid container spacing={4} sx={{ width: "90%" }}>
                                         {filteredProducts.map(product => (
                                           <Grid item key={product.id} xs={12} md={6} lg={3} mb={5}>
-                                           <ProductCard data={product} selectedCategory={selectedCategory} selectedSubCategory={selectedSubCategory} subCategories={subCategories} />
-
+                                          <ProductCard data={product} selectedCategory={selectedCategory} selectedSubCategory={selectedSubCategory} />
                                            </Grid>
                                          ))}
 

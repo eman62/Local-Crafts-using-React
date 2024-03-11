@@ -5,28 +5,24 @@ import ServiceCard from "./serviceCard";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../api/config";
 
-<<<<<<< HEAD
-const VendorOrderCard = ({ data }) => {
-=======
 const VendorOrderCard = ({data}) => {
   const [productData,setProductData]=useState()
   
 
-  // useEffect(() => {
-  //   const getProductdata = () => {
-  //     return axiosInstance.get(`/products/${data.product}`)
+   useEffect(() => {
+   const getProductdata = () => {
+      return axiosInstance.get(`/products/${data.product}`)
     
-  //     .then((res) => {
-  //       setProductData(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err, "error fetching");
-  //     });
-  //   }
-  //   getProductdata()
-  // }, []);
+      .then((res) => {
+        setProductData(res.data);
+      })
+      .catch((err) => {
+        console.log(err, "error fetching");
+      });
+    }
+    getProductdata()
+  }, []);
 
->>>>>>> eedf3fc778747e0552facaaa4401baa938ebb9cb
   return (
     <Box
       sx={{
