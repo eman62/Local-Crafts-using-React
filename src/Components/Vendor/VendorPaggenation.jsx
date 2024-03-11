@@ -15,7 +15,7 @@ const VendorPaggenation = ({ data }) => {
         <Box mt={10} mb={7}>
             <Grid container >
                 {data.map(order => (
-                    <Grid item key={order.id} xs={12} mr={3}>
+                    <Grid item key={order.id} xs={12} mb={5}>
                         <VendorOrderCard data={order} />
                     </Grid>
                 ))}
@@ -25,9 +25,7 @@ const VendorPaggenation = ({ data }) => {
                     </Grid>
                 ))} */}
             </Grid>
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-                <Pagination color='primary' count={Math.ceil(totalCards / cardsPerPage)} page={currentPage} onChange={handleChange} />
-            </Box>
+           
         </Box>
     );
 };

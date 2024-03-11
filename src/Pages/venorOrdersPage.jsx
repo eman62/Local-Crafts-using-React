@@ -6,9 +6,15 @@ import VendorOrderCard from "../Components/vendorOrderCard";
 import VendorPaggenation from "../Components/Vendor/VendorPaggenation";
 import { axiosInstance } from "../api/config";
 import { useEffect, useState } from "react";
+import { getProductListDetails } from "../api/Products";
+import { useParams } from "react-router-dom";
 const VendorOrdersPage = () => {
-  const [orders, setOrders] = useState([]);
-  const token = localStorage.getItem("token");
+  const [orders, setOrders] = useState([])
+  const [productData ,setProductData]=useState({})
+  const params = useParams();
+  const token = localStorage.getItem("token")
+  const productId =orders.product
+
 
   useEffect(() => {
     const fetchVendorOrders = async () => {
@@ -23,9 +29,27 @@ const VendorOrdersPage = () => {
       } catch (error) {
         console.error("Error fetching orders:", error);
       }
+      try {
+        const response = await axiosInstance.get("/orders", {
+          headers: {
+            token
+          }
+        })
+        setOrders(response.data);
+        console.log(orders)
+        
+
+      } catch (error) {
+        console.error('Error fetching orders:', error);
+      }
     };
     fetchVendorOrders();
   }, []);
+  }, []);
+
+
+  
+
 
   return (
     <Box>
@@ -90,10 +114,10 @@ const VendorOrdersPage = () => {
             >
               الطلبات
             </Typography>
-            {/* <Typography>{orders}</Typography> */}
+
           </Box>
           <Box>
-            <VendorPaggenation data={orders} />
+            { orders && <VendorPaggenation data={orders}  />}
           </Box>
         </Box>
       </Box>

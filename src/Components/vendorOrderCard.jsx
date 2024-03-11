@@ -2,8 +2,31 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import ServiceCard from "./serviceCard";
+import { useEffect, useState } from "react";
+import { axiosInstance } from "../api/config";
 
+<<<<<<< HEAD
 const VendorOrderCard = ({ data }) => {
+=======
+const VendorOrderCard = ({data}) => {
+  const [productData,setProductData]=useState()
+  
+
+  // useEffect(() => {
+  //   const getProductdata = () => {
+  //     return axiosInstance.get(`/products/${data.product}`)
+    
+  //     .then((res) => {
+  //       setProductData(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err, "error fetching");
+  //     });
+  //   }
+  //   getProductdata()
+  // }, []);
+
+>>>>>>> eedf3fc778747e0552facaaa4401baa938ebb9cb
   return (
     <Box
       sx={{
@@ -87,7 +110,7 @@ const VendorOrderCard = ({ data }) => {
         </Grid>
         <Grid item sx={{ mt: "16vh" }} xs={5}>
           <Typography sx={{ mb: "1vh", fontFamily: "Rubik" }}>
-            اسم المستخدم كامل
+            {data.customer.name}
           </Typography>
           <Typography
             sx={{
@@ -105,7 +128,8 @@ const VendorOrderCard = ({ data }) => {
           </Typography>
         </Grid>
         <Grid item sx={{ mt: "5vh" }} xs={3} md={4}>
-          <ServiceCard></ServiceCard>
+         {/* { productData && <ServiceCard product={productData}></ServiceCard>} */}
+        {data && <ServiceCard orderData={data}></ServiceCard>}
         </Grid>
       </Grid>
     </Box>
