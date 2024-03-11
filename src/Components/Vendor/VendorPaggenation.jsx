@@ -16,7 +16,7 @@ const VendorPaggenation = ({ data }) => {
             <Grid container >
                 {data.map(order => (
                     <Grid item key={order.id} xs={12} mb={5}>
-                        <VendorOrderCard data={order} />
+                        { order && <VendorOrderCard data={order} />}
                     </Grid>
                 ))}
                 {/* {Array.from({ length: totalCards }).slice(startIndex, endIndex).map((_, index) => (

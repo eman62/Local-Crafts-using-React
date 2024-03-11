@@ -8,6 +8,7 @@ import { axiosInstance } from "../api/config";
 import { useEffect, useState } from "react";
 import { getProductListDetails } from "../api/Products";
 import { useParams } from "react-router-dom";
+
 const VendorOrdersPage = () => {
   const [orders, setOrders] = useState([])
   const [productData ,setProductData]=useState({})

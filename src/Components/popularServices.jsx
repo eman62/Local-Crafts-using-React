@@ -11,8 +11,7 @@ import "swiper/css/scrollbar";
 import { useEffect, useRef, useState } from "react";
 import { getPopularProduct, getProductList } from "../api/Products";
 import ProductCard from "./Product/ProductCard";
-
-
+import { getPopularServices } from "../api/services";
 
 
 const PopularServices = () => {
@@ -24,7 +23,7 @@ const PopularServices = () => {
     useEffect(() => {
         const fetchServicsList = async () => {
             try {
-                const response = await getPopularProduct();
+                const response = await getPopularServices();
                 setServices(response.data.data);
 
             } catch (error) {
@@ -69,7 +68,7 @@ const PopularServices = () => {
         width: "80%",
         bottom: "10%",
         padding: "5%",
-        height: "100vh"
+        height: "50vh"
 
     }
 
@@ -134,7 +133,7 @@ const PopularServices = () => {
                         <IconButton
                             sx={{
                                 position: "absolute",
-                                top: "30%",
+                                // top: "20%",
                                 left: "5%",
                                 transform: "translateY(-50%)",
                                 zIndex: 999,
@@ -151,7 +150,7 @@ const PopularServices = () => {
                         <IconButton
                             sx={{
                                 position: "absolute",
-                                top: "30%",
+                                // top: "30%",
                                 right: "1%",
                                 transform: "translateY(-50%)",
                                 zIndex: 999,

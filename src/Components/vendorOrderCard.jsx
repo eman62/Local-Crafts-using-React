@@ -3,10 +3,10 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import ServiceCard from "./serviceCard";
 import { useEffect, useState } from "react";
-import { axiosInstance } from "../api/config";
+
 
 const VendorOrderCard = ({data}) => {
-  const [productData,setProductData]=useState()
+  // const [productData,setProductData]=useState()
   
 
   // useEffect(() => {

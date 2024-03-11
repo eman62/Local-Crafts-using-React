@@ -13,3 +13,12 @@ export const postOrder = (serviceId, body, headers) => {
 export const addService = (body, headers) => {
   return axiosInstance.post(`/services`, { body, headers });
 };
+export const getPopularServices = (limit=8) => {
+  return axiosInstance.get('/services',{
+      params: {
+         
+          limit:limit,
+          
+      }
+  });
+}
