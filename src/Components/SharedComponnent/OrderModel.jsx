@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import { Button, Container, TextField } from '@mui/material';
-import { axiosInstance } from '../../api/config';
+import React, { useState } from "react";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import { Button, Container, TextField } from "@mui/material";
+import { axiosInstance } from "../../api/config";
 
 const OrderModel = ({ open, handleClose, Id, namePage }) => {
   const [phoneError, setPhoneError] = useState("");
@@ -15,7 +15,7 @@ const OrderModel = ({ open, handleClose, Id, namePage }) => {
 
   const [orderData, setOrderData] = useState({
     phone: "",
-    message: ""
+    message: "",
   });
 
   const handleChange = (event) => {
@@ -25,10 +25,10 @@ const OrderModel = ({ open, handleClose, Id, namePage }) => {
       [name]: value,
     });
 
-    if (name === 'phone') {
+    if (name === "phone") {
       setPhoneTouched(true);
       setPhoneError("");
-    } else if (name === 'message') {
+    } else if (name === "message") {
       setMessageTouched(true);
       setMessageError("");
     }
@@ -41,8 +41,8 @@ const OrderModel = ({ open, handleClose, Id, namePage }) => {
       try {
         await axiosInstance.post(`/${namePage}/${Id}/order`, orderData, {
           headers: {
-            token
-          }
+            token,
+          },
         });
         setSubmitMessage("طلبك تم إرساله بنجاح!");
       } catch (error) {
@@ -62,10 +62,7 @@ const OrderModel = ({ open, handleClose, Id, namePage }) => {
       setPhoneError("");
     }
 
-    if (
-      orderData.message.length < 10 ||
-      orderData.message.length > 500
-    ) {
+    if (orderData.message.length < 10 || orderData.message.length > 500) {
       setMessageError("الرسالة يجب أن تكون من 10 إلى 500 حرف");
       isValid = false;
     } else {
@@ -76,17 +73,17 @@ const OrderModel = ({ open, handleClose, Id, namePage }) => {
   };
 
   const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     width: "55%",
     height: "75%",
-    bgcolor: 'background.paper',
+    bgcolor: "background.paper",
     borderRadius: "10%",
     boxShadow: 24,
     p: 4,
-    direction: "rtl"
+    direction: "rtl",
   };
 
   return (
@@ -98,7 +95,10 @@ const OrderModel = ({ open, handleClose, Id, namePage }) => {
     >
       <Box sx={style}>
         <Container>
-          <Typography variant='h5' sx={{ fontFamily: "Rubik" }}> ارسال الطلب الى البائع </Typography>
+          <Typography variant="h5" sx={{ fontFamily: "Rubik" }}>
+            {" "}
+            ارسال الطلب الى البائع{" "}
+          </Typography>
           <form onSubmit={handleSubmit}>
             <Box mt={5}>
               <TextField
@@ -112,7 +112,11 @@ const OrderModel = ({ open, handleClose, Id, namePage }) => {
                 sx={{ width: "40vw", direction: "rtl", mb: "5vh" }}
               />
               <br />
-              {phoneTouched && phoneError && <Typography variant="caption" color="error">{phoneError}</Typography>}
+              {phoneTouched && phoneError && (
+                <Typography variant="caption" color="error">
+                  {phoneError}
+                </Typography>
+              )}
               <br />
               <TextField
                 name="message"
@@ -125,14 +129,33 @@ const OrderModel = ({ open, handleClose, Id, namePage }) => {
                 sx={{ width: "40vw", direction: "rtl", mb: "5vh" }}
               />
               <br />
-              {messageTouched && messageError && <Typography variant="caption" color="error">{messageError}</Typography>}
+              {messageTouched && messageError && (
+                <Typography variant="caption" color="error">
+                  {messageError}
+                </Typography>
+              )}
             </Box>
-            {submitMessage && <Typography variant="body1" color={submitMessage.includes("خطأ") ? "error" : "primary"}>{submitMessage}</Typography>}
-            <Box sx={{ display: 'flex', marginTop: 1, justifyContent: "space-evenly", marginLeft: "20%" }}>
+            {submitMessage && (
+              <Typography
+                variant="body1"
+                color={submitMessage.includes("خطأ") ? "error" : "primary"}
+              >
+                {submitMessage}
+              </Typography>
+            )}
+            <Box
+              sx={{
+                display: "flex",
+                marginTop: 1,
+                justifyContent: "space-evenly",
+                marginLeft: "20%",
+              }}
+            >
               <Button
-                type='submit'
+                type="submit"
                 sx={{
-                  background: "linear-gradient(90deg, #1F2A69  0%, #091242 100%)",
+                  background:
+                    "linear-gradient(90deg, #1F2A69  0%, #091242 100%)",
                   border: 0,
                   color: "White",
                   height: 48,
@@ -162,7 +185,8 @@ const OrderModel = ({ open, handleClose, Id, namePage }) => {
               <Button
                 onClick={handleClose}
                 sx={{
-                  background: "linear-gradient(45deg, #FFB629 0%, #FFDA56 50%, #FFD7A6 100%)",
+                  background:
+                    "linear-gradient(45deg, #FFB629 0%, #FFDA56 50%, #FFD7A6 100%)",
                   border: 0,
                   color: "black",
                   height: 48,
@@ -195,6 +219,6 @@ const OrderModel = ({ open, handleClose, Id, namePage }) => {
       </Box>
     </Modal>
   );
-}
+};
 
 export default OrderModel;

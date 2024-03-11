@@ -12,9 +12,9 @@ import { axiosInstance } from "../api/config";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUserDataFromLocalStorage } from "./loadUserDataFromLocalStorageAction";
-
+import { saveUserData,saveUserToken } from "../stores/slice/user";
 const LoginPage = () => {
-  const [email, setEmail] = useState("");
+    const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -60,8 +60,14 @@ const LoginPage = () => {
 
       localStorage.setItem("token", access_token);
       localStorage.setItem("userData", JSON.stringify(user));
+      
+      // Dispatch actions to save user data and token to Redux store
+      dispatch(saveUserData(userData));
+      dispatch(saveUserToken(access_token));
+
       console.log("User logged in successfully");
       console.log("User data:", userData);
+      
       checkHistory();
       window.location.reload();
       // navigate(-1);

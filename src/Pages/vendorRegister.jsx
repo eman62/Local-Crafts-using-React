@@ -133,8 +133,18 @@ const VendorRegister = () => {
       return;
     }
 
+    const formDataToSend = {
+      ...vendorFormData,
+      address: {
+        gov:
+          governorates.find((gov) => gov._id === selectedGovernorate)?.name ||
+          "",
+        city: cities.find((city) => city._id === selectedCity)?.name || "",
+      },
+    };
+
     axiosInstance
-      .post("/auth/register", vendorFormData)
+      .post("/auth/register", formDataToSend)
       .then((response) => {
         navigate("/user-login");
       })
@@ -269,7 +279,6 @@ const VendorRegister = () => {
                 name="phone"
                 label=" رقم الهاتف"
                 variant="standard"
-                
                 placeholder="ادخل  رقم  الهاتف"
                 inputProps={{ style: { direction: "rtl" } }}
                 sx={{ width: "30vw", direction: "rtl", mt: "2vh" }}

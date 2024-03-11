@@ -24,12 +24,12 @@ const CardPagination = () => {
         fetchProductList();
     }, [currentPage]);
 
-    const handleChange = (event, value) => {
-        setCurrentPage(value);
-    };
+//     const handleChange = (event, value) => {
+//         setCurrentPage(value);
+//     };
 
-    const startIndex = (currentPage - 1) * cardsPerPage;
-    const endIndex = startIndex + cardsPerPage;
+//     const startIndex = (currentPage - 1) * cardsPerPage;
+//     const endIndex = startIndex + cardsPerPage;
 
     return (
         <Box mt={10}>

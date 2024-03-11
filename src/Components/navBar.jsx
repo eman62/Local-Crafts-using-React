@@ -18,7 +18,7 @@ import Inventory2Icon from "@mui/icons-material/Inventory2";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import SearchInput from "./SharedComponnent/NaveBar/search";
-import { useDispatch } from "react-redux";
+//import { useDispatch } from "react-redux";
 import { changeLocation } from "../stores/slice/location";
 import { Grid } from "@mui/material";
 
@@ -236,7 +236,7 @@ function NaveBar() {
                       <Box mt={0.5}>
                         <Link
                           style={{ textDecoration: "none", color: "inherit" }}
-                          to={"/orders"}
+                          to={"/vendorProfile"}
                         >
                           الصفحة الشخصية
                         </Link>
@@ -288,6 +288,15 @@ function NaveBar() {
                       to={"/favorites"}
                     >
                       المفضلة
+                    </Link>
+                  </MenuItem>,
+                  // /userOrders
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Link
+                      style={{ textDecoration: "none", color: "inherit" }}
+                      to={"/userOrders"}
+                    >
+                      الطلبات
                     </Link>
                   </MenuItem>,
                   <MenuItem onClick={handleCloseNavMenu}>

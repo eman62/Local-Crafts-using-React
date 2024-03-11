@@ -116,7 +116,6 @@ const UserRegister = () => {
       <Box
         sx={{
           backgroundImage: `url(${header})`,
-
           height: "35vh",
           width: "100%",
           backgroundRepeat: "no-repeat",
@@ -144,7 +143,6 @@ const UserRegister = () => {
             top: "35vh",
             right: 0,
             height: "120vh",
-            // transform: "translateX(-50%)",
             zIndex: 1,
           }}
         >
@@ -270,9 +268,6 @@ const UserRegister = () => {
                   </MenuItem>
                 ))}
               </TextField>
-              {errors.role && (
-                <Typography sx={{ color: "red" }}>{errors.role}</Typography>
-              )}
               {errors.role && (
                 <Typography sx={{ color: "red" }}>{errors.role}</Typography>
               )}

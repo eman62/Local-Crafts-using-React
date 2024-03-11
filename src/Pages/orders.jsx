@@ -1,12 +1,50 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import ServiceCard from '../Components/serviceCard';
+import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { Button } from "@mui/material";
+import {
+  getCustomerOrders,
+  getProductById,
+  getServiceById,
+} from "../api/orders";
+import OrdersCard from "../Components/orders/ordersCard";
 
 const Orders = () => {
-  const cardData = [1, 2, 3]; // Example array to map over
+  const [orders, setOrders] = useState([]);
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const ordersData = await getCustomerOrders(token);
+        const ordersWithDetails = await Promise.all(
+          ordersData.data.map(async (order) => {
+            let product = null;
+            let service = null;
+
+            if (order.service) {
+              service = await getServiceById(order.service);
+              if (!service) {
+                console.log("Service not found for order:", order);
+              }
+            }
+            if (order.product) {
+              product = await getProductById(order.product);
+              if (!product) {
+                console.log("Product not found for order:", order);
+              }
+            }
+            return { ...order, product, service };
+          })
+        );
+        setOrders(ordersWithDetails);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [token]);
 
   return (
     <Box sx={{ position: "relative" }}>
@@ -64,9 +102,39 @@ const Orders = () => {
             }}
             spacing={3}
           >
-            {cardData.map((item, index) => (
+            {orders.map((item, index) => (
               <Grid item xs={12} sm={6} md={4} key={index}>
-                <ServiceCard data={item} />
+                <OrdersCard data={item} />
+                <Button
+                  // onClick={handleClose}
+                  sx={{
+                    background: "white",
+                    border: "1px solid lightGray",
+                    color: "black",
+                    height: 48,
+                    padding: "0 2vw",
+                    marginTop: "2vh",
+                    position: "relative",
+                    borderRadius: 0,
+                    textWrap: "nowrap",
+                    fontSize: "1.5vw",
+                    width: "20.5vw",
+                  }}
+                >
+                  الغاء الطلب
+                  <Box
+                    sx={{
+                      position: "absolute",
+                      background: "#1F2A69",
+                      width: "20%",
+                      borderRadius: "50% 0 0",
+                      bottom: "0",
+                      height: "40%",
+                      opacity: "70%",
+                      right: "0",
+                    }}
+                  ></Box>
+                </Button>
               </Grid>
             ))}
           </Grid>
