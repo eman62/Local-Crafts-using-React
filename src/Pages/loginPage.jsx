@@ -21,13 +21,9 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const userData = useSelector((state) => state.user.userData);
-  const token = useSelector((state) => state.user.token);
 
   useEffect(() => {
     dispatch(loadUserDataFromLocalStorage());
-    console.log("User Data:", userData);
-    console.log("Token:", token);
   }, []);
 
   const checkHistory = () => {
@@ -73,19 +69,25 @@ const LoginPage = () => {
       console.log("User data:", userData);
       
       checkHistory();
-      navigate(-1);
+      window.location.reload();
+      // navigate(-1);
     } catch (error) {
       if (error.response) {
         setErrorMessage(
           "خطأ في تسجيل الدخول. يرجى التحقق من البريد الإلكتروني وكلمة المرور."
         );
       } else {
-        // Handle network errors
         setErrorMessage("خطأ في الشبكة. يرجى المحاولة مرة أخرى لاحقًا.");
       }
+
       console.error("User login failed:", error);
     }
   };
+  const userData = useSelector((state) => state.user.userData);
+  const token = useSelector((state) => state.user.token);
+
+  console.log("User Data:", userData);
+  console.log("Token:", token);
 
   return (
     <Box sx={{ position: "relative" }}>

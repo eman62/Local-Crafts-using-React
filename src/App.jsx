@@ -3,9 +3,7 @@ import PopularProducts from "./Components/popularProducts";
 import PopularServices from "./Components/popularServices";
 import ProductDetiles from "./Components/Details/productDetiles";
 import ServiceCard from "./Components/serviceCard";
-import { DetalisPage } from "./Pages/detalisPage";
 import HomePage from "./Pages/homePage";
-
 import UserViewVendor from "./Pages/userViewVendor";
 import LoginPage from "./Pages/loginPage";
 import UserRegister from "./Pages/userRegister";

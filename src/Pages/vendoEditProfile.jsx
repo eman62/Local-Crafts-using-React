@@ -8,9 +8,35 @@ import Footer from "./../Components/footer";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getCities, getGovernorates } from "../api/locations";
 
 const VendorEditProfilePage = () => {
+  const [governorates, setGovernorates] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [selectedGovernorate, setSelectedGovernorate] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
+
+  useEffect(() => {
+    getGovernorates()
+      .then((res) => {
+        setGovernorates(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    if (selectedGovernorate) {
+      getCities(selectedGovernorate)
+        .then((response) => {
+          setCities(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching cities:", error);
+        });
+    }
+  }, [selectedGovernorate]);
+
   const [selectedValueCity, setSelectedValueCity] = useState("المنصوره");
   const [selectedValueState, setSelectedValueState] = useState("القاهره");
 
@@ -53,7 +79,7 @@ const VendorEditProfilePage = () => {
             borderRadius: "30px",
             top: "20vh",
             left: "50%",
-            height: "165vh",
+            height: "215vh",
             transform: "translateX(-50%)",
             zIndex: 1,
           }}
@@ -128,11 +154,17 @@ const VendorEditProfilePage = () => {
                 البائع
               </Typography>
             </Grid>
-            <Grid item xs={9} sx={{ margin: "3vw 2vw" }}>
+            <Grid
+              item
+              xs={9}
+              sx={{
+                margin: "3vw 2vw",
+              }}
+            >
               <Box
                 sx={{
                   backgroundColor: "#091242",
-                  height: "130vh",
+                  height: "170vh",
                   borderRadius: "20px",
                 }}
               >
@@ -182,7 +214,16 @@ const VendorEditProfilePage = () => {
                     البيانات
                   </Typography>
                 </Box>
-                <Grid container sx={{ paddingTop: "2vw" }} spacing={10}>
+                <Grid
+                  container
+                  sx={{
+                    paddingTop: "2vw",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                  spacing={10}
+                >
                   <Grid item sx={{ marginRight: "3vw" }}>
                     <Typography
                       sx={{
@@ -191,7 +232,7 @@ const VendorEditProfilePage = () => {
                         fontSize: "1.5em",
                       }}
                     >
-                      الأسم الأول
+                      الأسم
                     </Typography>
                     <TextField
                       id="outlined-basic"
@@ -261,8 +302,19 @@ const VendorEditProfilePage = () => {
                         <Select
                           labelId="demo-simple-select-helper-label"
                           id="demo-simple-select-helper"
-                          value={selectedValueState}
-                          onChange={handleStateChange}
+                          label=" المحافظه"
+                          value={selectedGovernorate}
+                          onChange={(e) => {
+                            setSelectedGovernorate(e.target.value);
+                            // setVendorFormData((prevState) => ({
+                            //   ...prevState,
+                            //   address: {
+                            //     ...prevState.address,
+                            //     gov: e.target.value,
+                            //   },
+                            // })
+                            // );
+                          }}
                           sx={{
                             width: "120px",
                             height: "40px",
@@ -271,9 +323,12 @@ const VendorEditProfilePage = () => {
                             color: "white",
                           }}
                         >
-                          <MenuItem value="القاهره">القاهره</MenuItem>
-                          <MenuItem value="الأسكندريه">الأسكندريه</MenuItem>
-                          <MenuItem value="الدقهليه">الدقهليه</MenuItem>
+                          {governorates.map((option) => (
+                            <MenuItem key={option._id} value={option._id}>
+                              {" "}
+                              {option.name}
+                            </MenuItem>
+                          ))}
                         </Select>
                       </Grid>
                       <Grid item>
@@ -291,8 +346,17 @@ const VendorEditProfilePage = () => {
                         <Select
                           labelId="demo-simple-select-helper-label"
                           id="demo-simple-select-helper"
-                          value={selectedValueCity}
-                          onChange={handleCityChange}
+                          value={selectedCity}
+                          onChange={(e) => {
+                            setSelectedCity(e.target.value);
+                            // setVendorFormData((prevState) => ({
+                            //   ...prevState,
+                            //   address: {
+                            //     ...prevState.address,
+                            //     city: e.target.value,
+                            //   },
+                            // }));
+                          }}
                           sx={{
                             width: "120px",
                             height: "40px",
@@ -301,9 +365,12 @@ const VendorEditProfilePage = () => {
                             color: "white",
                           }}
                         >
-                          <MenuItem value="القاهره">المنصوره</MenuItem>
-                          <MenuItem value="الأسكندريه">العجمي</MenuItem>
-                          <MenuItem value="الدقهليه">العبور</MenuItem>
+                          {cities.map((option) => (
+                            <MenuItem key={option._id} value={option._id}>
+                              {" "}
+                              {option.name}
+                            </MenuItem>
+                          ))}
                         </Select>
                       </Grid>
                     </Grid>
@@ -320,110 +387,6 @@ const VendorEditProfilePage = () => {
                     <TextField
                       id="outlined-basic"
                       label=" رقم الهاتف"
-                      variant="outlined"
-                      InputLabelProps={{
-                        sx: {
-                          color: "white",
-                        },
-                      }}
-                      InputProps={{
-                        sx: {
-                          width: "260px",
-                          height: "40px",
-                          backgroundColor: "#1F2A69",
-                          border: "1px solid #8E8E8E",
-                          color: "white",
-                          direction: "rtl",
-                          mt: "2vh",
-                        },
-                      }}
-                    />
-                    <Typography
-                      sx={{
-                        color: "white",
-                        fontFamily: "Kurb",
-                        fontSize: "1.5em",
-                        mt: "5vh",
-                      }}
-                    >
-                      نبذة
-                    </Typography>
-                  </Grid>
-                  <Grid item sx={{ marginRight: "3vw" }}>
-                    <Typography
-                      sx={{
-                        color: "white",
-                        fontFamily: "Kurb",
-                        fontSize: "1.5em",
-                      }}
-                    >
-                      الأسم الثانى
-                    </Typography>
-                    <TextField
-                      id="outlined-basic"
-                      label="اسم اليوزر"
-                      variant="outlined"
-                      InputLabelProps={{
-                        sx: {
-                          color: "white",
-                        },
-                      }}
-                      InputProps={{
-                        sx: {
-                          width: "260px",
-                          height: "40px",
-                          backgroundColor: "#1F2A69",
-                          border: "1px solid #8E8E8E",
-                          color: "white",
-                          direction: "rtl",
-                          mt: "2vh",
-                        },
-                      }}
-                    />
-                    <Typography
-                      sx={{
-                        color: "white",
-                        fontFamily: "Kurb",
-                        fontSize: "1.5em",
-                        mt: "2vh",
-                      }}
-                    >
-                      رقم السر
-                    </Typography>
-                    <TextField
-                      id="outlined-basic"
-                      label="رقم السر  "
-                      variant="outlined"
-                      InputLabelProps={{
-                        sx: {
-                          color: "white",
-                        },
-                      }}
-                      InputProps={{
-                        sx: {
-                          width: "260px",
-                          height: "40px",
-                          backgroundColor: "#1F2A69",
-                          border: "1px solid #8E8E8E",
-                          color: "white",
-                          direction: "rtl",
-                          mt: "2vh",
-                        },
-                      }}
-                    />
-                    <Typography
-                      sx={{
-                        color: "white",
-                        fontFamily: "Kurb",
-                        fontSize: "1.5em",
-                        mt: "2vh",
-                      }}
-                    >
-                      العنوان
-                    </Typography>
-                    <TextField
-                      id="outlined-basic"
-                      label="  العنوان"
                       variant="outlined"
                       InputLabelProps={{
                         sx: {
@@ -473,7 +436,36 @@ const VendorEditProfilePage = () => {
                         },
                       }}
                     />
-                    <Grid item>{/*  */}</Grid>
+                    <Typography
+                      sx={{
+                        color: "white",
+                        fontFamily: "Kurb",
+                        fontSize: "1.5em",
+                        mt: "5vh",
+                      }}
+                    >
+                      نبذة
+                    </Typography>
+                    <TextField
+                      name="message"
+                      // value={orderData.message}
+                      // onChange={handleChange}
+                      id="outlined-multiline-static"
+                      defaultValue="رسالة صغيرة"
+                      multiline
+                      rows={6}
+                      InputProps={{
+                        style: { color: "white" },
+                      }}
+                      sx={{
+                        width: "40vw",
+                        direction: "rtl",
+                        mb: "5vh",
+                        backgroundColor: "#1F2A69",
+                        border: "1px solid #8E8E8E",
+                        color: "white",
+                      }}
+                    />
                   </Grid>
                 </Grid>
               </Box>
@@ -482,7 +474,7 @@ const VendorEditProfilePage = () => {
         </Box>
       </Box>
       {/*box of blue and white box */}
-      <Box sx={{ height: "150vh", position: "relative" }}>
+      <Box sx={{ height: "200vh", position: "relative" }}>
         {/*blue box */}
         <Grid container sx={{ height: "100%" }}>
           <Grid item xs={6} sx={{ backgroundColor: "#091242" }}>

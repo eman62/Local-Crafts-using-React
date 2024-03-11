@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography"
 import Card from '@mui/material/Card';
+import  { useState } from 'react'
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
@@ -9,8 +10,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useNavigate } from 'react-router-dom';
 
-
-const ProductCard = ({ data }) => {
+const ServicePageCard = ({ data }) => {
     const [isFavorite, setIsFavorite] = useState(false);
     const navigate = useNavigate();
     const toggleFavorite = () => {
@@ -19,7 +19,7 @@ const ProductCard = ({ data }) => {
 
     return (
         <Box sx={{ direction: "rtl" }}  width={200}>
-            <Card mb={10}>
+            <Card  mb={10}>
                 <CardMedia
                     component="img"                  
                     height={200}
@@ -37,7 +37,7 @@ const ProductCard = ({ data }) => {
                         
                         <Typography 
                          gutterBottom variant="p" component="div" sx={{ fontWeight:"bold" }}
-                         onClick={() =>navigate(`/productDetails/${data.id}`)}
+                         onClick={() =>navigate(`/servicesdetails/${data.id}`)}
                          
                          >
                         {data.name}
@@ -55,17 +55,16 @@ const ProductCard = ({ data }) => {
 
 
                         <Typography gutterBottom variant="p" sx={{ fontFamily: " 'Rubik', sans-serif" }}>
-                            {data.category.main}
+                        {data.category.main}
                         </Typography>
                         <Typography gutterBottom variant="p" sx={{ fontFamily: " 'Rubik', sans-serif" }}>
-                            {data.category.sub}
+                        {data.category.sub}
                         </Typography>
 
                     </Box>
 
                     <Typography mt={2} variant="body2">
-                        {data.description}
-                    </Typography>
+                        I {data.description}     </Typography>
 
                     <Box mt={2} sx={{
                         display: "flex",
@@ -85,6 +84,8 @@ const ProductCard = ({ data }) => {
                             <StarBorderIcon sx={{fontSize: "1rem"}}/>
                             
                            
+
+
                         </Box>
 
                     </Box>
@@ -93,7 +94,6 @@ const ProductCard = ({ data }) => {
                 </CardContent>
             </Card>
         </Box>
-    );
-};
-
-export default ProductCard;
+    )
+}
+export default ServicePageCard;

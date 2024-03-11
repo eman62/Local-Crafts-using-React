@@ -4,38 +4,72 @@ import Typography from "@mui/material/Typography";
 import Footer from "./../Components/footer";
 import VendorOrderCard from "../Components/vendorOrderCard";
 import VendorPaggenation from "../Components/Vendor/VendorPaggenation";
+import { axiosInstance } from "../api/config";
+import { useEffect, useState } from "react";
+import { getProductListDetails } from "../api/Products";
+import { useParams } from "react-router-dom";
 const VendorOrdersPage = () => {
+  const [orders, setOrders] = useState([])
+  const [productData ,setProductData]=useState({})
+  const params = useParams();
+  const token = localStorage.getItem("token")
+  const productId =orders.product
+
+
+  useEffect(() => {
+    const fetchVendorOrders = async () => {
+      try {
+        const response = await axiosInstance.get("/orders", {
+          headers: {
+            token,
+          },
+        });
+        setOrders(response.data);
+        console.log(orders);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      }
+      try {
+        const response = await axiosInstance.get("/orders", {
+          headers: {
+            token
+          }
+        })
+        setOrders(response.data);
+        console.log(orders)
+        
+
+      } catch (error) {
+        console.error('Error fetching orders:', error);
+      }
+    };
+    fetchVendorOrders();
+  }, []);
+  }, []);
+
+
+  
+
+
   return (
-    <Box sx={{ position: "relative" }}>
+    <Box>
       <Box
         sx={{
           backgroundImage:
-            "url('https://s3-alpha-sig.figma.com/img/0d66/363b/6f00d7173f94ca7d7ab6bcc39bde6406?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Y-dGzk1BZ7AzXsytxPi6tPDQGedhQNe-fnxuhUubZEHGmJGV3Mv7ViyEdH~h1mEoLCLZ8bGvOMHOac9P10gmWkZUvNbdtKWNZFPEeVUDFqS~ZRZfxiSZ-Bfn0ETk6BhRY67QaLL7ERh4Tt5XNHQJoa9j6TeSL6C5SuJc79nQ37shNjVlPVaXOzUxa5SY6cvUscKDALerDU7CDku6S5EHwZ1hlb2sUHyC6a71TKY~D00y8~YzvGecVrgd3XjbDRMF1mhq5Tgo~TxSxoDkjuf3ZxQ-wlKLEi1C30bdkPyA9ezOh37aeshkILVrPjvVBKeJKsfNXN5CUsrMZj7KM5BWoQ__')",
-          height: "35vh",
-          width: "100%",
-          backgroundRepeat: "no-repeat",
+            "linear-gradient(rgba(9, 18, 66, 0.5), rgba(9, 18, 66, 0.5)), url('https://s3-alpha-sig.figma.com/img/0d66/363b/6f00d7173f94ca7d7ab6bcc39bde6406?Expires=1710115200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=nNS~WGeV-YZqRjq2K8z8Y0ZkboQaagtzO5-~ymUeJIlX60tb1SC55m2oQyBFliP1EiOzkWEURNE9viaL6E0vYTdvH7P~RulSceiaY9gwYFYFMMkyzf5fnmSMUgf~Dxp6rOpk1B~sOm7SqUeKcz~EgBLM94fMIYVCyJFQ1q1lgcJXPGN1h10xJYAmYOOgfmDBnAd3TNVQ6eL7HYzFMmcJZwvOVdsKIp2u4gZMHsNSldRmhVtGMZNtNn6XSah0-OczpBON2Hsv2APcER2QvWhd3Xt6Sph~qZqySsvegLNQP~pGqH9THcGfJmY00y5dSxODa5DHoKMYqZ8ocffq0kdXHg__')",
           backgroundSize: "cover",
-          position: "relative",
+          backgroundAttachment: "fixed",
+          objectFit: "cover",
+          padding: "10%",
         }}
       >
-        <Box
-          sx={{
-            position: "absolute",
-            backgroundColor: "rgb(6,0,66,.7)",
-            height: "100%",
-            top: "0",
-            right: "0",
-            left: "0",
-          }}
-        ></Box>
-        {/* Red Box */}
         <Box
           sx={{
             position: "absolute",
             width: "80vw",
             backgroundColor: "white",
             borderRadius: "30px",
-            top: "10vh",
+            top: "20vh",
             left: "50%",
             height: "225vh",
             transform: "translateX(-50%)",
@@ -80,9 +114,10 @@ const VendorOrdersPage = () => {
             >
               الطلبات
             </Typography>
+
           </Box>
           <Box>
-            <VendorPaggenation />
+            { orders && <VendorPaggenation data={orders}  />}
           </Box>
         </Box>
       </Box>

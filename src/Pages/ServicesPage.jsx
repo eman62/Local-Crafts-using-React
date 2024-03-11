@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Pagination, Typography } from '@mui/material'
+import { Box, Button, Container, Grid, Pagination, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useState } from 'react';
 import InputLabel from '@mui/material/InputLabel';
@@ -10,6 +10,7 @@ import ProductCard from '../Components/Product/ProductCard';
 import { getServiceList } from '../api/services';
 import SideBareservice from '../Components/Services/SideBar';
 import { getMainCatogry, getMainCatogryProducts, getSubService } from '../api/categories';
+import ServicePageCard from '../Components/Services/ServicePageCard';
 const ServicesPage = () => {
     const [services, setServices] = useState([]);
     const [categories,setCategories]=useState([])
@@ -18,6 +19,9 @@ const ServicesPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const cardsPerPage = 8;
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
 
     ////////////////// featch the data from api 
     useEffect(() => {
@@ -152,20 +156,22 @@ const ServicesPage = () => {
 
                                     <Box mt={10}>
                                         <Grid container spacing={4} sx={{ width: "90%" }}>
-                                            {services.slice(startIndex, endIndex).map(services => (
-                                                <Grid item key={services.id} xs={12} md={6} lg={3} mb={5}>
-                                                    <ProductCard data={services} />
+                                            {services.map(service => (
+                                                <Grid item key={service.id} xs={12} md={6} lg={3} mb={5}>
+                                                    <ServicePageCard data={service} />
                                                 </Grid>
                                             ))}
                                         </Grid>
-                                        <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-                                            <Pagination
-                                                color='primary'
-                                                count={totalPages}
-                                                page={currentPage}
-                                                onChange={handlePaggnationChange}
-                                            />
+                                        <Box style={{ padding: "10px", marginLeft: "39%" }}>
+                                            <Button  onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+                                                Previous
+                                            </Button>
+                                            <Button >{currentPage}</Button>
+                                            <Button  onClick={() => handlePageChange(currentPage + 1)}>
+                                                Next
+                                            </Button>
                                         </Box>
+                                       
                                     </Box>
                                 </Container>
                             </Box>
