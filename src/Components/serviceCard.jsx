@@ -37,12 +37,10 @@ const ServiceCard = ({orderData}) => {
                         <Typography gutterBottom variant="p" component="div" sx={{ fontWeight:"bold" }}>
                             {orderData.product.name}
                         </Typography>
-                        <Box onClick={toggleFavorite}>
-                            {isFavorite ? <FavoriteIcon sx={{ color: 'red', fontSize: "1.5rem" }} /> : <FavoriteBorderIcon sx={{ fontSize: "1.5rem" }} />}
-                        </Box>
+                        
 
                     </Box>
-                    <Box mt={2} sx={{
+                    <Box mt={2} mb={2} sx={{
                         display: "flex",
                         justifyContent: "space-around",
 
@@ -58,7 +56,7 @@ const ServiceCard = ({orderData}) => {
 
                     </Box>
 
-                    <Typography mt={2} variant="body2">
+                    <Typography  variant="p" sx={{ fontFamily: " 'Rubik', sans-serif" }}>
                     {orderData.product.description}
                         </Typography>
                     <Box mt={2} sx={{
