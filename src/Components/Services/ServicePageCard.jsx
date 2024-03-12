@@ -32,7 +32,10 @@ const ServicePageCard = ({ data }) => {
                         justifyContent: "space-around",
                     }}>
                         <Box sx={{ borderRadius: "50%" }}>
-                            <img height="35" width="35" src="https://www.figma.com/file/KoAR42FTHSt4h6oCQSSZOL/image/b0b5575b38d94edf1272fe60bcdd977fef76cd81" alt="Person" style={{ borderRadius: "50%" }} />
+                            {data.vendor.photo ? (
+                                <img height="35" width="35" src={data.vendor.photo} alt="Person" style={{ borderRadius: "50%" }} />
+                            ) : (
+                                <img height="35" width="35" src="https://th.bing.com/th/id/OIP.e4YIHGIZBy1X7GW01zOQfwHaHa?rs=1&pid=ImgDetMain" />)}
                         </Box>
                         
                         <Typography 

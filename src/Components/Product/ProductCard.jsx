@@ -18,12 +18,12 @@ const ProductCard = ({ data }) => {
     };
 
     return (
-        <Box sx={{ direction: "rtl" }}  width={200}>
+        <Box sx={{ direction: "rtl" }} width={200}>
             <Card mb={10}>
                 <CardMedia
-                    component="img"                  
+                    component="img"
                     height={200}
-                    image={data.photos[0]} 
+                    image={data.photos[0]}
                     alt="Random"
                 />
                 <CardContent>
@@ -32,15 +32,18 @@ const ProductCard = ({ data }) => {
                         justifyContent: "space-around",
                     }}>
                         <Box sx={{ borderRadius: "50%" }}>
-                            <img height="35" width="35" src="https://www.figma.com/file/KoAR42FTHSt4h6oCQSSZOL/image/b0b5575b38d94edf1272fe60bcdd977fef76cd81" alt="Person" style={{ borderRadius: "50%" }} />
+                            {data.vendor.photo ? (
+                                <img height="35" width="35" src={data.vendor.photo} alt="Person" style={{ borderRadius: "50%" }} />
+                            ) : (
+                                <img height="35" width="35" src="https://th.bing.com/th/id/OIP.e4YIHGIZBy1X7GW01zOQfwHaHa?rs=1&pid=ImgDetMain" />)}
                         </Box>
-                        
-                        <Typography 
-                         gutterBottom variant="p" component="div" sx={{ fontWeight:"bold" }}
-                         onClick={() =>navigate(`/productDetails/${data.id}`)}
-                         
-                         >
-                        {data.name}
+
+                        <Typography
+                            gutterBottom variant="p" component="div" sx={{ fontWeight: "bold" }}
+                            onClick={() => navigate(`/productDetails/${data.id}`)}
+
+                        >
+                            {data.name}
                         </Typography>
                         <Box onClick={toggleFavorite}>
                             {isFavorite ? <FavoriteIcon sx={{ color: 'red', fontSize: "1.5rem" }} /> : <FavoriteBorderIcon sx={{ fontSize: "1.5rem" }} />}
@@ -69,7 +72,7 @@ const ProductCard = ({ data }) => {
 
                     <Box mt={2} sx={{
                         display: "flex",
-                        justifyContent: "space-around", // Changed to space-between for spacing
+                        justifyContent: "space-around",
 
                     }}>
 
@@ -79,12 +82,12 @@ const ProductCard = ({ data }) => {
 
                         </Typography>
                         <Box mt={.5}>
-                            <StarBorderIcon sx={{fontSize: "1rem"}}/>
-                            <StarBorderIcon sx={{fontSize: "1rem"}}/>
-                            <StarBorderIcon sx={{fontSize: "1rem"}}/>
-                            <StarBorderIcon sx={{fontSize: "1rem"}}/>
-                            
-                           
+                            <StarBorderIcon sx={{ fontSize: "1rem" }} />
+                            <StarBorderIcon sx={{ fontSize: "1rem" }} />
+                            <StarBorderIcon sx={{ fontSize: "1rem" }} />
+                            <StarBorderIcon sx={{ fontSize: "1rem" }} />
+
+
                         </Box>
 
                     </Box>
