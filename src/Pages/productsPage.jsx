@@ -24,7 +24,7 @@ const ProductsPage = () => {
     const [selectedSubCategory, setSelectedSubCategory] = useState(null);
 
     const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = 2;
+    const totalPages = 8;
 
     const handlePageChange = (event, value) => {
         setCurrentPage(value);

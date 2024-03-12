@@ -18,7 +18,7 @@ const ServicesPage = () => {
     const [selectedCategories, setSelectedCategories] = useState("");
     const cardsPerPage = 8;
     const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = 2;
+    const totalPages = 8;
 
     const handlePageChange = (event, value) => {
         setCurrentPage(value);

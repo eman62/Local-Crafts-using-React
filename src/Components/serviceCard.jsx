@@ -31,9 +31,9 @@ const ServiceCard = ({orderData}) => {
                         display: "flex",
                         justifyContent: "space-around",
                     }}>
-                        <Box sx={{ borderRadius: "50%" }}>
+                        {/* <Box sx={{ borderRadius: "50%" }}>
                             <img height="35" width="35" src="https://www.figma.com/file/KoAR42FTHSt4h6oCQSSZOL/image/b0b5575b38d94edf1272fe60bcdd977fef76cd81" alt="Person" style={{ borderRadius: "50%" }} />
-                        </Box>
+                        </Box> */}
                         <Typography gutterBottom variant="p" component="div" sx={{ fontWeight:"bold" }}>
                             {orderData.product.name}
                         </Typography>
@@ -50,7 +50,7 @@ const ServiceCard = ({orderData}) => {
 
 
                         <Typography gutterBottom variant="p" sx={{ fontFamily: " 'Rubik', sans-serif" }}>
-                        {orderData.product.category.main}{/* {product.category.main} */}
+                        {orderData.product.category.main}
                         </Typography>
                         <Typography gutterBottom variant="p" sx={{ fontFamily: " 'Rubik', sans-serif" }}>
                         {orderData.product.category.sub}
