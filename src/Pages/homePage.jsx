@@ -22,15 +22,6 @@ const HomePage = () => {
   //   console.log("Token:", token);
   // }, []);
 
-  const handleLogout = () => {
-    // Clear user data and token from Redux store
-    dispatch(clearUserData());
-    dispatch(clearUserToken());
-
-    // Clear user data and token from local storage
-    localStorage.removeItem("userData");
-    localStorage.removeItem("token");
-  };
   return (
     <>
       {/* <Navbar /> */}
@@ -40,7 +31,7 @@ const HomePage = () => {
       <PopularServices />
       <PopularProducts />
       <AboutInfo />
-      <button onClick={handleLogout}>Logout</button>
+      {/* <button onClick={handleLogout}>Logout</button> */}
       <Footer />
     </>
   );

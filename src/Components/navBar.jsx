@@ -18,8 +18,9 @@ import { Link } from "react-router-dom";
 import SearchInput from "./SharedComponnent/NaveBar/search";
 import { Drawer, Grid, List, ListItem, ListItemText } from "@mui/material";
 import Menu from "@mui/material/Menu";
-
-
+import { useDispatch } from "react-redux";
+import { clearUserData, clearUserToken } from "../stores/slice/user";
+import LogoutIcon from "@mui/icons-material/Logout";
 const pages = ["الرئيسية", "منتجات", "خدمات", "عن موقعنا"];
 const pagePaths = ["/", "/products", "/services", "about"];
 
@@ -27,6 +28,7 @@ function NaveBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [searchValue, setSearchValue] = useState("");
+  const dispatch = useDispatch();
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [userData, setUserData] = useState(
     JSON.parse(localStorage.getItem("userData"))
@@ -43,6 +45,13 @@ function NaveBar() {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+  const handleLogout = () => {
+    dispatch(clearUserData());
+    dispatch(clearUserToken());
+
+    localStorage.removeItem("userData");
+    localStorage.removeItem("token");
   };
 
   useEffect(() => {
@@ -63,73 +72,60 @@ function NaveBar() {
         backgroundColor: "rgba(9, 18, 66, 0.25)",
         position: "absolute",
         fontFamily: "Rubik",
-        padding:{ xs:"1%",md:"0" }
+        padding: { xs: "1%", md: "0" },
       }}
     >
       <Container>
         <Toolbar disableGutters>
-          
           <IconButton
             color="inherit"
             aria-label="open drawer"
             onClick={() => setDrawerOpen(true)}
-            edge="start" 
-             sx={{
-            marginLeft:"2%"
-          }}
+            edge="start"
+            sx={{
+              marginLeft: "2%",
+            }}
           >
             <MenuIcon />
           </IconButton>
           <Drawer
-    
             anchor="right"
             open={drawerOpen}
             onClose={() => setDrawerOpen(false)}
           >
-            <Box 
+            <Box
               sx={{
                 width: 250,
                 height: "100vh",
                 background: "#091242",
                 color: "white",
-                
-                
-                
-
-
               }}
             >
-            <Box 
-            sx={{display: 'flex',
-            flexDirection: 'column',}}
-             mt={20}
-             >
-            {pages.map((page, index) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  my: 2,
-                  color: "white",
-                  display: "block",
-                  textAlign: "center",
-                  fontSize: "1.5rem",
-                  fontFamily: "Rubik",
-                  marginBottom:"20%"
-                }}
-              >
-                <Link
-                  style={{ textDecoration: "none", color: "inherit" }}
-                  to={`${pagePaths[index]}`}
-                >
-                  {page}
-                </Link>
-              </Button>
-             
-            ))} 
+              <Box sx={{ display: "flex", flexDirection: "column" }} mt={20}>
+                {pages.map((page, index) => (
+                  <Button
+                    key={page}
+                    onClick={handleCloseNavMenu}
+                    sx={{
+                      my: 2,
+                      color: "white",
+                      display: "block",
+                      textAlign: "center",
+                      fontSize: "1.5rem",
+                      fontFamily: "Rubik",
+                      marginBottom: "20%",
+                    }}
+                  >
+                    <Link
+                      style={{ textDecoration: "none", color: "inherit" }}
+                      to={`${pagePaths[index]}`}
+                    >
+                      {page}
+                    </Link>
+                  </Button>
+                ))}
+              </Box>
             </Box>
-          </Box>
-         
           </Drawer>
 
           <img
@@ -205,8 +201,11 @@ function NaveBar() {
               </Button>
             ))}
           </Box>
-          <Box sx={{  display: { xs: "flex" } }}>
-            <Box ml={2} sx={{ width: "50%" ,display: { xs: "none" ,md:"block" } }}>
+          <Box sx={{ display: { xs: "flex" } }}>
+            <Box
+              ml={2}
+              sx={{ width: "50%", display: { xs: "none", md: "block" } }}
+            >
               <SearchInput onChange={handleSearchChange} />
             </Box>
             {token ? (
@@ -259,9 +258,7 @@ function NaveBar() {
             {token && userRole === "vendor" ? (
               <>
                 <Grid p={1.5} onClick={handleCloseNavMenu}>
-                  <Box
-                    sx={{ display: "flex", justifyContent: "space-around" }}
-                  >
+                  <Box sx={{ display: "flex", justifyContent: "space-around" }}>
                     <Box mt={0.5}>
                       <Link
                         style={{ textDecoration: "none", color: "inherit" }}
@@ -309,6 +306,23 @@ function NaveBar() {
                     <Inventory2Icon />
                   </Grid>
                 </Box>
+                <Box onClick={handleCloseNavMenu}>
+                  <Grid
+                    p={1.5}
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Box mt={0.5}>
+                      <Link
+                        onClick={handleLogout}
+                        style={{ textDecoration: "none", color: "inherit" }}
+                        to={"/user-login"}
+                      >
+                        تسجيل الخروج
+                      </Link>
+                    </Box>
+                    <LogoutIcon />
+                  </Grid>
+                </Box>
               </>
             ) : (
               <>
@@ -335,6 +349,23 @@ function NaveBar() {
                   >
                     الصفحة الشخصية
                   </Link>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Grid
+                    p={1.5}
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Box mt={0.5}>
+                      <Link
+                        onClick={handleLogout}
+                        style={{ textDecoration: "none", color: "inherit" }}
+                        to={"/user-login"}
+                      >
+                        تسجيل الخروج
+                      </Link>
+                    </Box>
+                    <LogoutIcon />
+                  </Grid>
                 </MenuItem>
               </>
             )}

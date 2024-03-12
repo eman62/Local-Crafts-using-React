@@ -126,7 +126,7 @@ const Orders = () => {
                     borderRadius: 0,
                     textWrap: "nowrap",
                     fontSize: "1.5vw",
-                    width: "19vw",
+                    width: "14.5vw",
                   }}
                 >
                   الغاء الطلب
