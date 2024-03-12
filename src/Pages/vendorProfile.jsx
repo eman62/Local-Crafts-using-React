@@ -107,9 +107,9 @@ const VendorProfile = () => {
             spacing={3}
           >
             <Grid item md={2} xs={12} sx={{ mt: "7vh" }}>
-              {userData.photo ? (
+              {user.photo ? (
                 <Avatar
-                  src={userData.photo}
+                  src={user.photo}
                   alt="User Photo"
                   sx={{
                     width: 150,
@@ -129,7 +129,7 @@ const VendorProfile = () => {
                   paddingRight: "2vw",
                 }}
               >
-                {userData.name}
+                {user.name}
               </Typography>
               <Typography
                 sx={{
@@ -138,7 +138,7 @@ const VendorProfile = () => {
                   paddingRight: "2vw",
                 }}
               >
-                {userData.job}
+                {user.job}
               </Typography>
               {/* <Button
                 sx={{
@@ -237,14 +237,17 @@ const VendorProfile = () => {
                     <Typography>نبذة</Typography>
                   </Grid>
                   <Grid item sx={{ marginRight: "1vw", color: "gray" }}>
-                    <Typography> {userData.name}</Typography>
-                    <Typography> {userData.email}</Typography>
-                    <Typography> {userData.phone}</Typography>
-                    <Typography> {userData.address.gov}</Typography>
-                    <Typography> {userData.address.city}</Typography>
-                    <Typography> {userData.job}</Typography>
+                    <Typography> {user.name}</Typography>
+                    <Typography> {user.email}</Typography>
+                    <Typography> {user.phone}</Typography>
+                    <Typography> {user.address && user.address.gov}</Typography>
+                    <Typography>
+                      {" "}
+                      {user.address && user.address.city}
+                    </Typography>
+                    <Typography> {user.job}</Typography>
                     <Typography sx={{ textWrap: "wrap", width: "30vw" }}>
-                      {userData.description}
+                      {user.description}
                     </Typography>
                   </Grid>
                 </Grid>

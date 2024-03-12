@@ -11,3 +11,7 @@ export const getProductById = (ProductId) => {
 export const getServiceById = (ServiceId) => {
   return axiosInstance.get(`/services/${ServiceId}`);
 };
+
+export const deleteOrder = (orderId, token) => {
+  return axiosInstance.delete(`/orders/${orderId}`, { headers: { token } });
+};

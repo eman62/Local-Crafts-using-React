@@ -10,11 +10,17 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { useEffect, useState } from "react";
 import { getCities, getGovernorates } from "../api/locations";
+import { getUserData } from "../api/users";
+import { Avatar } from "@mui/material";
 
 const VendorEditProfilePage = () => {
+  const userData = JSON.parse(localStorage.getItem("userData"));
+  const token = localStorage.getItem("token");
+  const [user, setUser] = useState({});
   const [governorates, setGovernorates] = useState([]);
   const [cities, setCities] = useState([]);
-  const [selectedGovernorate, setSelectedGovernorate] = useState("");
+  const [selectedGovernorate, setSelectedGovernorate] = useState();
+
   const [selectedCity, setSelectedCity] = useState("");
 
   useEffect(() => {
@@ -37,16 +43,23 @@ const VendorEditProfilePage = () => {
     }
   }, [selectedGovernorate]);
 
-  const [selectedValueCity, setSelectedValueCity] = useState("المنصوره");
-  const [selectedValueState, setSelectedValueState] = useState("القاهره");
+  useEffect(() => {
+    getUserData(userData._id, token)
+      .then((res) => {
+        setUser(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
-  const handleStateChange = (event) => {
-    setSelectedValueState(event.target.value);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setUser((prevUser) => ({
+      ...prevUser,
+      [name]: value,
+    }));
   };
 
-  const handleCityChange = (event) => {
-    setSelectedValueCity(event.target.value);
-  };
   return (
     <Box sx={{ position: "relative" }}>
       <Box
@@ -130,9 +143,29 @@ const VendorEditProfilePage = () => {
             spacing={1}
           >
             <Grid item xs={2}>
-              <IconButton sx={{ mt: "6vh" }}>
-                <PersonIcon sx={{ fontSize: "15vw", color: "" }} />
-              </IconButton>
+              {user.photo ? (
+                <Avatar
+                  src={user.photo}
+                  alt="User Photo"
+                  sx={{
+                    width: 150,
+                    height: 150,
+                    mr: "2vw",
+                    mt: "7vh",
+                  }}
+                />
+              ) : (
+                <IconButton>
+                  <PersonIcon
+                    sx={{
+                      fontSize: "15vw",
+                      color: "black",
+                      mr: "2vw",
+                      mt: "7vh",
+                    }}
+                  />
+                </IconButton>
+              )}
               <Typography
                 sx={{
                   textAlign: "center",
@@ -140,7 +173,7 @@ const VendorEditProfilePage = () => {
                   paddingRight: "2.5vw",
                 }}
               >
-                اسم البائع
+                {user.name}
               </Typography>
               <Typography
                 sx={{
@@ -151,7 +184,7 @@ const VendorEditProfilePage = () => {
                   fontWeight: "500",
                 }}
               >
-                البائع
+                {user.job}
               </Typography>
             </Grid>
             <Grid
@@ -236,8 +269,10 @@ const VendorEditProfilePage = () => {
                     </Typography>
                     <TextField
                       id="outlined-basic"
-                      label="اسم اليوزر"
                       variant="outlined"
+                      name="name"
+                      value={user.name}
+                      onChange={handleChange}
                       InputLabelProps={{
                         sx: {
                           color: "white",
@@ -267,8 +302,10 @@ const VendorEditProfilePage = () => {
                     </Typography>
                     <TextField
                       id="outlined-basic"
-                      label="عنوان البريد "
                       variant="outlined"
+                      name="email"
+                      value={user.email}
+                      onChange={handleChange}
                       InputLabelProps={{
                         sx: {
                           color: "white",
@@ -386,7 +423,10 @@ const VendorEditProfilePage = () => {
                     </Typography>
                     <TextField
                       id="outlined-basic"
-                      label=" رقم الهاتف"
+                      type="number"
+                      name="phone"
+                      value={user.phone}
+                      onChange={handleChange}
                       variant="outlined"
                       InputLabelProps={{
                         sx: {
@@ -417,8 +457,10 @@ const VendorEditProfilePage = () => {
                     </Typography>
                     <TextField
                       id="outlined-basic"
-                      label=" المهنه "
                       variant="outlined"
+                      name="job"
+                      value={user.job}
+                      onChange={handleChange}
                       InputLabelProps={{
                         sx: {
                           color: "white",
@@ -447,9 +489,9 @@ const VendorEditProfilePage = () => {
                       نبذة
                     </Typography>
                     <TextField
-                      name="message"
-                      // value={orderData.message}
-                      // onChange={handleChange}
+                      name="description"
+                      value={user.description}
+                      onChange={handleChange}
                       id="outlined-multiline-static"
                       defaultValue="رسالة صغيرة"
                       multiline
@@ -460,12 +502,70 @@ const VendorEditProfilePage = () => {
                       sx={{
                         width: "40vw",
                         direction: "rtl",
-                        mb: "5vh",
                         backgroundColor: "#1F2A69",
                         border: "1px solid #8E8E8E",
                         color: "white",
                       }}
                     />
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      // onClick={handleEditProfile}
+                      sx={{
+                        background:
+                          "linear-gradient(45deg, #FFB629 0%, #FFDA56 50%, #FFD7A6 100%)",
+                        borderRadius: 0,
+                        color: "black",
+                        height: 48,
+                        padding: "0 30px",
+                        // marginRight: "4vw",
+
+                        position: "relative",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      تعديل
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          background: "rgb(50,50,50,.7)",
+                          width: "20%",
+                          borderRadius: "50% 0 0",
+                          bottom: "0",
+                          height: "40%",
+                          opacity: "70%",
+                          right: "0",
+                        }}
+                      ></Box>
+                    </Button>
+                    <Button
+                      // onClick={handleEditProfile}
+                      sx={{
+                        background: "white",
+                        borderRadius: 0,
+                        color: "black",
+                        height: 48,
+                        padding: "0 30px",
+                        marginRight: "4vw",
+
+                        position: "relative",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      الغاء
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          background: "rgb(50,50,50,.7)",
+                          width: "20%",
+                          borderRadius: "50% 0 0",
+                          bottom: "0",
+                          height: "40%",
+                          opacity: "70%",
+                          right: "0",
+                        }}
+                      ></Box>
+                    </Button>
                   </Grid>
                 </Grid>
               </Box>
