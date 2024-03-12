@@ -19,7 +19,6 @@ const ProductCard = ({ data }) => {
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite);
   };
-
   return (
     <Box sx={{ direction: "rtl" }} width={200}>
       <Card mb={10} sx={{ height: 450 }}>
