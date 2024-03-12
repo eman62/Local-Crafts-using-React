@@ -11,15 +11,47 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getUserData } from "../api/users";
+import { Avatar } from "@mui/material";
+import { getProductsByUser } from "../api/Products";
+import { getServicesByUser } from "../api/services";
+import ProductCard from "./../Components/Product/ProductCard";
 
 const UserViewVendor = () => {
   const [centerIndex, setCenterIndex] = useState(0);
+  const [vendor, setVendor] = useState({});
+  const token = localStorage.getItem("token");
+  const [products, setProducts] = useState([]);
+  const [services, setServices] = useState([]);
   const swiperRef = useRef(null);
 
   const handleSlideChange = (swiper) => {
     setCenterIndex(swiper.realIndex + 1);
   };
+  const { vendorId } = useParams();
+  useEffect(() => {
+    getUserData(vendorId, token)
+      .then((res) => {
+        setVendor(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+
+    getProductsByUser(vendorId)
+      .then((res) => {
+        setProducts(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+    getServicesByUser(vendorId)
+      .then((res) => {
+        setServices(res.data);
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, [vendorId, token]);
 
   return (
     <Box sx={{ position: "relative" }}>
@@ -95,23 +127,38 @@ const UserViewVendor = () => {
               الصفحة الشخصية
             </Typography>
           </Box>
-          <IconButton>
-            <PersonIcon
+          {vendor.photo ? (
+            <Avatar
+              src={vendor.photo}
               sx={{
                 fontSize: "5vw",
-                color: "black",
                 marginRight: "4vw",
                 mt: "4vh",
+                mb: "2vh",
+                width: 120,
+                height: 120,
               }}
-            ></PersonIcon>
-          </IconButton>
-          <Typography sx={{ mr: "5vw", fontWeight: "bold" }}>
-            اسم الأول
+            ></Avatar>
+          ) : (
+            <IconButton>
+              <PersonIcon
+                sx={{
+                  fontSize: "5vw",
+                  color: "black",
+                  marginRight: "4vw",
+                  mt: "4vh",
+                }}
+              ></PersonIcon>
+            </IconButton>
+          )}
+
+          <Typography sx={{ mr: "7vw", fontWeight: "bold" }}>
+            {vendor.name}
           </Typography>
-          <Grid container spacing={5}>
+          <Grid container spacing={2}>
             <Grid item>
-              <Typography sx={{ mr: "5vw", ml: "3vw" }}>
-                نوع المستخدم
+              <Typography sx={{ mr: "8vw", ml: "3vw" }}>
+                {vendor.job}
               </Typography>
             </Grid>
             <Grid item>
@@ -122,27 +169,24 @@ const UserViewVendor = () => {
               <Typography sx={{ fontWeight: "bold" }}>مدينه:</Typography>
             </Grid>
             <Grid item>
-              <Typography>أسم المستخدم كامل </Typography>
-              <Typography>أسم المستخدم كامل </Typography>
-              <Typography>أسم المستخدم كامل </Typography>
+              <Typography>{vendor.name} </Typography>
+              <Typography> {vendor.email} </Typography>
+              <Typography>{vendor.address?.city} </Typography>
             </Grid>
             <Grid item>
               <Typography sx={{ fontWeight: "bold" }}>المهنه: </Typography>
               <Typography sx={{ fontWeight: "bold" }}>المحافظه: </Typography>
-              <Typography sx={{ fontWeight: "bold" }}>العنوان:</Typography>
+              <Typography sx={{ fontWeight: "bold" }}>رقم الهاتف:</Typography>
             </Grid>
             <Grid item>
-              <Typography>أسم المستخدم كامل </Typography>
-              <Typography>أسم المستخدم كامل </Typography>
-              <Typography>أسم المستخدم كامل </Typography>
+              <Typography>{vendor.job} </Typography>
+              <Typography> {vendor.address?.gov} </Typography>
+              <Typography> {vendor.phone} </Typography>
             </Grid>
             <Grid item sx={{ mr: "16vw" }}>
               <Typography sx={{ fontWeight: "bold" }}>نبذة: </Typography>
               <Typography sx={{ width: "40vw" }}>
-                سم المستخدم كامل سم المستخدم كامل سم المستخدم كامل سم المستخدم
-                كامل سم المستخدم كامل سم المستخدم كامل سم المستخدم كامل سم
-                المستخدم كامل سم المستخدم كامل سم المستخدم كامل سم المستخدم كامل
-                اسم المستخدم كامل
+                {vendor.description}
               </Typography>
             </Grid>
           </Grid>
@@ -181,7 +225,8 @@ const UserViewVendor = () => {
                 الخدمات والمنتجات المنشورة
               </Typography>
               <Typography sx={{ margin: "6vh 25vw 0 0" }}>
-                <span style={{ fontWeight: "bold" }}>العدد</span>:4 خدمه ومنتج
+                <span style={{ fontWeight: "bold" }}>العدد</span>:
+                {products.length + services.length} خدمه ومنتج
               </Typography>
             </Box>
             {/*Cards swiper*/}
@@ -195,26 +240,22 @@ const UserViewVendor = () => {
             >
               {/* Swiper slides go here */}
               <Grid container spacing={3} sx={{ mr: "3vw", mt: "3vh" }}>
-                <SwiperSlide>
-                  <Grid item>
-                    <ServiceCard></ServiceCard>
-                  </Grid>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Grid item>
-                    <ServiceCard></ServiceCard>
-                  </Grid>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Grid item>
-                    <ServiceCard></ServiceCard>
-                  </Grid>
-                </SwiperSlide>
-                <SwiperSlide>
-                  <Grid item>
-                    <ServiceCard></ServiceCard>
-                  </Grid>
-                </SwiperSlide>
+                {products &&
+                  products.map((product) => (
+                    <SwiperSlide key={product.id}>
+                      <Grid item>
+                        <ProductCard data={product} />
+                      </Grid>
+                    </SwiperSlide>
+                  ))}
+                {services &&
+                  services.map((service) => (
+                    <SwiperSlide key={service.id}>
+                      <Grid item>
+                        <ProductCard data={service} />
+                      </Grid>
+                    </SwiperSlide>
+                  ))}
               </Grid>
             </Swiper>
           </Box>

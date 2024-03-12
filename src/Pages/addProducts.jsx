@@ -192,7 +192,7 @@ const AddProducts = () => {
         }
         break;
       case "description":
-        if (value.length < 20 || value.length > 50) {
+        if (value.length < 20 || value.length > 500) {
           setErrors((prevErrors) => ({
             ...prevErrors,
             description: "الوصف يجب أن يكون بين 20 و 500 حرفًا",

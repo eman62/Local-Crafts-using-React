@@ -35,8 +35,8 @@ const ProductsPage = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = 8;
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = 8;
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
@@ -256,50 +256,52 @@ const ProductsPage = () => {
                       </FormControl>
                     </Box>
                   </Box>
-                  <Box mt={10}>
-                    <Grid container spacing={4} sx={{ width: "90%" }}>
-                      {filteredProducts.map((product) => (
-                        <Grid
-                          item
-                          key={product.id}
-                          xs={12}
-                          md={6}
-                          lg={3}
-                          mb={5}
-                        >
-                          <ProductCard
-                            data={product}
-                            selectedCategory={selectedCategory}
-                            selectedSubCategory={selectedSubCategory}
-                          />
-                        </Grid>
-                      ))}
-                    </Grid>
-                    <Box mt={5} display={"flex"} justifyContent={"center"}>
-                      <Pagination
-                        count={totalPages}
-                        page={currentPage}
-                        onChange={handlePageChange}
-                        color="primary"
-                        boundaryCount={2}
-                        shape="rounded"
-                        renderItem={(item) => (
-                          <PaginationItem
-                            component={Button}
-                            {...item}
-                            sx={{
-                              backgroundColor: "#091242",
-                              color: "white",
-                              fontFamily: "rubik",
-                              padding: "1%",
-                            }}
-                          />
-                        )}
-                        prevIcon={<ArrowBack />}
-                        nextIcon={<ArrowForward />}
-                      />
+                  {products && (
+                    <Box mt={10}>
+                      <Grid container spacing={4} sx={{ width: "90%" }}>
+                        {filteredProducts.map((product) => (
+                          <Grid
+                            item
+                            key={product.id}
+                            xs={12}
+                            md={6}
+                            lg={3}
+                            mb={5}
+                          >
+                            <ProductCard
+                              data={product}
+                              selectedCategory={selectedCategory}
+                              selectedSubCategory={selectedSubCategory}
+                            />
+                          </Grid>
+                        ))}
+                      </Grid>
+                      <Box mt={5} display={"flex"} justifyContent={"center"}>
+                        <Pagination
+                          count={totalPages}
+                          page={currentPage}
+                          onChange={handlePageChange}
+                          color="primary"
+                          boundaryCount={2}
+                          shape="rounded"
+                          renderItem={(item) => (
+                            <PaginationItem
+                              component={Button}
+                              {...item}
+                              sx={{
+                                backgroundColor: "#091242",
+                                color: "white",
+                                fontFamily: "rubik",
+                                padding: "1%",
+                              }}
+                            />
+                          )}
+                          prevIcon={<ArrowBack />}
+                          nextIcon={<ArrowForward />}
+                        />
+                      </Box>
                     </Box>
-                  </Box>
+                  )}
                 </Container>
               </Box>
             </Grid>
