@@ -2,8 +2,16 @@ import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Button } from "@mui/material";
 import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
+import {
+  deleteOrder,
   getCustomerOrders,
   getProductById,
   getServiceById,
@@ -12,39 +20,39 @@ import OrdersCard from "../Components/orders/ordersCard";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [deletedOrderId, setDeletedOrderId] = useState("");
   const token = localStorage.getItem("token");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const ordersData = await getCustomerOrders(token);
-        const ordersWithDetails = await Promise.all(
-          ordersData.data.map(async (order) => {
-            let product = null;
-            let service = null;
-
-            if (order.service) {
-              service = await getServiceById(order.service);
-              if (!service) {
-                console.log("Service not found for order:", order);
-              }
-            }
-            if (order.product) {
-              product = await getProductById(order.product);
-              if (!product) {
-                console.log("Product not found for order:", order);
-              }
-            }
-            return { ...order, product, service };
-          })
-        );
-        setOrders(ordersWithDetails);
+        const response = await getCustomerOrders(token);
+        console.log("Orders data:", response.data);
+        setOrders(response.data);
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching orders:", error);
       }
     };
 
     fetchData();
   }, [token]);
+
+  const handleDeleteOrder = async (orderId) => {
+    try {
+      await deleteOrder(orderId, token);
+      setOrders(orders.filter((order) => order._id !== orderId));
+      setDeletedOrderId(orderId);
+      setDialogOpen(true);
+      console.log("Order deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting order:", error);
+    }
+  };
+
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
 
   return (
     <Box sx={{ position: "relative" }}>
@@ -82,10 +90,10 @@ const Orders = () => {
             transform: "translateX(-50%)",
             zIndex: 1,
             overflow: "auto",
-            padding: "20px", // Added padding for spacing
+            padding: "20px",
             display: "flex",
             flexDirection: "column",
-            alignItems: "flex-end", // Align header to the right
+            alignItems: "flex-end",
           }}
         >
           {/* Header */}
@@ -106,7 +114,7 @@ const Orders = () => {
               <Grid item xs={12} sm={6} md={4} key={index}>
                 <OrdersCard data={item} />
                 <Button
-                  // onClick={handleClose}
+                  onClick={() => handleDeleteOrder(item._id)}
                   sx={{
                     background: "white",
                     border: "1px solid lightGray",
@@ -118,7 +126,7 @@ const Orders = () => {
                     borderRadius: 0,
                     textWrap: "nowrap",
                     fontSize: "1.5vw",
-                    width: "20.5vw",
+                    width: "19vw",
                   }}
                 >
                   الغاء الطلب
@@ -154,6 +162,26 @@ const Orders = () => {
           </Grid>
         </Grid>
       </Box>
+
+      {/* Dialog to show when order is successfully deleted */}
+      <Dialog
+        open={dialogOpen}
+        onClose={handleCloseDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{" حذف الطلب "}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {"تم حذف طلبك بنجاح"}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} autoFocus>
+            موافق
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
