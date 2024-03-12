@@ -19,7 +19,7 @@ const ServicePageCard = ({ data }) => {
 
     return (
         <Box sx={{ direction: "rtl" }}  width={200}>
-            <Card  mb={10}>
+            <Card  mb={10}  height={450}>
                 <CardMedia
                     component="img"                  
                     height={200}

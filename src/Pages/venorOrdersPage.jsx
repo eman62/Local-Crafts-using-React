@@ -3,17 +3,21 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Footer from "./../Components/footer";
 import VendorOrderCard from "../Components/vendorOrderCard";
-import VendorPaggenation from "../Components/Vendor/VendorPaggenation";
 import { axiosInstance } from "../api/config";
-import { useEffect, useState } from "react";
-import { getProductListDetails } from "../api/Products";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import IconButton from "@mui/material/IconButton";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 const VendorOrdersPage = () => {
   const [orders, setOrders] = useState([]);
-  const [productData, setProductData] = useState({});
-  const params = useParams();
   const token = localStorage.getItem("token");
-  const productId = orders.product;
+  const swiperRef = useRef(null);
+  const [centerIndex, setCenterIndex] = useState(0);
 
   useEffect(() => {
     const fetchVendorOrders = async () => {
@@ -31,6 +35,21 @@ const VendorOrdersPage = () => {
     };
     fetchVendorOrders();
   }, []);
+  const goNext = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slideNext();
+    }
+  };
+
+  const goPrev = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slidePrev();
+    }
+  };
+
+  const handleSlideChange = (swiper) => {
+    setCenterIndex(swiper.realIndex + 1);
+  };
 
   return (
     <Box>
@@ -50,9 +69,9 @@ const VendorOrdersPage = () => {
             width: "80vw",
             backgroundColor: "white",
             borderRadius: "30px",
-            top: "20vh",
+            top: "35vh",
             left: "50%",
-            height: "225vh",
+            height: "200vh",
             transform: "translateX(-50%)",
             zIndex: 1,
             direction: "rtl",
@@ -96,7 +115,66 @@ const VendorOrdersPage = () => {
               الطلبات
             </Typography>
           </Box>
-          <Box>{orders && <VendorPaggenation data={orders} />}</Box>
+
+
+
+          <Box>{orders &&
+            <Box mt={20} >
+              <Swiper xs={6} md={6} lg={3}
+                ref={swiperRef}
+                modules={[Navigation, Pagination, Scrollbar, A11y]}
+                slidesPerView={1}
+                loop={true}
+                onSlideChange={handleSlideChange}
+              >
+                <Grid container >
+                  {orders.map(order => (
+                    <Grid item key={order.id} xs={12} mb={5}>
+                      <SwiperSlide>
+                        <VendorOrderCard data={order} />
+                      </SwiperSlide>
+                    </Grid>
+                  ))}
+
+                </Grid>
+              </Swiper>
+              <IconButton
+                sx={{
+                  position: "absolute",
+                  top: "30%",
+                  left: "5%",
+                  transform: "translateY(-50%)",
+                  zIndex: 999,
+                  background:
+                    "linear-gradient(90deg, #FFB629 0%, #FFDA56 50%, #FFD7A6 100%)",
+                  color: "white",
+                  width: "3vw",
+                  height: "5vh",
+                }}
+                onClick={goPrev}
+              >
+                &gt;
+              </IconButton>
+              <IconButton
+                sx={{
+                  position: "absolute",
+                  top: "30%",
+                  right: "2%",
+                  transform: "translateY(-50%)",
+                  zIndex: 999,
+                  backgroundColor: "#091242",
+                  color: "white",
+                  width: "3vw",
+                  height: "5vh",
+                }}
+                onClick={goNext}
+              >
+                &lt;
+              </IconButton>
+            </Box>
+
+
+          }</Box>
         </Box>
       </Box>
       {/*box of blue and white box */}
@@ -115,7 +193,7 @@ const VendorOrdersPage = () => {
       </Box>
 
       <Footer></Footer>
-    </Box>
+    </Box >
   );
 };
 export default VendorOrdersPage;

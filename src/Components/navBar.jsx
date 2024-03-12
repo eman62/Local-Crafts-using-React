@@ -71,6 +71,7 @@ function NaveBar() {
         direction: "rtl",
         backgroundColor: "rgba(9, 18, 66, 0.25)",
         position: "absolute",
+        zIndex:"1000",
         fontFamily: "Rubik",
         padding: { xs: "1%", md: "0" },
       }}

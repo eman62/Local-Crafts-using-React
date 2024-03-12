@@ -1,7 +1,13 @@
 import { axiosInstance } from "./config";
 
-export const getServiceList = () => {
-  return axiosInstance.get("/services");
+export const getServiceList = (page) => {
+  return axiosInstance.get("/services",{
+    params: {
+        page: page,
+       
+        
+    }
+});
 };
 export const getServiceDetails = (serviceId) => {
   return axiosInstance.get(`/services/${serviceId}`);
@@ -15,8 +21,7 @@ export const addService = (body, headers) => {
 };
 export const getPopularServices = (limit=8) => {
   return axiosInstance.get('/services',{
-      params: {
-         
+      params: {        
           limit:limit,
           
       }
