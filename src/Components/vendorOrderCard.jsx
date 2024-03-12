@@ -4,16 +4,16 @@ import Grid from "@mui/material/Grid";
 import ServiceCard from "./serviceCard";
 import { useEffect, useState } from "react";
 
-
-const VendorOrderCard = ({data}) => {
+const VendorOrderCard = ({ data }) => {
   return (
     <Box
       sx={{
         backgroundColor: "#E9E9E9",
         width: "60vw",
-        height: "95%",
+        height: "100%",
         mr: "5vw",
         mt: "5vh",
+        pb: "5vh",
         borderRadius: "5px",
       }}
     >
@@ -102,13 +102,15 @@ const VendorOrderCard = ({data}) => {
             {" "}
             {data.phone}
           </Typography>
-          <Typography sx={{ width: "20vw", fontFamily: "Rubik" }}>
+          <Typography
+            sx={{ width: "20%", fontFamily: "Rubik", textWrap: "wrap" }}
+          >
             {data.message}
           </Typography>
         </Grid>
-        <Grid item sx={{ mt: "5vh" }} xs={3} md={4}>
-         {/* { productData && <ServiceCard product={productData}></ServiceCard>} */}
-        {data && <ServiceCard orderData={data}></ServiceCard>}
+        <Grid item sx={{ mt: "5vh" }} xs={12} md={4}>
+          {/* { productData && <ServiceCard product={productData}></ServiceCard>} */}
+          {data && <ServiceCard orderData={data}></ServiceCard>}
         </Grid>
       </Grid>
     </Box>

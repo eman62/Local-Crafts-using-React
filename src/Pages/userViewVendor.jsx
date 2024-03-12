@@ -83,7 +83,7 @@ const UserViewVendor = () => {
             width: "70vw",
             backgroundColor: "white",
             borderRadius: "30px",
-            top: "10vh",
+            top: "20vh",
             left: "50%",
             height: "205vh",
             transform: "translateX(-50%)",
@@ -262,9 +262,9 @@ const UserViewVendor = () => {
         </Box>
       </Box>
       {/*box of blue and white box */}
-      <Box sx={{ height: "180vh", position: "relative" }}>
+      <Box sx={{ height: "190vh", position: "relative" }}>
         {/*blue box */}
-        <Grid container sx={{ height: "180vh" }}>
+        <Grid container sx={{ height: "190vh" }}>
           <Grid item xs={6} sx={{ backgroundColor: "#091242" }}>
             <Box
               sx={{
