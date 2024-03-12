@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, Pagination, Typography } from '@mui/material'
+import { Box, Button, Container, Grid, Pagination, PaginationItem, Typography } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useState } from 'react';
 import InputLabel from '@mui/material/InputLabel';
@@ -11,25 +11,27 @@ import { getServiceList } from '../api/services';
 import SideBareservice from '../Components/Services/SideBar';
 import { getMainCatogry, getMainCatogryProducts, getSubService } from '../api/categories';
 import ServicePageCard from '../Components/Services/ServicePageCard';
+import { ArrowBack, ArrowForward } from '@mui/icons-material';
 const ServicesPage = () => {
     const [services, setServices] = useState([]);
     const [categories,setCategories]=useState([])
     const [selectedCategories, setSelectedCategories] = useState("");
-
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(1);
     const cardsPerPage = 8;
-    const handlePageChange = (newPage) => {
-        setCurrentPage(newPage);
+    const [currentPage, setCurrentPage] = useState(1);
+    const totalPages = 2;
+
+    const handlePageChange = (event, value) => {
+        setCurrentPage(value);
     };
+
 
     ////////////////// featch the data from api 
     useEffect(() => {
         const fetchServicsList = async () => {
             try {
-                const response = await getServiceList();
+                const response = await getServiceList(currentPage);
                 setServices(response.data.data);
-                setTotalPages(response.data.meta.pageCount);
+              
             } catch (error) {
                 console.error('Error fetching product list:', error);
             }
@@ -84,7 +86,7 @@ const ServicesPage = () => {
         <Box sx={{ direction: "rtl" }}>
             <Box sx={imgStyle}>
                 <Container>
-                    <Box mt={2} sx={{ backgroundColor: "rgba(4, 28, 55, 0.5)", display: "flex", color: "rgba(255, 255, 255, 1)", width: { xs: "16%", md: "9%" }, padding: "3px", height: "23px" }}>
+                    <Box mt={20} sx={{ backgroundColor: "rgba(4, 28, 55, 0.5)", display: "flex", color: "rgba(255, 255, 255, 1)", width: { xs: "16%", md: "9%" }, padding: "3px", height: "23px" }}>
                         <Box ml={1}>
                             <svg width="5" height="23" viewBox="0 0 5 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <rect x="0.208008" width="4" height="23" fill="url(#paint0_linear_29_3859)" />
@@ -162,17 +164,28 @@ const ServicesPage = () => {
                                                 </Grid>
                                             ))}
                                         </Grid>
-                                        <Box style={{ padding: "10px", marginLeft: "39%" }}>
-                                            <Button  onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
-                                                Previous
-                                            </Button>
-                                            <Button >{currentPage}</Button>
-                                            <Button  onClick={() => handlePageChange(currentPage + 1)}>
-                                                Next
-                                            </Button>
+                                       <Box mt={5} display={'flex'} justifyContent={"center"}>
+                                            <Pagination
+                                                count={totalPages}
+                                                page={currentPage}
+                                                onChange={handlePageChange}
+                                                color='primary'
+                                                boundaryCount={2}
+                                                shape="rounded"
+                                                renderItem={(item) => (
+                                                    <PaginationItem
+                                                        component={Button}
+                                                        {...item}
+                                                        sx={{ backgroundColor: "#091242", color: "white", fontFamily: "rubik", padding: "1%" }}
+                                                    />
+                                                )}
+                                                prevIcon={<ArrowBack />}
+                                                nextIcon={<ArrowForward />}
+                                            />
                                         </Box>
-                                       
                                     </Box>
+                                       
+                                   
                                 </Container>
                             </Box>
 

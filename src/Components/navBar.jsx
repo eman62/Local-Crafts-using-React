@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
@@ -18,9 +16,9 @@ import Inventory2Icon from "@mui/icons-material/Inventory2";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import SearchInput from "./SharedComponnent/NaveBar/search";
-//import { useDispatch } from "react-redux";
-import { changeLocation } from "../stores/slice/location";
-import { Grid } from "@mui/material";
+import { Drawer, Grid, List, ListItem, ListItemText } from "@mui/material";
+import Menu from "@mui/material/Menu";
+
 
 const pages = ["الرئيسية", "منتجات", "خدمات", "عن موقعنا"];
 const pagePaths = ["/", "/products", "/services", "about"];
@@ -33,6 +31,8 @@ function NaveBar() {
   const [userData, setUserData] = useState(
     JSON.parse(localStorage.getItem("userData"))
   );
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
   const handleSearchChange = (value) => {
     setSearchValue(value);
   };
@@ -44,6 +44,7 @@ function NaveBar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
   useEffect(() => {
     const tokenFromStorage = localStorage.getItem("token");
     const userDataFromStorage = JSON.parse(localStorage.getItem("userData"));
@@ -53,6 +54,7 @@ function NaveBar() {
   }, []);
 
   const userRole = userData ? userData.role : null;
+
   return (
     <AppBar
       position="static"
@@ -61,10 +63,75 @@ function NaveBar() {
         backgroundColor: "rgba(9, 18, 66, 0.25)",
         position: "absolute",
         fontFamily: "Rubik",
+        padding:{ xs:"1%",md:"0" }
       }}
     >
       <Container>
         <Toolbar disableGutters>
+          
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={() => setDrawerOpen(true)}
+            edge="start" 
+             sx={{
+            marginLeft:"2%"
+          }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Drawer
+    
+            anchor="right"
+            open={drawerOpen}
+            onClose={() => setDrawerOpen(false)}
+          >
+            <Box 
+              sx={{
+                width: 250,
+                height: "100vh",
+                background: "#091242",
+                color: "white",
+                
+                
+                
+
+
+              }}
+            >
+            <Box 
+            sx={{display: 'flex',
+            flexDirection: 'column',}}
+             mt={20}
+             >
+            {pages.map((page, index) => (
+              <Button
+                key={page}
+                onClick={handleCloseNavMenu}
+                sx={{
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                  textAlign: "center",
+                  fontSize: "1.5rem",
+                  fontFamily: "Rubik",
+                  marginBottom:"20%"
+                }}
+              >
+                <Link
+                  style={{ textDecoration: "none", color: "inherit" }}
+                  to={`${pagePaths[index]}`}
+                >
+                  {page}
+                </Link>
+              </Button>
+             
+            ))} 
+            </Box>
+          </Box>
+         
+          </Drawer>
+
           <img
             src={logo}
             sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
@@ -88,44 +155,6 @@ function NaveBar() {
             لوكال كرافت
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography variant="h4" textAlign="center">
-                    {page}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
           <Typography
             variant="h5"
             noWrap
@@ -176,8 +205,8 @@ function NaveBar() {
               </Button>
             ))}
           </Box>
-          <Box sx={{ display: { md: "flex" } }}>
-            <Box ml={2} sx={{ width: "50%" }}>
+          <Box sx={{  display: { xs: "flex" } }}>
+            <Box ml={2} sx={{ width: "50%" ,display: { xs: "none" ,md:"block" } }}>
               <SearchInput onChange={handleSearchChange} />
             </Box>
             {token ? (
@@ -227,91 +256,93 @@ function NaveBar() {
             open={Boolean(anchorElNav)}
             onClose={handleCloseNavMenu}
           >
-            {token && userRole === "vendor"
-              ? [
-                  <Grid p={1.5} onClick={handleCloseNavMenu}>
-                    <Box
-                      sx={{ display: "flex", justifyContent: "space-around" }}
-                    >
-                      <Box mt={0.5}>
-                        <Link
-                          style={{ textDecoration: "none", color: "inherit" }}
-                          to={"/vendorProfile"}
-                        >
-                          الصفحة الشخصية
-                        </Link>
-                      </Box>
-                      <Box>
-                        <PersonIcon />
-                      </Box>
+            {token && userRole === "vendor" ? (
+              <>
+                <Grid p={1.5} onClick={handleCloseNavMenu}>
+                  <Box
+                    sx={{ display: "flex", justifyContent: "space-around" }}
+                  >
+                    <Box mt={0.5}>
+                      <Link
+                        style={{ textDecoration: "none", color: "inherit" }}
+                        to={"/vendorProfile"}
+                      >
+                        الصفحة الشخصية
+                      </Link>
                     </Box>
-                  </Grid>,
-                  <Box onClick={handleCloseNavMenu}>
-                    <Grid
-                      p={1.5}
-                      sx={{ display: "flex", justifyContent: "space-between" }}
-                    >
-                      <Box mt={0.5}>
-                        <Link
-                          style={{ textDecoration: "none", color: "inherit" }}
-                          to={"/vendorOrders"}
-                        >
-                          خدماتي أو منتجاتي
-                        </Link>
-                      </Box>
+                    <Box>
+                      <PersonIcon />
+                    </Box>
+                  </Box>
+                </Grid>
+                <Box onClick={handleCloseNavMenu}>
+                  <Grid
+                    p={1.5}
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Box mt={0.5}>
+                      <Link
+                        style={{ textDecoration: "none", color: "inherit" }}
+                        to={"/vendorOrders"}
+                      >
+                        خدماتي أو منتجاتي
+                      </Link>
+                    </Box>
 
-                      <DesignServicesIcon />
-                    </Grid>
-                  </Box>,
-                  <Box onClick={handleCloseNavMenu}>
-                    <Grid
-                      p={1.5}
-                      sx={{ display: "flex", justifyContent: "space-between" }}
-                    >
-                      <Box mt={0.5}>
-                        <Link
-                          style={{ textDecoration: "none", color: "inherit" }}
-                          to={"/addService"}
-                        >
-                          أضف خدمة أو منتج
-                        </Link>
-                      </Box>
+                    <DesignServicesIcon />
+                  </Grid>
+                </Box>
+                <Box onClick={handleCloseNavMenu}>
+                  <Grid
+                    p={1.5}
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Box mt={0.5}>
+                      <Link
+                        style={{ textDecoration: "none", color: "inherit" }}
+                        to={"/addService"}
+                      >
+                        أضف خدمة أو منتج
+                      </Link>
+                    </Box>
 
-                      <Inventory2Icon />
-                    </Grid>
-                  </Box>,
-                ]
-              : [
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Link
-                      style={{ textDecoration: "none", color: "inherit" }}
-                      to={"/favorites"}
-                    >
-                      المفضلة
-                    </Link>
-                  </MenuItem>,
-                  // /userOrders
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Link
-                      style={{ textDecoration: "none", color: "inherit" }}
-                      to={"/userOrders"}
-                    >
-                      الطلبات
-                    </Link>
-                  </MenuItem>,
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Link
-                      style={{ textDecoration: "none", color: "inherit" }}
-                      to={"/profile"}
-                    >
-                      الصفحة الشخصية
-                    </Link>
-                  </MenuItem>,
-                ]}
+                    <Inventory2Icon />
+                  </Grid>
+                </Box>
+              </>
+            ) : (
+              <>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    to={"/favorites"}
+                  >
+                    المفضلة
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    to={"/userOrders"}
+                  >
+                    الطلبات
+                  </Link>
+                </MenuItem>
+                <MenuItem onClick={handleCloseNavMenu}>
+                  <Link
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    to={"/profile"}
+                  >
+                    الصفحة الشخصية
+                  </Link>
+                </MenuItem>
+              </>
+            )}
           </Menu>
         </Toolbar>
       </Container>
     </AppBar>
   );
 }
+
 export default NaveBar;

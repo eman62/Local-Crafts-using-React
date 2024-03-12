@@ -19,11 +19,7 @@ const VendorPaggenation = ({ data }) => {
                         { order && <VendorOrderCard data={order} />}
                     </Grid>
                 ))}
-                {/* {Array.from({ length: totalCards }).slice(startIndex, endIndex).map((_, index) => (
-                    <Grid item key={index} xs={12} mr={3} >
-                        <VendorOrderCard/>
-                    </Grid>
-                ))} */}
+                
             </Grid>
            
         </Box>

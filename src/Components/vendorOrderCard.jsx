@@ -6,23 +6,6 @@ import { useEffect, useState } from "react";
 
 
 const VendorOrderCard = ({data}) => {
-  // const [productData,setProductData]=useState()
-  
-
-   useEffect(() => {
-   const getProductdata = () => {
-      return axiosInstance.get(`/products/${data.product}`)
-    
-      .then((res) => {
-        setProductData(res.data);
-      })
-      .catch((err) => {
-        console.log(err, "error fetching");
-      });
-    }
-    getProductdata()
-  }, []);
-
   return (
     <Box
       sx={{

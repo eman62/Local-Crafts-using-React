@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography"
 import HomeIcon from '@mui/icons-material/Home';
+import about from "../assets/about.jpeg"
 const AboutInfo = () => {
 
     return (
@@ -13,8 +14,8 @@ const AboutInfo = () => {
                     <Grid xs={6} sx={{
                         backgroundColor: "#091242", padding: "15%", position: "relative"
                     }}>
-                        <Box sx={{ width: "95%", height: "77%", borderRadius: "5%",position: "relative", overflow: "hidden", position: "absolute", top: "15%", left: "18%" }}>
-                            <img src="https://s3-alpha-sig.figma.com/img/b723/968d/e3da5c128458512930ebd5485c0c1a62?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=HAHddKWXBFjMOCxdJBTTHNtgOJvAFXP7t8YxwXgsCV2RH8Pf1pWaNPL3-ZJfJ2jA3io~Sd~7waaNt79-qz004I21x6ULmbbJds6hXgDHHQQxMrWwyayBpHhaUky84EMtxBE5PztuUA95LKuZrtX4HoyXPBa3fwYZGXZguZX8uEHSJwuKY1~NzdEvALbDeYLjGwPwSzNY37ySCuYp6gfoqjWOwfKBJ6FwZRPG2hj9rEwHIHVuZvEnEW44QbEN~wxICIQYhz7wqoZcR9w6nC~14bzGu2f1bY9wE9--9FTCl0oFgesJshCeRk62c~UaT4GDaLgA9FVxdPt6II8okR4miA__" />
+                        <Box sx={{ width: "95%", height: "77%", borderRadius: "5%", position: "relative", overflow: "hidden", position: "absolute", top: "15%", left: "18%" }}>
+                            <img src={about} />
                         </Box>
                         <Box sx={{
                             position: "absolute",
@@ -22,19 +23,35 @@ const AboutInfo = () => {
                             left: "65%",
                             background: "linear-gradient(90deg, #FFB629 0%, #FFDA56 50%, #FFD7A6 100%)",
                             padding: "1.7rem",
-                            display:"flex",
+                            display: "flex",
                             transform: "translate(-50%, -50%)",
-                            justifyContent:"space-around",
+                            justifyContent: "space-around",
 
                         }}>
-                            <HomeIcon sx={{color:"white",fontSize:"2.5rem" }}></HomeIcon>
+                            <HomeIcon sx={{ color: "white", fontSize: "2.5rem" }}></HomeIcon>
                             <Typography variant="p" sx={{}}>ستجد جميع خدمات التى يحتاجها منزلك</Typography>
                         </Box>
                     </Grid>
 
                     <Grid sx={{ backgroundColor: "#F4F4F4" }} xs={6}>
                         <Box sx={{ padding: "auto", width: "50%", marginTop: "20%", marginLeft: "20%", color: "#1C1F35" }}>
-                            <Typography variant="p" > عن موقعنا</Typography>
+                            <Box sx={{ display: "flex" ,direction:"rtl" }}>
+                                <Box >
+                                    <svg width="4" height="23" viewBox="0 0 4 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="4" height="23" fill="url(#paint0_linear_29_3989)" />
+                                        <defs>
+                                            <linearGradient id="paint0_linear_29_3989" x1="-0.113402" y1="4.98333" x2="4.94324" y2="5.04578" gradientUnits="userSpaceOnUse">
+                                                <stop stop-color="#FFB629" />
+                                                <stop offset="0.507189" stop-color="#FFDA56" />
+                                                <stop offset="1" stop-color="#FFD7A6" />
+                                            </linearGradient>
+                                        </defs>
+                                    </svg>
+                                </Box>
+                                <Typography variant="p" > عن موقعنا</Typography>
+                                
+                            </Box>
+
                             <h1 >نحن نتيح لك فرصة سريعة و
                                 سهلة لجعل منزلك متكامل</h1>
 
