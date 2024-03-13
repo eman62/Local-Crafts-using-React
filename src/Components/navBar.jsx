@@ -13,6 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import PersonIcon from "@mui/icons-material/Person";
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
+import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
 import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import SearchInput from "./SharedComponnent/NaveBar/search";
@@ -21,6 +22,7 @@ import Menu from "@mui/material/Menu";
 import { useDispatch } from "react-redux";
 import { clearUserData, clearUserToken } from "../stores/slice/user";
 import LogoutIcon from "@mui/icons-material/Logout";
+
 const pages = ["الرئيسية", "منتجات", "خدمات", "عن موقعنا"];
 const pagePaths = ["/", "/products", "/services", "about"];
 
@@ -71,7 +73,7 @@ function NaveBar() {
         direction: "rtl",
         backgroundColor: "rgba(9, 18, 66, 0.25)",
         position: "absolute",
-        zIndex:"1000",
+        zIndex: "1000",
         fontFamily: "Rubik",
         padding: { xs: "1%", md: "0" },
       }}
@@ -145,7 +147,6 @@ function NaveBar() {
               fontFamily: "Rubik",
               fontWeight: 700,
               color: "inherit",
-
               textDecoration: "none",
             }}
           >
@@ -257,8 +258,8 @@ function NaveBar() {
             onClose={handleCloseNavMenu}
           >
             {token && userRole === "vendor" ? (
-              <>
-                <Grid p={1.5} onClick={handleCloseNavMenu}>
+              [
+                <Grid p={1.5} onClick={handleCloseNavMenu} key="vendor-profile">
                   <Box sx={{ display: "flex", justifyContent: "space-around" }}>
                     <Box mt={0.5}>
                       <Link
@@ -272,8 +273,8 @@ function NaveBar() {
                       <PersonIcon />
                     </Box>
                   </Box>
-                </Grid>
-                <Box onClick={handleCloseNavMenu}>
+                </Grid>,
+                <Box onClick={handleCloseNavMenu} key="vendor-orders">
                   <Grid
                     p={1.5}
                     sx={{ display: "flex", justifyContent: "space-between" }}
@@ -283,14 +284,28 @@ function NaveBar() {
                         style={{ textDecoration: "none", color: "inherit" }}
                         to={"/vendorOrders"}
                       >
+                        الطلبات
+                      </Link>
+                    </Box>
+                    <HomeRepairServiceIcon />
+                  </Grid>
+                </Box>,
+                <Box onClick={handleCloseNavMenu} key="vendor-services">
+                  <Grid
+                    p={1.5}
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Box mt={0.5}>
+                      <Link
+                        style={{ textDecoration: "none", color: "inherit" }}
+                      >
                         خدماتي أو منتجاتي
                       </Link>
                     </Box>
-
                     <DesignServicesIcon />
                   </Grid>
-                </Box>
-                <Box onClick={handleCloseNavMenu}>
+                </Box>,
+                <Box onClick={handleCloseNavMenu} key="add-service">
                   <Grid
                     p={1.5}
                     sx={{ display: "flex", justifyContent: "space-between" }}
@@ -303,11 +318,10 @@ function NaveBar() {
                         أضف خدمة أو منتج
                       </Link>
                     </Box>
-
                     <Inventory2Icon />
                   </Grid>
-                </Box>
-                <Box onClick={handleCloseNavMenu}>
+                </Box>,
+                <Box onClick={handleCloseNavMenu} key="logout">
                   <Grid
                     p={1.5}
                     sx={{ display: "flex", justifyContent: "space-between" }}
@@ -324,34 +338,34 @@ function NaveBar() {
                     <LogoutIcon />
                   </Grid>
                 </Box>
-              </>
+              ]
             ) : (
-              <>
-                <MenuItem onClick={handleCloseNavMenu}>
+              [
+                <MenuItem onClick={handleCloseNavMenu} key="favorites">
                   <Link
                     style={{ textDecoration: "none", color: "inherit" }}
-                    to={"/favorites"}
+                    to={"/favouritePage"}
                   >
                     المفضلة
                   </Link>
-                </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
+                </MenuItem>,
+                <MenuItem onClick={handleCloseNavMenu} key="user-orders">
                   <Link
                     style={{ textDecoration: "none", color: "inherit" }}
                     to={"/userOrders"}
                   >
                     الطلبات
                   </Link>
-                </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
+                </MenuItem>,
+                <MenuItem onClick={handleCloseNavMenu} key="profile">
                   <Link
                     style={{ textDecoration: "none", color: "inherit" }}
                     to={"/profile"}
                   >
                     الصفحة الشخصية
                   </Link>
-                </MenuItem>
-                <MenuItem onClick={handleCloseNavMenu}>
+                </MenuItem>,
+                <MenuItem onClick={handleCloseNavMenu} key="logout">
                   <Grid
                     p={1.5}
                     sx={{ display: "flex", justifyContent: "space-between" }}
@@ -368,7 +382,7 @@ function NaveBar() {
                     <LogoutIcon />
                   </Grid>
                 </MenuItem>
-              </>
+              ]
             )}
           </Menu>
         </Toolbar>

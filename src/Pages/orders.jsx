@@ -1,9 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import IconButton from "@mui/material/IconButton";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 import {
   Button,
+  Container,
   Dialog,
   DialogActions,
   DialogContent,
@@ -22,6 +30,8 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [deletedOrderId, setDeletedOrderId] = useState("");
+  const swiperRef = useRef(null);
+  const [centerIndex, setCenterIndex] = useState(0);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -53,7 +63,21 @@ const Orders = () => {
   const handleCloseDialog = () => {
     setDialogOpen(false);
   };
+  const goNext = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slideNext();
+    }
+  };
 
+  const goPrev = () => {
+    if (swiperRef.current && swiperRef.current.swiper) {
+      swiperRef.current.swiper.slidePrev();
+    }
+  };
+
+  const handleSlideChange = (swiper) => {
+    setCenterIndex(swiper.realIndex + 1);
+  };
   return (
     <Box sx={{ position: "relative" }}>
       <Box
@@ -78,7 +102,7 @@ const Orders = () => {
           }}
         ></Box>
         {/* Red Box */}
-        <Box
+        <Box mb={90}
           sx={{
             position: "absolute",
             width: "70vw",
@@ -86,70 +110,147 @@ const Orders = () => {
             borderRadius: "30px",
             top: "20vh",
             left: "50%",
-            height: "95vh",
+            height: "110vh",
+            padding: "3%",
             transform: "translateX(-50%)",
             zIndex: 1,
-            overflow: "auto",
-            padding: "20px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-end",
-          }}
-        >
-          {/* Header */}
-          <Typography variant="h4" component="h2" sx={{ marginBottom: 2 }}>
-            الطلبات
-          </Typography>
+            //  direction:"rtl",
+            // overflow: "auto",
 
-          {/* Card Component Loop */}
-          <Grid
-            container
-            sx={{
-              direction: "rtl",
-              justifyContent: "center",
-            }}
-            spacing={3}
-          >
-            {orders.map((item, index) => (
-              <Grid item xs={12} sm={6} md={4} key={index}>
-                <OrdersCard data={item} />
-                <Button
-                  onClick={() => handleDeleteOrder(item._id)}
-                  sx={{
-                    background: "white",
-                    border: "1px solid lightGray",
-                    color: "black",
-                    height: 48,
-                    padding: "0 2vw",
-                    marginTop: "2vh",
-                    position: "relative",
-                    borderRadius: 0,
-                    textWrap: "nowrap",
-                    fontSize: "1.5vw",
-                    width: "14.5vw",
-                  }}
-                >
-                  الغاء الطلب
-                  <Box
-                    sx={{
-                      position: "absolute",
-                      background: "#1F2A69",
-                      width: "20%",
-                      borderRadius: "50% 0 0",
-                      bottom: "0",
-                      height: "40%",
-                      opacity: "70%",
-                      right: "0",
-                    }}
-                  ></Box>
-                </Button>
-              </Grid>
-            ))}
-          </Grid>
+
+          }}>
+          {/* Header */}
+          <Container>
+            <Box mt={3} sx={{ display: "flex", direction: "rtl", }}>
+              <Box mt={2}>
+                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 0H17V17H0V0Z" fill="url(#paint0_linear_39_2727)" />
+                  <defs>
+                    <linearGradient id="paint0_linear_39_2727" x1="-29875" y1="87704.3" x2="-29853.6" y2="87705.8" gradientUnits="userSpaceOnUse">
+                      <stop stop-color="#FFB629" />
+                      <stop offset="0.507189" stop-color="#FFDA56" />
+                      <stop offset="1" stop-color="#FFD7A6" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </Box>
+              <Typography variant="h4" component="h2" sx={{ fontFamily: "Rubik", }}>
+                الطلبات
+              </Typography>
+
+            </Box>
+
+            {/* Card Component Loop */}
+            <Box mt={10} ml={5}
+              sx={{
+                position:"relative",
+                display: "flex",
+                justifyContent: "center",
+                
+                
+              }}>
+              <Swiper
+                ref={swiperRef}
+                modules={[Navigation, Pagination, Scrollbar, A11y]}
+                loop={true}
+                onSlideChange={handleSlideChange}
+                breakpoints={{
+                  768: {
+                    slidesPerView: 2,
+                  },
+                  1024: {
+                    slidesPerView: 3,
+                  },
+                  1280: {
+                    slidesPerView: 3,
+                  }}}
+              >
+                <Grid container spacing={4}>
+
+                  {orders.map((item, index) => (
+                    <SwiperSlide>
+                      <Grid item xs={12} sm={6} md={4} key={index}
+                     sx={{paddingLeft:{xs:"15%",md:"10%"}}}
+                      >
+
+                        <OrdersCard data={item} />
+                        <Button
+                          onClick={() => handleDeleteOrder(item._id)}
+                          sx={{
+                            background: "white",
+                            border: "1px solid lightGray",
+                            color: "black",
+                            height: 48,
+                            padding: "0 2vw",
+                            marginTop: "2vh",
+                            position: "relative",
+                            borderRadius: 0,
+                            textWrap: "nowrap",
+                            fontSize: "1.5vw",
+                            width: "14.5vw",
+                          }}
+                        >
+                          الغاء الطلب
+                          <Box
+                            sx={{
+                              position: "absolute",
+                              background: "#1F2A69",
+                              width: "20%",
+                              borderRadius: "50% 0 0",
+                              bottom: "0",
+                              height: "40%",
+                              opacity: "70%",
+                              right: "0",
+                            }}
+                          ></Box>
+                        </Button>
+
+                      </Grid>
+                    </SwiperSlide>
+                  ))}
+
+                </Grid>
+              </Swiper>
+
+              <IconButton
+                sx={{
+                  position: "absolute",
+                  top: "60%",
+                  right: "100%",
+                  transform: "translateY(-50%)",
+                  zIndex: 999,
+                  background:
+                    "linear-gradient(90deg, #FFB629 0%, #FFDA56 50%, #FFD7A6 100%)",
+                  color: "white",
+                  width: "3vw",
+                  height: "5vh",
+                }}
+                onClick={goPrev}
+              >
+                &lt;
+              </IconButton>
+              <IconButton
+                sx={{
+                  position: "absolute",
+                  top: "60%",
+                  left: "95%",
+                  transform: "translateY(-50%)",
+                  zIndex: 999,
+                  backgroundColor: "#091242",
+                  color: "white",
+                  width: "3vw",
+                  height: "5vh",
+                }}
+                onClick={goNext}
+              >
+                &gt;
+              </IconButton>
+            </Box>
+          </Container>
         </Box>
       </Box>
       {/*box of blue and white box */}
-      <Box sx={{ height: "80vh", position: "relative" }}>
+      <Box sx={{ height: "100vh", position: "relative" }}>
         {/*blue box */}
         <Grid container sx={{ height: "100%" }}>
           <Grid item xs={8} sx={{ backgroundColor: "#091242" }}>
