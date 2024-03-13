@@ -236,6 +236,17 @@ const UserViewVendor = () => {
               modules={[Navigation, Pagination, Scrollbar, A11y]}
               slidesPerView={3}
               loop={true}
+              breakpoints={{
+                0: {
+                  slidesPerView: 1,
+                },
+                600: {
+                  slidesPerView: 2,
+                },
+                960: {
+                  slidesPerView: 3,
+                },
+              }}
               onSlideChange={handleSlideChange}
             >
               {/* Swiper slides go here */}
