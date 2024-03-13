@@ -13,7 +13,6 @@ const VendorOrderCard = ({ data }) => {
         height: "100%",
         mr: "5vw",
         mt: "5vh",
-        pb: "5vh",
         borderRadius: "5px",
       }}
     >
@@ -102,13 +101,11 @@ const VendorOrderCard = ({ data }) => {
             {" "}
             {data.phone}
           </Typography>
-          <Typography
-            sx={{ width: "20%", fontFamily: "Rubik", textWrap: "wrap" }}
-          >
+          <Typography sx={{ width: "20vw", fontFamily: "Rubik" }}>
             {data.message}
           </Typography>
         </Grid>
-        <Grid item sx={{ mt: "5vh" }} xs={12} md={4}>
+        <Grid item sx={{ mt: "5vh" }} xs={3} md={4}>
           {/* { productData && <ServiceCard product={productData}></ServiceCard>} */}
           {data && <ServiceCard orderData={data}></ServiceCard>}
         </Grid>

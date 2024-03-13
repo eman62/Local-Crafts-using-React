@@ -49,11 +49,13 @@ const ServicePageCard = ({ data }) => {
                   />
                 </IconButton>
               ) : (
-                <img
-                  height="35"
-                  width="35"
-                  src="https://th.bing.com/th/id/OIP.e4YIHGIZBy1X7GW01zOQfwHaHa?rs=1&pid=ImgDetMain"
-                />
+                <IconButton onClick={HandleViewVendor}>
+                  <img
+                    height="35"
+                    width="35"
+                    src="https://th.bing.com/th/id/OIP.e4YIHGIZBy1X7GW01zOQfwHaHa?rs=1&pid=ImgDetMain"
+                  />
+                </IconButton>
               )}
             </Box>
 
