@@ -38,7 +38,7 @@ export default function RouterPages() {
         <Route path="/userOrders" element={<Orders />} />
         <Route path="/vendorEditProfile" element={<VendorEditProfilePage />} />
         <Route path="/userViewVendor/:vendorId" element={<UserViewVendor />} />
-        {/* <Route path="/favouritePage" element={<FavouritePage />} /> */}
+        <Route path="/favouritePage" element={<FavouritePage />} />
 
         <Route
           path="/servicesdetails/:serviceId"

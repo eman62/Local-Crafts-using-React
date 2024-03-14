@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Card from "@mui/material/Card";
@@ -10,15 +10,32 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { useNavigate } from "react-router-dom";
 import { IconButton } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { addToFavirot, removeFavirot } from "../../stores/slice/favirot";
 
 const ServicePageCard = ({ data }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const refIcon = useRef();
+  const favirot = useSelector((state) => state.favirot.favirot);
+
   const HandleViewVendor = () => {
     navigate(`/userViewVendor/${data.vendor.id}`);
   };
+  const isProductInFavirot = favirot.some((product) => product.id === data.id);
+
+  useState(() => {
+    setIsFavorite(isProductInFavirot);
+  }, [isProductInFavirot]);
+
   const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
+    if (isFavorite) {
+      dispatch(removeFavirot(data)); 
+    } else {
+      dispatch(addToFavirot(data));
+    }
+    setIsFavorite(!isFavorite); 
   };
 
   return (
@@ -70,9 +87,11 @@ const ServicePageCard = ({ data }) => {
             </Typography>
             <Box onClick={toggleFavorite}>
               {isFavorite ? (
-                <FavoriteIcon sx={{ color: "red", fontSize: "1.5rem" }} />
+                <FavoriteIcon
+                  style={{ cursor: "pointer", color: "red", fontSize: "1.5rem" }}
+                />
               ) : (
-                <FavoriteBorderIcon sx={{ fontSize: "1.5rem" }} />
+                <FavoriteBorderIcon style={{ cursor: "pointer", fontSize: "1.5rem" }} />
               )}
             </Box>
           </Box>
