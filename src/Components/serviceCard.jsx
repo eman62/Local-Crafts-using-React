@@ -18,8 +18,8 @@ const ServiceCard = ({orderData}) => {
     };
 
     return (
-        <Box sx={{ direction: "rtl" }}  width={200}>
-            <Card  mb={10}>
+        <Box sx={{ direction: "rtl" }} >
+            <Card  mb={10} sx={{width:{xs:"200px",md:"250px"},}} >
                 <CardMedia
                     component="img"                  
                     height={200}

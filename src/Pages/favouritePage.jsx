@@ -12,11 +12,19 @@ import "swiper/css/scrollbar";
 import React, { useRef, useState } from "react";
 import Button from "@mui/material/Button";
 import DeleteForeverRoundedIcon from "@mui/icons-material/DeleteForeverRounded";
-import FaverotPaggenation from "../Components/Favirot/FavirotPagenation";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
 import { Container } from "@mui/material";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { IconButton } from "@mui/material";
 const FavouritePage = () => {
   const [centerIndex, setCenterIndex] = useState(0);
   const swiperRef = useRef(null);
+  const navigate = useNavigate();
+  const fave = useSelector(state => state.favirot.favirot);
 
   const handleSlideChange = (swiper) => {
     setCenterIndex(swiper.realIndex + 1);
@@ -48,24 +56,14 @@ const FavouritePage = () => {
         {/* Red Box */}
         <Box
           sx={{
-            // position: "absolute",
-            // width: "70vw",
-            // backgroundColor: "white",
-            // borderRadius: "30px",
-            // top: "30vh",
-            // left: "50%",
-            // height: "170vh",
-            // transform: "translateX(-50%)",
-            // zIndex: 1,
-            // overflow: "auto",
-            // padding: "20px",
+        
             position: "absolute",
             width: "70vw",
             backgroundColor: "white",
             borderRadius: "30px",
-            top: "10vh",
+            top: "20vh",
             left: "50%",
-            height: "205vh",
+            height: "190vh",
             transform: "translateX(-50%)",
             zIndex: 1,
             direction: "rtl",
@@ -108,40 +106,119 @@ const FavouritePage = () => {
             </Typography>
           </Box>
           <Container>
-            <FaverotPaggenation />
+            <Box mt={10}>
+              <Grid container spacing={4} sx={{ width: "90%" }}>
+                {fave.map((fave) => (
+                  <Grid item key={fave.id} xs={12} md={6} lg={3} mb={5}>
+                    <Box sx={{ direction: "rtl" }} width={200}>
+                      <Card mb={10} sx={{ height: 450 }}>
+                        <CardMedia
+                          component="img"
+                          height={200}
+                          image={fave.photos[0]}
+                          alt="Random"
+                        />
+                        <CardContent>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              justifyContent: "space-around",
+                            }}
+                          >
+                            <Box sx={{ borderRadius: "50%" }}>
+                              {fave.vendor.photo ? (
+                                <IconButton >
+                                  <img
+                                    height="35"
+                                    width="35"
+                                    src={fave.vendor.photo}
+                                    alt="Person"
+                                    style={{ borderRadius: "50%" }}
+                                  />
+                                </IconButton>
+                              ) : (
+                                <IconButton >
+                                  <img
+                                    height="35"
+                                    width="35"
+                                    src="https://th.bing.com/th/id/OIP.e4YIHGIZBy1X7GW01zOQfwHaHa?rs=1&pid=ImgDetMain"
+                                  />
+                                </IconButton>
+                              )}
+                            </Box>
+
+                            <Typography
+                              gutterBottom
+                              variant="p"
+                              component="div"
+                              sx={{ fontWeight: "bold" }}
+                              onClick={() => navigate(`/servicesdetails/${fave.id}`)}
+                            >
+                              {fave.name}
+                            </Typography>
+                          </Box>
+                          <Box
+                            mt={2}
+                            sx={{
+                              display: "flex",
+                              justifyContent: "space-around",
+                            }}
+                          >
+                            <Typography
+                              gutterBottom
+                              variant="p"
+                              sx={{ fontFamily: " 'Rubik', sans-serif" }}
+                            >
+                              {fave.category.main}
+                            </Typography>
+                            <Typography
+                              gutterBottom
+                              variant="p"
+                              sx={{ fontFamily: " 'Rubik', sans-serif" }}
+                            >
+                              {fave.category.sub}
+                            </Typography>
+                          </Box>
+
+                          <Typography mt={2} variant="body2">
+                            I {fave.description}{" "}
+                          </Typography>
+
+                          <Box
+                            mt={2}
+                            sx={{
+                              display: "flex",
+                              justifyContent: "space-around", // Changed to space-between for spacing
+                            }}
+                          >
+                            <Typography
+                              gutterBottom
+                              variant="p"
+                              sx={{ fontFamily: " 'Rubik', sans-serif" }}
+                            >
+                              السعر : {fave.price} ج
+                            </Typography>
+                            <Box mt={0.5}>
+                              <StarBorderIcon sx={{ fontSize: "1rem" }} />
+                              <StarBorderIcon sx={{ fontSize: "1rem" }} />
+                              <StarBorderIcon sx={{ fontSize: "1rem" }} />
+                              <StarBorderIcon sx={{ fontSize: "1rem" }} />
+                            </Box>
+                          </Box>
+                        </CardContent>
+                      </Card>
+                    </Box>
+
+
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
           </Container>
 
-          {/* <Swiper
-            style={{ margin: "7vh 0" }}
-            ref={swiperRef}
-            modules={[Navigation, Pagination, Scrollbar, A11y]}
-            loop={true}
-            onSlideChange={handleSlideChange}
-          >
-            <SwiperSlide sx={{}}>
-              <Grid container sx={{ mr: "2vw", mt: "5vh" }}>
-                <Grid item xs={4} sx={{ mb: "4vh" }}>
-                  <ServiceCard />
-                </Grid>
-                <Grid item xs={4}>
-                  <ServiceCard />
-                </Grid>
-                <Grid item xs={4}>
-                  <ServiceCard />
-                </Grid>
-                <Grid item xs={4}>
-                  <ServiceCard />
-                </Grid>
-                <Grid item xs={4}>
-                  <ServiceCard />
-                </Grid>
-                <Grid item xs={4}>
-                  <ServiceCard />
-                </Grid>
-              </Grid>
-            </SwiperSlide>
-          </Swiper> */}
-          <Button 
+
+
+          <Button
             sx={{
               background: "linear-gradient(90deg, #1F2A69  0%, #091242 100%)",
               border: 0,
@@ -172,7 +249,7 @@ const FavouritePage = () => {
         </Box>
       </Box>
       {/*box of blue and white box */}
-      <Box sx={{ height: "180vh", position: "relative" }}>
+      <Box Box sx={{ height: "180vh", position: "relative" }}>
         {/*blue box */}
         <Grid container sx={{ height: "180vh" }}>
           <Grid item xs={6} sx={{ backgroundColor: "#091242" }}>

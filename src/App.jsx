@@ -19,6 +19,7 @@ import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { changeLocation } from "./stores/slice/location";
 import AddProducts from "./Pages/addProducts";
+import Footer from "./Components/footer";
 function App() {
   const dispatch = useDispatch();
 
@@ -29,6 +30,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <RouterPages />
+       
       </BrowserRouter>
     </>
   );

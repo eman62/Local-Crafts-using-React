@@ -21,7 +21,7 @@ const FaverotPaggenation = () => {
           .slice(startIndex, endIndex)
           .map((_, index) => (
             <Grid item key={index} xs={6} lg={3} mb={5}>
-              <ServiceCard />
+              {/* <ServiceCard /> */}
             </Grid>
           ))}
       </Grid>

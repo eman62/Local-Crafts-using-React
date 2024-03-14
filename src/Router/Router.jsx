@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { ProductsDetalis } from "../Pages/productDetails";
 import { ServicesDetalis } from "../Pages/ServicesDetails";
 
+
 export default function RouterPages() {
   const LoginPage = React.lazy(() => import("../Pages/loginPage"));
   const HomePage = React.lazy(() => import("../Pages/homePage"));
@@ -17,6 +18,7 @@ export default function RouterPages() {
   const VendorProfile = React.lazy(() => import("../Pages/vendorProfile"));
   const Orders = React.lazy(() => import("../Pages/orders"));
   const UserViewVendor = React.lazy(() => import("./../Pages/userViewVendor"));
+  const FavouritePage = React.lazy(() => import("../Pages/favouritePage"));
   const VendorEditProfilePage = React.lazy(() =>
     import("../Pages/vendoEditProfile")
   );
@@ -36,6 +38,7 @@ export default function RouterPages() {
         <Route path="/userOrders" element={<Orders />} />
         <Route path="/vendorEditProfile" element={<VendorEditProfilePage />} />
         <Route path="/userViewVendor/:vendorId" element={<UserViewVendor />} />
+        <Route path="/favouritePage" element={<FavouritePage />} />
 
         <Route
           path="/servicesdetails/:serviceId"
