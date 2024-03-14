@@ -10,19 +10,24 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { useEffect, useState } from "react";
 import { getCities, getGovernorates } from "../api/locations";
-import { getUserData } from "../api/users";
+import { getUserData, updateUserData } from "../api/users";
 import { Avatar } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import EditIcon from "@mui/icons-material/Edit";
 
 const VendorEditProfilePage = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
   const token = localStorage.getItem("token");
+  const [imageURL, setImageURL] = useState("");
   const [user, setUser] = useState({});
   const [governorates, setGovernorates] = useState([]);
   const [cities, setCities] = useState([]);
   const [selectedGovernorate, setSelectedGovernorate] = useState();
+  const userId = JSON.parse(localStorage.getItem("userData"))._id;
+  const [updatedUser, setUpdatedUser] = useState({});
 
   const [selectedCity, setSelectedCity] = useState("");
-
+  const navigate = useNavigate();
   useEffect(() => {
     getGovernorates()
       .then((res) => {
@@ -42,553 +47,654 @@ const VendorEditProfilePage = () => {
         });
     }
   }, [selectedGovernorate]);
+  const validateName = (name) => {
+    return name.length >= 2 && name.length <= 50;
+  };
 
+  const validateDescription = (description) => {
+    return description.length >= 20 && description.length <= 500;
+  };
+
+  const validateJob = (job) => {
+    return job.length >= 2 && job.length <= 50;
+  };
   useEffect(() => {
     getUserData(userData._id, token)
       .then((res) => {
         setUser(res.data);
+
         console.log(res.data);
+        setUpdatedUser(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setUser((prevUser) => ({
-      ...prevUser,
-      [name]: value,
-    }));
+
+    if (name === "gov" || name === "city") {
+      setUpdatedUser((prevUser) => ({
+        ...prevUser,
+        address: {
+          ...prevUser.address,
+          [name]: value,
+        },
+      }));
+    } else {
+      setUpdatedUser((prevUser) => ({
+        ...prevUser,
+        [name]: value,
+      }));
+    }
+  };
+  const formDataToSend = {
+    ...updatedUser,
+    address: {
+      gov: selectedGovernorate
+        ? governorates.find((gov) => gov._id === selectedGovernorate)?.name ||
+          ""
+        : userData.address?.gov || "",
+      city: selectedCity
+        ? cities.find((city) => city._id === selectedCity)?.name || ""
+        : userData.address?.city || "",
+    },
+  };
+  const handleFileChange = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", "LocalCrafts");
+
+      try {
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/dbtaj8rn6/image/upload",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+        const data = await response.json();
+        setImageURL(data.secure_url);
+        setUpdatedUser((prevUser) => ({
+          ...prevUser,
+          photo: data.secure_url,
+        }));
+        setUser((prevUser) => ({
+          ...prevUser,
+          photo: data.secure_url,
+        }));
+      } catch (error) {
+        console.error("Error uploading image:", error);
+      }
+    }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!validateName(updatedUser.name)) {
+      alert("الأسم يجب أن يكون من 2 الي 50 حرف");
+      return;
+    }
+
+    if (!validateDescription(updatedUser.description)) {
+      alert("نبذه عنك يجب ان تكون من 20 الي 500 حرف");
+      return;
+    }
+
+    if (!validateJob(updatedUser.job)) {
+      alert("المهنه يجب ان تكون من 2 الي 50 حرغ");
+      return;
+    }
+    try {
+      const response = await updateUserData(userId, formDataToSend, token);
+      setUser(response.data);
+      setUpdatedUser(response.data);
+      window.location.reload();
+      console.log("User updated successfully:", response.data);
+    } catch (error) {
+      console.log("Error updating user:", error);
+    }
   };
 
   return (
-    <Box sx={{ position: "relative" }}>
-      <Box
-        sx={{
-          backgroundImage:
-            "url('https://s3-alpha-sig.figma.com/img/0d66/363b/6f00d7173f94ca7d7ab6bcc39bde6406?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Y-dGzk1BZ7AzXsytxPi6tPDQGedhQNe-fnxuhUubZEHGmJGV3Mv7ViyEdH~h1mEoLCLZ8bGvOMHOac9P10gmWkZUvNbdtKWNZFPEeVUDFqS~ZRZfxiSZ-Bfn0ETk6BhRY67QaLL7ERh4Tt5XNHQJoa9j6TeSL6C5SuJc79nQ37shNjVlPVaXOzUxa5SY6cvUscKDALerDU7CDku6S5EHwZ1hlb2sUHyC6a71TKY~D00y8~YzvGecVrgd3XjbDRMF1mhq5Tgo~TxSxoDkjuf3ZxQ-wlKLEi1C30bdkPyA9ezOh37aeshkILVrPjvVBKeJKsfNXN5CUsrMZj7KM5BWoQ__')",
-          height: "35vh",
-          width: "100%",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          position: "relative",
-        }}
-      >
+    <form onSubmit={handleSubmit}>
+      <Box sx={{ position: "relative" }}>
         <Box
           sx={{
-            position: "absolute",
-            backgroundColor: "rgb(6,0,66,.7)",
-            height: "100%",
-            top: "0",
-            right: "0",
-            left: "0",
-          }}
-        ></Box>
-        {/* Red Box */}
-        <Box
-          sx={{
-            position: "absolute",
-            width: "80vw",
-            backgroundColor: "white",
-            borderRadius: "30px",
-            top: "20vh",
-            left: "50%",
-            height: "215vh",
-            transform: "translateX(-50%)",
-            zIndex: 1,
+            backgroundImage:
+              "url('https://s3-alpha-sig.figma.com/img/0d66/363b/6f00d7173f94ca7d7ab6bcc39bde6406?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Y-dGzk1BZ7AzXsytxPi6tPDQGedhQNe-fnxuhUubZEHGmJGV3Mv7ViyEdH~h1mEoLCLZ8bGvOMHOac9P10gmWkZUvNbdtKWNZFPEeVUDFqS~ZRZfxiSZ-Bfn0ETk6BhRY67QaLL7ERh4Tt5XNHQJoa9j6TeSL6C5SuJc79nQ37shNjVlPVaXOzUxa5SY6cvUscKDALerDU7CDku6S5EHwZ1hlb2sUHyC6a71TKY~D00y8~YzvGecVrgd3XjbDRMF1mhq5Tgo~TxSxoDkjuf3ZxQ-wlKLEi1C30bdkPyA9ezOh37aeshkILVrPjvVBKeJKsfNXN5CUsrMZj7KM5BWoQ__')",
+            height: "35vh",
+            width: "100%",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            position: "relative",
           }}
         >
-          {/* عنوان الصفحه الشخصيه */}
-          <Box sx={{ display: "flex", direction: "rtl" }}>
-            <svg
-              style={{ margin: "5vh 2vw 0 0" }}
-              width="17"
-              height="17"
-              viewBox="0 0 17 17"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M0 0H17V17H0V0Z" fill="url(#paint0_linear_29_4153)" />
-              <defs>
-                <linearGradient
-                  id="paint0_linear_29_4153"
-                  x1="-29875"
-                  y1="87704.3"
-                  x2="-29853.6"
-                  y2="87705.8"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stopColor="#FFB629" />
-                  <stop offset="0.507189" stopColor="#FFDA56" />
-                  <stop offset="1" stopColor="#FFD7A6" />
-                </linearGradient>
-              </defs>
-            </svg>
-            <Typography
-              sx={{
-                display: "block",
-                margin: "3vh 1vw 0 0",
-                fontSize: "2em",
-              }}
-            >
-              تعديل الصفحه الشخصية
-            </Typography>
-          </Box>
-          {/* box البيانات */}
-          <Grid
-            container
+          <Box
             sx={{
-              direction: "rtl",
-              justifyContent: "center",
+              position: "absolute",
+              backgroundColor: "rgb(6,0,66,.7)",
+              height: "100%",
+              top: "0",
+              right: "0",
+              left: "0",
             }}
-            spacing={1}
+          ></Box>
+          {/* Red Box */}
+          <Box
+            sx={{
+              position: "absolute",
+              width: "80vw",
+              backgroundColor: "white",
+              borderRadius: "30px",
+              top: "20vh",
+              left: "50%",
+              height: "215vh",
+              transform: "translateX(-50%)",
+              zIndex: 1,
+            }}
           >
-            <Grid item xs={2}>
-              {user.photo ? (
-                <Avatar
-                  src={user.photo}
-                  alt="User Photo"
-                  sx={{
-                    width: 150,
-                    height: 150,
-                    mr: "2vw",
-                    mt: "7vh",
-                  }}
-                />
-              ) : (
-                <IconButton>
-                  <PersonIcon
-                    sx={{
-                      fontSize: "15vw",
-                      color: "black",
-                      mr: "2vw",
-                      mt: "7vh",
-                    }}
-                  />
-                </IconButton>
-              )}
+            {/* عنوان الصفحه الشخصيه */}
+            <Box sx={{ display: "flex", direction: "rtl" }}>
+              <svg
+                style={{ margin: "5vh 2vw 0 0" }}
+                width="17"
+                height="17"
+                viewBox="0 0 17 17"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M0 0H17V17H0V0Z" fill="url(#paint0_linear_29_4153)" />
+                <defs>
+                  <linearGradient
+                    id="paint0_linear_29_4153"
+                    x1="-29875"
+                    y1="87704.3"
+                    x2="-29853.6"
+                    y2="87705.8"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stopColor="#FFB629" />
+                    <stop offset="0.507189" stopColor="#FFDA56" />
+                    <stop offset="1" stopColor="#FFD7A6" />
+                  </linearGradient>
+                </defs>
+              </svg>
               <Typography
                 sx={{
-                  textAlign: "center",
-                  fontSize: "1.5em",
-                  paddingRight: "2.5vw",
+                  display: "block",
+                  margin: "3vh 1vw 0 0",
+                  fontSize: "2em",
                 }}
               >
-                {user.name}
+                تعديل الصفحه الشخصية
               </Typography>
-              <Typography
-                sx={{
-                  textAlign: "center",
-                  fontSize: "1.3em",
-                  paddingRight: "2.5vw",
-                  fontFamily: "Krub",
-                  fontWeight: "500",
-                }}
-              >
-                {user.job}
-              </Typography>
-            </Grid>
+            </Box>
+            {/* box البيانات */}
             <Grid
-              item
-              xs={9}
+              container
               sx={{
-                margin: "3vw 2vw",
+                direction: "rtl",
+                justifyContent: "center",
               }}
+              spacing={1}
             >
-              <Box
+              <Grid
+                item
+                xs={2}
+                sx={{ position: "relative", display: "inline-block" }}
+              >
+                <label htmlFor="file-upload">
+                  {user.photo ? (
+                    <Avatar
+                      key={user.photo}
+                      src={user.photo}
+                      alt="User Photo"
+                      sx={{
+                        width: 150,
+                        height: 150,
+                        mr: "2vw",
+                        mt: "7vh",
+                        position: "relative",
+                      }}
+                    />
+                  ) : (
+                    <IconButton>
+                      <PersonIcon
+                        sx={{
+                          fontSize: "15vw",
+                          color: "black",
+                          mr: "2vw",
+                          mt: "7vh",
+                        }}
+                      />
+                    </IconButton>
+                  )}
+                </label>
+                <EditIcon
+                  style={{
+                    position: "absolute",
+                    top: "13%",
+                    right: "10%",
+                    color: "blue",
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    borderRadius: "50%",
+                    padding: "5px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => document.getElementById("file-upload").click()}
+                />
+                <input
+                  id="file-upload"
+                  type="file"
+                  style={{ display: "none" }}
+                  onChange={handleFileChange}
+                />
+              </Grid>
+
+              <Grid
+                item
+                xs={9}
                 sx={{
-                  backgroundColor: "#091242",
-                  height: "170vh",
-                  borderRadius: "20px",
+                  margin: "3vw 2vw",
                 }}
               >
                 <Box
                   sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    backgroundColor: "#091242",
+                    height: "170vh",
+                    borderRadius: "20px",
                   }}
                 >
-                  <svg
-                    width="4"
-                    height="5vh"
-                    viewBox="0 0 4 32"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <rect
-                      width="4"
-                      height="32"
-                      fill="url(#paint0_linear_49_2162)"
-                    />
-                    <defs>
-                      <linearGradient
-                        id="paint0_linear_49_2162"
-                        x1="-0.113402"
-                        y1="6.93333"
-                        x2="4.94361"
-                        y2="6.97822"
-                        gradientUnits="userSpaceOnUse"
-                      >
-                        <stop stop-color="#FFB629" />
-                        <stop offset="0.507189" stop-color="#FFDA56" />
-                        <stop offset="1" stop-color="#FFD7A6" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                  <Typography
+                  <Box
                     sx={{
-                      fontSize: "2rem",
-                      marginRight: "4px",
-                      color: "white",
-                      marginTop: "1vh",
-                      backgroundColor: "rgb(50,50,50,.5)",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
                     }}
                   >
-                    البيانات
-                  </Typography>
-                </Box>
-                <Grid
-                  container
-                  sx={{
-                    paddingTop: "2vw",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                  spacing={10}
-                >
-                  <Grid item sx={{ marginRight: "3vw" }}>
-                    <Typography
-                      sx={{
-                        color: "white",
-                        fontFamily: "Kurb",
-                        fontSize: "1.5em",
-                      }}
+                    <svg
+                      width="4"
+                      height="5vh"
+                      viewBox="0 0 4 32"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      الأسم
-                    </Typography>
-                    <TextField
-                      id="outlined-basic"
-                      variant="outlined"
-                      name="name"
-                      value={user.name}
-                      onChange={handleChange}
-                      InputLabelProps={{
-                        sx: {
-                          color: "white",
-                        },
-                      }}
-                      InputProps={{
-                        sx: {
-                          width: "260px",
-                          height: "40px",
-                          backgroundColor: "#1F2A69",
-                          border: "1px solid #8E8E8E",
-                          color: "white",
-                          direction: "rtl",
-                          mt: "2vh",
-                        },
-                      }}
-                    />
-                    <Typography
-                      sx={{
-                        color: "white",
-                        fontFamily: "Kurb",
-                        fontSize: "1.5em",
-                        mt: "2vh",
-                      }}
-                    >
-                      البريد
-                    </Typography>
-                    <TextField
-                      id="outlined-basic"
-                      variant="outlined"
-                      name="email"
-                      value={user.email}
-                      onChange={handleChange}
-                      InputLabelProps={{
-                        sx: {
-                          color: "white",
-                        },
-                      }}
-                      InputProps={{
-                        sx: {
-                          width: "260px",
-                          height: "40px",
-                          backgroundColor: "#1F2A69",
-                          border: "1px solid #8E8E8E",
-                          color: "white",
-                          direction: "rtl",
-                          mt: "2vh",
-                        },
-                      }}
-                    />
-                    <Grid container spacing={2}>
-                      <Grid item>
-                        <Typography
-                          sx={{
-                            color: "white",
-                            fontFamily: "Kurb",
-                            fontSize: "1.5em",
-                            mt: "4vh",
-                          }}
+                      <rect
+                        width="4"
+                        height="32"
+                        fill="url(#paint0_linear_49_2162)"
+                      />
+                      <defs>
+                        <linearGradient
+                          id="paint0_linear_49_2162"
+                          x1="-0.113402"
+                          y1="6.93333"
+                          x2="4.94361"
+                          y2="6.97822"
+                          gradientUnits="userSpaceOnUse"
                         >
-                          المحافظة
-                        </Typography>
-
-                        <Select
-                          labelId="demo-simple-select-helper-label"
-                          id="demo-simple-select-helper"
-                          label=" المحافظه"
-                          value={selectedGovernorate}
-                          onChange={(e) => {
-                            setSelectedGovernorate(e.target.value);
-                            // setVendorFormData((prevState) => ({
-                            //   ...prevState,
-                            //   address: {
-                            //     ...prevState.address,
-                            //     gov: e.target.value,
-                            //   },
-                            // })
-                            // );
-                          }}
-                          sx={{
-                            width: "120px",
+                          <stop stop-color="#FFB629" />
+                          <stop offset="0.507189" stop-color="#FFDA56" />
+                          <stop offset="1" stop-color="#FFD7A6" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                    <Typography
+                      sx={{
+                        fontSize: "2rem",
+                        marginRight: "4px",
+                        color: "white",
+                        marginTop: "1vh",
+                        backgroundColor: "rgb(50,50,50,.5)",
+                      }}
+                    >
+                      البيانات
+                    </Typography>
+                  </Box>
+                  <Grid
+                    container
+                    sx={{
+                      paddingTop: "2vw",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                    spacing={10}
+                  >
+                    <Grid item sx={{ marginRight: "3vw" }}>
+                      <Typography
+                        sx={{
+                          color: "white",
+                          fontFamily: "Kurb",
+                          fontSize: "1.5em",
+                        }}
+                      >
+                        الأسم
+                      </Typography>
+                      <TextField
+                        id="outlined-basic"
+                        variant="outlined"
+                        name="name"
+                        value={updatedUser.name}
+                        onChange={handleChange}
+                        InputLabelProps={{
+                          sx: {
+                            color: "white",
+                          },
+                        }}
+                        InputProps={{
+                          sx: {
+                            width: "260px",
                             height: "40px",
                             backgroundColor: "#1F2A69",
                             border: "1px solid #8E8E8E",
                             color: "white",
-                          }}
-                        >
-                          {governorates.map((option) => (
-                            <MenuItem key={option._id} value={option._id}>
-                              {" "}
-                              {option.name}
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </Grid>
-                      <Grid item>
-                        <Typography
-                          sx={{
+                            direction: "rtl",
+                            mt: "2vh",
+                          },
+                        }}
+                      />
+                      <Typography
+                        sx={{
+                          color: "white",
+                          fontFamily: "Kurb",
+                          fontSize: "1.5em",
+                          mt: "2vh",
+                        }}
+                      >
+                        البريد
+                      </Typography>
+                      <TextField
+                        id="outlined-basic"
+                        variant="outlined"
+                        name="email"
+                        disabled
+                        value={user.email}
+                        onChange={handleChange}
+                        InputLabelProps={{
+                          sx: {
                             color: "white",
-                            fontFamily: "Kurb",
-                            fontSize: "1.5em",
-                            mt: "4vh",
-                          }}
-                        >
-                          المدينه
-                        </Typography>
-
-                        <Select
-                          labelId="demo-simple-select-helper-label"
-                          id="demo-simple-select-helper"
-                          value={selectedCity}
-                          onChange={(e) => {
-                            setSelectedCity(e.target.value);
-                            // setVendorFormData((prevState) => ({
-                            //   ...prevState,
-                            //   address: {
-                            //     ...prevState.address,
-                            //     city: e.target.value,
-                            //   },
-                            // }));
-                          }}
-                          sx={{
-                            width: "120px",
+                          },
+                        }}
+                        InputProps={{
+                          sx: {
+                            width: "260px",
                             height: "40px",
                             backgroundColor: "#1F2A69",
                             border: "1px solid #8E8E8E",
                             color: "white",
-                          }}
-                        >
-                          {cities.map((option) => (
-                            <MenuItem key={option._id} value={option._id}>
-                              {" "}
-                              {option.name}
-                            </MenuItem>
-                          ))}
-                        </Select>
+                            direction: "rtl",
+                            mt: "2vh",
+                          },
+                        }}
+                      />
+                      <Grid container spacing={2}>
+                        <Grid item>
+                          <Typography
+                            sx={{
+                              color: "white",
+                              fontFamily: "Kurb",
+                              fontSize: "1.5em",
+                              mt: "4vh",
+                            }}
+                          >
+                            المحافظة
+                          </Typography>
+
+                          <Select
+                            labelId="demo-simple-select-helper-label"
+                            id="demo-simple-select-helper"
+                            label=" المحافظه"
+                            name="gov"
+                            defaultValue={
+                              userData.address && userData.address.gov
+                            }
+                            value={selectedGovernorate || ""}
+                            onChange={(e) => {
+                              setSelectedGovernorate(e.target.value);
+                              handleChange(e);
+                            }}
+                            sx={{
+                              width: "120px",
+                              height: "40px",
+                              backgroundColor: "#1F2A69",
+                              border: "1px solid #8E8E8E",
+                              color: "white",
+                            }}
+                          >
+                            {governorates.map((option) => (
+                              <MenuItem key={option._id} value={option._id}>
+                                {" "}
+                                {option.name}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </Grid>
+                        <Grid item>
+                          <Typography
+                            sx={{
+                              color: "white",
+                              fontFamily: "Kurb",
+                              fontSize: "1.5em",
+                              mt: "4vh",
+                            }}
+                          >
+                            المدينه
+                          </Typography>
+
+                          <Select
+                            labelId="demo-simple-select-helper-label"
+                            id="demo-simple-select-helper"
+                            name="city"
+                            defaultValue={
+                              userData.address && userData.address.city
+                            }
+                            value={selectedCity || ""}
+                            onChange={(e) => {
+                              setSelectedCity(e.target.value);
+                              handleChange(e);
+                            }}
+                            sx={{
+                              width: "120px",
+                              height: "40px",
+                              backgroundColor: "#1F2A69",
+                              border: "1px solid #8E8E8E",
+                              color: "white",
+                            }}
+                          >
+                            {cities.map((option) => (
+                              <MenuItem key={option._id} value={option._id}>
+                                {" "}
+                                {option.name}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </Grid>
                       </Grid>
+                      <Typography
+                        sx={{
+                          color: "white",
+                          fontFamily: "Kurb",
+                          fontSize: "1.5em",
+                          mt: "2vh",
+                        }}
+                      >
+                        الهاتف
+                      </Typography>
+                      <TextField
+                        id="outlined-basic"
+                        type="number"
+                        name="phone"
+                        value={updatedUser.phone}
+                        onChange={handleChange}
+                        variant="outlined"
+                        InputLabelProps={{
+                          sx: {
+                            color: "white",
+                          },
+                        }}
+                        InputProps={{
+                          sx: {
+                            width: "260px",
+                            height: "40px",
+                            backgroundColor: "#1F2A69",
+                            border: "1px solid #8E8E8E",
+                            color: "white",
+                            direction: "rtl",
+                            mt: "2vh",
+                          },
+                        }}
+                      />
+                      <Typography
+                        sx={{
+                          color: "white",
+                          fontFamily: "Kurb",
+                          fontSize: "1.5em",
+                          mt: "2vh",
+                        }}
+                      >
+                        المهنه
+                      </Typography>
+                      <TextField
+                        id="outlined-basic"
+                        variant="outlined"
+                        name="job"
+                        value={updatedUser.job}
+                        onChange={handleChange}
+                        InputLabelProps={{
+                          sx: {
+                            color: "white",
+                          },
+                        }}
+                        InputProps={{
+                          sx: {
+                            width: "260px",
+                            height: "40px",
+                            backgroundColor: "#1F2A69",
+                            border: "1px solid #8E8E8E",
+                            color: "white",
+                            direction: "rtl",
+                            mt: "2vh",
+                          },
+                        }}
+                      />
+                      <Typography
+                        sx={{
+                          color: "white",
+                          fontFamily: "Kurb",
+                          fontSize: "1.5em",
+                          mt: "5vh",
+                        }}
+                      >
+                        نبذة
+                      </Typography>
+                      <TextField
+                        name="description"
+                        value={updatedUser.description}
+                        onChange={handleChange}
+                        id="outlined-multiline-static"
+                        defaultValue="رسالة صغيرة"
+                        multiline
+                        rows={6}
+                        InputProps={{
+                          style: { color: "white" },
+                        }}
+                        sx={{
+                          width: "40vw",
+                          direction: "rtl",
+                          backgroundColor: "#1F2A69",
+                          border: "1px solid #8E8E8E",
+                          color: "white",
+                        }}
+                      />
                     </Grid>
-                    <Typography
-                      sx={{
-                        color: "white",
-                        fontFamily: "Kurb",
-                        fontSize: "1.5em",
-                        mt: "2vh",
-                      }}
-                    >
-                      الهاتف
-                    </Typography>
-                    <TextField
-                      id="outlined-basic"
-                      type="number"
-                      name="phone"
-                      value={user.phone}
-                      onChange={handleChange}
-                      variant="outlined"
-                      InputLabelProps={{
-                        sx: {
-                          color: "white",
-                        },
-                      }}
-                      InputProps={{
-                        sx: {
-                          width: "260px",
-                          height: "40px",
-                          backgroundColor: "#1F2A69",
-                          border: "1px solid #8E8E8E",
-                          color: "white",
-                          direction: "rtl",
-                          mt: "2vh",
-                        },
-                      }}
-                    />
-                    <Typography
-                      sx={{
-                        color: "white",
-                        fontFamily: "Kurb",
-                        fontSize: "1.5em",
-                        mt: "2vh",
-                      }}
-                    >
-                      المهنه
-                    </Typography>
-                    <TextField
-                      id="outlined-basic"
-                      variant="outlined"
-                      name="job"
-                      value={user.job}
-                      onChange={handleChange}
-                      InputLabelProps={{
-                        sx: {
-                          color: "white",
-                        },
-                      }}
-                      InputProps={{
-                        sx: {
-                          width: "260px",
-                          height: "40px",
-                          backgroundColor: "#1F2A69",
-                          border: "1px solid #8E8E8E",
-                          color: "white",
-                          direction: "rtl",
-                          mt: "2vh",
-                        },
-                      }}
-                    />
-                    <Typography
-                      sx={{
-                        color: "white",
-                        fontFamily: "Kurb",
-                        fontSize: "1.5em",
-                        mt: "5vh",
-                      }}
-                    >
-                      نبذة
-                    </Typography>
-                    <TextField
-                      name="description"
-                      value={user.description}
-                      onChange={handleChange}
-                      id="outlined-multiline-static"
-                      defaultValue="رسالة صغيرة"
-                      multiline
-                      rows={6}
-                      InputProps={{
-                        style: { color: "white" },
-                      }}
-                      sx={{
-                        width: "40vw",
-                        direction: "rtl",
-                        backgroundColor: "#1F2A69",
-                        border: "1px solid #8E8E8E",
-                        color: "white",
-                      }}
-                    />
-                  </Grid>
-                  <Grid item>
-                    <Button
-                      // onClick={handleEditProfile}
-                      sx={{
-                        background:
-                          "linear-gradient(45deg, #FFB629 0%, #FFDA56 50%, #FFD7A6 100%)",
-                        borderRadius: 0,
-                        color: "black",
-                        height: 48,
-                        padding: "0 30px",
-                        // marginRight: "4vw",
-
-                        position: "relative",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      تعديل
-                      <Box
+                    <Grid item>
+                      <Button
+                        type="submit"
+                        // onClick={handleEditProfile}
                         sx={{
-                          position: "absolute",
-                          background: "rgb(50,50,50,.7)",
-                          width: "20%",
-                          borderRadius: "50% 0 0",
-                          bottom: "0",
-                          height: "40%",
-                          opacity: "70%",
-                          right: "0",
-                        }}
-                      ></Box>
-                    </Button>
-                    <Button
-                      // onClick={handleEditProfile}
-                      sx={{
-                        background: "white",
-                        borderRadius: 0,
-                        color: "black",
-                        height: 48,
-                        padding: "0 30px",
-                        marginRight: "4vw",
+                          background:
+                            "linear-gradient(45deg, #FFB629 0%, #FFDA56 50%, #FFD7A6 100%)",
+                          borderRadius: 0,
+                          color: "black",
+                          height: 48,
+                          padding: "0 30px",
+                          // marginRight: "4vw",
 
-                        position: "relative",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      الغاء
-                      <Box
-                        sx={{
-                          position: "absolute",
-                          background: "rgb(50,50,50,.7)",
-                          width: "20%",
-                          borderRadius: "50% 0 0",
-                          bottom: "0",
-                          height: "40%",
-                          opacity: "70%",
-                          right: "0",
+                          position: "relative",
+                          fontWeight: "bold",
                         }}
-                      ></Box>
-                    </Button>
+                      >
+                        تعديل
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            background: "rgb(50,50,50,.7)",
+                            width: "20%",
+                            borderRadius: "50% 0 0",
+                            bottom: "0",
+                            height: "40%",
+                            opacity: "70%",
+                            right: "0",
+                          }}
+                        ></Box>
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          navigate(-1);
+                        }}
+                        sx={{
+                          background: "white",
+                          borderRadius: 0,
+                          color: "black",
+                          height: 48,
+                          padding: "0 30px",
+                          marginRight: "4vw",
+
+                          position: "relative",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        الغاء
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            background: "rgb(50,50,50,.7)",
+                            width: "20%",
+                            borderRadius: "50% 0 0",
+                            bottom: "0",
+                            height: "40%",
+                            opacity: "70%",
+                            right: "0",
+                          }}
+                        ></Box>
+                      </Button>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </Box>
+                </Box>
+              </Grid>
+            </Grid>
+          </Box>
+        </Box>
+        {/*box of blue and white box */}
+        <Box sx={{ height: "200vh", position: "relative" }}>
+          {/*blue box */}
+          <Grid container sx={{ height: "100%" }}>
+            <Grid item xs={6} sx={{ backgroundColor: "#091242" }}>
+              <Box
+                sx={{
+                  backgroundColor: "rgba(255, 255, 255, 0.08)",
+                  height: "100%",
+                }}
+              ></Box>
             </Grid>
           </Grid>
         </Box>
+        <Footer></Footer>
       </Box>
-      {/*box of blue and white box */}
-      <Box sx={{ height: "200vh", position: "relative" }}>
-        {/*blue box */}
-        <Grid container sx={{ height: "100%" }}>
-          <Grid item xs={6} sx={{ backgroundColor: "#091242" }}>
-            <Box
-              sx={{
-                backgroundColor: "rgba(255, 255, 255, 0.08)",
-                height: "100%",
-              }}
-            ></Box>
-          </Grid>
-        </Grid>
-      </Box>
-      <Footer></Footer>
-    </Box>
+    </form>
   );
 };
 export default VendorEditProfilePage;
