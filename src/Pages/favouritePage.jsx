@@ -24,7 +24,7 @@ const FavouritePage = () => {
   const [centerIndex, setCenterIndex] = useState(0);
   const swiperRef = useRef(null);
   const navigate = useNavigate();
-  const fave = useSelector(state => state.favirot.favirot);
+  const fave = useSelector((state) => state.favirot.favirot);
 
   const handleSlideChange = (swiper) => {
     setCenterIndex(swiper.realIndex + 1);
@@ -56,17 +56,17 @@ const FavouritePage = () => {
         {/* Red Box */}
         <Box
           sx={{
-        
             position: "absolute",
             width: "70vw",
             backgroundColor: "white",
             borderRadius: "30px",
             top: "20vh",
             left: "50%",
-            height: "190vh",
+            height: "195vh",
             transform: "translateX(-50%)",
             zIndex: 1,
             direction: "rtl",
+            overflow: "auto",
           }}
         >
           {/* عنوان الصفحه الشخصيه */}
@@ -127,7 +127,7 @@ const FavouritePage = () => {
                           >
                             <Box sx={{ borderRadius: "50%" }}>
                               {fave.vendor.photo ? (
-                                <IconButton >
+                                <IconButton>
                                   <img
                                     height="35"
                                     width="35"
@@ -137,7 +137,7 @@ const FavouritePage = () => {
                                   />
                                 </IconButton>
                               ) : (
-                                <IconButton >
+                                <IconButton>
                                   <img
                                     height="35"
                                     width="35"
@@ -152,7 +152,9 @@ const FavouritePage = () => {
                               variant="p"
                               component="div"
                               sx={{ fontWeight: "bold" }}
-                              onClick={() => navigate(`/servicesdetails/${fave.id}`)}
+                              onClick={() =>
+                                navigate(`/servicesdetails/${fave.id}`)
+                              }
                             >
                               {fave.name}
                             </Typography>
@@ -208,15 +210,11 @@ const FavouritePage = () => {
                         </CardContent>
                       </Card>
                     </Box>
-
-
                   </Grid>
                 ))}
               </Grid>
             </Box>
           </Container>
-
-
 
           <Button
             sx={{

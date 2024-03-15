@@ -206,7 +206,7 @@ function NaveBar() {
           <Box sx={{ display: { xs: "flex" } }}>
             <Box
               ml={2}
-              sx={{ width: "50%", display: { xs: "none", md: "block" } }}
+              sx={{ width: "70%", display: { xs: "none", md: "block" } }}
             >
               <SearchInput onChange={handleSearchChange} />
             </Box>
@@ -257,133 +257,137 @@ function NaveBar() {
             open={Boolean(anchorElNav)}
             onClose={handleCloseNavMenu}
           >
-            {token && userRole === "vendor" ? (
-              [
-                <Grid p={1.5} onClick={handleCloseNavMenu} key="vendor-profile">
-                  <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-                    <Box mt={0.5}>
-                      <Link
-                        style={{ textDecoration: "none", color: "inherit" }}
-                        to={"/vendorProfile"}
-                      >
-                        الصفحة الشخصية
-                      </Link>
-                    </Box>
-                    <Box>
-                      <PersonIcon />
-                    </Box>
-                  </Box>
-                </Grid>,
-                <Box onClick={handleCloseNavMenu} key="vendor-orders">
+            {token && userRole === "vendor"
+              ? [
                   <Grid
                     p={1.5}
-                    sx={{ display: "flex", justifyContent: "space-between" }}
+                    onClick={handleCloseNavMenu}
+                    key="vendor-profile"
                   >
-                    <Box mt={0.5}>
-                      <Link
-                        style={{ textDecoration: "none", color: "inherit" }}
-                        to={"/vendorOrders"}
-                      >
-                        الطلبات
-                      </Link>
+                    <Box
+                      sx={{ display: "flex", justifyContent: "space-around" }}
+                    >
+                      <Box mt={0.5}>
+                        <Link
+                          style={{ textDecoration: "none", color: "inherit" }}
+                          to={"/vendorProfile"}
+                        >
+                          الصفحة الشخصية
+                        </Link>
+                      </Box>
+                      <Box>
+                        <PersonIcon />
+                      </Box>
                     </Box>
-                    <HomeRepairServiceIcon />
-                  </Grid>
-                </Box>,
-                <Box onClick={handleCloseNavMenu} key="vendor-services">
-                  <Grid
-                    p={1.5}
-                    sx={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <Box mt={0.5}>
-                      <Link
-                        style={{ textDecoration: "none", color: "inherit" }}
-                      >
-                        خدماتي أو منتجاتي
-                      </Link>
-                    </Box>
-                    <DesignServicesIcon />
-                  </Grid>
-                </Box>,
-                <Box onClick={handleCloseNavMenu} key="add-service">
-                  <Grid
-                    p={1.5}
-                    sx={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <Box mt={0.5}>
-                      <Link
-                        style={{ textDecoration: "none", color: "inherit" }}
-                        to={"/addService"}
-                      >
-                        أضف خدمة أو منتج
-                      </Link>
-                    </Box>
-                    <Inventory2Icon />
-                  </Grid>
-                </Box>,
-                <Box onClick={handleCloseNavMenu} key="logout">
-                  <Grid
-                    p={1.5}
-                    sx={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <Box mt={0.5}>
-                      <Link
-                        onClick={handleLogout}
-                        style={{ textDecoration: "none", color: "inherit" }}
-                        to={"/user-login"}
-                      >
-                        تسجيل الخروج
-                      </Link>
-                    </Box>
-                    <LogoutIcon />
-                  </Grid>
-                </Box>
-              ]
-            ) : (
-              [
-                <MenuItem onClick={handleCloseNavMenu} key="favorites">
-                  <Link
-                    style={{ textDecoration: "none", color: "inherit" }}
-                    to={"/favouritePage"}
-                  >
-                    المفضلة
-                  </Link>
-                </MenuItem>,
-                <MenuItem onClick={handleCloseNavMenu} key="user-orders">
-                  <Link
-                    style={{ textDecoration: "none", color: "inherit" }}
-                    to={"/userOrders"}
-                  >
-                    الطلبات
-                  </Link>
-                </MenuItem>,
-                <MenuItem onClick={handleCloseNavMenu} key="profile">
-                  <Link
-                    style={{ textDecoration: "none", color: "inherit" }}
-                    to={"/profile"}
-                  >
-                    الصفحة الشخصية
-                  </Link>
-                </MenuItem>,
-                <MenuItem onClick={handleCloseNavMenu} key="logout">
-                  <Grid
-                    p={1.5}
-                    sx={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <Box mt={0.5}>
-                      <Link
-                        onClick={handleLogout}
-                        style={{ textDecoration: "none", color: "inherit" }}
-                        to={"/user-login"}
-                      >
-                        تسجيل الخروج
-                      </Link>
-                    </Box>
-                    <LogoutIcon />
-                  </Grid>
-                </MenuItem>
-              ]
-            )}
+                  </Grid>,
+                  <Box onClick={handleCloseNavMenu} key="vendor-orders">
+                    <Grid
+                      p={1.5}
+                      sx={{ display: "flex", justifyContent: "space-between" }}
+                    >
+                      <Box mt={0.5}>
+                        <Link
+                          style={{ textDecoration: "none", color: "inherit" }}
+                          to={"/vendorOrders"}
+                        >
+                          الطلبات
+                        </Link>
+                      </Box>
+                      <HomeRepairServiceIcon />
+                    </Grid>
+                  </Box>,
+                  <Box onClick={handleCloseNavMenu} key="vendor-services">
+                    <Grid
+                      p={1.5}
+                      sx={{ display: "flex", justifyContent: "space-between" }}
+                    >
+                      <Box mt={0.5}>
+                        <Link
+                          style={{ textDecoration: "none", color: "inherit" }}
+                        >
+                          خدماتي أو منتجاتي
+                        </Link>
+                      </Box>
+                      <DesignServicesIcon />
+                    </Grid>
+                  </Box>,
+                  <Box onClick={handleCloseNavMenu} key="add-service">
+                    <Grid
+                      p={1.5}
+                      sx={{ display: "flex", justifyContent: "space-between" }}
+                    >
+                      <Box mt={0.5}>
+                        <Link
+                          style={{ textDecoration: "none", color: "inherit" }}
+                          to={"/addService"}
+                        >
+                          أضف خدمة أو منتج
+                        </Link>
+                      </Box>
+                      <Inventory2Icon />
+                    </Grid>
+                  </Box>,
+                  <Box onClick={handleCloseNavMenu} key="logout">
+                    <Grid
+                      p={1.5}
+                      sx={{ display: "flex", justifyContent: "space-between" }}
+                    >
+                      <Box mt={0.5}>
+                        <Link
+                          onClick={handleLogout}
+                          style={{ textDecoration: "none", color: "inherit" }}
+                          to={"/user-login"}
+                        >
+                          تسجيل الخروج
+                        </Link>
+                      </Box>
+                      <LogoutIcon />
+                    </Grid>
+                  </Box>,
+                ]
+              : [
+                  <MenuItem onClick={handleCloseNavMenu} key="favorites">
+                    <Link
+                      style={{ textDecoration: "none", color: "inherit" }}
+                      to={"/favouritePage"}
+                    >
+                      المفضلة
+                    </Link>
+                  </MenuItem>,
+                  <MenuItem onClick={handleCloseNavMenu} key="user-orders">
+                    <Link
+                      style={{ textDecoration: "none", color: "inherit" }}
+                      to={"/userOrders"}
+                    >
+                      الطلبات
+                    </Link>
+                  </MenuItem>,
+                  <MenuItem onClick={handleCloseNavMenu} key="profile">
+                    <Link
+                      style={{ textDecoration: "none", color: "inherit" }}
+                      to={"/profile"}
+                    >
+                      الصفحة الشخصية
+                    </Link>
+                  </MenuItem>,
+                  <MenuItem onClick={handleCloseNavMenu} key="logout">
+                    <Grid
+                      p={1.5}
+                      sx={{ display: "flex", justifyContent: "space-between" }}
+                    >
+                      <Box mt={0.5}>
+                        <Link
+                          onClick={handleLogout}
+                          style={{ textDecoration: "none", color: "inherit" }}
+                          to={"/user-login"}
+                        >
+                          تسجيل الخروج
+                        </Link>
+                      </Box>
+                      <LogoutIcon />
+                    </Grid>
+                  </MenuItem>,
+                ]}
           </Menu>
         </Toolbar>
       </Container>

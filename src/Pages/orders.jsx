@@ -25,6 +25,7 @@ import {
   getServiceById,
 } from "../api/orders";
 import OrdersCard from "../Components/orders/ordersCard";
+import Footer from "../Components/footer";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -102,7 +103,8 @@ const Orders = () => {
           }}
         ></Box>
         {/* Red Box */}
-        <Box mb={90}
+        <Box
+          mb={90}
           sx={{
             position: "absolute",
             width: "70vw",
@@ -110,23 +112,39 @@ const Orders = () => {
             borderRadius: "30px",
             top: "20vh",
             left: "50%",
-            height: "110vh",
+            height: "124vh",
             padding: "3%",
             transform: "translateX(-50%)",
             zIndex: 1,
-            //  direction:"rtl",
-            // overflow: "auto",
-
-
-          }}>
+            overflow: "auto",
+            boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.1)",
+            direction: "rtl",
+          }}
+        >
           {/* Header */}
           <Container>
-            <Box mt={3} sx={{ display: "flex", direction: "rtl", }}>
+            <Box mt={3} sx={{ display: "flex", direction: "rtl" }}>
               <Box mt={2}>
-                <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0 0H17V17H0V0Z" fill="url(#paint0_linear_39_2727)" />
+                <svg
+                  width="17"
+                  height="17"
+                  viewBox="0 0 17 17"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M0 0H17V17H0V0Z"
+                    fill="url(#paint0_linear_39_2727)"
+                  />
                   <defs>
-                    <linearGradient id="paint0_linear_39_2727" x1="-29875" y1="87704.3" x2="-29853.6" y2="87705.8" gradientUnits="userSpaceOnUse">
+                    <linearGradient
+                      id="paint0_linear_39_2727"
+                      x1="-29875"
+                      y1="87704.3"
+                      x2="-29853.6"
+                      y2="87705.8"
+                      gradientUnits="userSpaceOnUse"
+                    >
                       <stop stop-color="#FFB629" />
                       <stop offset="0.507189" stop-color="#FFDA56" />
                       <stop offset="1" stop-color="#FFD7A6" />
@@ -134,22 +152,26 @@ const Orders = () => {
                   </defs>
                 </svg>
               </Box>
-              <Typography variant="h4" component="h2" sx={{ fontFamily: "Rubik", }}>
+              <Typography
+                variant="h4"
+                component="h2"
+                sx={{ fontFamily: "Rubik" }}
+              >
                 الطلبات
               </Typography>
-
             </Box>
 
             {/* Card Component Loop */}
-            <Box mt={10} ml={5}
+            <Box
+              mt={10}
+              ml={5}
               sx={{
-                position:"relative",
+                position: "relative",
                 display: "flex",
                 justifyContent: "center",
-                
-                
-              }}>
-              <Swiper
+              }}
+            >
+              {/* <Swiper
                 ref={swiperRef}
                 modules={[Navigation, Pagination, Scrollbar, A11y]}
                 loop={true}
@@ -163,56 +185,57 @@ const Orders = () => {
                   },
                   1280: {
                     slidesPerView: 3,
-                  }}}
-              >
-                <Grid container spacing={4}>
+                  },
+                }} */}
+              {/* > */}
+              <Grid container spacing={4}>
+                {orders.map((item, index) => (
+                  // <SwiperSlide>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    md={4}
+                    key={index}
+                    sx={{ paddingLeft: { xs: "15%", md: "10%" } }}
+                  >
+                    <OrdersCard data={item} />
+                    <Button
+                      onClick={() => handleDeleteOrder(item._id)}
+                      sx={{
+                        background: "white",
+                        border: "1px solid lightGray",
+                        color: "black",
+                        height: 48,
+                        padding: "0 2vw",
+                        marginTop: "2vh",
+                        position: "relative",
+                        borderRadius: 0,
+                        textWrap: "nowrap",
+                        fontSize: "1.5vw",
+                        width: "14.5vw",
+                      }}
+                    >
+                      الغاء الطلب
+                      <Box
+                        sx={{
+                          position: "absolute",
+                          background: "#1F2A69",
+                          width: "20%",
+                          borderRadius: "50% 0 0",
+                          bottom: "0",
+                          height: "40%",
+                          opacity: "70%",
+                          right: "0",
+                        }}
+                      ></Box>
+                    </Button>
+                  </Grid>
+                ))}
+              </Grid>
+              {/* // </Swiper> */}
 
-                  {orders.map((item, index) => (
-                    <SwiperSlide>
-                      <Grid item xs={12} sm={6} md={4} key={index}
-                     sx={{paddingLeft:{xs:"15%",md:"10%"}}}
-                      >
-
-                        <OrdersCard data={item} />
-                        <Button
-                          onClick={() => handleDeleteOrder(item._id)}
-                          sx={{
-                            background: "white",
-                            border: "1px solid lightGray",
-                            color: "black",
-                            height: 48,
-                            padding: "0 2vw",
-                            marginTop: "2vh",
-                            position: "relative",
-                            borderRadius: 0,
-                            textWrap: "nowrap",
-                            fontSize: "1.5vw",
-                            width: "14.5vw",
-                          }}
-                        >
-                          الغاء الطلب
-                          <Box
-                            sx={{
-                              position: "absolute",
-                              background: "#1F2A69",
-                              width: "20%",
-                              borderRadius: "50% 0 0",
-                              bottom: "0",
-                              height: "40%",
-                              opacity: "70%",
-                              right: "0",
-                            }}
-                          ></Box>
-                        </Button>
-
-                      </Grid>
-                    </SwiperSlide>
-                  ))}
-
-                </Grid>
-              </Swiper>
-
-              <IconButton
+              {/* <IconButton
                 sx={{
                   position: "absolute",
                   top: "60%",
@@ -244,13 +267,13 @@ const Orders = () => {
                 onClick={goNext}
               >
                 &gt;
-              </IconButton>
+              </IconButton> */}
             </Box>
           </Container>
         </Box>
       </Box>
       {/*box of blue and white box */}
-      <Box sx={{ height: "100vh", position: "relative" }}>
+      <Box sx={{ height: "120vh", position: "relative" }}>
         {/*blue box */}
         <Grid container sx={{ height: "100%" }}>
           <Grid item xs={8} sx={{ backgroundColor: "#091242" }}>
@@ -283,6 +306,7 @@ const Orders = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      <Footer></Footer>
     </Box>
   );
 };
