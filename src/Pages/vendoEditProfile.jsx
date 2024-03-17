@@ -443,11 +443,12 @@ const VendorEditProfilePage = () => {
                             المحافظة
                           </Typography>
 
-                          <Select
+                          <TextField
                             labelId="demo-simple-select-helper-label"
                             id="demo-simple-select-helper"
-                            label=" المحافظه"
+                            // label=" المحافظه"
                             name="gov"
+                            select
                             defaultValue={
                               userData.address && userData.address.gov
                             }
@@ -458,7 +459,7 @@ const VendorEditProfilePage = () => {
                             }}
                             sx={{
                               width: "120px",
-                              height: "40px",
+                              // height: "40px",
                               backgroundColor: "#1F2A69",
                               border: "1px solid #8E8E8E",
                               color: "white",
@@ -470,7 +471,7 @@ const VendorEditProfilePage = () => {
                                 {option.name}
                               </MenuItem>
                             ))}
-                          </Select>
+                          </TextField>
                         </Grid>
                         <Grid item>
                           <Typography
@@ -484,10 +485,11 @@ const VendorEditProfilePage = () => {
                             المدينه
                           </Typography>
 
-                          <Select
+                          <TextField
                             labelId="demo-simple-select-helper-label"
                             id="demo-simple-select-helper"
                             name="city"
+                            select
                             defaultValue={
                               userData.address && userData.address.city
                             }
@@ -498,7 +500,7 @@ const VendorEditProfilePage = () => {
                             }}
                             sx={{
                               width: "120px",
-                              height: "40px",
+                              // height: "40px",
                               backgroundColor: "#1F2A69",
                               border: "1px solid #8E8E8E",
                               color: "white",
@@ -510,7 +512,7 @@ const VendorEditProfilePage = () => {
                                 {option.name}
                               </MenuItem>
                             ))}
-                          </Select>
+                          </TextField>
                         </Grid>
                       </Grid>
                       <Typography

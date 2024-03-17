@@ -10,11 +10,15 @@ import logo from "../assets/logo.png";
 import header from "../assets/Header2.jpeg";
 import { axiosInstance } from "../api/config";
 import { Link, useNavigate } from "react-router-dom";
-
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
 const UserRegister = () => {
   const navigate = useNavigate();
   const [selectedValueType, setSelectedValueType] = useState("");
   const [errors, setErrors] = useState({});
+  const [openDialog, setOpenDialog] = useState(false);
 
   const handleTypeChange = (event) => {
     setSelectedValueType(event.target.value);
@@ -362,6 +366,15 @@ const UserRegister = () => {
                 height: "100%",
               }}
             >
+              <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+                <DialogTitle>تمت الإضافة بنجاح!</DialogTitle>
+                <DialogContent>
+                  <Typography> مبروك تمت إضافة هذا العنصر بنجاح</Typography>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={() => setOpenDialog(false)}>حسناً</Button>
+                </DialogActions>
+              </Dialog>
               <Typography
                 sx={{
                   color: "white",
