@@ -7,14 +7,14 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import React, { useRef, useState } from "react";
 import { Card, CardMedia, Box, Typography, Grid } from "@mui/material";
-import serviceSection from "../assets/serviceSection.jpeg";
+
 import { useEffect } from "react";
 import {
   getProductCategories,
   getServicesCategories,
 } from "../api/categoriesApi";
 
-const Categories = () => {
+const Categories = React.forwardRef((props, ref) => {
   const [productCategories, setProductCategories] = useState([]);
   const [serviceCategories, setServiceCategories] = useState([]);
   const [centerIndex, setCenterIndex] = useState(0);
@@ -53,6 +53,7 @@ const Categories = () => {
   };
   return (
     <Box
+      ref={ref}
       sx={{
         margin: "20vh 0",
         backgroundColor: "lightgray",
@@ -103,9 +104,19 @@ const Categories = () => {
         <Swiper
           ref={swiperRef}
           modules={[Navigation, Pagination, Scrollbar, A11y]}
-          slidesPerView={4}
           loop={true}
           onSlideChange={handleSlideChange}
+          breakpoints={{
+            0: {
+              slidesPerView: 2,
+            },
+            600: {
+              slidesPerView: 2,
+            },
+            960: {
+              slidesPerView: 4,
+            },
+          }}
         >
           {/* Swiper slides go here */}
           <Grid container>
@@ -115,9 +126,10 @@ const Categories = () => {
                   <Card
                     sx={{
                       height: "22vh",
-                      width: "15vw",
+                      width: "80",
                       position: "relative",
                       ml: "1.5em",
+                      mr: { xs: "10%", md: "2%" },
                     }}
                   >
                     <Box
@@ -132,7 +144,7 @@ const Categories = () => {
                         backgroundColor: "rgb(50,50,50,.3)",
                       }}
                     >
-                      <Typography sx={{ fontSize: "3vw", marginTop: "5vh" }}>
+                      <Typography sx={{ fontSize: "2rem", marginTop: "5vh" }}>
                         {Categorie.name}
                       </Typography>
                     </Box>
@@ -153,7 +165,7 @@ const Categories = () => {
         sx={{
           position: "absolute",
           top: "60%",
-          left: "5px",
+          left: "0px",
           transform: "translateY(-50%)",
           zIndex: 999,
           background:
@@ -170,7 +182,7 @@ const Categories = () => {
         sx={{
           position: "absolute",
           top: "60%",
-          right: "5px",
+          right: "20px",
           transform: "translateY(-50%)",
           zIndex: 999,
           backgroundColor: "#091242",
@@ -184,6 +196,6 @@ const Categories = () => {
       </IconButton>
     </Box>
   );
-};
+});
 
 export default Categories;
