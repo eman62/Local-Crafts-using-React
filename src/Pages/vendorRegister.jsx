@@ -146,7 +146,7 @@ const VendorRegister = () => {
     axiosInstance
       .post("/auth/register", formDataToSend)
       .then((response) => {
-        navigate("/user-login");
+        navigate("/user-confirm", { state: { ...response.data.user } });
       })
       .catch((error) => {
         console.error("Error registering:", error);
