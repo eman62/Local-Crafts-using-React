@@ -114,7 +114,7 @@ const VendorProfile = () => {
                   sx={{
                     width: 150,
                     height: 150,
-                    mr: "2vw",
+                    mr: { xs: "20vw", md: "2vw" },
                   }}
                 />
               ) : (
@@ -234,7 +234,6 @@ const VendorProfile = () => {
                     <Typography>المحافظه</Typography>
                     <Typography>مدينه</Typography>
                     <Typography>المهنه</Typography>
-                    <Typography>نبذة</Typography>
                   </Grid>
                   <Grid item sx={{ marginRight: "1vw", color: "gray" }}>
                     <Typography> {user.name}</Typography>
@@ -246,7 +245,22 @@ const VendorProfile = () => {
                       {user.address && user.address.city}
                     </Typography>
                     <Typography> {user.job}</Typography>
-                    <Typography sx={{ textWrap: "wrap", width: "30vw" }}>
+                  </Grid>
+                  <Grid item sx={{ display: "flex" }}>
+                    <Typography
+                      item
+                      sx={{ marginRight: "3vw", color: "white" }}
+                    >
+                      نبذة
+                    </Typography>
+                    <Typography
+                      sx={{
+                        wordWrap: "break-word",
+                        width: { xs: "100%", sm: "auto" },
+                        marginRight: { xs: "1vw", sm: "1vw" },
+                        color: "gray",
+                      }}
+                    >
                       {user.description}
                     </Typography>
                   </Grid>

@@ -1,17 +1,16 @@
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import header from "../../assets/header.jpeg"
+import header from "../../assets/header.jpeg";
 
-const HomeHeader = () => {
+const HomeHeader = ({ onButtonClick }) => {
   return (
-    <Box sx={{ direction: "rtl" ,color:"black"}}>
+    <Box sx={{ direction: "rtl", color: "black" }}>
       <Box
         sx={{
-          backgroundImage:
-            `url(${header})`,
+          backgroundImage: `url(${header})`,
           width: "100vw",
-          height: "80vh",
+          height: "90vh",
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
           backgroundSize: "cover",
@@ -26,7 +25,8 @@ const HomeHeader = () => {
               sx={{
                 textAlign: "right",
                 marginRight: "13vw",
-                fontSize: "4vw",
+                fontSize: "3.5vw",
+                fontFamily: "Rubik",
               }}
             >
               صناعات محلية وخدمات اكتشف
@@ -35,9 +35,10 @@ const HomeHeader = () => {
               variant="h3"
               sx={{
                 textAlign: "right",
-                marginBottom: "10px",
+                marginBottom: "20px",
                 marginRight: "13vw",
-                fontSize: "4vw",
+                fontSize: "3.5vw",
+                fontFamily: "Rubik",
               }}
             >
               معنا الإبداع المحلي
@@ -51,15 +52,16 @@ const HomeHeader = () => {
               width: "40vw",
               marginRight: "13vw",
               fontWeight: "700",
+              // fontFamily: "Rubik",
             }}
           >
-            حماده بالزنجبيل حماده بالزنجبيل حماده بالزنجبيل حماده بالزنجبيل
-            حماده بالزنجبيل حماده بالزنجبيل حماده بالزنجبيل حماده بالزنجبيل
-            حماده بالزنجبيل حماده بالزنجبيل حماده بالزنجبيل حماده بالزنجبيل
-            حماده بالزنجبيل حماده بالزنجبيل حماده بالزنجبيل حماده بالزنجبيل
-            حماده بالزنجبيل حماده بالزنجبيل حماده بالزنجبيل
+            موقعنا يساعدك في طلب العديد من الخدمات والمنتجات التي تناسب أحتياجك
+            وأنت في المنزل لأنه يحتوي علي العديد من ذوي الحرف الماهرين الذين
+            يعرضون أعمالهم ويمكن تصفح جميع هذه الحرف والمنتجات واختيار ما يناسبك
+            منها وأختيار أفضل سعر.
           </Typography>
           <Button
+            onClick={onButtonClick}
             sx={{
               background:
                 "linear-gradient(45deg, #FFB629 0%, #FFDA56 50%, #FFD7A6 100%)",

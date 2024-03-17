@@ -242,7 +242,8 @@ const VendorEditProfilePage = () => {
             >
               <Grid
                 item
-                xs={2}
+                xs={12}
+                md={2}
                 sx={{ position: "relative", display: "inline-block" }}
               >
                 <label htmlFor="file-upload">
@@ -260,16 +261,14 @@ const VendorEditProfilePage = () => {
                       }}
                     />
                   ) : (
-                    <IconButton>
-                      <PersonIcon
-                        sx={{
-                          fontSize: "15vw",
-                          color: "black",
-                          mr: "2vw",
-                          mt: "7vh",
-                        }}
-                      />
-                    </IconButton>
+                    <PersonIcon
+                      sx={{
+                        fontSize: "15vw",
+                        color: "black",
+                        mr: "2vw",
+                        mt: "7vh",
+                      }}
+                    />
                   )}
                 </label>
                 <EditIcon

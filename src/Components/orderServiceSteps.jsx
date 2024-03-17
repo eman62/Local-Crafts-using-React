@@ -7,7 +7,7 @@ import AdsClickIcon from "@mui/icons-material/AdsClick";
 import LoginIcon from "@mui/icons-material/Login";
 import HighlightAltIcon from "@mui/icons-material/HighlightAlt";
 
-const OrderServiceSteps = () => {
+const OrderServiceSteps = ({ onButtonClick }) => {
   return (
     <Box mb={50} sx={{ height: "40vh", backgroundColor: "white" }}>
       <Box
@@ -235,6 +235,7 @@ const OrderServiceSteps = () => {
             sx={{ display: "flex", justifyContent: "center" }}
           >
             <Button
+              onClick={onButtonClick}
               sx={{
                 background: "linear-gradient(90deg, #1F2A69  0%, #091242 100%)",
                 border: 0,
