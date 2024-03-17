@@ -72,11 +72,11 @@ const UserRegister = () => {
       navigate("/vedorRegister", { state: { formData } });
     } else if (formData.role === "customer") {
       try {
-        await axiosInstance.post("/auth/register", {
+        const res = await axiosInstance.post("/auth/register", {
           ...formData,
         });
-        console.log("User registered successfully!");
-        navigate("/user-login");
+        console.log("User registered successfully!", res.data.user);
+        navigate("/user-confirm", { state: { ...res.data.user } });
       } catch (error) {
         console.error("Error registering user:", error);
       }

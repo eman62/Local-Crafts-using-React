@@ -9,6 +9,7 @@ export default function RouterPages() {
   const HomePage = React.lazy(() => import("../Pages/homePage"));
   const ProductsPage = React.lazy(() => import("../Pages/productsPage"));
   const UserRegister = React.lazy(() => import("../Pages/userRegister"));
+  const ConfirmEmail = React.lazy(() => import("../Pages/ConfirmEmail"));
   const NotFound = React.lazy(() => import("../Pages/NotFoundPage/NotFound"));
   const VendorRegister = React.lazy(() => import("./../Pages/vendorRegister"));
   const ServicesPage = React.lazy(() => import("../Pages/ServicesPage"));
@@ -30,6 +31,7 @@ export default function RouterPages() {
         <Route path="/user-login" element={<LoginPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/user-register" element={<UserRegister />} />
+        <Route path="/user-confirm" element={<ConfirmEmail />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/vedorRegister" element={<VendorRegister />} />
