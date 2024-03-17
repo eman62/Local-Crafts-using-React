@@ -9,12 +9,14 @@ import logo from "../assets/logo.png";
 import header from "../assets/Header2.jpeg";
 import { axiosInstance } from "../api/config";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loadUserDataFromLocalStorage } from "./loadUserDataFromLocalStorageAction";
 import { saveUserData, saveUserToken } from "../stores/slice/user";
 
-const ConfirmEmail = () => {
+const ResetPassword = () => {
   const [code, setcode] = useState("");
+  const [password, setPassword] = useState("");
+  const [passconfirm, setPassconfirm] = useState("");
   const [feedback, setFeedback] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -34,21 +36,39 @@ const ConfirmEmail = () => {
     }
     if (feedback[2]) {
       setTimeout(() =>
-        setFeedback(["جاري تحويلك للصفحة الرئيسية", "gray"]
+        setFeedback(["جاري تحويلك للصفحة الرئيسية", "lime"]
         ), 4000);
       setTimeout(() => {
         navigate("/", { replace: true });
       }, 6000);
     }
   }, [feedback]);
+
+  const validateInputs = () => {
+    if (code.length !== 5 || code.match(/[^0-9]/)) {
+      setErrorMessage("الرجاء إدخال كود التفعيل المكون من ٥ أرقام");
+      return false
+    }
+
+    const passwordRegex =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+    if (!password || !passwordRegex.test(password)) {
+      setErrorMessage("كلمة المرور ضعيفة.لا تحتوي على ارقام وحروف لاتينية وحروف مميزة")
+      return false
+    }
+
+    if (!passconfirm || passconfirm !== password) {
+      setErrorMessage("تأكيد كلمة المرور غير متطابق")
+      return false
+    }
+    return true
+  }
+
   const handleSubmit = async () => {
+    if (!validateInputs()) return;
     try {
-      if (code.length !== 5) {
-        setErrorMessage("الرجاء إدخال كود التفعيل المكون من ٥ أرقام");
-        return
-      }
-      const response = await axiosInstance.post("/auth/confirm", {
-        email,
+      const response = await axiosInstance.post("/auth/reset-password", {
+        email, password,
         code: parseInt(code),
       });
       const { user, access_token } = response.data;
@@ -72,10 +92,11 @@ const ConfirmEmail = () => {
       dispatch(saveUserData(userData));
       dispatch(saveUserToken(access_token));
 
-      setFeedback(["تم تفعيل الحساب وتسجيل الدخول بنجاح", "lime", true]);
+      setFeedback(["تم تغيير كلمة المرور وتسجيل الدخول بنجاح", "lime", true]);
     } catch (error) {
       if (error.response) {
-        setErrorMessage("هناك خطأ في البيانات");
+        console.log(error.response.data);
+        setErrorMessage("الكود المرفق غير صحيح رجاء التأكد او إعادة الارسال");
       } else {
         setFeedback(["خطأ في الشبكة. يرجى المحاولة مرة أخرى لاحقًا.", "red"]);
       }
@@ -85,7 +106,7 @@ const ConfirmEmail = () => {
   const sendEmailAgain = async () => {
     try {
       const response = await axiosInstance.get("/auth/code", {
-        params: { email, type: "email" },
+        params: { email, type: "password" },
       });
       if (response.status === 200) {
         setFeedback(["تم ارسال كود اخر الى بريدك الالكتروني", "lime"]);
@@ -171,7 +192,7 @@ const ConfirmEmail = () => {
                 fontSize: "2em",
               }}
             >
-              تفعيل الحساب
+              تغيير كلمة المرور
               <Typography
                 variant='subtitle1'
                 sx={{
@@ -179,9 +200,12 @@ const ConfirmEmail = () => {
                   fontSize: "16px",
                 }}
               >
-                لقد تم ارسال كود التفعيل الى بريدك الالكتروني:
+                لقد تم ارسال كود التحقق الى بريدك الالكتروني:
                 <Typography variant="subtitle2">
                   {email}
+                </Typography>
+                <Typography variant="subtitle">
+                  رجاء ادخال الكود وكلمة المرور الجديدة
                 </Typography>
               </Typography>
             </Typography>
@@ -195,6 +219,30 @@ const ConfirmEmail = () => {
               type="code"
               value={code}
               onChange={(e) => setcode(e.target.value)}
+              inputProps={{ style: { direction: "rtl" } }}
+              sx={{ width: "30vw", textAlign: "start" }}
+              InputLabelProps={{ direction: "rtl", textAlign: "start" }}
+            />
+            <TextField
+              id="password"
+              label="كلمة المرور الجديدة"
+              variant="standard"
+              placeholder="ادخل كلمة المرور الجديدة"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              inputProps={{ style: { direction: "rtl" } }}
+              sx={{ width: "30vw", textAlign: "start" }}
+              InputLabelProps={{ direction: "rtl", textAlign: "start" }}
+            />
+            <TextField
+              id="password"
+              label="تأكيد كلمة المرور الجديدة"
+              variant="standard"
+              placeholder="تأكيد كلمة المرور الجديدة"
+              type="password"
+              value={passconfirm}
+              onChange={(e) => setPassconfirm(e.target.value)}
               inputProps={{ style: { direction: "rtl" } }}
               sx={{ width: "30vw", textAlign: "start" }}
               InputLabelProps={{ direction: "rtl", textAlign: "start" }}
@@ -217,7 +265,7 @@ const ConfirmEmail = () => {
                 "&:hover": { backgroundColor: "gray" },
               }}
             >
-              تفعيل
+              حفظ وتسجيل الدخول
             </Button>
             <Typography
               sx={{
@@ -318,4 +366,4 @@ const ConfirmEmail = () => {
   );
 };
 
-export default ConfirmEmail;
+export default ResetPassword;

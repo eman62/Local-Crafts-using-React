@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Footer from "../Components/footer";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -8,93 +8,36 @@ import TextField from "@mui/material/TextField";
 import logo from "../assets/logo.png";
 import header from "../assets/Header2.jpeg";
 import { axiosInstance } from "../api/config";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { loadUserDataFromLocalStorage } from "./loadUserDataFromLocalStorageAction";
-import { saveUserData, saveUserToken } from "../stores/slice/user";
+import { useNavigate } from "react-router-dom";
 
-const ConfirmEmail = () => {
-  const [code, setcode] = useState("");
-  const [feedback, setFeedback] = useState([]);
+const ForgotPasswordPage = () => {
+  const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
-  const [email] = useState(location.state?.email)
 
-  useEffect(() => {
-    dispatch(loadUserDataFromLocalStorage());
-    if (!email) navigate("/user-login");
-  }, [email]);
-
-  useEffect(() => {
-    if (feedback[0]) {
-      setTimeout(() => setFeedback([]), 4000);
-    }
-    if (feedback[2]) {
-      setTimeout(() =>
-        setFeedback(["جاري تحويلك للصفحة الرئيسية", "gray"]
-        ), 4000);
-      setTimeout(() => {
-        navigate("/", { replace: true });
-      }, 6000);
-    }
-  }, [feedback]);
   const handleSubmit = async () => {
     try {
-      if (code.length !== 5) {
-        setErrorMessage("الرجاء إدخال كود التفعيل المكون من ٥ أرقام");
-        return
-      }
-      const response = await axiosInstance.post("/auth/confirm", {
-        email,
-        code: parseInt(code),
-      });
-      const { user, access_token } = response.data;
-
-      const userData = {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        address: user.address,
-        photo: user.photo,
-        description: user.description,
-        phone: user.phone,
-        job: user.job,
-      };
-
-      localStorage.setItem("token", access_token);
-      localStorage.setItem("userData", JSON.stringify(user));
-
-      // Dispatch actions to save user data and token to Redux store
-      dispatch(saveUserData(userData));
-      dispatch(saveUserToken(access_token));
-
-      setFeedback(["تم تفعيل الحساب وتسجيل الدخول بنجاح", "lime", true]);
-    } catch (error) {
-      if (error.response) {
-        setErrorMessage("هناك خطأ في البيانات");
-      } else {
-        setFeedback(["خطأ في الشبكة. يرجى المحاولة مرة أخرى لاحقًا.", "red"]);
-      }
-    }
-  };
-
-  const sendEmailAgain = async () => {
-    try {
       const response = await axiosInstance.get("/auth/code", {
-        params: { email, type: "email" },
+        params: { email, type: "password" },
       });
       if (response.status === 200) {
-        setFeedback(["تم ارسال كود اخر الى بريدك الالكتروني", "lime"]);
+        navigate("/reset-password", { state: { email } });
       }
     } catch (error) {
+      const message = {
+        404: "البريد الإلكتروني غير مسجل",
+        400: "رجاء ادخال بريد الكتروني صحيح",
+        429: "يجب الانتظار ٣٠ ثانية قبل اعادة الارسال",
+        other: "حدث خطأ ما. يرجى المحاولة مرة أخرى لاحقًا.",
+      }
+      if (error.response?.status === 404) {
+        setTimeout(() => navigate("/user-register"), 3000);
+        return
+      }
       if (error.response) {
-        setFeedback(["رجاء تحقق من بريدك الإلكتروني قبل اعادة الارسال", "red"]);
+        setErrorMessage(message[error.response?.status] || message.other);
       } else {
-        setFeedback(["خطأ في الشبكة. يرجى المحاولة مرة أخرى لاحقًا.", "red"]);
+        setErrorMessage("خطأ في الشبكة. يرجى المحاولة مرة أخرى لاحقًا.");
       }
     }
   };
@@ -171,33 +114,21 @@ const ConfirmEmail = () => {
                 fontSize: "2em",
               }}
             >
-              تفعيل الحساب
-              <Typography
-                variant='subtitle1'
-                sx={{
-                  display: "block",
-                  fontSize: "16px",
-                }}
-              >
-                لقد تم ارسال كود التفعيل الى بريدك الالكتروني:
-                <Typography variant="subtitle2">
-                  {email}
-                </Typography>
-              </Typography>
+              استعادة كلمة السر
             </Typography>
           </Box>
           <Box sx={{ direction: "rtl", mt: "5vh", mr: "15vw" }}>
             <TextField
-              id="code"
-              label="كود التفعيل"
+              id="email"
+              type="email"
+              label="البريد"
               variant="standard"
-              placeholder="ادخل الكود المكون من ٥ ارقام"
-              type="code"
-              value={code}
-              onChange={(e) => setcode(e.target.value)}
+              placeholder="ادخل البريد الإلكتروني"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               inputProps={{ style: { direction: "rtl" } }}
-              sx={{ width: "30vw", textAlign: "start" }}
-              InputLabelProps={{ direction: "rtl", textAlign: "start" }}
+              sx={{ width: "30vw", direction: "rtl", mb: "1vh" }}
+              InputLabelProps={{ direction: "rtl" }}
             />
             {errorMessage && (
               <Typography sx={{ color: "red", mt: "1vh" }}>
@@ -217,37 +148,8 @@ const ConfirmEmail = () => {
                 "&:hover": { backgroundColor: "gray" },
               }}
             >
-              تفعيل
+              ارسال
             </Button>
-            <Typography
-              sx={{
-                width: "30vw",
-                textAlign: "center",
-                mt: "4vh",
-                fontFamily: "Rubik",
-                fontSize: "1.2vw",
-              }}
-            >
-              لم تصلك رسالتنا؟{" "}
-              <Link
-                onClick={sendEmailAgain}
-                style={{ textDecoration: "none", color: "blue" }}
-              >
-                ارسل مرة اخرى
-              </Link>
-            </Typography>
-            {feedback[0] && (
-              <Typography sx={{
-                mt: "2vh",
-                width: "30vw",
-                textAlign: "center",
-                fontFamily: "Rubik",
-                fontSize: "1.2vw",
-                color: feedback[1],
-              }}>
-                {feedback[0]}
-              </Typography>
-            )}
           </Box>
         </Box>
       </Box>
@@ -318,4 +220,4 @@ const ConfirmEmail = () => {
   );
 };
 
-export default ConfirmEmail;
+export default ForgotPasswordPage;

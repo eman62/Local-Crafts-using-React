@@ -6,6 +6,8 @@ import { ServicesDetalis } from "../Pages/ServicesDetails";
 
 export default function RouterPages() {
   const LoginPage = React.lazy(() => import("../Pages/loginPage"));
+  const ForgotPassword = React.lazy(() => import("../Pages/ForgotPassword"));
+  const ResetPassword = React.lazy(() => import("../Pages/ResetPassword"));
   const HomePage = React.lazy(() => import("../Pages/homePage"));
   const ProductsPage = React.lazy(() => import("../Pages/productsPage"));
   const UserRegister = React.lazy(() => import("../Pages/userRegister"));
@@ -29,6 +31,8 @@ export default function RouterPages() {
     <Suspense>
       <Routes>
         <Route path="/user-login" element={<LoginPage />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/user-register" element={<UserRegister />} />
         <Route path="/user-confirm" element={<ConfirmEmail />} />
