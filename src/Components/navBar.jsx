@@ -15,7 +15,7 @@ import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
 import logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SearchInput from "./SharedComponnent/NaveBar/search";
 import { Drawer, Grid, List, ListItem, ListItemText } from "@mui/material";
 import Menu from "@mui/material/Menu";
@@ -31,6 +31,7 @@ function NaveBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [searchValue, setSearchValue] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [token, setToken] = useState(localStorage.getItem("token"));
   const [userData, setUserData] = useState(
     JSON.parse(localStorage.getItem("userData"))
@@ -267,7 +268,7 @@ function NaveBar() {
                     <Box
                       sx={{ display: "flex", justifyContent: "space-around" }}
                     >
-                      <Box mt={0.5}>
+                      <Box mt={1.5} sx={{display:{xs:"none",md:"block"}}}>
                         <Link
                           style={{ textDecoration: "none", color: "inherit" }}
                           to={"/vendorProfile"}
@@ -275,9 +276,9 @@ function NaveBar() {
                           الصفحة الشخصية
                         </Link>
                       </Box>
-                      <Box>
-                        <PersonIcon />
-                      </Box>
+                      <IconButton  onClick={()=>navigate("/vendorProfile")}>
+                        <PersonIcon sx={{fontSize:{xs:"1.8rem",md:"1.5rem"},color:"black"}} />
+                      </IconButton>
                     </Box>
                   </Grid>,
                   <Box onClick={handleCloseNavMenu} key="vendor-orders">
@@ -285,7 +286,7 @@ function NaveBar() {
                       p={1.5}
                       sx={{ display: "flex", justifyContent: "space-between" }}
                     >
-                      <Box mt={0.5}>
+                      <Box mt={1.5} sx={{display:{xs:"none",md:"block"}}}>
                         <Link
                           style={{ textDecoration: "none", color: "inherit" }}
                           to={"/vendorOrders"}
@@ -293,7 +294,9 @@ function NaveBar() {
                           الطلبات
                         </Link>
                       </Box>
-                      <HomeRepairServiceIcon />
+                      <IconButton  onClick={()=>navigate("/vendorOrders")}>
+                      <HomeRepairServiceIcon sx={{fontSize:{xs:"1.8rem",md:"1.5rem"},color:"black"}}  />
+                      </IconButton>
                     </Grid>
                   </Box>,
                   <Box onClick={handleCloseNavMenu} key="vendor-services">
@@ -301,14 +304,16 @@ function NaveBar() {
                       p={1.5}
                       sx={{ display: "flex", justifyContent: "space-between" }}
                     >
-                      <Box mt={0.5}>
+                      <Box mt={1.5} sx={{display:{xs:"none",md:"block"}}}>
                         <Link
                           style={{ textDecoration: "none", color: "inherit" }}
                         >
                           خدماتي أو منتجاتي
                         </Link>
                       </Box>
-                      <DesignServicesIcon />
+                      <IconButton onClick={()=>navigate()}>
+                      <DesignServicesIcon sx={{fontSize:{xs:"1.8rem",md:"1.5rem"},color:"black"}}/>
+                      </IconButton>
                     </Grid>
                   </Box>,
                   <Box onClick={handleCloseNavMenu} key="add-service">
@@ -316,7 +321,7 @@ function NaveBar() {
                       p={1.5}
                       sx={{ display: "flex", justifyContent: "space-between" }}
                     >
-                      <Box mt={0.5}>
+                      <Box mt={1.5} sx={{display:{xs:"none",md:"block"}}}>
                         <Link
                           style={{ textDecoration: "none", color: "inherit" }}
                           to={"/addService"}
@@ -324,7 +329,9 @@ function NaveBar() {
                           أضف خدمة أو منتج
                         </Link>
                       </Box>
-                      <Inventory2Icon />
+                      <IconButton onClick={()=>navigate("/addService")}>
+                      <Inventory2Icon sx={{fontSize:{xs:"1.8rem",md:"1.5rem"},color:"black"}} />
+                      </IconButton>
                     </Grid>
                   </Box>,
                   <Box onClick={handleCloseNavMenu} key="logout">
@@ -332,7 +339,7 @@ function NaveBar() {
                       p={1.5}
                       sx={{ display: "flex", justifyContent: "space-between" }}
                     >
-                      <Box mt={0.5}>
+                      <Box  mt={1.5} sx={{display:{xs:"none",md:"block"}}}>
                         <Link
                           onClick={handleLogout}
                           style={{ textDecoration: "none", color: "inherit" }}
@@ -341,7 +348,9 @@ function NaveBar() {
                           تسجيل الخروج
                         </Link>
                       </Box>
-                      <LogoutIcon />
+                      <IconButton onClick={()=>navigate("/user-login")}>
+                      <LogoutIcon sx={{fontSize:{xs:"1.8rem",md:"1.5rem"},color:"black"}} />
+                      </IconButton>
                     </Grid>
                   </Box>,
                 ]

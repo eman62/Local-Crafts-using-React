@@ -315,7 +315,7 @@ const VendorEditProfilePage = () => {
                 <Box
                   sx={{
                     backgroundColor: "#091242",
-                    height: "130vh",
+                    height: {xs:"150vh",md:"160vh"},
                     borderRadius: "20px",
                   }}
                 >
