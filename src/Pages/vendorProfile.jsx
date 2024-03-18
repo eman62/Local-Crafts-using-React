@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { getUserData } from "../api/users";
 import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import header2 from "../assets/Header2.jpeg"
 
 const VendorProfile = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
@@ -33,7 +34,7 @@ const VendorProfile = () => {
       <Box
         sx={{
           backgroundImage:
-            "url('https://s3-alpha-sig.figma.com/img/0d66/363b/6f00d7173f94ca7d7ab6bcc39bde6406?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Y-dGzk1BZ7AzXsytxPi6tPDQGedhQNe-fnxuhUubZEHGmJGV3Mv7ViyEdH~h1mEoLCLZ8bGvOMHOac9P10gmWkZUvNbdtKWNZFPEeVUDFqS~ZRZfxiSZ-Bfn0ETk6BhRY67QaLL7ERh4Tt5XNHQJoa9j6TeSL6C5SuJc79nQ37shNjVlPVaXOzUxa5SY6cvUscKDALerDU7CDku6S5EHwZ1hlb2sUHyC6a71TKY~D00y8~YzvGecVrgd3XjbDRMF1mhq5Tgo~TxSxoDkjuf3ZxQ-wlKLEi1C30bdkPyA9ezOh37aeshkILVrPjvVBKeJKsfNXN5CUsrMZj7KM5BWoQ__')",
+            `url(${header2})`,
           height: "35vh",
           width: "100%",
           backgroundRepeat: "no-repeat",
@@ -50,7 +51,9 @@ const VendorProfile = () => {
             right: "0",
             left: "0",
           }}
-        ></Box>
+        >
+
+        </Box>
         {/* Red Box */}
         <Box
           sx={{
@@ -60,13 +63,13 @@ const VendorProfile = () => {
             borderRadius: "30px",
             top: "20vh",
             left: "50%",
-            height: "155vh",
+            height: "180vh",
             transform: "translateX(-50%)",
             zIndex: 1,
           }}
         >
           {/* عنوان الصفحه الشخصيه */}
-          <Box sx={{ display: "flex", direction: "rtl" }}>
+          <Box mt={3} sx={{ display: "flex", direction: "rtl" }}>
             <svg
               style={{ margin: "5vh 2vw 0 0" }}
               width="17"
@@ -92,21 +95,20 @@ const VendorProfile = () => {
               </defs>
             </svg>
             <Typography
-              sx={{ display: "block", margin: "3vh 1vw 0 0", fontSize: "2em" }}
+              sx={{ display: "block", margin: "3vh 1vw 0 0", fontSize: "2rem",fontFamily:"Rubik" }}
             >
               الصفحة الشخصية
             </Typography>
           </Box>
           {/* box البيانات */}
-          <Grid
+          <Grid mb={10}
             container
             sx={{
               direction: "rtl",
               justifyContent: "center",
             }}
-            spacing={3}
-          >
-            <Grid item md={2} xs={12} sx={{ mt: "7vh" }}>
+            spacing={3}>
+            <Grid item md={2} xs={12} sx={{ mt: "7vh", display: { xs: "inline-block", md: "inline-block" }, justifyContent: "center" }}>
               {user.photo ? (
                 <Avatar
                   src={user.photo}
@@ -119,27 +121,33 @@ const VendorProfile = () => {
                 />
               ) : (
                 <IconButton>
-                  <PersonIcon sx={{ fontSize: "15vw", color: "black" }} />
+                  <PersonIcon sx={{ fontSize: "15vw", color: "black" , mr: { xs: "26vw", md: "0vw" },}} />
                 </IconButton>
               )}
-              <Typography
-                sx={{
-                  textAlign: "center",
-                  fontSize: "1.5em",
-                  paddingRight: "2vw",
-                }}
-              >
-                {user.name}
-              </Typography>
-              <Typography
-                sx={{
-                  textAlign: "center",
-                  fontSize: "1.5em",
-                  paddingRight: "2vw",
-                }}
-              >
-                {user.job}
-              </Typography>
+              <Box sx={{ mt: { xs: "5%" }, }}>
+                <Typography
+                  sx={{
+                    textAlign: "center",
+                    fontSize: "1.5rem",
+                    paddingRight: "2vw",
+                    fontFamily:"Rubik"
+
+                  }}
+                >
+                  {user.name}
+                </Typography>
+                <Typography
+                  sx={{
+                    textAlign: "center",
+                    fontSize: "1.5em",
+                    paddingRight: "2vw",
+                    fontFamily:"Rubik"
+
+                  }}
+                >
+                  {user.job}
+                </Typography>
+              </Box>
               {/* <Button
                 sx={{
                   background:
@@ -172,7 +180,7 @@ const VendorProfile = () => {
                 ></Box>
               </Button> */}
             </Grid>
-            <Grid item xs={8} sx={{ margin: "3vw 5vw" }}>
+            <Grid item md={8} xs={12} sx={{ margin: "3vw 5vw", width: "100%", }}>
               <Box
                 sx={{
                   backgroundColor: "#091242",
@@ -185,6 +193,7 @@ const VendorProfile = () => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+                    fontFamily:"Rubik"
                   }}
                 >
                   <svg
@@ -221,49 +230,89 @@ const VendorProfile = () => {
                       color: "white",
                       marginTop: "1vh",
                       backgroundColor: "rgb(50,50,50,.5)",
+                      fontFamily:"Rubik"
                     }}
                   >
                     البيانات
                   </Typography>
                 </Box>
-                <Grid container sx={{ paddingTop: "2vw" }}>
-                  <Grid item sx={{ marginRight: "3vw", color: "white" }}>
+                
+                <Grid container sx={{
+                  direction: "rtl", textAlign: "right"
+
+                  , paddingLeft: { xs: "30%", md: "3%" },
+                  paddingRight: { xs: "10%", md: "3%" },
+                  fontSize: { xs: "1rem", md: "3rem" }
+                }}>
+                  <Grid mt={3} xs={12} md={6.1} item sx={{ display: "flex", justifyContent: "space-between", color: "white" }}>
+
                     <Typography>الأسم</Typography>
-                    <Typography>البريد</Typography>
-                    <Typography>الهاتف</Typography>
-                    <Typography>المحافظه</Typography>
-                    <Typography>مدينه</Typography>
-                    <Typography>المهنه</Typography>
+                    <Typography>{user.name}</Typography>
+
                   </Grid>
-                  <Grid item sx={{ marginRight: "1vw", color: "gray" }}>
-                    <Typography> {user.name}</Typography>
-                    <Typography> {user.email}</Typography>
-                    <Typography> {user.phone}</Typography>
+
+                  <Grid mt={3} xs={12} md={6.1} item sx={{ display: "flex", justifyContent: "space-between", color: "white" }}>
+
+                    <Typography >البريد</Typography>
+                    <Typography sx={{
+                      marginRight: { xs: "3vw", md: "1vw" },
+                    }
+
+                    }>{user.email}</Typography>
+
+                  </Grid>
+                  {user.role==="vendor"&& 
+                  <>
+                  <Grid mt={3} xs={12} md={6.1} item sx={{ display: "flex", justifyContent: "space-between", color: "white" }}>
+
+                    <Typography>الهاتف</Typography>
+                    <Typography>{user.phone}</Typography>
+
+                  </Grid>
+                  <Grid mt={3} xs={12} md={6.1} item sx={{ display: "flex", justifyContent: "space-between", color: "white" }}>
+
+                    <Typography>المحافظة</Typography>
                     <Typography> {user.address && user.address.gov}</Typography>
+
+                  </Grid>
+                  <Grid mt={3} xs={12} md={6.1} item sx={{ display: "flex", justifyContent: "space-between", color: "white" }}>
+
+                    <Typography>المدينة</Typography>
                     <Typography>
                       {" "}
                       {user.address && user.address.city}
                     </Typography>
-                    <Typography> {user.job}</Typography>
                   </Grid>
-                  <Grid item sx={{ display: "flex" }}>
-                    <Typography
-                      item
-                      sx={{ marginRight: "3vw", color: "white" }}
-                    >
+                  <Grid mt={3} xs={12} md={6.1} item sx={{ display: "flex", justifyContent: "space-between", color: "white" }}>
+
+                    <Typography>المهنة</Typography>
+                    <Typography>
+                      {user.job}
+                    </Typography>
+                  </Grid>
+                 
+
+                  <Grid mt={3} xs={12} md={6.1} item sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginRight: { md: "10%", xs: "5%" }
+                  }}>
+                    <Typography sx={{ color: "white" }}>
                       نبذة
                     </Typography>
                     <Typography
                       sx={{
                         wordWrap: "break-word",
-                        width: { xs: "100%", sm: "auto" },
-                        marginRight: { xs: "1vw", sm: "1vw" },
+                        // width: {  sm: "auto" },
+                        marginRight: { xs: "2.5vw", md: "1vw" },
                         color: "gray",
                       }}
                     >
                       {user.description}
                     </Typography>
                   </Grid>
+                   </>
+                  }
                 </Grid>
               </Box>
               <Button
@@ -301,7 +350,7 @@ const VendorProfile = () => {
         </Box>
       </Box>
       {/*box of blue and white box */}
-      <Box sx={{ height: "140vh", position: "relative" }}>
+      <Box sx={{ height: "165vh", position: "relative" }}>
         {/*blue box */}
         <Grid container sx={{ height: "100%" }}>
           <Grid item xs={6} sx={{ backgroundColor: "#091242" }}>

@@ -365,7 +365,7 @@ function NaveBar() {
                   <MenuItem onClick={handleCloseNavMenu} key="profile">
                     <Link
                       style={{ textDecoration: "none", color: "inherit" }}
-                      to={"/profile"}
+                      to={"/vendorProfile"}
                     >
                       الصفحة الشخصية
                     </Link>

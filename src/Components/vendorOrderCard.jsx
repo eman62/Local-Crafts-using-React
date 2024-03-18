@@ -31,18 +31,18 @@ const VendorOrderCard = ({ data }) => {
           <Grid item sm={4} mr={3} mb={3} >
 
             <Box mt={3} sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography variant="p" fontWeight={"bold"} fontFamily={"Rubik"}>الأسم : </Typography>
+              <Typography variant="p" fontWeight={"bold"} fontFamily={"Rubik"}>الأسم  </Typography>
               <Typography variant="p">   {data.customer.name}</Typography>
             </Box>
 
             <Box mt={3} sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography variant="p" fontWeight={"bold"} fontFamily={"Rubik"}>تليفون : </Typography>
+              <Typography variant="p" fontWeight={"bold"} fontFamily={"Rubik"}>تليفون  </Typography>
               <Typography variant="p">  {data.phone}</Typography>
             </Box>
 
 
             <Box mt={3} sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography variant="p" fontWeight={"bold"} fontFamily={"Rubik"}>رسالة : </Typography>
+              <Typography variant="p" fontWeight={"bold"} fontFamily={"Rubik"}>رسالة  </Typography>
               <Typography variant="p">  {data.message}</Typography>
             </Box>
           </Grid>

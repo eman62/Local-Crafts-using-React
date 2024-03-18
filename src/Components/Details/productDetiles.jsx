@@ -14,14 +14,38 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { Review } from "./review";
 import OrderModel from "../SharedComponnent/OrderModel";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addToFavirot, removeFavirot } from "../../stores/slice/favirot";
 
 const ProductDetiles = ({ data }) => {
   const [centerIndex, setCenterIndex] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const [pageName, setPageName] = useState("products");
-
   const swiperRef = useRef(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+   const [isFavorite, setIsFavorite] = useState(false);
+  const refIcon = useRef();
+  const favirot = useSelector((state) => state.favirot.favirot);
 
+  const HandleViewVendor = () => {
+    navigate(`/userViewVendor/${data.vendor.id}`);
+  };
+  const isProductInFavirot = favirot.some((product) => product.id === data.id);
+
+  useState(() => {
+    setIsFavorite(isProductInFavirot);
+  }, [isProductInFavirot]);
+
+  const toggleFavorite = () => {
+    if (isFavorite) {
+      dispatch(removeFavirot(data)); 
+    } else {
+      dispatch(addToFavirot(data));
+    }
+    setIsFavorite(!isFavorite); 
+  };
   const toggleModal = () => {
     setOpenModal(!openModal);
   };
@@ -41,18 +65,28 @@ const ProductDetiles = ({ data }) => {
   const handleSlideChange = (swiper) => {
     setCenterIndex(swiper.realIndex + 1);
   };
-  const [isFavorite, setIsFavorite] = useState(false);
+ 
 
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite);
-  };
+ 
   return (
     <Box sx={mainBox}>
       <Box>
         <Box sx={imgStyle}></Box>
       </Box>
       <Box>
-        <Box sx={positionBox}>
+        <Box sx={{
+          position: "absolute",
+          borderRadius: "30px",
+          backgroundColor: "white",
+          top: { xs: "75%", md: "65%" },
+          width: "80%",
+          padding: "6%",
+          left: "50%",
+          height: "60vh",
+          transform: "translateX(-50%)",
+          zIndex: 1,
+
+        }}>
           <Box
             sx={{
               display: "flex",
@@ -97,8 +131,6 @@ const ProductDetiles = ({ data }) => {
               lg={6}
               sx={{
                 position: "relative",
-
-                // marginRight:"2%"
               }}
             >
               <Box mb={5}>
@@ -115,21 +147,19 @@ const ProductDetiles = ({ data }) => {
                 >
                   <SwiperSlide>
                     <img
-                      style={{ width: "67%", marginRight: "9%" }}
+                      style={{ width: "60%", marginRight: "9%" }}
                       src={data?.photos[0]}
                       alt="slide1"
                     />
                   </SwiperSlide>
                   <SwiperSlide>
                     <img
-                      style={{ width: "67%", marginRight: "9%" }}
+                      style={{ width: "60%", marginRight: "9%" }}
                       src={data?.photos[1]}
                       alt="slide2"
                     />
                   </SwiperSlide>
-                  {/* <SwiperSlide>
-                                        <img style={{ width: "67%", marginRight: "9%" }} src={data?.photos[2]} alt='slide3' />
-                                    </SwiperSlide> */}
+
                 </Swiper>
               </Box>
               <IconButton
@@ -167,17 +197,41 @@ const ProductDetiles = ({ data }) => {
 
             <Grid xs={12} md={6}>
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Typography
-                  variant="h4"
-                  sx={{ fontFamily: " 'Rubik', sans-serif" }}
-                >
-                  {data.name} <PersonIcon fontSize="2.5rem" />
-                </Typography>
+                <Box sx={{ display: "flex", }}>
+                  <Box ml={5} >
+                    {data.vendor.photo ? (
+                      <IconButton onClick={HandleViewVendor}>
+                        <img 
+                          height="35"
+                          width="35"
+                          src={data.vendor.photo}
+                          alt="Person"
+                          style={{ borderRadius: "50%" }}
+                        />
+                      </IconButton>
+                    ) : (
+                      <IconButton onClick={HandleViewVendor}>
+                        <img
+                          height="35"
+                          width="35"
+                          src="https://th.bing.com/th/id/OIP.e4YIHGIZBy1X7GW01zOQfwHaHa?rs=1&pid=ImgDetMain"
+                        />
+                      </IconButton>
+                    )}
+                  </Box>
+                  <Typography
+                    variant="h5"
+                    sx={{ fontFamily: " 'Rubik', sans-serif" }}
+                  >
+                    {data.name}
+                  </Typography>
+
+                </Box>
                 <Box onClick={toggleFavorite}>
                   {isFavorite ? (
-                    <FavoriteIcon sx={{ color: "red", fontSize: "40px" }} />
+                    <FavoriteIcon sx={{ color: "red", fontSize: "35px" }} />
                   ) : (
-                    <FavoriteBorderIcon sx={{ fontSize: "40px" }} />
+                    <FavoriteBorderIcon sx={{ fontSize: "35px" }} />
                   )}
                 </Box>
               </Box>

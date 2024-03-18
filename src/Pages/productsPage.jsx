@@ -117,7 +117,7 @@ const ProductsPage = () => {
               backgroundColor: "rgba(4, 28, 55, 0.5)",
               display: "flex",
               color: "rgba(255, 255, 255, 1)",
-              width: { xs: "16%", md: "9%" },
+              width: { xs: "25%",sm:"15%" ,md: "9%" },
               padding: "3px",
               height: "23px",
             }}
@@ -171,7 +171,7 @@ const ProductsPage = () => {
       <Box mt={10}>
         <Box sx={{ padding: "2%" }}>
           <Grid container spacing={3}>
-            <Grid item xs={3}>
+            <Grid item xs={4}>
               <SideBare
                 data={categories}
                 onCategorySelect={handleCategorySelect}
@@ -181,7 +181,7 @@ const ProductsPage = () => {
                 handleSubCategorySelect={handleSubCategorySelect}
               />
             </Grid>
-            <Grid item xs={9}>
+            <Grid item xs={8} >
               <Box>
                 <Container>
                   <Box
@@ -217,13 +217,13 @@ const ProductsPage = () => {
                         </svg>
                       </Box>
                       <Typography
-                        variant="h3"
-                        sx={{ fontFamily: "'Rubik', sans-serif" }}
+                       
+                        sx={{ fontFamily: "'Rubik', sans-serif" ,fontSize:{xs:"1.8rem",md:"3rem"},}}
                       >
                         المنتجات
                       </Typography>
                     </Box>
-                    <Box sx={{ marginLeft: "13%", textAlign: "right" }}>
+                    {/* <Box sx={{ marginLeft: "13%", textAlign: "right" }}>
                       <FormControl
                         sx={{ minWidth: 180, padding: "5%" }}
                         dir="ltr"
@@ -254,7 +254,7 @@ const ProductsPage = () => {
                           <MenuItem value={"التاريخ"}>التاريخ</MenuItem>
                         </Select>
                       </FormControl>
-                    </Box>
+                    </Box> */}
                   </Box>
                   {products && (
                     <Box mt={10}>
@@ -265,7 +265,8 @@ const ProductsPage = () => {
                             key={product.id}
                             xs={12}
                             md={6}
-                            lg={3}
+                            sm={12}
+                            lg={4}
                             mb={5}
                           >
                             <ProductCard

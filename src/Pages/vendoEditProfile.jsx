@@ -14,6 +14,7 @@ import { getUserData, updateUserData } from "../api/users";
 import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
+import header2 from "../assets/Header2.jpeg"
 
 const VendorEditProfilePage = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
@@ -132,20 +133,26 @@ const VendorEditProfilePage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!validateName(updatedUser.name)) {
-      alert("الأسم يجب أن يكون من 2 الي 50 حرف");
-      return;
-    }
-
-    if (!validateDescription(updatedUser.description)) {
-      alert("نبذه عنك يجب ان تكون من 20 الي 500 حرف");
-      return;
-    }
-
-    if (!validateJob(updatedUser.job)) {
-      alert("المهنه يجب ان تكون من 2 الي 50 حرغ");
-      return;
-    }
+    if (user.role === "vendor") {
+      // Validate name, description, and phone number
+      if (!validateName(updatedUser.name)) {
+        alert("الأسم يجب أن يكون من 2 الى 50 حرف");
+        return;
+      }
+      if (!validateDescription(updatedUser.description)) {
+        alert("نبذه عنك يجب ان تكون من 20 الى 500 حرف");
+        return;
+      }
+      if (!validateJob(updatedUser.phone)) {
+        alert("الهاتف يجب ان يكون صحيح");
+        return;
+      }
+    } else if (user.role === "customer") {
+      // Validate name only
+      if (!validateName(updatedUser.name)) {
+        alert("الأسم يجب أن يكون من 2 الى 50 حرف");
+        return;
+      }}
     try {
       const response = await updateUserData(userId, formDataToSend, token);
       setUser(response.data);
@@ -163,7 +170,7 @@ const VendorEditProfilePage = () => {
         <Box
           sx={{
             backgroundImage:
-              "url('https://s3-alpha-sig.figma.com/img/0d66/363b/6f00d7173f94ca7d7ab6bcc39bde6406?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Y-dGzk1BZ7AzXsytxPi6tPDQGedhQNe-fnxuhUubZEHGmJGV3Mv7ViyEdH~h1mEoLCLZ8bGvOMHOac9P10gmWkZUvNbdtKWNZFPEeVUDFqS~ZRZfxiSZ-Bfn0ETk6BhRY67QaLL7ERh4Tt5XNHQJoa9j6TeSL6C5SuJc79nQ37shNjVlPVaXOzUxa5SY6cvUscKDALerDU7CDku6S5EHwZ1hlb2sUHyC6a71TKY~D00y8~YzvGecVrgd3XjbDRMF1mhq5Tgo~TxSxoDkjuf3ZxQ-wlKLEi1C30bdkPyA9ezOh37aeshkILVrPjvVBKeJKsfNXN5CUsrMZj7KM5BWoQ__')",
+            `url(${header2})`,
             height: "35vh",
             width: "100%",
             backgroundRepeat: "no-repeat",
@@ -240,11 +247,11 @@ const VendorEditProfilePage = () => {
               }}
               spacing={1}
             >
-              <Grid
+              <Grid mt={3}
                 item
                 xs={12}
                 md={2}
-                sx={{ position: "relative", display: "inline-block" }}
+                sx={{ position: "relative", display: "flex" ,justifyContent:"center"}}
               >
                 <label htmlFor="file-upload">
                   {user.photo ? (
@@ -257,7 +264,7 @@ const VendorEditProfilePage = () => {
                         height: 150,
                         mr: "2vw",
                         mt: "7vh",
-                        position: "relative",
+                       
                       }}
                     />
                   ) : (
@@ -274,7 +281,9 @@ const VendorEditProfilePage = () => {
                 <EditIcon
                   style={{
                     position: "absolute",
-                    top: "13%",
+
+                    top:{md:"13%",xs:"4%"} ,
+                    bottom:{xs:"40%",md:"0%"},
                     right: "10%",
                     color: "blue",
                     backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -302,7 +311,7 @@ const VendorEditProfilePage = () => {
                 <Box
                   sx={{
                     backgroundColor: "#091242",
-                    height: "170vh",
+                    height: "130vh",
                     borderRadius: "20px",
                   }}
                 >
@@ -385,7 +394,7 @@ const VendorEditProfilePage = () => {
                         }}
                         InputProps={{
                           sx: {
-                            width: "260px",
+                            width:{xs:"90%",md:"100%"} ,
                             height: "40px",
                             backgroundColor: "#1F2A69",
                             border: "1px solid #8E8E8E",
@@ -419,7 +428,8 @@ const VendorEditProfilePage = () => {
                         }}
                         InputProps={{
                           sx: {
-                            width: "260px",
+                            width:{xs:"90%",md:"100%"}  ,
+                            
                             height: "40px",
                             backgroundColor: "#1F2A69",
                             border: "1px solid #8E8E8E",
@@ -428,9 +438,10 @@ const VendorEditProfilePage = () => {
                             mt: "2vh",
                           },
                         }}
-                      />
-                      <Grid container spacing={2}>
-                        <Grid item>
+                      />  {user.role==="vendor"&& 
+                      <>
+                      <Grid container >
+                        <Grid item sx={{width:"50%"}}>
                           <Typography
                             sx={{
                               color: "white",
@@ -457,7 +468,7 @@ const VendorEditProfilePage = () => {
                               handleChange(e);
                             }}
                             sx={{
-                              width: "120px",
+                              width:{xs:"50%"} ,
                               // height: "40px",
                               backgroundColor: "#1F2A69",
                               border: "1px solid #8E8E8E",
@@ -472,7 +483,7 @@ const VendorEditProfilePage = () => {
                             ))}
                           </TextField>
                         </Grid>
-                        <Grid item>
+                        <Grid item sx={{width:"50%"}}>
                           <Typography
                             sx={{
                               color: "white",
@@ -498,7 +509,7 @@ const VendorEditProfilePage = () => {
                               handleChange(e);
                             }}
                             sx={{
-                              width: "120px",
+                              width: "50%",
                               // height: "40px",
                               backgroundColor: "#1F2A69",
                               border: "1px solid #8E8E8E",
@@ -538,7 +549,7 @@ const VendorEditProfilePage = () => {
                         }}
                         InputProps={{
                           sx: {
-                            width: "260px",
+                            width:{xs:"90%",md:"100%"} ,
                             height: "40px",
                             backgroundColor: "#1F2A69",
                             border: "1px solid #8E8E8E",
@@ -571,7 +582,7 @@ const VendorEditProfilePage = () => {
                         }}
                         InputProps={{
                           sx: {
-                            width: "260px",
+                            width:{xs:"90%",md:"100%"} ,
                             height: "40px",
                             backgroundColor: "#1F2A69",
                             border: "1px solid #8E8E8E",
@@ -609,9 +620,10 @@ const VendorEditProfilePage = () => {
                           border: "1px solid #8E8E8E",
                           color: "white",
                         }}
-                      />
+                      /></>}
                     </Grid>
-                    <Grid item>
+                    
+                    <Grid item xs={12} sx={{display:"flex",justifyContent:"center", marginRight:"5%"}} >
                       <Button
                         type="submit"
                         // onClick={handleEditProfile}

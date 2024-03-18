@@ -75,16 +75,18 @@ const ProductCard = ({ data }) => {
               )}
             </Box>
 
-            <Typography
+            <Typography mt={2}
               gutterBottom
               variant="p"
               component="div"
-              sx={{ fontWeight: "bold" }}
+              style={{ cursor: "pointer",  }}
               onClick={() => navigate(`/productDetails/${data.id}`)}
+              sx={{ fontWeight: "bold" }}
+              
             >
               {data.name}
             </Typography>
-            <Box onClick={toggleFavorite}>
+            <Box onClick={toggleFavorite} mt={2}>
               {isFavorite ? (
                 <FavoriteIcon
                   style={{ cursor: "pointer", color: "red", fontSize: "1.5rem" }}
@@ -117,7 +119,9 @@ const ProductCard = ({ data }) => {
             </Typography>
           </Box>
 
-          <Typography mt={2} variant="body2">
+          <Typography mt={2} variant="body2" mr={2} 
+           style={{ cursor: "pointer",}}
+           onClick={() => navigate(`/productDetails/${data.id}`)}>
             {data.description}
           </Typography>
 
@@ -136,10 +140,10 @@ const ProductCard = ({ data }) => {
               السعر : {data.price} ج
             </Typography>
             <Box mt={0.5}>
+              {/* <StarBorderIcon sx={{ fontSize: "1rem" }} />
               <StarBorderIcon sx={{ fontSize: "1rem" }} />
               <StarBorderIcon sx={{ fontSize: "1rem" }} />
-              <StarBorderIcon sx={{ fontSize: "1rem" }} />
-              <StarBorderIcon sx={{ fontSize: "1rem" }} />
+              <StarBorderIcon sx={{ fontSize: "1rem" }} /> */}
             </Box>
           </Box>
         </CardContent>

@@ -80,7 +80,7 @@ const OrderModel = ({ open, handleClose, Id, namePage }) => {
     width: "55%",
     height: "75%",
     bgcolor: "background.paper",
-    borderRadius: "10%",
+    borderRadius: "30px",
     boxShadow: 24,
     p: 4,
     direction: "rtl",

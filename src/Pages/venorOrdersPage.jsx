@@ -13,6 +13,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import Header2 from "../assets/Header2.jpeg"
 const VendorOrdersPage = () => {
   const [orders, setOrders] = useState([]);
   const token = localStorage.getItem("token");
@@ -53,24 +54,36 @@ const VendorOrdersPage = () => {
 
   return (
     <Box>
-      <Box
+     <Box
         sx={{
           backgroundImage:
-            "linear-gradient(rgba(9, 18, 66, 0.5), rgba(9, 18, 66, 0.5)), url('https://s3-alpha-sig.figma.com/img/0d66/363b/6f00d7173f94ca7d7ab6bcc39bde6406?Expires=1710115200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=nNS~WGeV-YZqRjq2K8z8Y0ZkboQaagtzO5-~ymUeJIlX60tb1SC55m2oQyBFliP1EiOzkWEURNE9viaL6E0vYTdvH7P~RulSceiaY9gwYFYFMMkyzf5fnmSMUgf~Dxp6rOpk1B~sOm7SqUeKcz~EgBLM94fMIYVCyJFQ1q1lgcJXPGN1h10xJYAmYOOgfmDBnAd3TNVQ6eL7HYzFMmcJZwvOVdsKIp2u4gZMHsNSldRmhVtGMZNtNn6XSah0-OczpBON2Hsv2APcER2QvWhd3Xt6Sph~qZqySsvegLNQP~pGqH9THcGfJmY00y5dSxODa5DHoKMYqZ8ocffq0kdXHg__')",
+            `url(${Header2})`,
+          height: "35vh",
+          width: "100%",
+          backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
-          backgroundAttachment: "fixed",
-          objectFit: "cover",
-          padding: "10%",
           position: "relative",
         }}
       >
         <Box
           sx={{
             position: "absolute",
+            backgroundColor: "rgb(6,0,66,.7)",
+            height: "100%",
+            top: "0",
+            right: "0",
+            left: "0",
+          }}
+        >
+          
+        </Box>
+        <Box
+          sx={{
+            position: "absolute",
             width: "80vw",
             backgroundColor: "white",
             borderRadius: "30px",
-            top: { xs: "75%", md: "50%" },
+            top: { xs: "70%", md: "50%" },
             left: "50%",
             height: "200vh",
             transform: "translateX(-50%)",
@@ -143,7 +156,8 @@ const VendorOrdersPage = () => {
                 <IconButton
                   sx={{
                     position: "absolute",
-                    top: "30%",
+
+                    top:{xs:"37%",md:"23%", lg:"30%"} ,
                     left: "5%",
                     transform: "translateY(-50%)",
                     zIndex: 999,
@@ -160,7 +174,7 @@ const VendorOrdersPage = () => {
                 <IconButton
                   sx={{
                     position: "absolute",
-                    top: "30%",
+                    top:{xs:"37%",md:"23%",lg:"30%"} ,
                     right: "2%",
                     transform: "translateY(-50%)",
                     zIndex: 999,

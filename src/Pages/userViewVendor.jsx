@@ -121,79 +121,85 @@ const UserViewVendor = () => {
               sx={{
                 display: "block",
                 margin: "3vh 1vw 0 0",
-                fontSize: "2em",
+                fontSize: "1.8rem",
+                fontFamily:"Rubik"
               }}
             >
               الصفحة الشخصية
             </Typography>
           </Box>
-          {vendor.photo ? (
-            <Avatar
-              src={vendor.photo}
-              sx={{
-                fontSize: "5vw",
-                marginRight: "4vw",
-                mt: "4vh",
-                mb: "2vh",
-                width: 120,
-                height: 120,
-              }}
-            ></Avatar>
-          ) : (
-            <IconButton>
-              <PersonIcon
-                sx={{
-                  fontSize: "5vw",
-                  color: "black",
-                  marginRight: "4vw",
-                  mt: "4vh",
-                }}
-              ></PersonIcon>
-            </IconButton>
-          )}
+          <Box sx={{ display: { md: "flex", xs: "block" }, justifyContent: "center" }}>
+            <Box sx={{ mr: { md: "1%", xs: "20%" } }}>
+              {vendor.photo ? (
+                <Avatar
+                  src={vendor.photo}
+                  sx={{
+                    fontSize: "5vw",
+                    marginRight: "2vw",
+                    mt: "4vh",
+                    mb: "2vh",
+                    width: 120,
+                    height: 120,
+                  }}
+                ></Avatar>
+              ) : (
+                <IconButton>
+                  <PersonIcon
+                    sx={{
+                      fontSize: "5vw",
+                      color: "black",
+                      marginRight: "4vw",
+                      mt: "4vh",
+                    }}
+                  ></PersonIcon>
+                </IconButton>
+              )}
+              <Box sx={ {textAlign:"center",marginLeft:{xs:"45%",sm:"70%",md:"1%"}}}>
+                <Typography sx={{  fontWeight: "bold", fontFamily:"Rubik" }}>
+                  {vendor.name}
+                </Typography>
 
-          <Typography sx={{ mr: "7vw", fontWeight: "bold" }}>
-            {vendor.name}
-          </Typography>
-          <Grid container spacing={2}>
-            <Grid item>
-              <Typography sx={{ mr: "8vw", ml: "3vw" }}>
-                {vendor.job}
-              </Typography>
+                <Typography sx={{ fontFamily:"Rubik" }}>
+                  {vendor.job}
+                </Typography>
+              </Box>
+            </Box>
+            <Grid container spacing={2} sx={{ mt: { md: "15%", xs: "5%" } }}>
+
+              <Grid item md={1} xs={3}>
+                <Typography sx={{ fontWeight: "bold", fontFamily:"Rubik"}}>
+                  الأسم:{" "}
+                </Typography>
+                <Typography sx={{ fontWeight: "bold", fontFamily:"Rubik" }}>البريد: </Typography>
+                <Typography sx={{ fontWeight: "bold", fontFamily:"Rubik" }}>مدينه:</Typography>
+              </Grid>
+              <Grid item  md={5} xs={9}>
+                <Typography sx={{ fontFamily:"Rubik"}}>{vendor.name} </Typography>
+                <Typography sx={{ fontFamily:"Rubik"}}> {vendor.email} </Typography>
+                <Typography sx={{ fontFamily:"Rubik"}}>{vendor.address?.city} </Typography>
+              </Grid>
+              <Grid item  md={1} xs={3}>
+                <Typography sx={{ fontWeight: "bold",fontFamily:"Rubik" }}>المهنه: </Typography>
+                <Typography sx={{ fontWeight: "bold",fontFamily:"Rubik" }}>المحافظه: </Typography>
+                <Typography sx={{ fontWeight: "bold" ,fontFamily:"Rubik"}}>رقم الهاتف:</Typography>
+              </Grid>
+              <Grid item  md={5} xs={9}>
+                <Typography sx={{ fontFamily:"Rubik"}}>{vendor.job} </Typography>
+                <Typography sx={{ fontFamily:"Rubik"}}> {vendor.address?.gov} </Typography>
+                <Typography sx={{ fontFamily:"Rubik"}}> {vendor.phone} </Typography>
+              </Grid>
+              <Grid item xs={12} >
+                <Typography sx={{ fontWeight: "bold" ,fontFamily:"Rubik"}}>نبذة: </Typography>
+                <Typography sx={{ width: "40vw" ,fontFamily:"Rubik" }}>
+                  {vendor.description}
+                </Typography>
+              </Grid>
             </Grid>
-            <Grid item>
-              <Typography sx={{ fontWeight: "bold", ml: "1vw" }}>
-                الأسم:{" "}
-              </Typography>
-              <Typography sx={{ fontWeight: "bold" }}>البريد: </Typography>
-              <Typography sx={{ fontWeight: "bold" }}>مدينه:</Typography>
-            </Grid>
-            <Grid item>
-              <Typography>{vendor.name} </Typography>
-              <Typography> {vendor.email} </Typography>
-              <Typography>{vendor.address?.city} </Typography>
-            </Grid>
-            <Grid item>
-              <Typography sx={{ fontWeight: "bold" }}>المهنه: </Typography>
-              <Typography sx={{ fontWeight: "bold" }}>المحافظه: </Typography>
-              <Typography sx={{ fontWeight: "bold" }}>رقم الهاتف:</Typography>
-            </Grid>
-            <Grid item>
-              <Typography>{vendor.job} </Typography>
-              <Typography> {vendor.address?.gov} </Typography>
-              <Typography> {vendor.phone} </Typography>
-            </Grid>
-            <Grid item sx={{ mr: "16vw" }}>
-              <Typography sx={{ fontWeight: "bold" }}>نبذة: </Typography>
-              <Typography sx={{ width: "40vw" }}>
-                {vendor.description}
-              </Typography>
-            </Grid>
-          </Grid>
+          </Box>
           <Box sx={{ backgroundColor: "#F4F4F4", height: "110vh", mt: "8vh" }}>
-            <Box sx={{ display: "flex", direction: "rtl" }}>
+            <Box sx={{ display: "flex", direction: "rtl"}}>
               <svg
-                style={{ margin: "5vh 2vw 0 0" }}
+                style={{ margin: "7vh 2vw 0 0" }}
                 width="17"
                 height="17"
                 viewBox="0 0 17 17"
@@ -218,8 +224,9 @@ const UserViewVendor = () => {
               </svg>
               <Typography
                 sx={{
-                  margin: "3vh 1vw 0 0",
-                  fontSize: "2em",
+                  margin: "5.5vh 1vw 0 0",
+                  fontSize:{md:"1.5rem",xs:"1rem"},
+                  fontFamily:"Rubik"
                 }}
               >
                 الخدمات والمنتجات المنشورة

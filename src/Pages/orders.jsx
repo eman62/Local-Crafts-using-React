@@ -26,6 +26,7 @@ import {
 } from "../api/orders";
 import OrdersCard from "../Components/orders/ordersCard";
 import Footer from "../Components/footer";
+import header2 from "../assets/Header2.jpeg"
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -84,7 +85,7 @@ const Orders = () => {
       <Box
         sx={{
           backgroundImage:
-            "url('https://s3-alpha-sig.figma.com/img/0d66/363b/6f00d7173f94ca7d7ab6bcc39bde6406?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Y-dGzk1BZ7AzXsytxPi6tPDQGedhQNe-fnxuhUubZEHGmJGV3Mv7ViyEdH~h1mEoLCLZ8bGvOMHOac9P10gmWkZUvNbdtKWNZFPEeVUDFqS~ZRZfxiSZ-Bfn0ETk6BhRY67QaLL7ERh4Tt5XNHQJoa9j6TeSL6C5SuJc79nQ37shNjVlPVaXOzUxa5SY6cvUscKDALerDU7CDku6S5EHwZ1hlb2sUHyC6a71TKY~D00y8~YzvGecVrgd3XjbDRMF1mhq5Tgo~TxSxoDkjuf3ZxQ-wlKLEi1C30bdkPyA9ezOh37aeshkILVrPjvVBKeJKsfNXN5CUsrMZj7KM5BWoQ__')",
+            `url(${header2})`,
           height: "35vh",
           width: "100%",
           backgroundRepeat: "no-repeat",
@@ -195,7 +196,8 @@ const Orders = () => {
                     item
                     xs={12}
                     sm={6}
-                    md={4}
+                    md={6}
+                    lg={4}
                     key={index}
                     sx={{ paddingLeft: { xs: "15%", md: "10%" } }}
                   >
@@ -212,8 +214,9 @@ const Orders = () => {
                         position: "relative",
                         borderRadius: 0,
                         textWrap: "nowrap",
-                        fontSize: "1.5vw",
-                        width: "14.5vw",
+                        fontSize: "1rem",
+                        width: "12rem",
+                        fontFamily:"Rubik"
                       }}
                     >
                       الغاء الطلب

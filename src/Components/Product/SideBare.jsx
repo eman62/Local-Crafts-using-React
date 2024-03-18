@@ -48,12 +48,12 @@ const SideBare = ({ data, onCategorySelect, subCategories }) => {
                             </defs>
                         </svg>
                     </Box>
-                    <Typography variant='h4' sx={{ fontFamily: "'Rubik', sans-serif" }}>
+                    <Typography sx={{ fontFamily: "'Rubik', sans-serif" ,fontSize:{xs:"1.5rem",md:"2.5rem"} }}>
                         التصنيفات
                     </Typography>
                 </Box>
             </Box>
-            <Box
+            <Box sx={{mr:{xs:"3",md:"0"}}}
                 style={{
                     height: showMainCategories ? "auto" : "0",
                     overflow: "hidden",
@@ -61,9 +61,9 @@ const SideBare = ({ data, onCategorySelect, subCategories }) => {
                 }}
             >
                 {data.map(category => (
-                    <div key={category._id}>
+                    <div key={category._id} >
                         <Box mt={4} sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", pl: 1 }}>
-                            <Typography variant='h5' sx={{ fontFamily: "'Rubik', sans-serif" }}>
+                            <Typography  sx={{ fontFamily: "'Rubik', sans-serif",fontSize:{xs:"1rem",md:"1.5rem"} }}>
                                 {category.name}
                             </Typography>
                             <Checkbox

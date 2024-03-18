@@ -25,6 +25,7 @@ export const Review = () => {
     return (
         <>
             <Box sx={{
+                 marginTop:{xs:"90vh",md:"10vh"},
                 direction: " rtl",
                 width: "86%",
                 padding: "5%",

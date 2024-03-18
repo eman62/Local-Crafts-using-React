@@ -149,41 +149,12 @@ const SearchPage = () => {
                         المنتجات و الخدمات
                       </Typography>
                     </Box>
-                    {/* <Box sx={{ marginLeft: "13%", textAlign: "right" }}>
-                      <FormControl
-                        sx={{ minWidth: 180, padding: "5%" }}
-                        dir="ltr"
-                      >
-                        <InputLabel
-                          color="info"
-                          id="demo-simple-select-autowidth-label"
-                        >
-                          <Typography
-                            variant="h5"
-                            sx={{ fontFamily: "'Rubik', sans-serif" }}
-                          >
-                            ترتيب حسب{" "}
-                          </Typography>{" "}
-                        </InputLabel>
-                        <Select
-                          labelId="demo-simple-select-autowidth-label"
-                          id="demo-simple-select-autowidth"
-                          value={filter}
-                          onChange={handleChange}
-                          fullWidth
-                          color="info"
-                          label="ترتيب حسب"
-                          dir="rtl"
-                        >
-                          <MenuItem value={"السعر"}>السعر</MenuItem>
-                          <MenuItem value={"التقيم"}>التقيم</MenuItem>
-                          <MenuItem value={"التاريخ"}>التاريخ</MenuItem>
-                        </Select>
-                      </FormControl>
-                    </Box> */}
+            
                   </Box>
                   {products && (
-                    <Box mt={10}>
+                    <Box mt={10} 
+                    sx={{display:"flex",justifyContent:"center",mr:{xs:"13%",sm:"0%"}}}
+                    >
                       <Grid
                         container
                         spacing={4}
@@ -200,6 +171,7 @@ const SearchPage = () => {
                             key={product.id}
                             xs={12}
                             md={3}
+                            sm={6}
                             lg={3}
                             mb={5}
                           >
@@ -219,30 +191,7 @@ const SearchPage = () => {
                           </Grid>
                         ))}
                       </Grid>
-                      <Box mt={5} display={"flex"} justifyContent={"center"}>
-                        <Pagination
-                          count={totalPages}
-                          page={currentPage}
-                          onChange={handlePageChange}
-                          color="primary"
-                          boundaryCount={2}
-                          shape="rounded"
-                          renderItem={(item) => (
-                            <PaginationItem
-                              component={Button}
-                              {...item}
-                              sx={{
-                                backgroundColor: "#091242",
-                                color: "white",
-                                fontFamily: "rubik",
-                                padding: "1%",
-                              }}
-                            />
-                          )}
-                          prevIcon={<ArrowBack />}
-                          nextIcon={<ArrowForward />}
-                        />
-                      </Box>
+                      
                     </Box>
                   )}
                 </Container>
