@@ -13,7 +13,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-import Header2 from "../assets/Header2.jpeg"
+import Header2 from "../assets/Header2.jpeg";
 const VendorOrdersPage = () => {
   const [orders, setOrders] = useState([]);
   const token = localStorage.getItem("token");
@@ -54,10 +54,9 @@ const VendorOrdersPage = () => {
 
   return (
     <Box>
-     <Box
+      <Box
         sx={{
-          backgroundImage:
-            `url(${Header2})`,
+          backgroundImage: `url(${Header2})`,
           height: "35vh",
           width: "100%",
           backgroundRepeat: "no-repeat",
@@ -74,9 +73,7 @@ const VendorOrdersPage = () => {
             right: "0",
             left: "0",
           }}
-        >
-          
-        </Box>
+        ></Box>
         <Box
           sx={{
             position: "absolute",
@@ -131,7 +128,7 @@ const VendorOrdersPage = () => {
           </Box>
 
           <Box>
-            {orders && (
+            {Array.isArray(orders) && orders.length > 0 ? (
               <Box mt={20}>
                 <Swiper
                   xs={6}
@@ -153,47 +150,26 @@ const VendorOrdersPage = () => {
                     ))}
                   </Grid>
                 </Swiper>
-                <IconButton
-                  sx={{
-                    position: "absolute",
-
-                    top:{xs:"37%",md:"23%", lg:"30%"} ,
-                    left: "5%",
-                    transform: "translateY(-50%)",
-                    zIndex: 999,
-                    background:
-                      "linear-gradient(90deg, #FFB629 0%, #FFDA56 50%, #FFD7A6 100%)",
-                    color: "white",
-                    width: "3vw",
-                    height: "5vh",
-                  }}
-                  onClick={goPrev}
-                >
-                  &gt;
-                </IconButton>
-                <IconButton
-                  sx={{
-                    position: "absolute",
-                    top:{xs:"37%",md:"23%",lg:"30%"} ,
-                    right: "2%",
-                    transform: "translateY(-50%)",
-                    zIndex: 999,
-                    backgroundColor: "#091242",
-                    color: "white",
-                    width: "3vw",
-                    height: "5vh",
-                  }}
-                  onClick={goNext}
-                >
-                  &lt;
-                </IconButton>
+                {/* Pagination buttons */}
               </Box>
+            ) : (
+              <Typography
+                sx={{
+                  fontFamily: "Rubik",
+                  fontSize: "2rem",
+                  textAlign: "center",
+                  color: "red",
+                  pt: "50vh",
+                }}
+              >
+                لا يوجد طلبات
+              </Typography>
             )}
           </Box>
         </Box>
       </Box>
       {/*box of blue and white box */}
-      <Box sx={{ height: "200vh", position: "relative" }}>
+      <Box sx={{ height: "183vh", position: "relative" }}>
         {/*blue box */}
         <Grid container sx={{ height: "100%" }}>
           <Grid item xs={6} sx={{ backgroundColor: "#091242" }}>

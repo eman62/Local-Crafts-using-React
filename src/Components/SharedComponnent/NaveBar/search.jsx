@@ -36,7 +36,7 @@ const SearchInput = () => {
         setServices(response.data.services);
         dispatch(setSearchProducts(response.data.products));
         dispatch(setSearchServices(response.data.services));
-        // console.log(response.data);
+        console.log(response.data);
         navigate("/search");
       })
       .catch((error) => {

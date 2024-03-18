@@ -14,7 +14,7 @@ import { getUserData, updateUserData } from "../api/users";
 import { Avatar } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
-import header2 from "../assets/Header2.jpeg"
+import header2 from "../assets/Header2.jpeg";
 
 const VendorEditProfilePage = () => {
   const userData = JSON.parse(localStorage.getItem("userData"));
@@ -152,7 +152,8 @@ const VendorEditProfilePage = () => {
       if (!validateName(updatedUser.name)) {
         alert("الأسم يجب أن يكون من 2 الى 50 حرف");
         return;
-      }}
+      }
+    }
     try {
       const response = await updateUserData(userId, formDataToSend, token);
       setUser(response.data);
@@ -169,8 +170,7 @@ const VendorEditProfilePage = () => {
       <Box sx={{ position: "relative" }}>
         <Box
           sx={{
-            backgroundImage:
-            `url(${header2})`,
+            backgroundImage: `url(${header2})`,
             height: "35vh",
             width: "100%",
             backgroundRepeat: "no-repeat",
@@ -247,11 +247,16 @@ const VendorEditProfilePage = () => {
               }}
               spacing={1}
             >
-              <Grid mt={3}
+              <Grid
+                mt={3}
                 item
                 xs={12}
                 md={2}
-                sx={{ position: "relative", display: "flex" ,justifyContent:"center"}}
+                sx={{
+                  position: "relative",
+                  display: "flex",
+                  justifyContent: "center",
+                }}
               >
                 <label htmlFor="file-upload">
                   {user.photo ? (
@@ -264,7 +269,6 @@ const VendorEditProfilePage = () => {
                         height: 150,
                         mr: "2vw",
                         mt: "7vh",
-                       
                       }}
                     />
                   ) : (
@@ -282,8 +286,8 @@ const VendorEditProfilePage = () => {
                   style={{
                     position: "absolute",
 
-                    top:{md:"13%",xs:"4%"} ,
-                    bottom:{xs:"40%",md:"0%"},
+                    top: { md: "13%", xs: "4%" },
+                    bottom: { xs: "40%", md: "0%" },
                     right: "10%",
                     color: "blue",
                     backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -394,7 +398,7 @@ const VendorEditProfilePage = () => {
                         }}
                         InputProps={{
                           sx: {
-                            width:{xs:"90%",md:"100%"} ,
+                            width: { xs: "90%", md: "100%" },
                             height: "40px",
                             backgroundColor: "#1F2A69",
                             border: "1px solid #8E8E8E",
@@ -428,8 +432,8 @@ const VendorEditProfilePage = () => {
                         }}
                         InputProps={{
                           sx: {
-                            width:{xs:"90%",md:"100%"}  ,
-                            
+                            width: { xs: "90%", md: "100%" },
+
                             height: "40px",
                             backgroundColor: "#1F2A69",
                             border: "1px solid #8E8E8E",
@@ -438,192 +442,203 @@ const VendorEditProfilePage = () => {
                             mt: "2vh",
                           },
                         }}
-                      />  {user.role==="vendor"&& 
-                      <>
-                      <Grid container >
-                        <Grid item sx={{width:"50%"}}>
+                      />{" "}
+                      {user.role === "vendor" && (
+                        <>
+                          <Grid container>
+                            <Grid item sx={{ width: "50%" }}>
+                              <Typography
+                                sx={{
+                                  color: "white",
+                                  fontFamily: "Kurb",
+                                  fontSize: "1.5em",
+                                  mt: "4vh",
+                                }}
+                              >
+                                المحافظة
+                              </Typography>
+
+                              <TextField
+                                labelId="demo-simple-select-helper-label"
+                                id="demo-simple-select-helper"
+                                // label=" المحافظه"
+                                name="gov"
+                                select
+                                defaultValue={
+                                  userData.address && userData.address.gov
+                                }
+                                value={selectedGovernorate || ""}
+                                onChange={(e) => {
+                                  setSelectedGovernorate(e.target.value);
+                                  handleChange(e);
+                                }}
+                                sx={{
+                                  width: { xs: "50%" },
+                                  // height: "40px",
+                                  backgroundColor: "#1F2A69",
+                                  border: "1px solid #8E8E8E",
+                                  color: "white",
+                                }}
+                              >
+                                {governorates.map((option) => (
+                                  <MenuItem key={option._id} value={option._id}>
+                                    {" "}
+                                    {option.name}
+                                  </MenuItem>
+                                ))}
+                              </TextField>
+                            </Grid>
+                            <Grid item sx={{ width: "50%" }}>
+                              <Typography
+                                sx={{
+                                  color: "white",
+                                  fontFamily: "Kurb",
+                                  fontSize: "1.5em",
+                                  mt: "4vh",
+                                }}
+                              >
+                                المدينه
+                              </Typography>
+
+                              <TextField
+                                labelId="demo-simple-select-helper-label"
+                                id="demo-simple-select-helper"
+                                name="city"
+                                select
+                                defaultValue={
+                                  userData.address && userData.address.city
+                                }
+                                value={selectedCity || ""}
+                                onChange={(e) => {
+                                  setSelectedCity(e.target.value);
+                                  handleChange(e);
+                                }}
+                                sx={{
+                                  width: "50%",
+                                  // height: "40px",
+                                  backgroundColor: "#1F2A69",
+                                  border: "1px solid #8E8E8E",
+                                  color: "white",
+                                }}
+                              >
+                                {cities.map((option) => (
+                                  <MenuItem key={option._id} value={option._id}>
+                                    {" "}
+                                    {option.name}
+                                  </MenuItem>
+                                ))}
+                              </TextField>
+                            </Grid>
+                          </Grid>
                           <Typography
                             sx={{
                               color: "white",
                               fontFamily: "Kurb",
                               fontSize: "1.5em",
-                              mt: "4vh",
+                              mt: "2vh",
                             }}
                           >
-                            المحافظة
+                            الهاتف
                           </Typography>
-
                           <TextField
-                            labelId="demo-simple-select-helper-label"
-                            id="demo-simple-select-helper"
-                            // label=" المحافظه"
-                            name="gov"
-                            select
-                            defaultValue={
-                              userData.address && userData.address.gov
-                            }
-                            value={selectedGovernorate || ""}
-                            onChange={(e) => {
-                              setSelectedGovernorate(e.target.value);
-                              handleChange(e);
+                            id="outlined-basic"
+                            type="number"
+                            name="phone"
+                            value={updatedUser.phone}
+                            onChange={handleChange}
+                            variant="outlined"
+                            InputLabelProps={{
+                              sx: {
+                                color: "white",
+                              },
                             }}
-                            sx={{
-                              width:{xs:"50%"} ,
-                              // height: "40px",
-                              backgroundColor: "#1F2A69",
-                              border: "1px solid #8E8E8E",
-                              color: "white",
+                            InputProps={{
+                              sx: {
+                                width: { xs: "90%", md: "100%" },
+                                height: "40px",
+                                backgroundColor: "#1F2A69",
+                                border: "1px solid #8E8E8E",
+                                color: "white",
+                                direction: "rtl",
+                                mt: "2vh",
+                              },
                             }}
-                          >
-                            {governorates.map((option) => (
-                              <MenuItem key={option._id} value={option._id}>
-                                {" "}
-                                {option.name}
-                              </MenuItem>
-                            ))}
-                          </TextField>
-                        </Grid>
-                        <Grid item sx={{width:"50%"}}>
+                          />
                           <Typography
                             sx={{
                               color: "white",
                               fontFamily: "Kurb",
                               fontSize: "1.5em",
-                              mt: "4vh",
+                              mt: "2vh",
                             }}
                           >
-                            المدينه
+                            المهنه
                           </Typography>
-
                           <TextField
-                            labelId="demo-simple-select-helper-label"
-                            id="demo-simple-select-helper"
-                            name="city"
-                            select
-                            defaultValue={
-                              userData.address && userData.address.city
-                            }
-                            value={selectedCity || ""}
-                            onChange={(e) => {
-                              setSelectedCity(e.target.value);
-                              handleChange(e);
+                            id="outlined-basic"
+                            variant="outlined"
+                            name="job"
+                            value={updatedUser.job}
+                            onChange={handleChange}
+                            InputLabelProps={{
+                              sx: {
+                                color: "white",
+                              },
+                            }}
+                            InputProps={{
+                              sx: {
+                                width: { xs: "90%", md: "100%" },
+                                height: "40px",
+                                backgroundColor: "#1F2A69",
+                                border: "1px solid #8E8E8E",
+                                color: "white",
+                                direction: "rtl",
+                                mt: "2vh",
+                              },
+                            }}
+                          />
+                          <Typography
+                            sx={{
+                              color: "white",
+                              fontFamily: "Kurb",
+                              fontSize: "1.5em",
+                              mt: "5vh",
+                            }}
+                          >
+                            نبذة
+                          </Typography>
+                          <TextField
+                            name="description"
+                            value={updatedUser.description}
+                            onChange={handleChange}
+                            id="outlined-multiline-static"
+                            defaultValue="رسالة صغيرة"
+                            multiline
+                            rows={6}
+                            InputProps={{
+                              style: { color: "white" },
                             }}
                             sx={{
-                              width: "50%",
-                              // height: "40px",
+                              width: "40vw",
+                              direction: "rtl",
                               backgroundColor: "#1F2A69",
                               border: "1px solid #8E8E8E",
                               color: "white",
                             }}
-                          >
-                            {cities.map((option) => (
-                              <MenuItem key={option._id} value={option._id}>
-                                {" "}
-                                {option.name}
-                              </MenuItem>
-                            ))}
-                          </TextField>
-                        </Grid>
-                      </Grid>
-                      <Typography
-                        sx={{
-                          color: "white",
-                          fontFamily: "Kurb",
-                          fontSize: "1.5em",
-                          mt: "2vh",
-                        }}
-                      >
-                        الهاتف
-                      </Typography>
-                      <TextField
-                        id="outlined-basic"
-                        type="number"
-                        name="phone"
-                        value={updatedUser.phone}
-                        onChange={handleChange}
-                        variant="outlined"
-                        InputLabelProps={{
-                          sx: {
-                            color: "white",
-                          },
-                        }}
-                        InputProps={{
-                          sx: {
-                            width:{xs:"90%",md:"100%"} ,
-                            height: "40px",
-                            backgroundColor: "#1F2A69",
-                            border: "1px solid #8E8E8E",
-                            color: "white",
-                            direction: "rtl",
-                            mt: "2vh",
-                          },
-                        }}
-                      />
-                      <Typography
-                        sx={{
-                          color: "white",
-                          fontFamily: "Kurb",
-                          fontSize: "1.5em",
-                          mt: "2vh",
-                        }}
-                      >
-                        المهنه
-                      </Typography>
-                      <TextField
-                        id="outlined-basic"
-                        variant="outlined"
-                        name="job"
-                        value={updatedUser.job}
-                        onChange={handleChange}
-                        InputLabelProps={{
-                          sx: {
-                            color: "white",
-                          },
-                        }}
-                        InputProps={{
-                          sx: {
-                            width:{xs:"90%",md:"100%"} ,
-                            height: "40px",
-                            backgroundColor: "#1F2A69",
-                            border: "1px solid #8E8E8E",
-                            color: "white",
-                            direction: "rtl",
-                            mt: "2vh",
-                          },
-                        }}
-                      />
-                      <Typography
-                        sx={{
-                          color: "white",
-                          fontFamily: "Kurb",
-                          fontSize: "1.5em",
-                          mt: "5vh",
-                        }}
-                      >
-                        نبذة
-                      </Typography>
-                      <TextField
-                        name="description"
-                        value={updatedUser.description}
-                        onChange={handleChange}
-                        id="outlined-multiline-static"
-                        defaultValue="رسالة صغيرة"
-                        multiline
-                        rows={6}
-                        InputProps={{
-                          style: { color: "white" },
-                        }}
-                        sx={{
-                          width: "40vw",
-                          direction: "rtl",
-                          backgroundColor: "#1F2A69",
-                          border: "1px solid #8E8E8E",
-                          color: "white",
-                        }}
-                      /></>}
+                          />
+                        </>
+                      )}
                     </Grid>
-                    
-                    <Grid item xs={12} sx={{display:"flex",justifyContent:"center", marginRight:"5%"}} >
+
+                    <Grid
+                      item
+                      xs={12}
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        marginRight: "5%",
+                      }}
+                    >
                       <Button
                         type="submit"
                         // onClick={handleEditProfile}

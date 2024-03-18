@@ -331,27 +331,44 @@ const AddProducts = () => {
             alignItems: "flex-end",
           }}
         >
-           <Box sx={{ display: "flex" ,direction:"rtl"}}>
-          <Box mt={5}>
-            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M0 0H15V15H0V0Z" fill="url(#paint0_linear_56_9125)" />
-              <defs>
-                <linearGradient id="paint0_linear_56_9125" x1="-26360.3" y1="77386.1" x2="-26341.4" y2="77387.4" gradientUnits="userSpaceOnUse">
-                  <stop stop-color="#FFB629" />
-                  <stop offset="0.507189" stop-color="#FFDA56" />
-                  <stop offset="1" stop-color="#FFD7A6" />
-                </linearGradient>
-              </defs>
-            </svg>
+          <Box sx={{ display: "flex", direction: "rtl" }}>
+            <Box mt={5}>
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 15 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M0 0H15V15H0V0Z" fill="url(#paint0_linear_56_9125)" />
+                <defs>
+                  <linearGradient
+                    id="paint0_linear_56_9125"
+                    x1="-26360.3"
+                    y1="77386.1"
+                    x2="-26341.4"
+                    y2="77387.4"
+                    gradientUnits="userSpaceOnUse"
+                  >
+                    <stop stop-color="#FFB629" />
+                    <stop offset="0.507189" stop-color="#FFDA56" />
+                    <stop offset="1" stop-color="#FFD7A6" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </Box>
+            <Typography
+              variant="h5"
+              mt={4}
+              component="h2"
+              sx={{ marginBottom: 4, fontFamily: "Rubik" }}
+            >
+              اضافه خدمه او منتج
+            </Typography>
           </Box>
-            <Typography variant="h5" mt={4} component="h2" sx={{ marginBottom: 4,fontFamily:"Rubik" }}>
-            اضافه خدمه او منتج
-          </Typography>
-          </Box>
-          
 
           <form onSubmit={handleSubmit}>
-            <Box sx={{ direction: "rtl", mt: "5vh", mr:{md:"30%"} }}>
+            <Box sx={{ direction: "rtl", mt: "5vh", mr: { md: "30%" } }}>
               <RadioGroup
                 row
                 aria-label="productType"
@@ -371,7 +388,15 @@ const AddProducts = () => {
                   label="منتج"
                 />
               </RadioGroup>
-              <Box sx={{ display: "flex", mb: "3vh",justifyContent:"center",ml:{xs:"6%",md:"0%"}, mr:{xs:"0",md:"50%"} }}>
+              <Box
+                sx={{
+                  display: "flex",
+                  mb: "3vh",
+                  justifyContent: "center",
+                  ml: { xs: "6%", md: "0%" },
+                  mr: { xs: "0", md: "50%" },
+                }}
+              >
                 {imageURL2 ? (
                   <Box
                     sx={{
@@ -475,15 +500,21 @@ const AddProducts = () => {
                 variant="standard"
                 placeholder="ادخل الأسم "
                 inputProps={{ style: { direction: "rtl" } }}
-                sx={{ width:{md:"30vw",xs:"65%"} , textAlign: "start" }}
+                sx={{ width: { md: "30vw", xs: "65%" }, textAlign: "start" }}
                 InputLabelProps={{ direction: "rtl", textAlign: "start" }}
                 value={AddServiceOrProductData.name}
                 onChange={handleChange}
                 error={!!errors.name}
                 helperText={errors.name}
               />
-             
-              <Box sx={{ display: {md:"flex",xs:"block"}, mb: "3vh",width:{md:"30vw",xs:"65%"} }}>
+
+              <Box
+                sx={{
+                  display: { md: "flex", xs: "block" },
+                  mb: "3vh",
+                  width: { md: "30vw", xs: "65%" },
+                }}
+              >
                 {productType === "service" ? (
                   <div>
                     <TextField
@@ -494,7 +525,7 @@ const AddProducts = () => {
                       value={selectedServiceCategorie}
                       required
                       variant="standard"
-                      sx={{  width:{md:"14vw",xs:"100%"}, mt: "5vh" }}
+                      sx={{ width: { md: "14vw", xs: "100%" }, mt: "5vh" }}
                       onChange={(e) => {
                         setSelectedServiceCategorie(e.target.value);
                         setAddServiceOrProductData((prevState) => ({
@@ -521,7 +552,7 @@ const AddProducts = () => {
                       required
                       variant="standard"
                       sx={{
-                        width:{md:"14vw",xs:"96%"},
+                        width: { md: "14vw", xs: "96%" },
                         mt: "5vh",
                         mr: "2vw",
                       }}
@@ -613,7 +644,11 @@ const AddProducts = () => {
                 placeholder="ادخل السعر"
                 type="number"
                 // inputProps={{ style: { direction: "rtl" } }}
-                sx={{  width:{md:"30vw",xs:"65%"} ,direction: "rtl", mb: "3vh" }}
+                sx={{
+                  width: { md: "30vw", xs: "65%" },
+                  direction: "rtl",
+                  mb: "3vh",
+                }}
                 InputLabelProps={{ direction: "rtl" }}
                 value={AddServiceOrProductData.price}
                 onChange={handleChange}
@@ -621,14 +656,16 @@ const AddProducts = () => {
                 helperText={errors.price}
               />
 
-              <Box sx={{ mt: "5vh",  width:{md:"30vw",xs:"65%"}, mb: "3vh" }}>
+              <Box
+                sx={{ mt: "5vh", width: { md: "30vw", xs: "65%" }, mb: "3vh" }}
+              >
                 <TextField
                   id="outlined-multiline-flexible"
                   name="description"
                   label="الوصف"
                   multiline
                   maxRows={6}
-                  sx={{  width:{md:"30vw",xs:"100%"} }}
+                  sx={{ width: { md: "30vw", xs: "100%" } }}
                   value={AddServiceOrProductData.description}
                   onChange={handleChange}
                   error={!!errors.description}
@@ -653,7 +690,7 @@ const AddProducts = () => {
                     height: 48,
                     padding: "0 2vw",
                     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-                    fontFamily:"Rubik",
+                    fontFamily: "Rubik",
                     marginTop: "2vh",
                     position: "relative",
                     borderRadius: 0,
@@ -686,14 +723,13 @@ const AddProducts = () => {
                     height: 48,
                     padding: "0 2vw",
                     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-                    fontFamily:"Rubik",
+                    fontFamily: "Rubik",
                     marginTop: "2vh",
                     position: "relative",
                     borderRadius: 0,
                     textWrap: "nowrap",
                     fontSize: "1rem",
                     width: "5rem",
-              
                   }}
                 >
                   الغاء
@@ -716,7 +752,7 @@ const AddProducts = () => {
         </Box>
       </Box>
       {/*box of blue and white box */}
-      <Box sx={{ height: "150vh", position: "relative" }}>
+      <Box sx={{ height: "138vh", position: "relative" }}>
         {/*blue box */}
         <Grid container sx={{ height: "100%" }}>
           <Grid item xs={8} sx={{ backgroundColor: "#091242" }}>
