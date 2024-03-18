@@ -23,7 +23,7 @@ const ResetPassword = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const [email] = useState(location.state?.email)
+  const [email] = useState(location.state?.email);
 
   useEffect(() => {
     dispatch(loadUserDataFromLocalStorage());
@@ -35,9 +35,10 @@ const ResetPassword = () => {
       setTimeout(() => setFeedback([]), 4000);
     }
     if (feedback[2]) {
-      setTimeout(() =>
-        setFeedback(["جاري تحويلك للصفحة الرئيسية", "lime"]
-        ), 4000);
+      setTimeout(
+        () => setFeedback(["جاري تحويلك للصفحة الرئيسية", "lime"]),
+        4000
+      );
       setTimeout(() => {
         navigate("/", { replace: true });
       }, 6000);
@@ -47,28 +48,31 @@ const ResetPassword = () => {
   const validateInputs = () => {
     if (code.length !== 5 || code.match(/[^0-9]/)) {
       setErrorMessage("الرجاء إدخال كود التفعيل المكون من ٥ أرقام");
-      return false
+      return false;
     }
 
     const passwordRegex =
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
     if (!password || !passwordRegex.test(password)) {
-      setErrorMessage("كلمة المرور ضعيفة.لا تحتوي على ارقام وحروف لاتينية وحروف مميزة")
-      return false
+      setErrorMessage(
+        "كلمة المرور ضعيفة.لا تحتوي على ارقام وحروف لاتينية وحروف مميزة"
+      );
+      return false;
     }
 
     if (!passconfirm || passconfirm !== password) {
-      setErrorMessage("تأكيد كلمة المرور غير متطابق")
-      return false
+      setErrorMessage("تأكيد كلمة المرور غير متطابق");
+      return false;
     }
-    return true
-  }
+    return true;
+  };
 
   const handleSubmit = async () => {
     if (!validateInputs()) return;
     try {
       const response = await axiosInstance.post("/auth/reset-password", {
-        email, password,
+        email,
+        password,
         code: parseInt(code),
       });
       const { user, access_token } = response.data;
@@ -88,7 +92,6 @@ const ResetPassword = () => {
       localStorage.setItem("token", access_token);
       localStorage.setItem("userData", JSON.stringify(user));
 
-      // Dispatch actions to save user data and token to Redux store
       dispatch(saveUserData(userData));
       dispatch(saveUserToken(access_token));
 
@@ -194,16 +197,14 @@ const ResetPassword = () => {
             >
               تغيير كلمة المرور
               <Typography
-                variant='subtitle1'
+                variant="subtitle1"
                 sx={{
                   display: "block",
                   fontSize: "16px",
                 }}
               >
                 لقد تم ارسال كود التحقق الى بريدك الالكتروني:
-                <Typography variant="subtitle2">
-                  {email}
-                </Typography>
+                <Typography variant="subtitle2">{email}</Typography>
                 <Typography variant="subtitle">
                   رجاء ادخال الكود وكلمة المرور الجديدة
                 </Typography>
@@ -285,14 +286,16 @@ const ResetPassword = () => {
               </Link>
             </Typography>
             {feedback[0] && (
-              <Typography sx={{
-                mt: "2vh",
-                width: "30vw",
-                textAlign: "center",
-                fontFamily: "Rubik",
-                fontSize: "1.2vw",
-                color: feedback[1],
-              }}>
+              <Typography
+                sx={{
+                  mt: "2vh",
+                  width: "30vw",
+                  textAlign: "center",
+                  fontFamily: "Rubik",
+                  fontSize: "1.2vw",
+                  color: feedback[1],
+                }}
+              >
                 {feedback[0]}
               </Typography>
             )}
@@ -310,52 +313,54 @@ const ResetPassword = () => {
                 height: "100%",
               }}
             >
-              <Typography
-                sx={{
-                  color: "white",
-                  pt: "20vh",
-                  fontSize: "2.3vw",
-                  pl: "3vw",
-                  fontFamily: "Rubik",
-                }}
-              >
-                نحن نتيح لك فرصة
-              </Typography>
-              <Typography
-                sx={{
-                  color: "white",
-                  fontSize: "2.3vw",
-                  pl: "3vw",
-                  fontFamily: "Rubik",
-                }}
-              >
-                سريعة وسهله لكل
-              </Typography>
-              <Typography
-                sx={{
-                  color: "white",
-                  fontSize: "2.3vw",
-                  pl: "3vw",
-                  fontFamily: "Rubik",
-                }}
-              >
-                ما يحتاج اليه <span style={{ color: "#FFBE34" }}>منزلك </span>
-              </Typography>
+              <Box sx={{ display: { xs: "none", md: "block" } }}>
+                <Typography
+                  sx={{
+                    color: "white",
+                    pt: "20vh",
+                    fontSize: "2.3vw",
+                    pl: "3vw",
+                    fontFamily: "Rubik",
+                  }}
+                >
+                  نحن نتيح لك فرصة
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "2.3vw",
+                    pl: "3vw",
+                    fontFamily: "Rubik",
+                  }}
+                >
+                  سريعة وسهله لكل
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "2.3vw",
+                    pl: "3vw",
+                    fontFamily: "Rubik",
+                  }}
+                >
+                  ما يحتاج اليه <span style={{ color: "#FFBE34" }}>منزلك </span>
+                </Typography>
 
-              <Box
-                sx={{
-                  backgroundColor: "#5B86E5",
-                  width: "12vw",
-                  height: "27vh",
-                  borderRadius: "0 40% 40% 0",
-                  ml: "5vw",
-                  mt: "15vh",
-                }}
-              >
-                <img
-                  src={logo}
-                  style={{ width: "50%", height: "50%", padding: "3vw" }}
-                ></img>
+                <Box
+                  sx={{
+                    backgroundColor: "#5B86E5",
+                    width: "12vw",
+                    height: "27vh",
+                    borderRadius: "0 40% 40% 0",
+                    ml: "5vw",
+                    mt: "15vh",
+                  }}
+                >
+                  <img
+                    src={logo}
+                    style={{ width: "50%", height: "50%", padding: "3vw" }}
+                  ></img>
+                </Box>
               </Box>
             </Box>
           </Grid>

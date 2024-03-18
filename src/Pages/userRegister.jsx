@@ -18,8 +18,7 @@ const UserRegister = () => {
   const navigate = useNavigate();
   const [selectedValueType, setSelectedValueType] = useState("");
   const [errors, setErrors] = useState({});
-  const [openDialog, setOpenDialog] = useState(false);
-
+  const [openDialog2, setOpenDialog2] = useState(false);
   const handleTypeChange = (event) => {
     setSelectedValueType(event.target.value);
     formData.role = event.target.value;
@@ -60,25 +59,38 @@ const UserRegister = () => {
     event.preventDefault();
 
     const validationErrors = validateFormData(formData);
+
+    if (formData.password !== formData.confirmPassword) {
+      setErrors({ confirmPassword: "كلمة السر غير متطابقة" });
+      return;
+    }
+
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
-    // if (formData.password !== formData.confirmPassword) {
-    //   setErrors({ confirmPassword: "كلمه السر غير متشابهه" });
-    //   return;
-    // }
-    if (formData.role === "vendor") {
-      navigate("/vedorRegister", { state: { formData } });
-    } else if (formData.role === "customer") {
+
+    // Create an object with only the required fields
+    const formDataToSend = {
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+      role: formData.role,
+    };
+
+    if (formDataToSend.role === "vendor") {
+      navigate("/vedorRegister", { state: { formData: formDataToSend } });
+    } else if (formDataToSend.role === "customer") {
       try {
-        const res = await axiosInstance.post("/auth/register", {
-          ...formData,
-        });
+        const res = await axiosInstance.post("/auth/register", formDataToSend);
         console.log("User registered successfully!", res.data.user);
         navigate("/user-confirm", { state: { ...res.data.user } });
       } catch (error) {
-        console.error("Error registering user:", error);
+        if (error.response && error.response.status === 406) {
+          setOpenDialog2(true);
+        } else {
+          console.error("Error registering user:", error);
+        }
       }
     }
   };
@@ -141,7 +153,7 @@ const UserRegister = () => {
         <Box
           sx={{
             position: "absolute",
-            width: "70vw",
+            width: { xs: "80vw", md: "70vw" },
             backgroundColor: "white",
             borderRadius: "30px",
             top: "35vh",
@@ -184,7 +196,7 @@ const UserRegister = () => {
             <Typography
               sx={{
                 margin: "7vh 1vw 0 0",
-                fontSize: "2em",
+                fontSize: { xs: "1.5rem", md: "2rem" },
                 fontFamily: "Rubik",
               }}
             >
@@ -202,7 +214,11 @@ const UserRegister = () => {
                 variant="standard"
                 placeholder="ادخل الأسم "
                 inputProps={{ style: { direction: "rtl" } }}
-                sx={{ width: "30vw", textAlign: "start" }}
+                sx={{
+                  width: { xs: "90%", md: "60%" },
+                  textAlign: "start",
+                  mb: "2vh",
+                }}
                 InputLabelProps={{ direction: "rtl", textAlign: "start" }}
               />
               {errors.name && (
@@ -217,7 +233,11 @@ const UserRegister = () => {
                 value={formData.email}
                 onChange={handleChange}
                 inputProps={{ style: { direction: "rtl" } }}
-                sx={{ width: "30vw", direction: "rtl", mb: "1vh" }}
+                sx={{
+                  width: { xs: "90%", md: "60%" },
+                  direction: "rtl",
+                  mb: "2vh",
+                }}
                 InputLabelProps={{ direction: "rtl" }}
               />
               {errors.email && (
@@ -233,7 +253,7 @@ const UserRegister = () => {
                 variant="standard"
                 placeholder="ادخل كلمه السر"
                 inputProps={{ style: { direction: "rtl" } }}
-                sx={{ width: "30vw" }}
+                sx={{ width: { xs: "90%", md: "60%" }, mb: "2vh" }}
                 InputLabelProps={{ direction: "rtl", textAlign: "start" }}
               />
               {errors.password && (
@@ -241,20 +261,27 @@ const UserRegister = () => {
               )}
               <TextField
                 id="standard-basic"
-                label="تأكيد كلمه السر"
+                label="تأكيد كلمة السر"
+                name="confirmPassword"
                 type="password"
                 variant="standard"
-                placeholder="ادخل كلمه السر مره أخري"
+                placeholder="ادخل كلمة السر مرة أخرى"
+                // value={formData.confirmPassword}
+                onChange={handleChange}
                 inputProps={{ style: { direction: "rtl" } }}
-                sx={{ width: "30vw", textAlign: "start" }}
+                sx={{
+                  width: { xs: "90%", md: "60%" },
+                  textAlign: "start",
+                  mb: "2vh",
+                }}
                 InputLabelProps={{ direction: "rtl", textAlign: "start" }}
               />
-
               {errors.confirmPassword && (
                 <Typography sx={{ color: "red" }}>
                   {errors.confirmPassword}
                 </Typography>
               )}
+
               <TextField
                 id="standard-select-currency"
                 name="role"
@@ -264,7 +291,7 @@ const UserRegister = () => {
                 label="نوع الحساب"
                 defaultValue="نوع الحساب"
                 variant="standard"
-                sx={{ width: "30vw", mt: "5vh" }}
+                sx={{ width: { xs: "90%", md: "60%" } }}
               >
                 {types.map((option) => (
                   <MenuItem key={option.value} value={option.value}>
@@ -281,7 +308,7 @@ const UserRegister = () => {
                   background: "#091242",
                   color: "white",
                   height: "7vh",
-                  width: "30vw",
+                  width: { xs: "90%", md: "60%" },
                   padding: "0 30px",
                   mt: "8vh",
                   display: "block",
@@ -292,17 +319,17 @@ const UserRegister = () => {
               </Button>
               <Typography
                 sx={{
-                  width: "30vw",
+                  width: { xs: "90%", md: "60%" },
                   textAlign: "center",
                   mt: "4vh",
                   fontFamily: "Rubik",
-                  fontSize: "1.2vw",
+                  fontSize: "1rem",
                 }}
               >
                 لديك حساب بالفعل ؟{" "}
                 <Link
                   to="/user-login"
-                  sx={{ textDecoration: "none", color: "blue" }}
+                  style={{ textDecoration: "none", color: "blue" }}
                 >
                   سجل الدخول
                 </Link>
@@ -323,61 +350,70 @@ const UserRegister = () => {
                 height: "100%",
               }}
             >
-              <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-                <DialogTitle>تمت الإضافة بنجاح!</DialogTitle>
+              <Dialog
+                sx={{ direction: "rtl" }}
+                open={openDialog2}
+                onClose={() => setOpenDialog2(false)}
+              >
+                <DialogTitle sx={{ fontFamily: "Rubik" }}>خطأ</DialogTitle>
                 <DialogContent>
-                  <Typography> مبروك تمت إضافة هذا العنصر بنجاح</Typography>
+                  <Typography sx={{ fontFamily: "Rubik" }}>
+                    هذا البريد الإلكتروني مستخدم بالفعل. يرجى استخدام بريد
+                    إلكتروني آخر.
+                  </Typography>
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={() => setOpenDialog(false)}>حسناً</Button>
+                  <Button onClick={() => setOpenDialog2(false)}>حسناً</Button>
                 </DialogActions>
               </Dialog>
-              <Typography
-                sx={{
-                  color: "white",
-                  pt: "20vh",
-                  fontSize: "2.3vw",
-                  pl: "3vw",
-                  fontFamily: "Rubik",
-                }}
-              >
-                نحن نتيح لك فرصة
-              </Typography>
-              <Typography
-                sx={{
-                  color: "white",
-                  fontSize: "2.3vw",
-                  pl: "3vw",
-                  fontFamily: "Rubik",
-                }}
-              >
-                سريعة وسهله لكل
-              </Typography>
-              <Typography
-                sx={{
-                  color: "white",
-                  fontSize: "2.3vw",
-                  pl: "3vw",
-                  fontFamily: "Rubik",
-                }}
-              >
-                ما يحتاج اليه <span style={{ color: "#FFBE34" }}>منزلك </span>
-              </Typography>
+              <Box sx={{ display: { xs: "none", md: "block" } }}>
+                <Typography
+                  sx={{
+                    color: "white",
+                    pt: "20vh",
+                    fontSize: "2.3vw",
+                    pl: "3vw",
+                    fontFamily: "Rubik",
+                  }}
+                >
+                  نحن نتيح لك فرصة
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "2.3vw",
+                    pl: "3vw",
+                    fontFamily: "Rubik",
+                  }}
+                >
+                  سريعة وسهله لكل
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "2.3vw",
+                    pl: "3vw",
+                    fontFamily: "Rubik",
+                  }}
+                >
+                  ما يحتاج اليه <span style={{ color: "#FFBE34" }}>منزلك </span>
+                </Typography>
 
-              <Box
-                sx={{
-                  backgroundColor: "#5B86E5",
-                  width: "12vw",
-                  height: "27vh",
-                  borderRadius: "0 40% 40% 0",
-                  ml: "5vw",
-                  mt: "15vh",
-                }}
-              >
-                <img
-                  src={logo}
-                  style={{ width: "50%", height: "50%", padding: "3vw" }}
-                ></img>
+                <Box
+                  sx={{
+                    backgroundColor: "#5B86E5",
+                    width: "12vw",
+                    height: "27vh",
+                    borderRadius: "0 40% 40% 0",
+                    ml: "5vw",
+                    mt: "15vh",
+                  }}
+                >
+                  <img
+                    src={logo}
+                    style={{ width: "50%", height: "50%", padding: "3vw" }}
+                  ></img>
+                </Box>
               </Box>
             </Box>
           </Grid>

@@ -180,7 +180,7 @@ const VendorRegister = () => {
           <Box
             sx={{
               position: "absolute",
-              width: "70vw",
+              width: { xs: "85vw", md: "70vw" },
               backgroundColor: "white",
               borderRadius: "30px",
               top: "35vh",
@@ -223,7 +223,7 @@ const VendorRegister = () => {
               <Typography
                 sx={{
                   margin: "7vh 1vw 0 0",
-                  fontSize: "2em",
+                  fontSize: { xs: "1.5rem", md: "2rem" },
                   fontFamily: "Rubik",
                 }}
               >
@@ -241,13 +241,13 @@ const VendorRegister = () => {
               ) : (
                 <label htmlFor="icon-button-file">
                   <IconButton
-                    sx={{ display: "block", ml: "10vw" }}
+                    sx={{ display: "block", ml: "20vw" }}
                     color="primary"
                     aria-label="upload picture"
                     component="span"
                   >
                     <PhotoCameraIcon
-                      sx={{ fontSize: "5em", textAlign: "center", ml: "10vw" }}
+                      sx={{ fontSize: "5em", textAlign: "center" }}
                     />
                     <input
                       accept="image/*"
@@ -267,7 +267,7 @@ const VendorRegister = () => {
                 variant="standard"
                 placeholder="ادخل المهنه"
                 inputProps={{ style: { direction: "rtl" } }}
-                sx={{ width: "30vw", textAlign: "start" }}
+                sx={{ width: { xs: "90%", md: "60%" }, textAlign: "start" }}
                 InputLabelProps={{ direction: "rtl", textAlign: "start" }}
                 value={vendorFormData.job}
                 onChange={handleInputChange}
@@ -281,7 +281,11 @@ const VendorRegister = () => {
                 variant="standard"
                 placeholder="ادخل  رقم  الهاتف"
                 inputProps={{ style: { direction: "rtl" } }}
-                sx={{ width: "30vw", direction: "rtl", mt: "2vh" }}
+                sx={{
+                  width: { xs: "90%", md: "60%" },
+                  direction: "rtl",
+                  mt: "2vh",
+                }}
                 InputLabelProps={{ direction: "rtl" }}
                 value={vendorFormData.phone}
                 onChange={handleInputChange}
@@ -302,7 +306,7 @@ const VendorRegister = () => {
                     }));
                   }}
                   variant="standard"
-                  sx={{ width: "14vw", mt: "5vh" }}
+                  sx={{ width: { xs: "40%", md: "25%" }, mt: "3vh" }}
                   required
                 >
                   {governorates.map((option) => (
@@ -326,9 +330,9 @@ const VendorRegister = () => {
                   }}
                   variant="standard"
                   sx={{
-                    width: "14vw",
-                    mt: "5vh",
-                    mr: "2vw",
+                    width: { xs: "40%", md: "25%" },
+                    mt: "3vh",
+                    mr: "10%",
                   }}
                   required
                 >
@@ -340,14 +344,14 @@ const VendorRegister = () => {
                   ))}
                 </TextField>
               </Box>
-              <Box sx={{ mt: "5vh", width: "55%" }}>
+              <Box sx={{ mt: "7vh", width: { xs: "90%", md: "60%" } }}>
                 <TextField
                   id="description"
                   name="description"
                   label="نبذه عنك"
                   multiline
                   maxRows={6}
-                  sx={{ width: "30vw" }}
+                  sx={{ width: "100%" }}
                   onChange={handleInputChange}
                   value={vendorFormData.description}
                   error={Boolean(descriptionError)}
@@ -360,7 +364,7 @@ const VendorRegister = () => {
                   background: "#091242",
                   color: "white",
                   height: "7vh",
-                  width: "30vw",
+                  width: { xs: "90%", md: "60%" },
                   padding: "0 30px",
                   mt: "8vh",
                   display: "block",
@@ -385,52 +389,55 @@ const VendorRegister = () => {
                   height: "100%",
                 }}
               >
-                <Typography
-                  sx={{
-                    color: "white",
-                    pt: "20vh",
-                    fontSize: "2.3vw",
-                    pl: "3vw",
-                    fontFamily: "Rubik",
-                  }}
-                >
-                  نحن نتيح لك فرصة
-                </Typography>
-                <Typography
-                  sx={{
-                    color: "white",
-                    fontSize: "2.3vw",
-                    pl: "3vw",
-                    fontFamily: "Rubik",
-                  }}
-                >
-                  سريعة وسهله لكل
-                </Typography>
-                <Typography
-                  sx={{
-                    color: "white",
-                    fontSize: "2.3vw",
-                    pl: "3vw",
-                    fontFamily: "Rubik",
-                  }}
-                >
-                  ما يحتاج اليه <span style={{ color: "#FFBE34" }}>منزلك </span>
-                </Typography>
+                <Box sx={{ display: { xs: "none", md: "block" } }}>
+                  <Typography
+                    sx={{
+                      color: "white",
+                      pt: "20vh",
+                      fontSize: "2.3vw",
+                      pl: "3vw",
+                      fontFamily: "Rubik",
+                    }}
+                  >
+                    نحن نتيح لك فرصة
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color: "white",
+                      fontSize: "2.3vw",
+                      pl: "3vw",
+                      fontFamily: "Rubik",
+                    }}
+                  >
+                    سريعة وسهله لكل
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color: "white",
+                      fontSize: "2.3vw",
+                      pl: "3vw",
+                      fontFamily: "Rubik",
+                    }}
+                  >
+                    ما يحتاج اليه{" "}
+                    <span style={{ color: "#FFBE34" }}>منزلك </span>
+                  </Typography>
 
-                <Box
-                  sx={{
-                    backgroundColor: "#5B86E5",
-                    width: "12vw",
-                    height: "27vh",
-                    borderRadius: "0 40% 40% 0",
-                    ml: "5vw",
-                    mt: "15vh",
-                  }}
-                >
-                  <img
-                    src={logo}
-                    style={{ width: "50%", height: "50%", padding: "3vw" }}
-                  ></img>
+                  <Box
+                    sx={{
+                      backgroundColor: "#5B86E5",
+                      width: "12vw",
+                      height: "27vh",
+                      borderRadius: "0 40% 40% 0",
+                      ml: "5vw",
+                      mt: "15vh",
+                    }}
+                  >
+                    <img
+                      src={logo}
+                      style={{ width: "50%", height: "50%", padding: "3vw" }}
+                    ></img>
+                  </Box>
                 </Box>
               </Box>
             </Grid>

@@ -29,10 +29,10 @@ const ForgotPasswordPage = () => {
         400: "رجاء ادخال بريد الكتروني صحيح",
         429: "يجب الانتظار ٣٠ ثانية قبل اعادة الارسال",
         other: "حدث خطأ ما. يرجى المحاولة مرة أخرى لاحقًا.",
-      }
+      };
       if (error.response?.status === 404) {
         setTimeout(() => navigate("/user-register"), 3000);
-        return
+        return;
       }
       if (error.response) {
         setErrorMessage(message[error.response?.status] || message.other);
@@ -68,7 +68,7 @@ const ForgotPasswordPage = () => {
         <Box
           sx={{
             position: "absolute",
-            width: "70vw",
+            width: { xs: "85vw", md: "70vw" },
             backgroundColor: "white",
             borderRadius: "30px",
             top: "35vh",
@@ -111,7 +111,8 @@ const ForgotPasswordPage = () => {
             <Typography
               sx={{
                 margin: "30vh 1vw 0 0",
-                fontSize: "2em",
+                fontSize: { xs: "1.6rem", md: "2rem" },
+                fontFamily: "Rubik",
               }}
             >
               استعادة كلمة السر
@@ -127,7 +128,11 @@ const ForgotPasswordPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               inputProps={{ style: { direction: "rtl" } }}
-              sx={{ width: "30vw", direction: "rtl", mb: "1vh" }}
+              sx={{
+                width: { xs: "50vw", md: "30vw" },
+                direction: "rtl",
+                mb: "3vh",
+              }}
               InputLabelProps={{ direction: "rtl" }}
             />
             {errorMessage && (
@@ -141,7 +146,7 @@ const ForgotPasswordPage = () => {
                 background: "#091242",
                 color: "white",
                 height: "7vh",
-                width: "30vw",
+                width: { xs: "50vw", md: "30vw" },
                 padding: "0 30px",
                 mt: "6vh",
                 display: "block",
@@ -164,52 +169,54 @@ const ForgotPasswordPage = () => {
                 height: "100%",
               }}
             >
-              <Typography
-                sx={{
-                  color: "white",
-                  pt: "20vh",
-                  fontSize: "2.3vw",
-                  pl: "3vw",
-                  fontFamily: "Rubik",
-                }}
-              >
-                نحن نتيح لك فرصة
-              </Typography>
-              <Typography
-                sx={{
-                  color: "white",
-                  fontSize: "2.3vw",
-                  pl: "3vw",
-                  fontFamily: "Rubik",
-                }}
-              >
-                سريعة وسهله لكل
-              </Typography>
-              <Typography
-                sx={{
-                  color: "white",
-                  fontSize: "2.3vw",
-                  pl: "3vw",
-                  fontFamily: "Rubik",
-                }}
-              >
-                ما يحتاج اليه <span style={{ color: "#FFBE34" }}>منزلك </span>
-              </Typography>
+              <Box sx={{ display: { xs: "none", md: "block" } }}>
+                <Typography
+                  sx={{
+                    color: "white",
+                    pt: "20vh",
+                    fontSize: "2.3vw",
+                    pl: "3vw",
+                    fontFamily: "Rubik",
+                  }}
+                >
+                  نحن نتيح لك فرصة
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "2.3vw",
+                    pl: "3vw",
+                    fontFamily: "Rubik",
+                  }}
+                >
+                  سريعة وسهله لكل
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "2.3vw",
+                    pl: "3vw",
+                    fontFamily: "Rubik",
+                  }}
+                >
+                  ما يحتاج اليه <span style={{ color: "#FFBE34" }}>منزلك </span>
+                </Typography>
 
-              <Box
-                sx={{
-                  backgroundColor: "#5B86E5",
-                  width: "12vw",
-                  height: "27vh",
-                  borderRadius: "0 40% 40% 0",
-                  ml: "5vw",
-                  mt: "15vh",
-                }}
-              >
-                <img
-                  src={logo}
-                  style={{ width: "50%", height: "50%", padding: "3vw" }}
-                ></img>
+                <Box
+                  sx={{
+                    backgroundColor: "#5B86E5",
+                    width: "12vw",
+                    height: "27vh",
+                    borderRadius: "0 40% 40% 0",
+                    ml: "5vw",
+                    mt: "15vh",
+                  }}
+                >
+                  <img
+                    src={logo}
+                    style={{ width: "50%", height: "50%", padding: "3vw" }}
+                  ></img>
+                </Box>
               </Box>
             </Box>
           </Grid>

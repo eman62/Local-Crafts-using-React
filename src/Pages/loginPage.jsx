@@ -12,9 +12,9 @@ import { axiosInstance } from "../api/config";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUserDataFromLocalStorage } from "./loadUserDataFromLocalStorageAction";
-import { saveUserData,saveUserToken } from "../stores/slice/user";
+import { saveUserData, saveUserToken } from "../stores/slice/user";
 const LoginPage = () => {
-    const [email, setEmail] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -64,14 +64,14 @@ const LoginPage = () => {
 
       localStorage.setItem("token", access_token);
       localStorage.setItem("userData", JSON.stringify(user));
-      
+
       // Dispatch actions to save user data and token to Redux store
       dispatch(saveUserData(userData));
       dispatch(saveUserToken(access_token));
 
       console.log("User logged in successfully");
       console.log("User data:", userData);
-      
+
       checkHistory();
       window.location.reload();
       // navigate(-1);
@@ -119,7 +119,7 @@ const LoginPage = () => {
         <Box
           sx={{
             position: "absolute",
-            width: "70vw",
+            width: { xs: "80%", md: "70%" },
             backgroundColor: "white",
             borderRadius: "30px",
             top: "35vh",
@@ -162,13 +162,14 @@ const LoginPage = () => {
             <Typography
               sx={{
                 margin: "30vh 1vw 0 0",
-                fontSize: "2em",
+                fontSize: "1.8rem",
+                fontFamily: "Rubik",
               }}
             >
               تسجيل الدخول
             </Typography>
           </Box>
-          <Box sx={{ direction: "rtl", mt: "5vh", mr: "15vw" }}>
+          <Box sx={{ direction: "rtl", mt: "5vh", mr: "15vw", ml: "15vw" }}>
             <TextField
               id="email"
               label="البريد"
@@ -177,7 +178,11 @@ const LoginPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               inputProps={{ style: { direction: "rtl" } }}
-              sx={{ width: "30vw", direction: "rtl", mb: "1vh" }}
+              sx={{
+                width: { xs: "100%", md: "80%" },
+                direction: "rtl",
+                mb: "2vh",
+              }}
               InputLabelProps={{ direction: "rtl" }}
             />
             <TextField
@@ -189,7 +194,11 @@ const LoginPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               inputProps={{ style: { direction: "rtl" } }}
-              sx={{ width: "30vw", textAlign: "start" }}
+              sx={{
+                width: { xs: "100%", md: "80%" },
+                textAlign: "start",
+                mb: "4vh",
+              }}
               InputLabelProps={{ direction: "rtl", textAlign: "start" }}
             />
             {errorMessage && (
@@ -203,45 +212,55 @@ const LoginPage = () => {
                 background: "#091242",
                 color: "white",
                 height: "7vh",
-                width: "30vw",
+                width: { xs: "100%", md: "80%" },
                 padding: "0 30px",
                 mt: "6vh",
                 display: "block",
+
                 "&:hover": { backgroundColor: "gray" },
               }}
+              style={{ marginBottom: "5vh" }}
             >
               دخول
             </Button>
             <Typography
               sx={{
-                width: "30vw",
+                width: { xs: "100%", md: "80%" },
                 textAlign: "center",
                 mt: "4vh",
                 fontFamily: "Rubik",
-                fontSize: "1.2vw",
+                fontSize: "1rem",
               }}
             >
               ليس لديك حساب؟{" "}
               <Link
                 to="/user-register"
-                style={{ textDecoration: "none", color: "blue" }}
+                style={{
+                  textDecoration: "none",
+                  color: "blue",
+                  fontSize: "1rem",
+                }}
               >
                 انشاء حساب
               </Link>
             </Typography>
             <Typography
               sx={{
-                width: "30vw",
+                width: { xs: "100%", md: "80%" },
                 textAlign: "center",
                 mt: "4vh",
                 fontFamily: "Rubik",
-                fontSize: "1.2vw",
+                fontSize: "1rem",
               }}
             >
               نسيت كلمة المرور؟{" "}
               <Link
                 to="/forgot-password"
-                style={{ textDecoration: "none", color: "blue" }}
+                style={{
+                  textDecoration: "none",
+                  color: "blue",
+                  fontSize: "1rem",
+                }}
               >
                 اعادة تعيين كلمة المرور
               </Link>
@@ -253,59 +272,68 @@ const LoginPage = () => {
       <Box sx={{ height: "120vh", position: "relative" }}>
         {/*blue box */}
         <Grid container sx={{ height: "100%" }}>
-          <Grid item xs={12} sx={{ backgroundColor: "#091242" }}>
+          <Grid
+            item
+            xs={12}
+            sx={{
+              backgroundColor: "#091242",
+            }}
+          >
             <Box
               sx={{
                 backgroundColor: "rgba(255, 255, 255, 0.08)",
                 height: "100%",
+                display: { xs: "none", md: "block" },
               }}
             >
-              <Typography
-                sx={{
-                  color: "white",
-                  pt: "20vh",
-                  fontSize: "2.3vw",
-                  pl: "3vw",
-                  fontFamily: "Rubik",
-                }}
-              >
-                نحن نتيح لك فرصة
-              </Typography>
-              <Typography
-                sx={{
-                  color: "white",
-                  fontSize: "2.3vw",
-                  pl: "3vw",
-                  fontFamily: "Rubik",
-                }}
-              >
-                سريعة وسهله لكل
-              </Typography>
-              <Typography
-                sx={{
-                  color: "white",
-                  fontSize: "2.3vw",
-                  pl: "3vw",
-                  fontFamily: "Rubik",
-                }}
-              >
-                ما يحتاج اليه <span style={{ color: "#FFBE34" }}>منزلك </span>
-              </Typography>
+              <Box sx={{}}>
+                <Typography
+                  sx={{
+                    color: "white",
+                    pt: "20vh",
+                    fontSize: "2.3vw",
+                    pl: "3vw",
+                    fontFamily: "Rubik",
+                  }}
+                >
+                  نحن نتيح لك فرصة
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "2.3vw",
+                    pl: "3vw",
+                    fontFamily: "Rubik",
+                  }}
+                >
+                  سريعة وسهله لكل
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: "2.3vw",
+                    pl: "3vw",
+                    fontFamily: "Rubik",
+                  }}
+                >
+                  ما يحتاج اليه <span style={{ color: "#FFBE34" }}>منزلك </span>
+                </Typography>
 
-              <Box
-                sx={{
-                  backgroundColor: "#5B86E5",
-                  width: "12vw",
-                  height: "27vh",
-                  borderRadius: "0 40% 40% 0",
-                  ml: "5vw",
-                  mt: "15vh",
-                }}
-              >
-                <img
-                  src={logo}
-                  style={{ width: "50%", height: "50%", padding: "3vw" }}
-                ></img>
+                <Box
+                  sx={{
+                    backgroundColor: "#5B86E5",
+                    width: "12vw",
+                    height: "27vh",
+                    borderRadius: "0 40% 40% 0",
+                    ml: "5vw",
+                    mt: "15vh",
+                  }}
+                >
+                  <img
+                    src={logo}
+                    style={{ width: "50%", height: "50%", padding: "3vw" }}
+                  ></img>
+                </Box>
               </Box>
             </Box>
           </Grid>
