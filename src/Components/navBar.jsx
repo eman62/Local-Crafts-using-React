@@ -11,6 +11,8 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import PersonIcon from "@mui/icons-material/Person";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+
 import DesignServicesIcon from "@mui/icons-material/DesignServices";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import HomeRepairServiceIcon from "@mui/icons-material/HomeRepairService";
@@ -170,7 +172,7 @@ function NaveBar() {
               textDecoration: "none",
             }}
           >
-            <Typography variant="h5" sx={{ fontFamily: "Rubik" }}>
+            <Typography variant="h5" sx={{ fontFamily: "Rubik", display:{xs:"none",md:"block"} }}>
               لوكال كرافت
             </Typography>
           </Typography>
@@ -207,7 +209,7 @@ function NaveBar() {
           <Box sx={{ display: { xs: "flex" } }}>
             <Box
               ml={2}
-              sx={{ width: "70%", display: { xs: "none", md: "block" } }}
+              sx={{ width: "100%",  }}
             >
               <SearchInput onChange={handleSearchChange} />
             </Box>
@@ -354,49 +356,130 @@ function NaveBar() {
                     </Grid>
                   </Box>,
                 ]
-              : [
-                  <MenuItem onClick={handleCloseNavMenu} key="favorites">
-                    <Link
-                      style={{ textDecoration: "none", color: "inherit" }}
-                      to={"/favouritePage"}
-                    >
-                      المفضلة
-                    </Link>
-                  </MenuItem>,
-                  <MenuItem onClick={handleCloseNavMenu} key="user-orders">
-                    <Link
-                      style={{ textDecoration: "none", color: "inherit" }}
-                      to={"/userOrders"}
-                    >
-                      الطلبات
-                    </Link>
-                  </MenuItem>,
-                  <MenuItem onClick={handleCloseNavMenu} key="profile">
-                    <Link
-                      style={{ textDecoration: "none", color: "inherit" }}
-                      to={"/vendorProfile"}
-                    >
-                      الصفحة الشخصية
-                    </Link>
-                  </MenuItem>,
-                  <MenuItem onClick={handleCloseNavMenu} key="logout">
-                    <Grid
-                      p={1.5}
-                      sx={{ display: "flex", justifyContent: "space-between" }}
-                    >
-                      <Box mt={0.5}>
-                        <Link
-                          onClick={handleLogout}
-                          style={{ textDecoration: "none", color: "inherit" }}
-                          to={"/user-login"}
-                        >
-                          تسجيل الخروج
-                        </Link>
-                      </Box>
-                      <LogoutIcon />
-                    </Grid>
-                  </MenuItem>,
-                ]}
+              : 
+              [
+                <Box onClick={handleCloseNavMenu} key="add-service">
+                  <Grid
+                    p={1.5}
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Box mt={1.5} sx={{display:{xs:"none",md:"block"}}}>
+                      <Link
+                        style={{ textDecoration: "none", color: "inherit" }}
+                        to={"/vendorProfile"}
+                      >
+                           الصفحة الشخصية
+                      </Link>
+                    </Box>
+                    <IconButton onClick={()=>navigate("/vendorProfile")}>
+                    <PersonIcon sx={{fontSize:{xs:"1.8rem",md:"1.5rem"},color:"black"}} />
+                    </IconButton>
+                  </Grid>
+                </Box>,
+
+                
+                <Box onClick={handleCloseNavMenu} key="vendor-orders">
+                  <Grid
+                    p={1.5}
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Box mt={1.5} sx={{display:{xs:"none",md:"block"}}}>
+                      <Link
+                        style={{ textDecoration: "none", color: "inherit" }}
+                        to={"/userOrders"}
+                      >
+                        الطلبات
+                      </Link>
+                    </Box>
+                    <IconButton  onClick={()=>navigate("/userOrders")}>
+                    <HomeRepairServiceIcon sx={{fontSize:{xs:"1.8rem",md:"1.5rem"},color:"black"}}  />
+                    </IconButton>
+                  </Grid>
+                </Box>,
+                <Box onClick={handleCloseNavMenu} key="vendor-orders">
+                  <Grid
+                    p={1.5}
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Box mt={1.5} sx={{display:{xs:"none",md:"block"}}}>
+                      <Link
+                        style={{ textDecoration: "none", color: "inherit" }}
+                        to={"/favouritePage"}
+                      >
+                        المفضلة
+                      </Link>
+                    </Box>
+                    <IconButton  onClick={()=>navigate("/favouritePage")}>
+                    <FavoriteIcon sx={{fontSize:{xs:"1.8rem",md:"1.5rem"},color:"black"}}  />
+                    </IconButton>
+                  </Grid>
+                </Box>,
+               
+                
+                <Box onClick={handleCloseNavMenu} key="logout">
+                  <Grid
+                    p={1.5}
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Box  mt={1.5} sx={{display:{xs:"none",md:"block"}}}>
+                      <Link
+                        onClick={handleLogout}
+                        style={{ textDecoration: "none", color: "inherit" }}
+                        to={"/user-login"}
+                      >
+                        تسجيل الخروج
+                      </Link>
+                    </Box>
+                    <IconButton onClick={()=>navigate("/user-login")}>
+                    <LogoutIcon sx={{fontSize:{xs:"1.8rem",md:"1.5rem"},color:"black"}} />
+                    </IconButton>
+                  </Grid>
+                </Box>,
+              ]
+              //[
+              //     <MenuItem onClick={handleCloseNavMenu} key="favorites">
+              //       <Link
+              //         style={{ textDecoration: "none", color: "inherit" }}
+              //         to={"/favouritePage"}
+              //       >
+              //         المفضلة
+              //       </Link>
+              //     </MenuItem>,
+              //     <MenuItem onClick={handleCloseNavMenu} key="user-orders">
+              //       <Link
+              //         style={{ textDecoration: "none", color: "inherit" }}
+              //         to={"/userOrders"}
+              //       >
+              //         الطلبات
+              //       </Link>
+              //     </MenuItem>,
+              //     <MenuItem onClick={handleCloseNavMenu} key="profile">
+              //       <Link
+              //         style={{ textDecoration: "none", color: "inherit" }}
+              //         to={"/vendorProfile"}
+              //       >
+              //         الصفحة الشخصية
+              //       </Link>
+              //     </MenuItem>,
+              //     <MenuItem onClick={handleCloseNavMenu} key="logout">
+              //       <Grid
+              //         p={1.5}
+              //         sx={{ display: "flex", justifyContent: "space-between" }}
+              //       >
+              //         <Box mt={0.5}>
+              //           <Link
+              //             onClick={handleLogout}
+              //             style={{ textDecoration: "none", color: "inherit" }}
+              //             to={"/user-login"}
+              //           >
+              //             تسجيل الخروج
+              //           </Link>
+              //         </Box>
+              //         <LogoutIcon />
+              //       </Grid>
+              //     </MenuItem>,
+              //   ]
+            }
           </Menu>
         </Toolbar>
       </Container>

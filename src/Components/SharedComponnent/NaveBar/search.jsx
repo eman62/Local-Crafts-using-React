@@ -56,9 +56,10 @@ const SearchInput = () => {
         sx={{
           backgroundColor: "white",
           borderRadius: "20px",
-          marginRight: "1rem",
+          
           flexGrow: 1,
           height: "38px",
+          width:{xs:"125px",md:"70%"},
           mt: "1.5vh",
           "& input": {
             fontFamily: "inherit",
@@ -74,13 +75,14 @@ const SearchInput = () => {
         style={{
           backgroundColor: "#3f51b5",
           color: "white",
-          borderRadius: "20px",
           marginTop: "1.8vh",
           marginRight: "10px",
           marginLeft: "3vw",
         }}
+        sx={{ width:{xs:"25px",md:"35px"},height:{xs:"25px",md:"35px"},
+        borderRadius:{xs:"50%"} ,}}
       >
-        <SearchIcon />
+        <SearchIcon sx={{fontSize:{xs:".8rem",md:"1.3rem"}}} />
       </IconButton>
     </Box>
   );
