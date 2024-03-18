@@ -5,50 +5,53 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { MenuItem } from "@mui/material";
 import logo from "../assets/logo.png";
 import header from "../assets/Header2.jpeg";
 import { axiosInstance } from "../api/config";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUserDataFromLocalStorage } from "./loadUserDataFromLocalStorageAction";
-import { saveUserData,saveUserToken } from "../stores/slice/user";
-const LoginPage = () => {
-    const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+import { saveUserData, saveUserToken } from "../stores/slice/user";
+
+const ConfirmEmail = () => {
+  const [code, setcode] = useState("");
+  const [feedback, setFeedback] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const [email] = useState(location.state?.email)
 
   useEffect(() => {
     dispatch(loadUserDataFromLocalStorage());
-  }, []);
+    if (!email) navigate("/user-login");
+  }, [email]);
 
-  const checkHistory = () => {
-    if (
-      location.state?.previousPath === "/user-register" ||
-      location.state?.previousPath === "/vendor-register" ||
-      !location.state
-    ) {
-      navigate("/");
-      return;
+  useEffect(() => {
+    if (feedback[0]) {
+      setTimeout(() => setFeedback([]), 4000);
     }
-    navigate(-1);
-  };
-
-  const handleLogin = async () => {
+    if (feedback[2]) {
+      setTimeout(() =>
+        setFeedback(["جاري تحويلك للصفحة الرئيسية", "gray"]
+        ), 4000);
+      setTimeout(() => {
+        navigate("/", { replace: true });
+      }, 6000);
+    }
+  }, [feedback]);
+  const handleSubmit = async () => {
     try {
-      const response = await axiosInstance.post("/auth/login", {
+      if (code.length !== 5) {
+        setErrorMessage("الرجاء إدخال كود التفعيل المكون من ٥ أرقام");
+        return
+      }
+      const response = await axiosInstance.post("/auth/confirm", {
         email,
-        password,
+        code: parseInt(code),
       });
       const { user, access_token } = response.data;
-      if (user.notApproved === true) {
-        navigate("/user-confirm", { state: { email } });
-        return;
-      }
 
       const userData = {
         _id: user._id,
@@ -64,34 +67,37 @@ const LoginPage = () => {
 
       localStorage.setItem("token", access_token);
       localStorage.setItem("userData", JSON.stringify(user));
-      
+
       // Dispatch actions to save user data and token to Redux store
       dispatch(saveUserData(userData));
       dispatch(saveUserToken(access_token));
 
-      console.log("User logged in successfully");
-      console.log("User data:", userData);
-      
-      checkHistory();
-      window.location.reload();
-      // navigate(-1);
+      setFeedback(["تم تفعيل الحساب وتسجيل الدخول بنجاح", "lime", true]);
     } catch (error) {
       if (error.response) {
-        setErrorMessage(
-          "خطأ في تسجيل الدخول. يرجى التحقق من البريد الإلكتروني وكلمة المرور."
-        );
+        setErrorMessage("هناك خطأ في البيانات");
       } else {
-        setErrorMessage("خطأ في الشبكة. يرجى المحاولة مرة أخرى لاحقًا.");
+        setFeedback(["خطأ في الشبكة. يرجى المحاولة مرة أخرى لاحقًا.", "red"]);
       }
-
-      console.error("User login failed:", error);
     }
   };
-  const userData = useSelector((state) => state.user.userData);
-  const token = useSelector((state) => state.user.token);
 
-  console.log("User Data:", userData);
-  console.log("Token:", token);
+  const sendEmailAgain = async () => {
+    try {
+      const response = await axiosInstance.get("/auth/code", {
+        params: { email, type: "email" },
+      });
+      if (response.status === 200) {
+        setFeedback(["تم ارسال كود اخر الى بريدك الالكتروني", "lime"]);
+      }
+    } catch (error) {
+      if (error.response) {
+        setFeedback(["رجاء تحقق من بريدك الإلكتروني قبل اعادة الارسال", "red"]);
+      } else {
+        setFeedback(["خطأ في الشبكة. يرجى المحاولة مرة أخرى لاحقًا.", "red"]);
+      }
+    }
+  };
 
   return (
     <Box sx={{ position: "relative" }}>
@@ -165,29 +171,30 @@ const LoginPage = () => {
                 fontSize: "2em",
               }}
             >
-              تسجيل الدخول
+              تفعيل الحساب
+              <Typography
+                variant='subtitle1'
+                sx={{
+                  display: "block",
+                  fontSize: "16px",
+                }}
+              >
+                لقد تم ارسال كود التفعيل الى بريدك الالكتروني:
+                <Typography variant="subtitle2">
+                  {email}
+                </Typography>
+              </Typography>
             </Typography>
           </Box>
           <Box sx={{ direction: "rtl", mt: "5vh", mr: "15vw" }}>
             <TextField
-              id="email"
-              label="البريد"
+              id="code"
+              label="كود التفعيل"
               variant="standard"
-              placeholder="ادخل البريد الإلكتروني"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              inputProps={{ style: { direction: "rtl" } }}
-              sx={{ width: "30vw", direction: "rtl", mb: "1vh" }}
-              InputLabelProps={{ direction: "rtl" }}
-            />
-            <TextField
-              id="password"
-              label="كلمة السر"
-              variant="standard"
-              placeholder="ادخل كلمة السر"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              placeholder="ادخل الكود المكون من ٥ ارقام"
+              type="code"
+              value={code}
+              onChange={(e) => setcode(e.target.value)}
               inputProps={{ style: { direction: "rtl" } }}
               sx={{ width: "30vw", textAlign: "start" }}
               InputLabelProps={{ direction: "rtl", textAlign: "start" }}
@@ -198,7 +205,7 @@ const LoginPage = () => {
               </Typography>
             )}
             <Button
-              onClick={handleLogin}
+              onClick={handleSubmit}
               sx={{
                 background: "#091242",
                 color: "white",
@@ -210,7 +217,7 @@ const LoginPage = () => {
                 "&:hover": { backgroundColor: "gray" },
               }}
             >
-              دخول
+              تفعيل
             </Button>
             <Typography
               sx={{
@@ -221,31 +228,26 @@ const LoginPage = () => {
                 fontSize: "1.2vw",
               }}
             >
-              ليس لديك حساب؟{" "}
+              لم تصلك رسالتنا؟{" "}
               <Link
-                to="/user-register"
+                onClick={sendEmailAgain}
                 style={{ textDecoration: "none", color: "blue" }}
               >
-                انشاء حساب
+                ارسل مرة اخرى
               </Link>
             </Typography>
-            <Typography
-              sx={{
+            {feedback[0] && (
+              <Typography sx={{
+                mt: "2vh",
                 width: "30vw",
                 textAlign: "center",
-                mt: "4vh",
                 fontFamily: "Rubik",
                 fontSize: "1.2vw",
-              }}
-            >
-              نسيت كلمة المرور؟{" "}
-              <Link
-                to="/forgot-password"
-                style={{ textDecoration: "none", color: "blue" }}
-              >
-                اعادة تعيين كلمة المرور
-              </Link>
-            </Typography>
+                color: feedback[1],
+              }}>
+                {feedback[0]}
+              </Typography>
+            )}
           </Box>
         </Box>
       </Box>
@@ -316,4 +318,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ConfirmEmail;

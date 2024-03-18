@@ -5,50 +5,73 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { MenuItem } from "@mui/material";
 import logo from "../assets/logo.png";
 import header from "../assets/Header2.jpeg";
 import { axiosInstance } from "../api/config";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loadUserDataFromLocalStorage } from "./loadUserDataFromLocalStorageAction";
-import { saveUserData,saveUserToken } from "../stores/slice/user";
-const LoginPage = () => {
-    const [email, setEmail] = useState("");
+import { saveUserData, saveUserToken } from "../stores/slice/user";
+
+const ResetPassword = () => {
+  const [code, setcode] = useState("");
   const [password, setPassword] = useState("");
+  const [passconfirm, setPassconfirm] = useState("");
+  const [feedback, setFeedback] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const [email] = useState(location.state?.email)
 
   useEffect(() => {
     dispatch(loadUserDataFromLocalStorage());
-  }, []);
+    if (!email) navigate("/user-login");
+  }, [email]);
 
-  const checkHistory = () => {
-    if (
-      location.state?.previousPath === "/user-register" ||
-      location.state?.previousPath === "/vendor-register" ||
-      !location.state
-    ) {
-      navigate("/");
-      return;
+  useEffect(() => {
+    if (feedback[0]) {
+      setTimeout(() => setFeedback([]), 4000);
     }
-    navigate(-1);
-  };
+    if (feedback[2]) {
+      setTimeout(() =>
+        setFeedback(["جاري تحويلك للصفحة الرئيسية", "lime"]
+        ), 4000);
+      setTimeout(() => {
+        navigate("/", { replace: true });
+      }, 6000);
+    }
+  }, [feedback]);
 
-  const handleLogin = async () => {
+  const validateInputs = () => {
+    if (code.length !== 5 || code.match(/[^0-9]/)) {
+      setErrorMessage("الرجاء إدخال كود التفعيل المكون من ٥ أرقام");
+      return false
+    }
+
+    const passwordRegex =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+    if (!password || !passwordRegex.test(password)) {
+      setErrorMessage("كلمة المرور ضعيفة.لا تحتوي على ارقام وحروف لاتينية وحروف مميزة")
+      return false
+    }
+
+    if (!passconfirm || passconfirm !== password) {
+      setErrorMessage("تأكيد كلمة المرور غير متطابق")
+      return false
+    }
+    return true
+  }
+
+  const handleSubmit = async () => {
+    if (!validateInputs()) return;
     try {
-      const response = await axiosInstance.post("/auth/login", {
-        email,
-        password,
+      const response = await axiosInstance.post("/auth/reset-password", {
+        email, password,
+        code: parseInt(code),
       });
       const { user, access_token } = response.data;
-      if (user.notApproved === true) {
-        navigate("/user-confirm", { state: { email } });
-        return;
-      }
 
       const userData = {
         _id: user._id,
@@ -64,34 +87,38 @@ const LoginPage = () => {
 
       localStorage.setItem("token", access_token);
       localStorage.setItem("userData", JSON.stringify(user));
-      
+
       // Dispatch actions to save user data and token to Redux store
       dispatch(saveUserData(userData));
       dispatch(saveUserToken(access_token));
 
-      console.log("User logged in successfully");
-      console.log("User data:", userData);
-      
-      checkHistory();
-      window.location.reload();
-      // navigate(-1);
+      setFeedback(["تم تغيير كلمة المرور وتسجيل الدخول بنجاح", "lime", true]);
     } catch (error) {
       if (error.response) {
-        setErrorMessage(
-          "خطأ في تسجيل الدخول. يرجى التحقق من البريد الإلكتروني وكلمة المرور."
-        );
+        console.log(error.response.data);
+        setErrorMessage("الكود المرفق غير صحيح رجاء التأكد او إعادة الارسال");
       } else {
-        setErrorMessage("خطأ في الشبكة. يرجى المحاولة مرة أخرى لاحقًا.");
+        setFeedback(["خطأ في الشبكة. يرجى المحاولة مرة أخرى لاحقًا.", "red"]);
       }
-
-      console.error("User login failed:", error);
     }
   };
-  const userData = useSelector((state) => state.user.userData);
-  const token = useSelector((state) => state.user.token);
 
-  console.log("User Data:", userData);
-  console.log("Token:", token);
+  const sendEmailAgain = async () => {
+    try {
+      const response = await axiosInstance.get("/auth/code", {
+        params: { email, type: "password" },
+      });
+      if (response.status === 200) {
+        setFeedback(["تم ارسال كود اخر الى بريدك الالكتروني", "lime"]);
+      }
+    } catch (error) {
+      if (error.response) {
+        setFeedback(["رجاء تحقق من بريدك الإلكتروني قبل اعادة الارسال", "red"]);
+      } else {
+        setFeedback(["خطأ في الشبكة. يرجى المحاولة مرة أخرى لاحقًا.", "red"]);
+      }
+    }
+  };
 
   return (
     <Box sx={{ position: "relative" }}>
@@ -165,29 +192,57 @@ const LoginPage = () => {
                 fontSize: "2em",
               }}
             >
-              تسجيل الدخول
+              تغيير كلمة المرور
+              <Typography
+                variant='subtitle1'
+                sx={{
+                  display: "block",
+                  fontSize: "16px",
+                }}
+              >
+                لقد تم ارسال كود التحقق الى بريدك الالكتروني:
+                <Typography variant="subtitle2">
+                  {email}
+                </Typography>
+                <Typography variant="subtitle">
+                  رجاء ادخال الكود وكلمة المرور الجديدة
+                </Typography>
+              </Typography>
             </Typography>
           </Box>
           <Box sx={{ direction: "rtl", mt: "5vh", mr: "15vw" }}>
             <TextField
-              id="email"
-              label="البريد"
+              id="code"
+              label="كود التفعيل"
               variant="standard"
-              placeholder="ادخل البريد الإلكتروني"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              placeholder="ادخل الكود المكون من ٥ ارقام"
+              type="code"
+              value={code}
+              onChange={(e) => setcode(e.target.value)}
               inputProps={{ style: { direction: "rtl" } }}
-              sx={{ width: "30vw", direction: "rtl", mb: "1vh" }}
-              InputLabelProps={{ direction: "rtl" }}
+              sx={{ width: "30vw", textAlign: "start" }}
+              InputLabelProps={{ direction: "rtl", textAlign: "start" }}
             />
             <TextField
               id="password"
-              label="كلمة السر"
+              label="كلمة المرور الجديدة"
               variant="standard"
-              placeholder="ادخل كلمة السر"
+              placeholder="ادخل كلمة المرور الجديدة"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              inputProps={{ style: { direction: "rtl" } }}
+              sx={{ width: "30vw", textAlign: "start" }}
+              InputLabelProps={{ direction: "rtl", textAlign: "start" }}
+            />
+            <TextField
+              id="password"
+              label="تأكيد كلمة المرور الجديدة"
+              variant="standard"
+              placeholder="تأكيد كلمة المرور الجديدة"
+              type="password"
+              value={passconfirm}
+              onChange={(e) => setPassconfirm(e.target.value)}
               inputProps={{ style: { direction: "rtl" } }}
               sx={{ width: "30vw", textAlign: "start" }}
               InputLabelProps={{ direction: "rtl", textAlign: "start" }}
@@ -198,7 +253,7 @@ const LoginPage = () => {
               </Typography>
             )}
             <Button
-              onClick={handleLogin}
+              onClick={handleSubmit}
               sx={{
                 background: "#091242",
                 color: "white",
@@ -210,7 +265,7 @@ const LoginPage = () => {
                 "&:hover": { backgroundColor: "gray" },
               }}
             >
-              دخول
+              حفظ وتسجيل الدخول
             </Button>
             <Typography
               sx={{
@@ -221,31 +276,26 @@ const LoginPage = () => {
                 fontSize: "1.2vw",
               }}
             >
-              ليس لديك حساب؟{" "}
+              لم تصلك رسالتنا؟{" "}
               <Link
-                to="/user-register"
+                onClick={sendEmailAgain}
                 style={{ textDecoration: "none", color: "blue" }}
               >
-                انشاء حساب
+                ارسل مرة اخرى
               </Link>
             </Typography>
-            <Typography
-              sx={{
+            {feedback[0] && (
+              <Typography sx={{
+                mt: "2vh",
                 width: "30vw",
                 textAlign: "center",
-                mt: "4vh",
                 fontFamily: "Rubik",
                 fontSize: "1.2vw",
-              }}
-            >
-              نسيت كلمة المرور؟{" "}
-              <Link
-                to="/forgot-password"
-                style={{ textDecoration: "none", color: "blue" }}
-              >
-                اعادة تعيين كلمة المرور
-              </Link>
-            </Typography>
+                color: feedback[1],
+              }}>
+                {feedback[0]}
+              </Typography>
+            )}
           </Box>
         </Box>
       </Box>
@@ -316,4 +366,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ResetPassword;

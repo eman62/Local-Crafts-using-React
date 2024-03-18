@@ -1,97 +1,46 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Footer from "../Components/footer";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { MenuItem } from "@mui/material";
 import logo from "../assets/logo.png";
 import header from "../assets/Header2.jpeg";
 import { axiosInstance } from "../api/config";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { loadUserDataFromLocalStorage } from "./loadUserDataFromLocalStorageAction";
-import { saveUserData,saveUserToken } from "../stores/slice/user";
-const LoginPage = () => {
-    const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+import { useNavigate } from "react-router-dom";
+
+const ForgotPasswordPage = () => {
+  const [email, setEmail] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
 
-  useEffect(() => {
-    dispatch(loadUserDataFromLocalStorage());
-  }, []);
-
-  const checkHistory = () => {
-    if (
-      location.state?.previousPath === "/user-register" ||
-      location.state?.previousPath === "/vendor-register" ||
-      !location.state
-    ) {
-      navigate("/");
-      return;
-    }
-    navigate(-1);
-  };
-
-  const handleLogin = async () => {
+  const handleSubmit = async () => {
     try {
-      const response = await axiosInstance.post("/auth/login", {
-        email,
-        password,
+      const response = await axiosInstance.get("/auth/code", {
+        params: { email, type: "password" },
       });
-      const { user, access_token } = response.data;
-      if (user.notApproved === true) {
-        navigate("/user-confirm", { state: { email } });
-        return;
+      if (response.status === 200) {
+        navigate("/reset-password", { state: { email } });
       }
-
-      const userData = {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        role: user.role,
-        address: user.address,
-        photo: user.photo,
-        description: user.description,
-        phone: user.phone,
-        job: user.job,
-      };
-
-      localStorage.setItem("token", access_token);
-      localStorage.setItem("userData", JSON.stringify(user));
-      
-      // Dispatch actions to save user data and token to Redux store
-      dispatch(saveUserData(userData));
-      dispatch(saveUserToken(access_token));
-
-      console.log("User logged in successfully");
-      console.log("User data:", userData);
-      
-      checkHistory();
-      window.location.reload();
-      // navigate(-1);
     } catch (error) {
+      const message = {
+        404: "البريد الإلكتروني غير مسجل",
+        400: "رجاء ادخال بريد الكتروني صحيح",
+        429: "يجب الانتظار ٣٠ ثانية قبل اعادة الارسال",
+        other: "حدث خطأ ما. يرجى المحاولة مرة أخرى لاحقًا.",
+      }
+      if (error.response?.status === 404) {
+        setTimeout(() => navigate("/user-register"), 3000);
+        return
+      }
       if (error.response) {
-        setErrorMessage(
-          "خطأ في تسجيل الدخول. يرجى التحقق من البريد الإلكتروني وكلمة المرور."
-        );
+        setErrorMessage(message[error.response?.status] || message.other);
       } else {
         setErrorMessage("خطأ في الشبكة. يرجى المحاولة مرة أخرى لاحقًا.");
       }
-
-      console.error("User login failed:", error);
     }
   };
-  const userData = useSelector((state) => state.user.userData);
-  const token = useSelector((state) => state.user.token);
-
-  console.log("User Data:", userData);
-  console.log("Token:", token);
 
   return (
     <Box sx={{ position: "relative" }}>
@@ -165,12 +114,13 @@ const LoginPage = () => {
                 fontSize: "2em",
               }}
             >
-              تسجيل الدخول
+              استعادة كلمة السر
             </Typography>
           </Box>
           <Box sx={{ direction: "rtl", mt: "5vh", mr: "15vw" }}>
             <TextField
               id="email"
+              type="email"
               label="البريد"
               variant="standard"
               placeholder="ادخل البريد الإلكتروني"
@@ -180,25 +130,13 @@ const LoginPage = () => {
               sx={{ width: "30vw", direction: "rtl", mb: "1vh" }}
               InputLabelProps={{ direction: "rtl" }}
             />
-            <TextField
-              id="password"
-              label="كلمة السر"
-              variant="standard"
-              placeholder="ادخل كلمة السر"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              inputProps={{ style: { direction: "rtl" } }}
-              sx={{ width: "30vw", textAlign: "start" }}
-              InputLabelProps={{ direction: "rtl", textAlign: "start" }}
-            />
             {errorMessage && (
               <Typography sx={{ color: "red", mt: "1vh" }}>
                 {errorMessage}
               </Typography>
             )}
             <Button
-              onClick={handleLogin}
+              onClick={handleSubmit}
               sx={{
                 background: "#091242",
                 color: "white",
@@ -210,42 +148,8 @@ const LoginPage = () => {
                 "&:hover": { backgroundColor: "gray" },
               }}
             >
-              دخول
+              ارسال
             </Button>
-            <Typography
-              sx={{
-                width: "30vw",
-                textAlign: "center",
-                mt: "4vh",
-                fontFamily: "Rubik",
-                fontSize: "1.2vw",
-              }}
-            >
-              ليس لديك حساب؟{" "}
-              <Link
-                to="/user-register"
-                style={{ textDecoration: "none", color: "blue" }}
-              >
-                انشاء حساب
-              </Link>
-            </Typography>
-            <Typography
-              sx={{
-                width: "30vw",
-                textAlign: "center",
-                mt: "4vh",
-                fontFamily: "Rubik",
-                fontSize: "1.2vw",
-              }}
-            >
-              نسيت كلمة المرور؟{" "}
-              <Link
-                to="/forgot-password"
-                style={{ textDecoration: "none", color: "blue" }}
-              >
-                اعادة تعيين كلمة المرور
-              </Link>
-            </Typography>
           </Box>
         </Box>
       </Box>
@@ -316,4 +220,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ForgotPasswordPage;
