@@ -60,7 +60,6 @@ const UsersCard = ({ data }) => {
             </Box> */}
 
             <Typography
-             
               gutterBottom
               variant="p"
               component="div"
@@ -73,12 +72,12 @@ const UsersCard = ({ data }) => {
             <Typography
               gutterBottom
               variant="p"
-              sx={{ fontFamily: " 'Rubik', sans-serif" ,fontWeight: "bold"}}
+              sx={{ fontFamily: " 'Rubik', sans-serif", fontWeight: "bold" }}
             >
-                {data.job} 
-            </Typography> 
-          </Box> 
-           <Box
+              {data.job}
+            </Typography>
+          </Box>
+          <Box
             mt={2}
             sx={{
               display: "flex",
@@ -90,17 +89,17 @@ const UsersCard = ({ data }) => {
               variant="p"
               sx={{ fontFamily: " 'Rubik', sans-serif" }}
             >
-              {data.address.gov}
+              {data.address && data.address.gov && data.address.gov}
             </Typography>
             <Typography
               gutterBottom
               variant="p"
               sx={{ fontFamily: " 'Rubik', sans-serif" }}
             >
-              {data.address.city}
+              {data.address && data.address.city && data.address.city}
             </Typography>
-          </Box> 
-          
+          </Box>
+
           <Typography
             mt={2}
             variant="body2"
@@ -109,7 +108,7 @@ const UsersCard = ({ data }) => {
             onClick={() => navigate(`/productDetails/${data.id}`)}
           >
             {data.description}
-          </Typography> 
+          </Typography>
 
           <Box
             mt={2}
@@ -117,11 +116,8 @@ const UsersCard = ({ data }) => {
               display: "flex",
               justifyContent: "space-around",
             }}
-          > 
-           
-          <Box mt={0.5}>
-           
-            </Box> 
+          >
+            <Box mt={0.5}></Box>
           </Box>
         </CardContent>
       </Card>
