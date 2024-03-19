@@ -104,8 +104,12 @@ const UsersCard = ({ data }) => {
             mt={2}
             variant="body2"
             mr={2}
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate(`/productDetails/${data.id}`)}
+            sx={{ 
+              height:"60px",
+              maxLines:"3",
+              overflow:"clip"
+             }}
+          
           >
             {data.description}
           </Typography>
@@ -117,7 +121,31 @@ const UsersCard = ({ data }) => {
               justifyContent: "space-around",
             }}
           >
-            <Box mt={0.5}></Box>
+            <Typography variant="p" 
+            sx={{fontFamily:"Rubik",
+             fontWeight:"bold",
+             fontSize:".9rem"}}> الهاتف : 
+              
+            </Typography>
+            <Typography variant="p"
+            sx={{fontSize:".9rem"}}>
+            {data.phone}
+            </Typography>
+          </Box>
+          <Box
+            mt={2}
+            sx={{
+              display: "flex",
+              justifyContent: "space-evenly",
+             
+            }}
+          >
+            <Typography variant="p" sx={{fontFamily:"Rubik", fontWeight:"bold", fontSize:".9rem"}}> البريد : 
+              
+            </Typography>
+            <Typography variant="p" sx={{fontSize:".9rem"}}>
+            {data.email}
+            </Typography>
           </Box>
         </CardContent>
       </Card>
