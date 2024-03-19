@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import {
   setSearchProducts,
   setSearchServices,
+  setSearchUsers,
 } from "../../../stores/slice/search";
 import { useNavigate } from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
@@ -36,6 +37,7 @@ const SearchInput = () => {
         setServices(response.data.services);
         dispatch(setSearchProducts(response.data.products));
         dispatch(setSearchServices(response.data.services));
+        dispatch(setSearchUsers(response.data.users));
         console.log(response.data);
         navigate("/search");
       })
@@ -56,10 +58,10 @@ const SearchInput = () => {
         sx={{
           backgroundColor: "white",
           borderRadius: "20px",
-          
+
           flexGrow: 1,
           height: "38px",
-          width:{xs:"125px",md:"70%"},
+          width: { xs: "125px", md: "70%" },
           mt: "1.5vh",
           "& input": {
             fontFamily: "inherit",
@@ -79,10 +81,13 @@ const SearchInput = () => {
           marginRight: "10px",
           marginLeft: "3vw",
         }}
-        sx={{ width:{xs:"25px",md:"35px"},height:{xs:"25px",md:"35px"},
-        borderRadius:{xs:"50%"} ,}}
+        sx={{
+          width: { xs: "25px", md: "35px" },
+          height: { xs: "25px", md: "35px" },
+          borderRadius: { xs: "50%" },
+        }}
       >
-        <SearchIcon sx={{fontSize:{xs:".8rem",md:"1.3rem"}}} />
+        <SearchIcon sx={{ fontSize: { xs: ".8rem", md: "1.3rem" } }} />
       </IconButton>
     </Box>
   );

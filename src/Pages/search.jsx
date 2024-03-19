@@ -18,6 +18,7 @@ import { getMainCatogryProducts, getSubProducts } from "../api/categories";
 import Pagination from "@mui/material/Pagination";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { useSelector } from "react-redux";
+import UsersCard from "../Components/users/usersCard";
 
 const imgStyle = {
   backgroundImage:
@@ -33,7 +34,7 @@ const SearchPage = () => {
   const totalPages = 8;
   const products = useSelector((state) => state.productServices.searchProducts);
   const services = useSelector((state) => state.productServices.searchServices);
-
+  const users = useSelector((state) => state.productServices.searchUsers);
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
@@ -41,6 +42,7 @@ const SearchPage = () => {
   useEffect(() => {
     console.log(products);
     console.log(services);
+    console.log(users, "ee");
   });
 
   return (
@@ -149,23 +151,28 @@ const SearchPage = () => {
                         المنتجات و الخدمات
                       </Typography>
                     </Box>
-            
                   </Box>
-                  {products && (
-                    <Box mt={10} 
-                    sx={{display:"flex",justifyContent:"center",mr:{xs:"13%",sm:"0%"}}}
+                  {/* {products && ( */}
+                  <Box
+                    mt={10}
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      mr: { xs: "13%", sm: "0%" },
+                    }}
+                  >
+                    <Grid
+                      container
+                      spacing={4}
+                      sx={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
                     >
-                      <Grid
-                        container
-                        spacing={4}
-                        sx={{
-                          width: "100%",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "center",
-                        }}
-                      >
-                        {products.map((product) => (
+                      {products &&
+                        products.map((product) => (
                           <Grid
                             item
                             key={product.id}
@@ -178,7 +185,8 @@ const SearchPage = () => {
                             <ProductCard data={product} />
                           </Grid>
                         ))}
-                        {services.map((product) => (
+                      {services &&
+                        services.map((product) => (
                           <Grid
                             item
                             key={product.id}
@@ -190,10 +198,17 @@ const SearchPage = () => {
                             <ProductCard data={product} />
                           </Grid>
                         ))}
-                      </Grid>
-                      
-                    </Box>
-                  )}
+                      {/* users card */}
+                      {users &&
+                        users.map((user) => (
+                          <Grid item key={user.id} xs={12} md={6} lg={3} mb={5}>
+                            <p>{user.name}</p>
+                            <UsersCard data={user} />
+                          </Grid>
+                        ))}
+                    </Grid>
+                  </Box>
+                  {/* )} */}
                 </Container>
               </Box>
             </Grid>
