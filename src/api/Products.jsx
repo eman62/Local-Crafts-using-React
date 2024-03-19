@@ -7,7 +7,7 @@ export const getProductList = (page) => {
     },
   });
 };
-export const  getPopularProduct =async  (limit = 6) => {
+export const getPopularProduct = async (limit = 6) => {
   try {
     const response = await axiosInstance.get("/search/popular", {
       params: {
