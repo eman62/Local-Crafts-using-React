@@ -26,7 +26,7 @@ import {
 } from "../api/orders";
 import OrdersCard from "../Components/orders/ordersCard";
 import Footer from "../Components/footer";
-import header2 from "../assets/Header2.jpeg"
+import header2 from "../assets/Header2.jpeg";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -84,8 +84,7 @@ const Orders = () => {
     <Box sx={{ position: "relative" }}>
       <Box
         sx={{
-          backgroundImage:
-            `url(${header2})`,
+          backgroundImage: `url(${header2})`,
           height: "35vh",
           width: "100%",
           backgroundRepeat: "no-repeat",
@@ -189,53 +188,67 @@ const Orders = () => {
                   },
                 }} */}
               {/* > */}
-              <Grid container spacing={4}>
-                {orders.map((item, index) => (
-                  // <SwiperSlide>
-                  <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    md={6}
-                    lg={4}
-                    key={index}
-                    sx={{ paddingLeft: { xs: "15%", md: "10%" } }}
-                  >
-                    <OrdersCard data={item} />
-                    <Button
-                      onClick={() => handleDeleteOrder(item._id)}
-                      sx={{
-                        background: "white",
-                        border: "1px solid lightGray",
-                        color: "black",
-                        height: 48,
-                        padding: "0 2vw",
-                        marginTop: "2vh",
-                        position: "relative",
-                        borderRadius: 0,
-                        textWrap: "nowrap",
-                        fontSize: "1rem",
-                        width: "12rem",
-                        fontFamily:"Rubik"
-                      }}
+              {Array.isArray(orders) && orders.length > 0 ? (
+                <Grid container spacing={4}>
+                  {orders.map((item, index) => (
+                    // <SwiperSlide>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      md={6}
+                      lg={4}
+                      key={index}
+                      sx={{ paddingLeft: { xs: "15%", md: "10%" } }}
                     >
-                      الغاء الطلب
-                      <Box
+                      <OrdersCard data={item} />
+                      <Button
+                        onClick={() => handleDeleteOrder(item._id)}
                         sx={{
-                          position: "absolute",
-                          background: "#1F2A69",
-                          width: "20%",
-                          borderRadius: "50% 0 0",
-                          bottom: "0",
-                          height: "40%",
-                          opacity: "70%",
-                          right: "0",
+                          background: "white",
+                          border: "1px solid lightGray",
+                          color: "black",
+                          height: 48,
+                          padding: "0 2vw",
+                          marginTop: "2vh",
+                          position: "relative",
+                          borderRadius: 0,
+                          textWrap: "nowrap",
+                          fontSize: "1rem",
+                          width: "12rem",
+                          fontFamily: "Rubik",
                         }}
-                      ></Box>
-                    </Button>
-                  </Grid>
-                ))}
-              </Grid>
+                      >
+                        الغاء الطلب
+                        <Box
+                          sx={{
+                            position: "absolute",
+                            background: "#1F2A69",
+                            width: "20%",
+                            borderRadius: "50% 0 0",
+                            bottom: "0",
+                            height: "40%",
+                            opacity: "70%",
+                            right: "0",
+                          }}
+                        ></Box>
+                      </Button>
+                    </Grid>
+                  ))}
+                </Grid>
+              ) : (
+                <Typography
+                  sx={{
+                    fontFamily: "Rubik",
+                    fontSize: "2rem",
+                    textAlign: "center",
+                    color: "red",
+                    pt: "30vh",
+                  }}
+                >
+                  لا يوجد طلبات
+                </Typography>
+              )}
               {/* // </Swiper> */}
 
               {/* <IconButton
