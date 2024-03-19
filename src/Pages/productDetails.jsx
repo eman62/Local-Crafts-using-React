@@ -5,6 +5,7 @@ import { useParams, useHistory, useNavigate } from 'react-router-dom';
 import { getProductListDetails } from '../api/Products';
 import NaveBar from '../Components/navBar';
 import ProductDetiles from '../Components/Details/productDetiles';
+import PopularProducts from '../Components/popularProducts';
 
 export const ProductsDetalis = () => {
     const [productDetails, setProductDetails] = useState(null);
@@ -33,6 +34,7 @@ export const ProductsDetalis = () => {
         <>
             {productDetails && <ProductDetiles data={productDetails} />}
             <Review />
+            <PopularProducts/>
             <Footer />
         </>
     );
