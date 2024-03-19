@@ -19,7 +19,6 @@ const ProductCard = ({ data }) => {
   const refIcon = useRef();
   const favirot = useSelector((state) => state.favirot.favirot);
 
-
   const HandleViewVendor = () => {
     navigate(`/userViewVendor/${data.vendor.id}`);
   };
@@ -31,11 +30,11 @@ const ProductCard = ({ data }) => {
 
   const toggleFavorite = () => {
     if (isFavorite) {
-      dispatch(removeFavirot(data)); 
+      dispatch(removeFavirot(data));
     } else {
       dispatch(addToFavirot(data));
     }
-    setIsFavorite(!isFavorite); 
+    setIsFavorite(!isFavorite);
   };
   return (
     <Box sx={{ direction: "rtl" }} width={200}>
@@ -75,24 +74,32 @@ const ProductCard = ({ data }) => {
               )}
             </Box>
 
-            <Typography mt={2}
+            <Typography
+              mt={2}
               gutterBottom
               variant="p"
               component="div"
-              style={{ cursor: "pointer",  }}
-              onClick={() => navigate(`/productDetails/${data.id}`)}
+              style={{ cursor: "pointer" }}
+              onClick={() =>
+                navigate(`/productDetails/${data.id ? data.id : data._id}`)
+              }
               sx={{ fontWeight: "bold" }}
-              
             >
               {data.name}
             </Typography>
             <Box onClick={toggleFavorite} mt={2}>
               {isFavorite ? (
                 <FavoriteIcon
-                  style={{ cursor: "pointer", color: "red", fontSize: "1.5rem" }}
+                  style={{
+                    cursor: "pointer",
+                    color: "red",
+                    fontSize: "1.5rem",
+                  }}
                 />
               ) : (
-                <FavoriteBorderIcon style={{ cursor: "pointer", fontSize: "1.5rem" }} />
+                <FavoriteBorderIcon
+                  style={{ cursor: "pointer", fontSize: "1.5rem" }}
+                />
               )}
             </Box>
           </Box>
@@ -119,9 +126,13 @@ const ProductCard = ({ data }) => {
             </Typography>
           </Box>
 
-          <Typography mt={2} variant="body2" mr={2} 
-           style={{ cursor: "pointer",}}
-           onClick={() => navigate(`/productDetails/${data.id}`)}>
+          <Typography
+            mt={2}
+            variant="body2"
+            mr={2}
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate(`/productDetails/${data.id}`)}
+          >
             {data.description}
           </Typography>
 

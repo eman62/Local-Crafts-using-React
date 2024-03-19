@@ -9,12 +9,18 @@ import HighlightAltIcon from "@mui/icons-material/HighlightAlt";
 
 const OrderServiceSteps = ({ onButtonClick }) => {
   return (
-    <Box mb={50} sx={{ height: "40vh", backgroundColor: "white" ,}}>
+    <Box mb={50} sx={{ height: "40vh", backgroundColor: "white" }}>
       <Box
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <Typography
-          sx={{ fontSize: {xs:"1.2rem",md:"2rem"}, marginRight: "4px",fontFamily: "Rubik", marginBottom: "10px", direction:"rtl" }}
+          sx={{
+            fontSize: { xs: "1.2rem", md: "2rem" },
+            marginRight: "4px",
+            fontFamily: "Rubik",
+            marginBottom: "10px",
+            direction: "rtl",
+          }}
         >
           كيف يمكنك طلب خدمه علي لوكال كرافت
         </Typography>
@@ -54,7 +60,7 @@ const OrderServiceSteps = ({ onButtonClick }) => {
         }}
       >
         <Grid container sx={{ marginLeft: "10%" }}>
-          <Grid item xs={6} lg={1.5} sx={{mb:{xs:"4px",xs:"0px"}}}>
+          <Grid item xs={6} lg={1.5} sx={{ mb: { xs: "4px", xs: "0px" } }}>
             <Box
               sx={{
                 background: "linear-gradient(90deg, #091242 0%, #1F2A69 100%)",
@@ -75,12 +81,18 @@ const OrderServiceSteps = ({ onButtonClick }) => {
                 fontWeight: "bold",
                 fontSize: "1em",
                 textAlign: "center",
-                fontFamily:"Rubik"
+                fontFamily: "Rubik",
               }}
             >
               الخطوه الرابعه
             </Typography>
-            <Typography sx={{ textAlign: "center", fontSize:{xs:".6rem",md:"1rem",},fontFamily:"Rubik"}}>
+            <Typography
+              sx={{
+                textAlign: "center",
+                fontSize: { xs: ".6rem", md: "1rem" },
+                fontFamily: "Rubik",
+              }}
+            >
               انتظر مكالمه من البائع
             </Typography>
           </Grid>
@@ -88,8 +100,7 @@ const OrderServiceSteps = ({ onButtonClick }) => {
             item
             mt={5}
             lg={1.5}
-           
-            sx={{ display:{md:"block",xs:"none"} , alignItems: "center" }}
+            sx={{ display: { lg: "block", xs: "none" }, alignItems: "center" }}
           >
             <svg
               width="10vw"
@@ -104,12 +115,12 @@ const OrderServiceSteps = ({ onButtonClick }) => {
               />
             </svg>
           </Grid>
-          <Grid item xs={6} lg={1.5} sx={{mb:{xs:"4px",xs:"0px"}}}>
+          <Grid item xs={6} lg={1.5} sx={{ mb: { xs: "4px", xs: "0px" } }}>
             <Box
               sx={{
                 background: "linear-gradient(90deg, #091242 0%, #1F2A69 100%)",
                 borderRadius: "20% 20% 20% 0",
-                width:  "40%",
+                width: "40%",
                 height: "10vh",
                 display: "flex",
                 justifyContent: "center",
@@ -125,12 +136,18 @@ const OrderServiceSteps = ({ onButtonClick }) => {
                 fontWeight: "bold",
                 fontSize: "1em",
                 textAlign: "center",
-                fontFamily:"Rubik"
+                fontFamily: "Rubik",
               }}
             >
               الخطوه الثالثه
             </Typography>
-            <Typography sx={{ textAlign: "center", fontSize:{xs:".6rem",md:"1rem",},fontFamily:"Rubik"}}>
+            <Typography
+              sx={{
+                textAlign: "center",
+                fontSize: { xs: ".6rem", md: "1rem" },
+                fontFamily: "Rubik",
+              }}
+            >
               اضغط علي زر تواصل مع البائع
             </Typography>
           </Grid>
@@ -138,8 +155,7 @@ const OrderServiceSteps = ({ onButtonClick }) => {
           <Grid
             item
             lg={1.5}
-            sx={{ display:{md:"block",xs:"none"}, alignItems: "start" }}
-            
+            sx={{ display: { lg: "block", xs: "none" }, alignItems: "start" }}
           >
             <svg
               width="10vw"
@@ -175,12 +191,18 @@ const OrderServiceSteps = ({ onButtonClick }) => {
                 fontWeight: "bold",
                 fontSize: "1em",
                 textAlign: "center",
-                fontFamily:"Rubik"
+                fontFamily: "Rubik",
               }}
             >
               الخطوه الثانيه
             </Typography>
-            <Typography sx={{ textAlign: "center", fontSize:{xs:".6rem",md:"1rem",},fontFamily:"Rubik"}}>
+            <Typography
+              sx={{
+                textAlign: "center",
+                fontSize: { xs: ".6rem", md: "1rem" },
+                fontFamily: "Rubik",
+              }}
+            >
               اضغط علي الخدمه التي تريدها
             </Typography>
           </Grid>
@@ -188,8 +210,7 @@ const OrderServiceSteps = ({ onButtonClick }) => {
             item
             mt={5}
             lg={1.5}
-            sx={{display:{md:"block",xs:"none"}, alignItems: "center" }}
-            
+            sx={{ display: { lg: "block", xs: "none" }, alignItems: "center" }}
           >
             <svg
               width="10vw"
@@ -204,7 +225,7 @@ const OrderServiceSteps = ({ onButtonClick }) => {
               />
             </svg>
           </Grid>
-          <Grid item xs={6} lg={1.5} >
+          <Grid item xs={6} lg={1.5}>
             <Box
               sx={{
                 background: "linear-gradient(90deg, #091242 0%, #1F2A69 100%)",
@@ -215,7 +236,6 @@ const OrderServiceSteps = ({ onButtonClick }) => {
                 justifyContent: "center",
                 alignItems: "center",
                 margin: "10px auto",
-                
               }}
             >
               <LoginIcon sx={{ color: "white" }}></LoginIcon>
@@ -226,12 +246,18 @@ const OrderServiceSteps = ({ onButtonClick }) => {
                 fontWeight: "bold",
                 fontSize: "1em",
                 textAlign: "center",
-                fontFamily:"Rubik"
+                fontFamily: "Rubik",
               }}
             >
               الخطوه الأولى
             </Typography>
-            <Typography sx={{ textAlign: "center", fontSize:{xs:".6rem",md:"1rem",},fontFamily:"Rubik"}}>
+            <Typography
+              sx={{
+                textAlign: "center",
+                fontSize: { xs: ".6rem", md: "1rem" },
+                fontFamily: "Rubik",
+              }}
+            >
               قم بتسجيل الدخول لتصفح الخدمات
             </Typography>
           </Grid>
@@ -254,7 +280,7 @@ const OrderServiceSteps = ({ onButtonClick }) => {
                 marginTop: "2vh",
                 position: "relative",
                 borderRadius: 0,
-                fontFamily:"Rubik"
+                fontFamily: "Rubik",
               }}
             >
               تصفح أكثر

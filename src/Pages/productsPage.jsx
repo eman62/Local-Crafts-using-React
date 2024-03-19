@@ -110,122 +110,124 @@ const ProductsPage = () => {
 
   return (
     <>
-    <Box sx={{ direction: "rtl" }}>
-      <Box sx={imgStyle}>
-        <Container>
-          <Box
-            mt={20}
-            sx={{
-              backgroundColor: "rgba(4, 28, 55, 0.5)",
-              display: "flex",
-              color: "rgba(255, 255, 255, 1)",
-              width: { xs: "25%",sm:"15%" ,md: "9%" },
-              padding: "3px",
-              height: "23px",
-            }}
-          >
-            <Box ml={1}>
-              <svg
-                width="5"
-                height="23"
-                viewBox="0 0 5 23"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  x="0.208008"
-                  width="4"
+      <Box sx={{ direction: "rtl" }}>
+        <Box sx={imgStyle}>
+          <Container>
+            <Box
+              mt={20}
+              sx={{
+                backgroundColor: "rgba(4, 28, 55, 0.5)",
+                display: "flex",
+                color: "rgba(255, 255, 255, 1)",
+                width: { xs: "25%", sm: "15%", md: "9%" },
+                padding: "3px",
+                height: "23px",
+              }}
+            >
+              <Box ml={1}>
+                <svg
+                  width="5"
                   height="23"
-                  fill="url(#paint0_linear_29_3859)"
-                />
-                <defs>
-                  <linearGradient
-                    id="paint0_linear_29_3859"
-                    x1="0.0946058"
-                    y1="4.98333"
-                    x2="5.15124"
-                    y2="5.04578"
-                    gradientUnits="userSpaceOnUse"
-                  >
-                    <stop stop-color="#FFB629" />
-                    <stop offset="0.507189" stop-color="#FFDA56" />
-                    <stop offset="1" stop-color="#FFD7A6" />
-                  </linearGradient>
-                </defs>
-              </svg>
+                  viewBox="0 0 5 23"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="0.208008"
+                    width="4"
+                    height="23"
+                    fill="url(#paint0_linear_29_3859)"
+                  />
+                  <defs>
+                    <linearGradient
+                      id="paint0_linear_29_3859"
+                      x1="0.0946058"
+                      y1="4.98333"
+                      x2="5.15124"
+                      y2="5.04578"
+                      gradientUnits="userSpaceOnUse"
+                    >
+                      <stop stop-color="#FFB629" />
+                      <stop offset="0.507189" stop-color="#FFDA56" />
+                      <stop offset="1" stop-color="#FFD7A6" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </Box>
+              <Typography sx={{ fontSize: "1rem", fontFamily: "Rubik" }}>
+                {" "}
+                منتجاتنا
+              </Typography>
             </Box>
-            <Typography sx={{ fontSize: "1rem", fontFamily: "Rubik" }}>
-              {" "}
-              منتجاتنا
+            <Typography
+              variant="h2"
+              sx={{
+                color: "rgba(255, 255, 255, 1)",
+                fontFamily: "'Rubik', sans-serif",
+              }}
+            >
+              قائمة المنتجات
             </Typography>
-          </Box>
-          <Typography
-            variant="h2"
-            sx={{
-              color: "rgba(255, 255, 255, 1)",
-              fontFamily: "'Rubik', sans-serif",
-            }}
-          >
-            قائمة المنتجات
-          </Typography>
-        </Container>
-      </Box>
-      <Box mt={10}>
-        <Box sx={{ padding: "2%" }}>
-          <Grid container spacing={3}>
-            <Grid item xs={4}>
-              <SideBare
-                data={categories}
-                onCategorySelect={handleCategorySelect}
-                subCategories={subCategories}
-                onSubCategorySelect={handleSubCategorySelect}
-                selectedSubCategory={selectedSubCategory}
-                handleSubCategorySelect={handleSubCategorySelect}
-              />
-            </Grid>
-            <Grid item xs={8} >
-              <Box>
-                <Container>
-                  <Box
-                    sx={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <Box sx={{ display: "flex" }}>
-                      <Box mt={2} ml={1}>
-                        <svg
-                          width="17"
-                          height="17"
-                          viewBox="0 0 17 17"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
+          </Container>
+        </Box>
+        <Box mt={10}>
+          <Box sx={{ padding: "2%" }}>
+            <Grid container spacing={3}>
+              <Grid item xs={4}>
+                <SideBare
+                  data={categories}
+                  onCategorySelect={handleCategorySelect}
+                  subCategories={subCategories}
+                  onSubCategorySelect={handleSubCategorySelect}
+                  selectedSubCategory={selectedSubCategory}
+                  handleSubCategorySelect={handleSubCategorySelect}
+                />
+              </Grid>
+              <Grid item xs={8}>
+                <Box>
+                  <Container>
+                    <Box
+                      sx={{ display: "flex", justifyContent: "space-between" }}
+                    >
+                      <Box sx={{ display: "flex" }}>
+                        <Box mt={2} ml={1}>
+                          <svg
+                            width="17"
+                            height="17"
+                            viewBox="0 0 17 17"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M0 0H17V17H0V0Z"
+                              fill="url(#paint0_linear_29_3925)"
+                            />
+                            <defs>
+                              <linearGradient
+                                id="paint0_linear_29_3925"
+                                x1="-29875"
+                                y1="87704.3"
+                                x2="-29853.6"
+                                y2="87705.8"
+                                gradientUnits="userSpaceOnUse"
+                              >
+                                <stop stop-color="#FFB629" />
+                                <stop offset="0.507189" stop-color="#FFDA56" />
+                                <stop offset="1" stop-color="#FFD7A6" />
+                              </linearGradient>
+                            </defs>
+                          </svg>
+                        </Box>
+                        <Typography
+                          sx={{
+                            fontFamily: "'Rubik', sans-serif",
+                            fontSize: { xs: "1.8rem", md: "3rem" },
+                          }}
                         >
-                          <path
-                            d="M0 0H17V17H0V0Z"
-                            fill="url(#paint0_linear_29_3925)"
-                          />
-                          <defs>
-                            <linearGradient
-                              id="paint0_linear_29_3925"
-                              x1="-29875"
-                              y1="87704.3"
-                              x2="-29853.6"
-                              y2="87705.8"
-                              gradientUnits="userSpaceOnUse"
-                            >
-                              <stop stop-color="#FFB629" />
-                              <stop offset="0.507189" stop-color="#FFDA56" />
-                              <stop offset="1" stop-color="#FFD7A6" />
-                            </linearGradient>
-                          </defs>
-                        </svg>
+                          المنتجات
+                        </Typography>
                       </Box>
-                      <Typography
-                       
-                        sx={{ fontFamily: "'Rubik', sans-serif" ,fontSize:{xs:"1.8rem",md:"3rem"},}}
-                      >
-                        المنتجات
-                      </Typography>
-                    </Box>
-                    {/* <Box sx={{ marginLeft: "13%", textAlign: "right" }}>
+                      {/* <Box sx={{ marginLeft: "13%", textAlign: "right" }}>
                       <FormControl
                         sx={{ minWidth: 180, padding: "5%" }}
                         dir="ltr"
@@ -257,64 +259,63 @@ const ProductsPage = () => {
                         </Select>
                       </FormControl>
                     </Box> */}
-                  </Box>
-                  {products && (
-                    <Box mt={10}>
-                      <Grid container spacing={4} sx={{ width: "90%" }}>
-                        {filteredProducts.map((product) => (
-                          <Grid
-                            item
-                            key={product.id}
-                            xs={12}
-                            md={6}
-                            sm={12}
-                            lg={4}
-                            mb={5}
-                          >
-                            <ProductCard
-                              data={product}
-                              selectedCategory={selectedCategory}
-                              selectedSubCategory={selectedSubCategory}
-                            />
-                          </Grid>
-                        ))}
-                      </Grid>
-                      <Box mt={5} display={"flex"} justifyContent={"center"}>
-                        <Pagination
-                          count={totalPages}
-                          page={currentPage}
-                          onChange={handlePageChange}
-                          color="primary"
-                          boundaryCount={2}
-                          shape="rounded"
-                          renderItem={(item) => (
-                            <PaginationItem
-                              component={Button}
-                              {...item}
-                              sx={{
-                                backgroundColor: "#091242",
-                                color: "white",
-                                fontFamily: "rubik",
-                                padding: "1%",
-                              }}
-                            />
-                          )}
-                          prevIcon={<ArrowBack />}
-                          nextIcon={<ArrowForward />}
-                        />
-                      </Box>
                     </Box>
-                  )}
-                </Container>
-              </Box>
+                    {products && (
+                      <Box mt={10}>
+                        <Grid container spacing={4} sx={{ width: "90%" }}>
+                          {filteredProducts.map((product) => (
+                            <Grid
+                              item
+                              key={product.id}
+                              xs={12}
+                              md={6}
+                              sm={12}
+                              lg={4}
+                              mb={5}
+                            >
+                              <ProductCard
+                                data={product}
+                                selectedCategory={selectedCategory}
+                                selectedSubCategory={selectedSubCategory}
+                              />
+                            </Grid>
+                          ))}
+                        </Grid>
+                        <Box mt={5} display={"flex"} justifyContent={"center"}>
+                          <Pagination
+                            count={totalPages}
+                            page={currentPage}
+                            onChange={handlePageChange}
+                            color="primary"
+                            boundaryCount={2}
+                            shape="rounded"
+                            renderItem={(item) => (
+                              <PaginationItem
+                                component={Button}
+                                {...item}
+                                sx={{
+                                  backgroundColor: "#091242",
+                                  color: "white",
+                                  fontFamily: "rubik",
+                                  padding: "1%",
+                                }}
+                              />
+                            )}
+                            prevIcon={<ArrowBack />}
+                            nextIcon={<ArrowForward />}
+                          />
+                        </Box>
+                      </Box>
+                    )}
+                  </Container>
+                </Box>
+              </Grid>
             </Grid>
-          </Grid>
+          </Box>
         </Box>
       </Box>
-    </Box>
-    <Footer/>
+      <Footer />
     </>
-
   );
 };
 

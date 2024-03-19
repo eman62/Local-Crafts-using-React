@@ -7,7 +7,7 @@ export const getProductList = (page) => {
     },
   });
 };
-export const  getPopularProduct =async  (limit = 6) => {
+export const getPopularProduct = async (limit = 6) => {
   try {
     const response = await axiosInstance.get("/search/popular", {
       params: {
@@ -16,14 +16,13 @@ export const  getPopularProduct =async  (limit = 6) => {
     });
 
     if (response.data && response.data.products && response.data.services) {
-      // Return only products for now, you can handle services similarly if needed
       return response.data.products;
     } else {
       throw new Error("Invalid response format");
     }
   } catch (error) {
     console.error("Error fetching popular products:", error);
-    return []; // Return empty array in case of error
+    return [];
   }
 };
 export const getProductListDetails = (productId) => {
