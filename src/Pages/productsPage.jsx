@@ -17,6 +17,7 @@ import { getProductList } from "../api/Products";
 import { getMainCatogryProducts, getSubProducts } from "../api/categories";
 import Pagination from "@mui/material/Pagination";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
+import Footer from "../Components/footer";
 
 const imgStyle = {
   backgroundImage:
@@ -108,6 +109,7 @@ const ProductsPage = () => {
   };
 
   return (
+    <>
     <Box sx={{ direction: "rtl" }}>
       <Box sx={imgStyle}>
         <Container>
@@ -310,6 +312,9 @@ const ProductsPage = () => {
         </Box>
       </Box>
     </Box>
+    <Footer/>
+    </>
+
   );
 };
 

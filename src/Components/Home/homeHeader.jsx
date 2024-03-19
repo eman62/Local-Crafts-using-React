@@ -25,7 +25,7 @@ const HomeHeader = ({ onButtonClick }) => {
               sx={{
                 textAlign: "right",
                 marginRight: "13vw",
-                fontSize: "3.5vw",
+                fontSize: {xs:"1.4rem",md:"2rem"},
                 fontFamily: "Rubik",
               }}
             >
@@ -37,8 +37,9 @@ const HomeHeader = ({ onButtonClick }) => {
                 textAlign: "right",
                 marginBottom: "20px",
                 marginRight: "13vw",
-                fontSize: "3.5vw",
+                fontSize: {xs:"1.4rem",md:"2rem"},
                 fontFamily: "Rubik",
+                marginTop:"5px"
               }}
             >
               معنا الإبداع المحلي
@@ -49,7 +50,7 @@ const HomeHeader = ({ onButtonClick }) => {
             sx={{
               fontSize: "1em",
               textAlign: "start",
-              width: "40vw",
+              width:{xs:"80%",md:"40%"} ,
               marginRight: "13vw",
               fontWeight: "700",
               // fontFamily: "Rubik",
@@ -71,8 +72,10 @@ const HomeHeader = ({ onButtonClick }) => {
               padding: "0 30px",
               boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
               marginRight: "13vw",
-              marginTop: "2vh",
+              marginTop: "5vh",
               position: "relative",
+              fontFamily: "Rubik",
+             
             }}
           >
             أكتشف أكثر

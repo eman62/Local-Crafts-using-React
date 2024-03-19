@@ -5,7 +5,9 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import { Divider, Link, Typography } from "@mui/material";
+import { Divider,  Typography } from "@mui/material";
+import logo from "../assets/logo.png"
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -25,11 +27,11 @@ const Footer = () => {
               }}
             >
               <img
-                src="https://s3-alpha-sig.figma.com/img/58fa/77b1/c4116a603798eb5034b06c16696f7a8d?Expires=1709510400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=izNvOJ6N5sREq3uJ1wxHkwYOIsPud0PEjHdmCqA8LoIOYcEKfSpj3XIla1qSKMxCBH03VSsZ2eDJwKG9ngfUESp78eXT7ubvu1BLsoXhkUqMc~7x2s~IIft8Z9hD2jc0KELpbMicepfJCKYny07nQjfZ20L6b02QXqipx7suK6sHi9QV3DDtmRfJqH6Pys-ERDLvTmbsk9elD0kATYAGVHlWsNcDcE8Fi1cGUE6AEpZhkWNtGFJuHirwbkq9N9zjc7fhVyrmgzJ9BZoI9rxLND5vyOadgxzUE61EFWQedeETLMFMNv1QaAnwieEGjW6ChmwvSRc31oucjsGW8-Hfrg__"
+                src={logo}
                 alt="Logo"
-                style={{ width: "2vw", height: "3vh", marginLeft: "5px" }}
+                style={{ width: "20%", height: "30%", marginLeft: "5px" }}
               />
-              <Typography className="name" sx={{ fontSize: "3vw" }}>
+              <Typography className="name" sx={{ fontSize:{xs:".8rem",md:"2rem"} ,fontFamily:"Rubik"  }}>
                 لوكال كرافت
               </Typography>
             </Box>
@@ -37,7 +39,8 @@ const Footer = () => {
               sx={{
                 textAlign: "start",
                 margin: "2vh 5vw 0 0",
-                fontSize: "13px",
+                fontSize:{xs:".7rem",md:"1rem"} ,
+                fontFamily:"Rubik",
                 color: "white",
               }}
             >
@@ -54,37 +57,47 @@ const Footer = () => {
                 backgroundColor: "rgba(255, 255, 255, 0.08)",
                 padding: "3vh 0",
                 color: "white",
-                fontSize: "1.6vw",
+                fontSize:{xs:".8rem",md:"1.5rem"} ,
+                fontFamily:"Rubik"
               }}
             >
               الصفح
             </Typography>
             <Link
-              sx={{
-                display: "block",
-                color: "white",
-                textDecoration: "none",
-                margin: "3vh",
-              }}
+            to="/"
+            style={{
+              textDecoration:"none",
+              color:"white",
+              display: "block",
+              textDecoration: "none",
+              margin: "3vh",
+
+            }}
+             
             >
               الرئيسيه
             </Link>
-            <Link
-              sx={{
+            <Link 
+              to="/products"
+              style={{
+                textDecoration:"none",
+                color:"white",
                 display: "block",
-                color: "white",
                 textDecoration: "none",
                 margin: "3vh",
+  
               }}
             >
               المنتجات
             </Link>
-            <Link
-              sx={{
+            <Link to="/services"
+               style={{
+                textDecoration:"none",
+                color:"white",
                 display: "block",
-                color: "white",
                 textDecoration: "none",
                 margin: "3vh",
+  
               }}
             >
               الخدمات
@@ -98,27 +111,34 @@ const Footer = () => {
                 padding: "3vh 0",
                 textAlign: "start",
                 color: "white",
-                fontSize: "1.6vw",
+                fontSize:{xs:".8rem",md:"1.5rem"} ,
+                fontFamily:"Rubik"
               }}
             >
               تواصل معنا
             </Typography>
-            <Box
-              sx={{ display: "flex", alignItems: "center", marginTop: "6vh" }}
+            <Box 
+              sx={{ display: "flex", alignItems: "center",
+               marginTop: "6vh" ,
+               justifyContent:"space-evenly",
+               ml:{xs:"10px",md:"0px"} }}
             >
               <Box sx={{ display: "block" }}>
                 <Typography
                   sx={{
                     textAlign: "left",
                     color: "white",
-                    marginLeft: "1vw",
-                    fontSize: "1vw",
+                   
+                    fontSize:{xs:".8rem",md:"1rem"} ,
+                      fontFamily:"Rubik"
                   }}
                 >
                   Email
                 </Typography>
                 <Typography
-                  sx={{ color: "white", marginLeft: "1vw", fontSize: "1vw" }}
+                  sx={{ color: "white",
+                  fontSize:{xs:".6rem",md:"1rem"} ,
+                  fontFamily:"Rubik" }}
                 >
                   Eman@gmail.com
                 </Typography>
@@ -129,7 +149,8 @@ const Footer = () => {
                   borderRadius: "10vw",
                   padding: "1vw",
                   color: "gold",
-                  width: "1.5vw",
+                  width: "10%",
+                  mr:{xs:"5px",md:"1px"}
                 }}
               ></MailOutlineIcon>
             </Box>

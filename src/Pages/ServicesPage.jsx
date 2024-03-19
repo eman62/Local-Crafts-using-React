@@ -12,6 +12,7 @@ import SideBareservice from '../Components/Services/SideBar';
 import { getMainCatogry, getMainCatogryProducts, getSubService } from '../api/categories';
 import ServicePageCard from '../Components/Services/ServicePageCard';
 import { ArrowBack, ArrowForward } from '@mui/icons-material';
+import Footer from '../Components/footer';
 const ServicesPage = () => {
     const [services, setServices] = useState([]);
     const [categories,setCategories]=useState([])
@@ -82,7 +83,7 @@ const ServicesPage = () => {
     };
 
     return (
-
+<>
         <Box sx={{ direction: "rtl" }}>
             <Box sx={imgStyle}>
                 <Container>
@@ -205,6 +206,9 @@ const ServicesPage = () => {
 
 
         </Box>
+        <Footer/>
+        
+    </>
     )
 }
 
