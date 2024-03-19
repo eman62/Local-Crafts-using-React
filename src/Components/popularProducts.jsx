@@ -14,7 +14,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 
 const PopularProducts = () => {
-  const [products, setProducts] = useState([]);
+  const [mostPopular, setMostPopular] = useState([]);
   const swiperRef = useRef(null);
   const [centerIndex, setCenterIndex] = useState(0);
 
@@ -22,7 +22,8 @@ const PopularProducts = () => {
     const fetchProductList = async () => {
       try {
         const response = await getPopularProduct();
-        setProducts(response.data.data);
+        setMostPopular(response);
+        console.log(response)
       } catch (error) {
         console.error("Error fetching product list:", error);
       }
@@ -118,10 +119,10 @@ const PopularProducts = () => {
               },
             }}
           >
-            <Grid container spacing={5} mt={10} sx={{}}>
-              {products.map((product) => (
-                <Grid key={product.id} item>
-                  <SwiperSlide>
+            <Grid container spacing={5}  mt={10} >
+              {mostPopular.map((product) => (
+                <Grid key={product.id} item >
+                  <SwiperSlide style={{display:"flex",justifyContent:"center"}}>
                     <ProductCard data={product} />
                   </SwiperSlide>
                 </Grid>
@@ -149,7 +150,7 @@ const PopularProducts = () => {
             sx={{
               position: "absolute",
               // top: "30%",
-              right: "2%",
+              right: "5%",
               transform: "translateY(-50%)",
               zIndex: 999,
               backgroundColor: "#091242",

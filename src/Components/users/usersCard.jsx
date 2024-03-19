@@ -31,13 +31,13 @@ const UsersCard = ({ data }) => {
           alt="Random"
         />
         <CardContent>
-          {/* <Box
+          <Box
             sx={{
               display: "flex",
               justifyContent: "space-around",
             }}
           >
-            <Box sx={{ borderRadius: "50%" }}>
+            {/* <Box sx={{ borderRadius: "50%" }}>
               {data.user.photo ? (
                 <IconButton onClick={HandleViewVendor}>
                   <img
@@ -57,10 +57,10 @@ const UsersCard = ({ data }) => {
                   />
                 </IconButton>
               )}
-            </Box>
+            </Box> */}
 
             <Typography
-              mt={2}
+             
               gutterBottom
               variant="p"
               component="div"
@@ -70,8 +70,15 @@ const UsersCard = ({ data }) => {
             >
               {data.name}
             </Typography>
-          </Box> */}
-          {/* <Box
+            <Typography
+              gutterBottom
+              variant="p"
+              sx={{ fontFamily: " 'Rubik', sans-serif" ,fontWeight: "bold"}}
+            >
+                {data.job} 
+            </Typography> 
+          </Box> 
+           <Box
             mt={2}
             sx={{
               display: "flex",
@@ -83,17 +90,17 @@ const UsersCard = ({ data }) => {
               variant="p"
               sx={{ fontFamily: " 'Rubik', sans-serif" }}
             >
-              {data.category.main}
+              {data.address.gov}
             </Typography>
             <Typography
               gutterBottom
               variant="p"
               sx={{ fontFamily: " 'Rubik', sans-serif" }}
             >
-              {data.category.sub}
+              {data.address.city}
             </Typography>
-          </Box> */}
-          {/* 
+          </Box> 
+          
           <Typography
             mt={2}
             variant="body2"
@@ -102,26 +109,20 @@ const UsersCard = ({ data }) => {
             onClick={() => navigate(`/productDetails/${data.id}`)}
           >
             {data.description}
-          </Typography> */}
+          </Typography> 
 
-          {/* <Box
+          <Box
             mt={2}
             sx={{
               display: "flex",
               justifyContent: "space-around",
             }}
-          > */}
-          {/* <Typography
-              gutterBottom
-              variant="p"
-              sx={{ fontFamily: " 'Rubik', sans-serif" }}
-            >
-              السعر : {data.price} ج
-            </Typography> */}
-          {/* <Box mt={0.5}>
+          > 
            
-            </Box> */}
-          {/* </Box> */}
+          <Box mt={0.5}>
+           
+            </Box> 
+          </Box>
         </CardContent>
       </Card>
     </Box>

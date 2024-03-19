@@ -17,12 +17,23 @@ export const postOrder = (serviceId, body, headers) => {
 export const addService = (body, headers) => {
   return axiosInstance.post(`/services`, { body, headers });
 };
-export const getPopularServices = (limit = 8) => {
-  return axiosInstance.get("/services", {
-    params: {
-      limit: limit,
-    },
-  });
+export const  getPopularServices =async  (limit = 6) => {
+  try {
+    const response = await axiosInstance.get("/search/popular", {
+      params: {
+        limit: limit,
+      },
+    });
+
+    if (response.data && response.data.products && response.data.services) {
+      return response.data.services;
+    } else {
+      throw new Error("Invalid response format");
+    }
+  } catch (error) {
+    console.error("Error fetching popular products:", error);
+    return [];
+  }
 };
 
 export const getServicesByUser = (productId) => {

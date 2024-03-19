@@ -22,7 +22,9 @@ const PopularServices = React.forwardRef((props, ref) => {
     const fetchServicsList = async () => {
       try {
         const response = await getPopularServices();
-        setServices(response.data.data);
+        setServices(response);
+        console.log(response)
+
       } catch (error) {
         console.error("Error fetching product list:", error);
       }
@@ -145,10 +147,10 @@ const PopularServices = React.forwardRef((props, ref) => {
               loop={true}
               onSlideChange={handleSlideChange}
             >
-              <Grid container spacing={5} mt={10} sx={{}}>
+              <Grid container spacing={5} mt={10}>
                 {services.map((service) => (
-                  <Grid key={service.id} item>
-                    <SwiperSlide>
+                  <Grid key={service.id} item >
+                    <SwiperSlide style={{display:"flex",justifyContent:"center"}}>
                       <ProductCard data={service} />
                     </SwiperSlide>
                   </Grid>

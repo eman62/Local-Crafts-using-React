@@ -202,7 +202,6 @@ const SearchPage = () => {
                       {users &&
                         users.map((user) => (
                           <Grid item key={user.id} xs={12} md={6} lg={3} mb={5}>
-                            <p>{user.name}</p>
                             <UsersCard data={user} />
                           </Grid>
                         ))}
