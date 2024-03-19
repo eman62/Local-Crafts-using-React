@@ -270,17 +270,21 @@ const ResetPassword = () => {
             </Button>
             <Typography
               sx={{
-                width: "30vw",
+                width: { xs: "100%", md: "80%" },
                 textAlign: "center",
                 mt: "4vh",
                 fontFamily: "Rubik",
-                fontSize: "1.2vw",
+                fontSize: "1rem",
               }}
             >
               لم تصلك رسالتنا؟{" "}
               <Link
                 onClick={sendEmailAgain}
-                style={{ textDecoration: "none", color: "blue" }}
+                style={{
+                  textDecoration: "none",
+                  color: "blue",
+                  fontSize: "1rem",
+                }}
               >
                 ارسل مرة اخرى
               </Link>

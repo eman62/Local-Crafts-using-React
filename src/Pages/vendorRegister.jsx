@@ -14,12 +14,16 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useLocation, useNavigate } from "react-router-dom";
 import { axiosInstance } from "../api/config";
-
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
 const VendorRegister = () => {
   const [governorates, setGovernorates] = useState([]);
   const [cities, setCities] = useState([]);
   const [selectedGovernorate, setSelectedGovernorate] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
+  const [openDialog, setOpenDialog] = useState(false);
   const [imageURL, setImageURL] = useState("");
   const [jobError, setJobError] = useState("");
   const [phoneError, setPhoneError] = useState("");
@@ -149,7 +153,11 @@ const VendorRegister = () => {
         navigate("/user-confirm", { state: { ...response.data.user } });
       })
       .catch((error) => {
-        console.error("Error registering:", error);
+        if (error.response && error.response.status === 406) {
+          setOpenDialog(true);
+        } else {
+          console.error("Error registering user:", error);
+        }
       });
   };
 
@@ -389,6 +397,22 @@ const VendorRegister = () => {
                   height: "100%",
                 }}
               >
+                <Dialog
+                  sx={{ direction: "rtl" }}
+                  open={openDialog}
+                  onClose={() => setOpenDialog(false)}
+                >
+                  <DialogTitle sx={{ fontFamily: "Rubik" }}>خطأ</DialogTitle>
+                  <DialogContent>
+                    <Typography sx={{ fontFamily: "Rubik" }}>
+                      هذا البريد الإلكتروني مستخدم بالفعل. يرجى استخدام بريد
+                      إلكتروني آخر.
+                    </Typography>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={() => setOpenDialog(false)}>حسناً</Button>
+                  </DialogActions>
+                </Dialog>
                 <Box sx={{ display: { xs: "none", md: "block" } }}>
                   <Typography
                     sx={{
