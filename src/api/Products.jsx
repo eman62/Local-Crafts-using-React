@@ -16,22 +16,33 @@ export const  getPopularProduct =async  (limit = 6) => {
     });
 
     if (response.data && response.data.products && response.data.services) {
-      // Return only products for now, you can handle services similarly if needed
       return response.data.products;
     } else {
       throw new Error("Invalid response format");
     }
   } catch (error) {
     console.error("Error fetching popular products:", error);
-    return []; // Return empty array in case of error
+    return []; 
   }
 };
+
 export const getProductListDetails = (productId) => {
   return axiosInstance.get(`/products/${productId}`);
 };
+
 export const addProduct = (body, headers) => {
   return axiosInstance.post(`/products`, { body, headers });
 };
 export const getProductsByUser = (productId) => {
   return axiosInstance.get(`products/user/${productId}`);
+};
+export const filterProductsByCategory = async (category) => { 
+  try { 
+    const response = await axiosInstance.get('/products', { params: { category } }); 
+    console.log('Filtered products:', response.data.data); 
+    return response.data.data;  
+  } catch (error) { 
+    console.error('Error filtering products by category:', error); 
+    throw error;
+  } 
 };

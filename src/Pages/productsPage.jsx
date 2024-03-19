@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
+import {Box,
   Container,
   Grid,
-  Typography,
-  FormControl,
-  InputLabel,
-  Select,
-  Button,
-  PaginationItem,
-  MenuItem,
+Typography,FormControl,InputLabel,Select,Button,PaginationItem, MenuItem,
 } from "@mui/material";
 import SideBare from "../Components/Product/SideBare";
 import ProductCard from "../Components/Product/ProductCard";
-import { getProductList } from "../api/Products";
+import { filterProductsByCategory, getProductList } from "../api/Products";
 import { getMainCatogryProducts, getSubProducts } from "../api/categories";
 import Pagination from "@mui/material/Pagination";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
@@ -32,11 +25,9 @@ const ProductsPage = () => {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
-
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
-
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedMainCategory, setSelectedMainCategory] = useState(null);
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const totalPages = 8;
 
   const handlePageChange = (event, value) => {
@@ -49,7 +40,7 @@ const ProductsPage = () => {
         const response = await getMainCatogryProducts();
         setCategories(response.data);
       } catch (error) {
-        console.error("Error fetching categories:", error);
+        console.error('Error fetching categories:', error);
       }
     };
     fetchCategories();
@@ -60,46 +51,47 @@ const ProductsPage = () => {
       const response = await getSubProducts(categoryId);
       setSubCategories(response.data);
     } catch (error) {
-      console.error("Error fetching subcategories:", error);
+      console.error('Error fetching subcategories:', error);
     }
   };
 
   useEffect(() => {
     const fetchProductList = async () => {
       try {
-        const response = await getProductList(currentPage);
+        let response;
+        if (selectedSubCategory) {
+          response = await getProductList(currentPage, null, selectedSubCategory);
+        } else if (selectedMainCategory) {
+          response = await getProductList(currentPage, selectedMainCategory);
+        } else {
+          response = await getProductList(currentPage);
+        }
         setProducts(response.data.data);
       } catch (error) {
-        console.error("Error fetching product list:", error);
+        console.error('Error fetching product list:', error);
       }
     };
     fetchProductList();
-  }, [currentPage]);
+  }, [currentPage, selectedMainCategory, selectedSubCategory]);
+  
+  useEffect(() => {
+    const fetchFilteredProducts = async () => {
+      if (selectedMainCategory) {
+        try {
+          const filteredProducts = await filterProductsByCategory(selectedMainCategory);
+          setProducts(filteredProducts);
+        } catch (error) {
+          console.error('Error fetching filtered products:', error);
+        }
+      }
+    };
+    fetchFilteredProducts();
+  }, [selectedMainCategory]);
 
-  const [filter, setFilter] = React.useState("");
-  const handleChange = (event) => {
-    setFilter(event.target.value);
-  };
 
-  const filteredProducts = products.filter((product) => {
-    if (selectedSubCategory) {
-      return product.category.sub === selectedSubCategory;
-    } else if (selectedCategory) {
-      return (
-        product.category.main === selectedCategory ||
-        subCategories.some(
-          (subcategory) =>
-            subcategory.parent === selectedCategory &&
-            product.category.sub === subcategory._id
-        )
-      );
-    } else {
-      return true;
-    }
-  });
 
-  const handleCategorySelect = async (categoryId) => {
-    setSelectedCategory(categoryId);
+ const handleCategorySelect = async (categoryId) => {
+    setSelectedMainCategory(categoryId);
     setSelectedSubCategory(null);
     await fetchSubcategories(categoryId);
   };
@@ -175,12 +167,11 @@ const ProductsPage = () => {
           <Grid container spacing={3}>
             <Grid item xs={4}>
               <SideBare
-                data={categories}
-                onCategorySelect={handleCategorySelect}
-                subCategories={subCategories}
-                onSubCategorySelect={handleSubCategorySelect}
-                selectedSubCategory={selectedSubCategory}
-                handleSubCategorySelect={handleSubCategorySelect}
+                 data={categories}
+                 onCategorySelect={handleCategorySelect}
+                 subCategories={subCategories}
+                 onSubCategorySelect={handleSubCategorySelect}
+                 selectedSubCategory={selectedSubCategory}
               />
             </Grid>
             <Grid item xs={8} >
@@ -261,7 +252,7 @@ const ProductsPage = () => {
                   {products && (
                     <Box mt={10}>
                       <Grid container spacing={4} sx={{ width: "90%" }}>
-                        {filteredProducts.map((product) => (
+                        {products.map((product) => (
                           <Grid
                             item
                             key={product.id}
@@ -273,8 +264,7 @@ const ProductsPage = () => {
                           >
                             <ProductCard
                               data={product}
-                              selectedCategory={selectedCategory}
-                              selectedSubCategory={selectedSubCategory}
+                              
                             />
                           </Grid>
                         ))}

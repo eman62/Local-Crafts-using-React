@@ -337,7 +337,7 @@ function NaveBar() {
                           mt={1.5}
                           sx={{ display: { xs: "none", md: "block" } }}
                         >
-                          <Link
+                          <Link to="/vendorProduct"
                             style={{ textDecoration: "none", color: "inherit" }}
                           >
                             خدماتي أو منتجاتي

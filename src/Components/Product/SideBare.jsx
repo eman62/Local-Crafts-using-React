@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Box, Typography, Checkbox } from '@mui/material';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 const SideBare = ({ data, onCategorySelect, subCategories }) => {
     const [showMainCategories, setShowMainCategories] = useState(true);
     const [showSubCategories, setShowSubCategories] = useState({});
     const [selectedSubCategory, setSelectedSubCategory] = useState(null);
-
+    
     const handleMainCategoriesToggle = () => {
         setShowMainCategories(prevState => !prevState);
     };
@@ -17,8 +18,9 @@ const SideBare = ({ data, onCategorySelect, subCategories }) => {
             [categoryId]: !prevState[categoryId]
         }));
     };
-
+    
     const handleSubCategorySelect = (subCategoryId) => {
+        console.log("Selected subcategory:", subCategoryId);
         setSelectedSubCategory(subCategoryId);
     };
 
@@ -33,8 +35,6 @@ const SideBare = ({ data, onCategorySelect, subCategories }) => {
                 onClick={handleMainCategoriesToggle}
                 style={{ cursor: 'pointer', display: 'inline-block', marginLeft: '10px' }}
             >
-
-
                 <Box sx={{ display: "flex" }}>
                     <Box mt={2} ml={1}>
                         <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -48,12 +48,12 @@ const SideBare = ({ data, onCategorySelect, subCategories }) => {
                             </defs>
                         </svg>
                     </Box>
-                    <Typography sx={{ fontFamily: "'Rubik', sans-serif" ,fontSize:{xs:"1.5rem",md:"2.5rem"} }}>
+                    <Typography sx={{ fontFamily: "'Rubik', sans-serif", fontSize: { xs: "1.5rem", md: "2.5rem" } }}>
                         التصنيفات
                     </Typography>
                 </Box>
             </Box>
-            <Box sx={{mr:{xs:"3",md:"0"}}}
+            <Box sx={{ mr: { xs: "3", md: "0" } }}
                 style={{
                     height: showMainCategories ? "auto" : "0",
                     overflow: "hidden",
@@ -61,14 +61,19 @@ const SideBare = ({ data, onCategorySelect, subCategories }) => {
                 }}
             >
                 {data.map(category => (
-                    <div key={category._id} >
+                    <div key={category._id}>
                         <Box mt={4} sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", pl: 1 }}>
-                            <Typography  sx={{ fontFamily: "'Rubik', sans-serif",fontSize:{xs:"1rem",md:"1.5rem"} }}>
+                            <Typography sx={{ fontFamily: "'Rubik', sans-serif", fontSize: { xs: "1rem", md: "1.5rem" } }}>
                                 {category.name}
                             </Typography>
-                            <Checkbox
-                                checked={showSubCategories[category._id] || false}
-                                onChange={() => handleCategoryClick(category._id)}
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        checked={showSubCategories[category._id] || false}
+                                        onChange={() => handleCategoryClick(category._id)}
+                                    />
+                                }
+                                sx={{ ml: 1 }}
                             />
                         </Box>
                         {showSubCategories[category._id] &&
