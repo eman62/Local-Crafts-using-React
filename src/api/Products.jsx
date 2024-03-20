@@ -36,6 +36,7 @@ export const addProduct = (body, headers) => {
 export const getProductsByUser = (productId) => {
   return axiosInstance.get(`products/user/${productId}`);
 };
+
 export const filterProductsByCategory = async (category) => { 
   try { 
     const response = await axiosInstance.get('/products', { params: { category } }); 

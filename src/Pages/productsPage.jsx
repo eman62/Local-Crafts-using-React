@@ -67,11 +67,7 @@ const ProductsPage = () => {
       try {
         let response;
         if (selectedSubCategory) {
-          response = await getProductList(
-            currentPage,
-            null,
-            selectedSubCategory
-          );
+          response = await getProductList(currentPage, null, selectedSubCategory);
         } else if (selectedMainCategory) {
           response = await getProductList(currentPage, selectedMainCategory);
         } else {
@@ -85,31 +81,39 @@ const ProductsPage = () => {
     };
     fetchProductList();
   }, [currentPage, selectedMainCategory, selectedSubCategory]);
+  
 
-  useEffect(() => {
-    const fetchFilteredProducts = async () => {
-      if (selectedMainCategory) {
-        try {
-          const filteredProducts = await filterProductsByCategory(
-            selectedMainCategory
-          );
-          setProducts(filteredProducts);
-        } catch (error) {
-          console.error("Error fetching filtered products:", error);
+ useEffect(() => {
+  const fetchFilteredProducts = async () => {
+    if (selectedMainCategory) {
+      try {
+        let filteredProducts
+        
+        if (selectedSubCategory) {
+        
+          filteredProducts = await filterProductsByCategory(selectedSubCategory);
+        } else {
+          
+          filteredProducts = await filterProductsByCategory(selectedMainCategory);
         }
+        setProducts(filteredProducts);
+      } catch (error) {
+        console.error("Error fetching filtered products:", error);
       }
-    };
-    fetchFilteredProducts();
-  }, [selectedMainCategory]);
+    }
+  };
+  fetchFilteredProducts();
+}, [selectedMainCategory, selectedSubCategory]);
 
-  const handleCategorySelect = async (categoryId) => {
-    setSelectedMainCategory(categoryId);
+
+  const handleCategorySelect = async (category) => {
+    setSelectedMainCategory(category.name);
     setSelectedSubCategory(null);
-    await fetchSubcategories(categoryId);
+    await fetchSubcategories(category._id);
   };
 
-  const handleSubCategorySelect = (subCategoryId) => {
-    setSelectedSubCategory(subCategoryId);
+  const handleSubCategorySelect = (subCategory) => {
+    setSelectedSubCategory(subCategory.name);
   };
 
   return (
