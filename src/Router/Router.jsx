@@ -22,7 +22,12 @@ export default function RouterPages() {
   const UserViewVendor = React.lazy(() => import("./../Pages/userViewVendor"));
   const FavouritePage = React.lazy(() => import("../Pages/favouritePage"));
   const SearchPage = React.lazy(() => import("../Pages/search"));
-  const VendorProducts = React.lazy(() => import("../Pages/Vendor/vendorProducts"));
+  const VendorServices = React.lazy(() =>
+    import("../Pages/Vendor/vendorServices")
+  );
+  const VendorProducts = React.lazy(() =>
+    import("../Pages/Vendor/vendorProducts")
+  );
   const VendorEditProfilePage = React.lazy(() =>
     import("../Pages/vendoEditProfile")
   );
@@ -43,6 +48,7 @@ export default function RouterPages() {
         <Route path="/vendorOrders" element={<VendorOrdersPage />} />
         <Route path="/vendorProfile" element={<VendorProfile />} />
         <Route path="/vendorProduct" element={<VendorProducts />} />
+        <Route path="/vendorService" element={<VendorServices />} />
         <Route path="/userOrders" element={<Orders />} />
         <Route path="/vendorEditProfile" element={<VendorEditProfilePage />} />
         <Route path="/userViewVendor/:vendorId" element={<UserViewVendor />} />

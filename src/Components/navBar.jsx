@@ -337,10 +337,40 @@ function NaveBar() {
                           mt={1.5}
                           sx={{ display: { xs: "none", md: "block" } }}
                         >
-                          <Link to="/vendorProduct"
+                          <Link
+                            to="/vendorProduct"
                             style={{ textDecoration: "none", color: "inherit" }}
                           >
-                            خدماتي أو منتجاتي
+                            منتجاتي
+                          </Link>
+                        </Box>
+                        <IconButton onClick={() => navigate()}>
+                          <DesignServicesIcon
+                            sx={{
+                              fontSize: { xs: "1.8rem", md: "1.5rem" },
+                              color: "black",
+                            }}
+                          />
+                        </IconButton>
+                      </Grid>
+                    </Box>,
+                    <Box onClick={handleCloseNavMenu} key="vendor-services">
+                      <Grid
+                        p={1.5}
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <Box
+                          mt={1.5}
+                          sx={{ display: { xs: "none", md: "block" } }}
+                        >
+                          <Link
+                            to="/vendorService"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            خدماتي
                           </Link>
                         </Box>
                         <IconButton onClick={() => navigate()}>
