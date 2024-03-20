@@ -22,7 +22,7 @@ export const DetalisPage = () => {
   return (
     <>
       {serviceDetails && <ProductDetiles data={serviceDetails} />}
-      <Review />
+      {/* <Review /> */}
       <Footer />
     </>
   );

@@ -22,7 +22,7 @@ export const getPopularProduct = async (limit = 6) => {
     }
   } catch (error) {
     console.error("Error fetching popular products:", error);
-    return []; 
+    return [];
   }
 };
 
@@ -36,14 +36,27 @@ export const addProduct = (body, headers) => {
 export const getProductsByUser = (productId) => {
   return axiosInstance.get(`products/user/${productId}`);
 };
+export const addProductComment = (body, headers, productId) => {
+  return axiosInstance.post(`products/${productId}/feedback`, {
+    body,
+    headers,
+  });
+};
+export const getProductComment = (headers, productId) => {
+  return axiosInstance.get(`products/${productId}/feedback`, {
+    headers,
+  });
+};
 
-export const filterProductsByCategory = async (category) => { 
-  try { 
-    const response = await axiosInstance.get('/products', { params: { category } }); 
-    console.log('Filtered products:', response.data.data); 
-    return response.data.data;  
-  } catch (error) { 
-    console.error('Error filtering products by category:', error); 
+export const filterProductsByCategory = async (category) => {
+  try {
+    const response = await axiosInstance.get("/products", {
+      params: { category },
+    });
+    console.log("Filtered products:", response.data.data);
+    return response.data.data;
+  } catch (error) {
+    console.error("Error filtering products by category:", error);
     throw error;
-  } 
+  }
 };
