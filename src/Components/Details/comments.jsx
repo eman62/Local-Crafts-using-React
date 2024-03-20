@@ -38,25 +38,20 @@ const Comments = ({ data }) => {
       [name]: value,
     });
   };
+
   useEffect(() => {
     const fetchProductComments = async () => {
       try {
-        const response = await axiosInstance.get(
-          `/products/${data._id}/feedback`
-          //   {
-          //     headers: {
-          //       token,
-          //     },
-          //   }
-        );
+        const response = await axiosInstance.get(`/products/${data._id}/feedback`);
         setComments(response.data);
-        console.log(comments);
+        console.log(response.data)
       } catch (error) {
         console.error("Error fetching comments:", error);
       }
     };
     fetchProductComments();
   }, []);
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -122,7 +117,8 @@ const Comments = ({ data }) => {
         </Box>
         {comments &&
           comments.map((commentdata, index) => {
-            <CommentCard key={index} data={commentdata} />;
+            // You need to return the CommentCard component here
+            return <CommentCard key={index} data={commentdata} />;
           })}
 
         <Box

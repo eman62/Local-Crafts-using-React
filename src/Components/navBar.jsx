@@ -25,8 +25,8 @@ import { useDispatch } from "react-redux";
 import { clearUserData, clearUserToken } from "../stores/slice/user";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-const pages = ["الرئيسية", "منتجات", "خدمات", "عن موقعنا"];
-const pagePaths = ["/", "/products", "/services", "about"];
+const pages = ["الرئيسية", "منتجات", "خدمات", ]
+const pagePaths = ["/", "/products", "/services", ];
 
 function NaveBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
