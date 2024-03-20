@@ -72,21 +72,36 @@ const VendorProducts = () => {
               عرض المنتجات
             </Typography>
           </Box>
-          <Grid
-            container
-            sx={{ justifyContent: "center", alignItems: "center" }}
-          >
-            {products.map((product) => (
-              <Grid key={product._id} item xs={12} sm={6} md={4} lg={3}>
-                <Box sx={{ width: "100%", marginBottom: "20px" }}>
-                  <VendorProductCard
-                    product={product}
-                    onDelete={handleDelete}
-                  />
-                </Box>
-              </Grid>
-            ))}
-          </Grid>
+          {products.length === 0 ? (
+            <Typography
+              variant="body1"
+              sx={{
+                textAlign: "center",
+                fontFamily: "Rubik",
+                color: "#091242",
+                mt: "20%",
+                fontSize: "2rem",
+              }}
+            >
+              لا توجد منتجات لعرضها
+            </Typography>
+          ) : (
+            <Grid
+              container
+              sx={{ justifyContent: "center", alignItems: "center" }}
+            >
+              {products.map((product) => (
+                <Grid key={product._id} item xs={12} sm={6} md={4} lg={3}>
+                  <Box sx={{ width: "100%", marginBottom: "20px" }}>
+                    <VendorProductCard
+                      product={product}
+                      onDelete={handleDelete}
+                    />
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
+          )}
         </Box>
       </Box>
       <Box sx={{ height: "200vh", position: "relative" }}>
