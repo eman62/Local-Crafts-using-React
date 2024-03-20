@@ -10,6 +10,7 @@ import {
   Button,
   PaginationItem,
   MenuItem,
+  Modal
 } from "@mui/material";
 import SideBare from "../Components/Product/SideBare";
 import ProductCard from "../Components/Product/ProductCard";
@@ -36,6 +37,7 @@ const ProductsPage = () => {
   const [selectedMainCategory, setSelectedMainCategory] = useState(null);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [totalPages, setTotalPages] = useState(0);
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
@@ -81,30 +83,31 @@ const ProductsPage = () => {
     };
     fetchProductList();
   }, [currentPage, selectedMainCategory, selectedSubCategory]);
-  
 
- useEffect(() => {
-  const fetchFilteredProducts = async () => {
-    if (selectedMainCategory) {
-      try {
-        let filteredProducts
-        
-        if (selectedSubCategory) {
-        
-          filteredProducts = await filterProductsByCategory(selectedSubCategory);
-        } else {
-          
-          filteredProducts = await filterProductsByCategory(selectedMainCategory);
+
+  useEffect(() => {
+    const fetchFilteredProducts = async () => {
+      if (selectedMainCategory) {
+        try {
+          let filteredProducts;
+
+          if (selectedSubCategory) {
+            filteredProducts = await filterProductsByCategory(selectedSubCategory);
+          } else {
+            filteredProducts = await filterProductsByCategory(selectedMainCategory);
+          }
+          setProducts(filteredProducts);
+        } catch (error) {
+          console.error("Error fetching filtered products:", error);
+         
+          if (error.response && error.response.status === 404) {
+            setErrorModalOpen(true);
+          }
         }
-        setProducts(filteredProducts);
-      } catch (error) {
-        console.error("Error fetching filtered products:", error);
       }
-    }
-  };
-  fetchFilteredProducts();
-}, [selectedMainCategory, selectedSubCategory]);
-
+    };
+    fetchFilteredProducts();
+  }, [selectedMainCategory, selectedSubCategory]);
 
   const handleCategorySelect = async (category) => {
     setSelectedMainCategory(category.name);
@@ -316,6 +319,34 @@ const ProductsPage = () => {
             </Grid>
           </Box>
         </Box>
+        <Modal
+          open={errorModalOpen}
+          onClose={() => setErrorModalOpen(false)}
+          aria-labelledby="error-modal-title"
+          aria-describedby="error-modal-description"
+        >
+          <Box sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            p: 4,
+            direction:"rtl",
+          }}>
+            <Typography mb={3} id="error-modal-title" variant="h5" component="h2" sx={{fontFamily:"Rubik"}}>
+              خطأ
+            </Typography>
+            <Typography id="error-modal-description" variant="p" sx={{ mt: 2 ,mb:4}}>
+               هذا التصنيف غير متوفر حاليا  
+            </Typography>
+            <Box  >
+            <Button onClick={() => setErrorModalOpen(false)} sx={{ mt: 2 ,fontWeight:"bold",fontFamily:"Rubik" }}>إغلاق</Button>
+            </Box>
+          </Box>
+        </Modal>
       </Box>
       <Footer />
     </>

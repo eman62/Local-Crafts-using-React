@@ -128,27 +128,30 @@ const VendorProductCard = ({ product, onDelete }) => {
           <Typography variant="h5" component="div" gutterBottom>
             {product.name}
           </Typography>
+          
+          <Box sx={{display:"flex",justifyContent:"space-around"}}>
+            <Typography variant="body2" color="text.secondary" gutterBottom>
+              {product.category.main}
+          </Typography>
+          <Typography variant="body2" color="text.secondary" gutterBottom>
+              {product.category.sub}
+          </Typography>
+          </Box>
           <Typography variant="body2" color="text.secondary" gutterBottom>
             {product.description}
           </Typography>
           <Typography variant="body2" color="text.secondary" gutterBottom>
-            Main Category: {product.category.main}
-          </Typography>
-          <Typography variant="body2" color="text.secondary" gutterBottom>
-            Sub Category: {product.category.sub}
-          </Typography>
-          <Typography variant="body2" color="text.secondary" gutterBottom>
-            Price: {product.price}
+             السعر: {product.price}
           </Typography>
           {/* Display photo */}
 
           {/* Edit and Delete buttons */}
           <Box mt={2} sx={{ display: "flex", justifyContent: "space-between" }}>
             <Button variant="contained" color="primary" onClick={handleEdit}>
-              Edit
+              تعديل
             </Button>
             <Button variant="contained" color="error" onClick={handleDelete}>
-              Delete
+              حذف
             </Button>
           </Box>
         </CardContent>
