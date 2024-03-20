@@ -316,7 +316,7 @@ const AddProducts = () => {
         <Box
           sx={{
             position: "absolute",
-            width: "70vw",
+            width: { xs: "80vw", md: "60vw" },
             backgroundColor: "white",
             borderRadius: "30px",
             top: { xs: "70%", md: "50%" },
@@ -403,16 +403,16 @@ const AddProducts = () => {
                       width: 150,
                       height: 150,
                       borderRadius: 10,
-                      overflow: "hidden",
+                      // overflow: "hidden",
                     }}
                   >
                     <img
                       src={imageURL2}
                       alt="Product"
                       style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
+                        width: 150,
+                        height: 150,
+                        borderRadius: "10px",
                       }}
                     />
                   </Box>
@@ -448,7 +448,7 @@ const AddProducts = () => {
                       width: 150,
                       height: 150,
                       borderRadius: 10,
-                      overflow: "hidden",
+                      // overflow: "hidden",
                       mr: "1vw",
                     }}
                   >
@@ -456,9 +456,9 @@ const AddProducts = () => {
                       src={imageURL}
                       alt="Product"
                       style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
+                        width: 150,
+                        height: 150,
+                        borderRadius: "10px",
                       }}
                     />
                   </Box>
