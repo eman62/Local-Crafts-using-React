@@ -39,3 +39,13 @@ export const  getPopularServices =async  (limit = 6) => {
 export const getServicesByUser = (productId) => {
   return axiosInstance.get(`services/user/${productId}`);
 };
+export const filterServicesByCategory = async (category) => { 
+  try { 
+    const response = await axiosInstance.get('/services', { params: { category } }); 
+    console.log('Filtered products:', response.data.data); 
+    return response.data.data;  
+  } catch (error) { 
+    console.error('Error filtering products by category:', error); 
+    throw error;
+  } 
+};

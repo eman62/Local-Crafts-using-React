@@ -3,6 +3,7 @@ import {
   Button,
   Container,
   Grid,
+  Modal,
   Pagination,
   PaginationItem,
   Typography,
@@ -15,11 +16,13 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import SideBare from "../Components/Product/SideBare";
 import ProductCard from "../Components/Product/ProductCard";
-import { getServiceList } from "../api/services";
+import { filterServicesByCategory, getServiceList } from "../api/services";
 import SideBareservice from "../Components/Services/SideBar";
 import {
+
   getMainCatogry,
   getMainCatogryProducts,
+  getServiceMainCatogry,
   getSubService,
 } from "../api/categories";
 import ServicePageCard from "../Components/Services/ServicePageCard";
@@ -28,56 +31,99 @@ import Footer from "../Components/footer";
 const ServicesPage = () => {
   const [services, setServices] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [selectedCategories, setSelectedCategories] = useState("");
-  const cardsPerPage = 8;
+  const [subCategories, setSubCategories] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedMainCategory, setSelectedMainCategory] = useState(null);
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
   const [totalPages, setTotalPages] = useState(0);
+  const [errorModalOpen, setErrorModalOpen] = useState(false);
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
   };
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await getMainCatogry();
+        setCategories(response.data);
+      } catch (error) {
+        console.error("Error fetching categories:", error);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  const fetchSubcategories = async (categoryId) => {
+    try {
+      const response = await getSubService(categoryId);
+      setSubCategories(response.data);
+    } catch (error) {
+      console.error("Error fetching subcategories:", error);
+    }
+  };
+
+
   ////////////////// featch the data from api
   useEffect(() => {
-    const fetchServicsList = async () => {
+    const fetchServiceList = async () => {
       try {
-        const response = await getServiceList(currentPage);
+        let response;
+        if (selectedSubCategory) {
+          response = await getServiceList(currentPage, null, selectedSubCategory);
+        } else if (selectedMainCategory) {
+          response = await getServiceList(currentPage, selectedMainCategory);
+        } else {
+          response = await getServiceList(currentPage);
+        }
         setServices(response.data.data);
         setTotalPages(response.data.meta.pageCount);
       } catch (error) {
         console.error("Error fetching product list:", error);
       }
     };
-    fetchServicsList();
-  }, [currentPage]);
+    fetchServiceList();
+  }, [currentPage, selectedMainCategory, selectedSubCategory]);
+
+  useEffect(() => {
+    const fetchFilteredServices = async () => {
+      if (selectedMainCategory) {
+        try {
+          let filteredServices;
+
+          if (selectedSubCategory) {
+            filteredServices = await filterServicesByCategory(selectedSubCategory);
+          } else {
+            filteredServices = await filterServicesByCategory(selectedMainCategory);
+          }
+          setServices(filteredServices);
+        } catch (error) {
+          console.error("Error fetching filtered products:", error);
+
+          if (error.response && error.response.status === 404) {
+            setErrorModalOpen(true);
+          }
+        }
+      }
+    };
+    fetchFilteredServices();
+  }, [selectedMainCategory, selectedSubCategory]);
 
   ////////////featch categry
-  useEffect(() => {
-    getMainCatogry()
-      .then((res) => {
-        setCategories(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  const handleCategorySelect = async (category) => {
+    setSelectedMainCategory(category.name);
+    setSelectedSubCategory(null);
+    await fetchSubcategories(category._id);
+  };
 
-  useEffect(() => {
-    if (selectedCategories) {
-      getSubService(selectedCategories)
-        .then((response) => {
-          setSelectedCategories(response.data);
-        })
-        .catch((error) => {
-          console.error("Error fetching cities:", error);
-        });
-    }
-  }, [selectedCategories]);
+  const handleSubCategorySelect = (subCategory) => {
+    setSelectedSubCategory(subCategory.name);
+  };
+ 
 
   const handlePaggnationChange = (event, value) => {
     setCurrentPage(value);
   };
-
-  const startIndex = (currentPage - 1) * cardsPerPage;
-  const endIndex = startIndex + cardsPerPage;
 
   const imgStyle = {
     backgroundImage:
@@ -159,7 +205,11 @@ const ServicesPage = () => {
           <Box sx={{ padding: "2%" }}>
             <Grid container spacing={3}>
               <Grid xs={3}>
-                <SideBareservice data={categories} />
+                <SideBareservice data={categories}
+                  onCategorySelect={handleCategorySelect}
+                  subCategories={subCategories}
+                  onSubCategorySelect={handleSubCategorySelect}
+                  selectedSubCategory={selectedSubCategory} />
               </Grid>
               <Grid xs={9}>
                 <Box>
@@ -204,7 +254,7 @@ const ServicesPage = () => {
                         </Typography>
                       </Box>
                       <Box sx={{ marginLeft: "13%", textAlign: "right" }}>
-                        <FormControl
+                        {/* <FormControl
                           sx={{ minWidth: 180, padding: "5%" }}
                           dir="ltr"
                         >
@@ -233,58 +283,89 @@ const ServicesPage = () => {
                             <MenuItem value={"التقيم"}>التقيم</MenuItem>
                             <MenuItem value={"التاريخ"}>التاريخ</MenuItem>
                           </Select>
-                        </FormControl>
+                        </FormControl> */}
                       </Box>
                     </Box>
 
                     {/*  عرض جميع الخدمات */}
 
-                    <Box mt={10}>
-                      <Grid container spacing={4} sx={{ width: "90%" }}>
-                        {services.map((service) => (
-                          <Grid
-                            item
-                            key={service.id}
-                            xs={12}
-                            md={6}
-                            lg={3}
-                            mb={5}
-                          >
-                            <ServicePageCard data={service} />
-                          </Grid>
-                        ))}
-                      </Grid>
-                      <Box mt={5} display={"flex"} justifyContent={"center"}>
-                        <Pagination
-                          count={totalPages}
-                          page={currentPage}
-                          onChange={handlePageChange}
-                          color="primary"
-                          boundaryCount={2}
-                          shape="rounded"
-                          renderItem={(item) => (
-                            <PaginationItem
-                              component={Button}
-                              {...item}
-                              sx={{
-                                backgroundColor: "#091242",
-                                color: "white",
-                                fontFamily: "rubik",
-                                padding: "1%",
-                              }}
-                            />
-                          )}
-                          prevIcon={<ArrowBack />}
-                          nextIcon={<ArrowForward />}
-                        />
+                    {services && (
+                      <Box mt={10}>
+                        <Grid container spacing={4} sx={{ width: "90%" }}>
+                          {services.map((service) => (
+                            <Grid
+                              item
+                              key={service.id}
+                              xs={12}
+                              md={6}
+                              sm={12}
+                              lg={4}
+                              mb={5}
+                            >
+                              <ServicePageCard data={service} />
+                            </Grid>
+                          ))}
+                        </Grid>
+                        <Box mt={5} display={"flex"} justifyContent={"center"}>
+                          <Pagination
+                            count={totalPages}
+                            page={currentPage}
+                            onChange={handlePageChange}
+                            color="primary"
+                            boundaryCount={2}
+                            shape="rounded"
+                            renderItem={(item) => (
+                              <PaginationItem
+                                component={Button}
+                                {...item}
+                                sx={{
+                                  backgroundColor: "#091242",
+                                  color: "white",
+                                  fontFamily: "rubik",
+                                  padding: "1%",
+                                }}
+                              />
+                            )}
+                            prevIcon={<ArrowBack />}
+                            nextIcon={<ArrowForward />}
+                          />
+                        </Box>
                       </Box>
-                    </Box>
+                    )}
                   </Container>
                 </Box>
               </Grid>
             </Grid>
           </Box>
         </Box>
+        <Modal
+          open={errorModalOpen}
+          onClose={() => setErrorModalOpen(false)}
+          aria-labelledby="error-modal-title"
+          aria-describedby="error-modal-description"
+        >
+          <Box sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            p: 4,
+            direction: "rtl",
+          }}>
+            <Typography mb={3} id="error-modal-title" variant="h5" component="h2" sx={{ fontFamily: "Rubik" }}>
+              خطأ
+            </Typography>
+            <Typography id="error-modal-description" variant="p" sx={{ mt: 2, mb: 4 }}>
+              هذا التصنيف غير متوفر حاليا
+            </Typography>
+            <Box  >
+              <Button onClick={() => setErrorModalOpen(false)} sx={{ mt: 2, fontWeight: "bold", fontFamily: "Rubik" }}>إغلاق</Button>
+            </Box>
+          </Box>
+        </Modal>
       </Box>
       <Footer />
     </>
