@@ -5,6 +5,8 @@ const SideBare = ({ data, onCategorySelect, subCategories }) => {
   const [showMainCategories, setShowMainCategories] = useState(true);
   const [showSubCategories, setShowSubCategories] = useState({});
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+  
+  
   const handleMainCategoriesToggle = () => {
     setShowMainCategories((prevState) => !prevState);
   };
@@ -16,16 +18,6 @@ const SideBare = ({ data, onCategorySelect, subCategories }) => {
     }));
   };
 
-  // const handleSubCategorySelect = (subCategoryId) => {
-
-  //     console.log("Selected subcategory:", subCategoryId);
-  //     setSelectedSubCategory(subCategoryId);
-  // };
-
-  // const handleSubCategoryClick = (subCategoryId) => {
-
-  //     handleSubCategorySelect(subCategoryId);
-  // };
   const handleSubCategoryClick = (subCategory) => {
     if (subCategory._id === selectedSubCategory) {
       setSelectedSubCategory(null);
