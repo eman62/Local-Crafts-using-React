@@ -16,12 +16,13 @@ import OrderModel from '../SharedComponnent/OrderModel';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToFavirot, removeFavirot } from '../../stores/slice/favirot';
+import ServiceModel from './serviceModel';
 
 
 const ServicedetailCard = ({ data }) => {
     const [centerIndex, setCenterIndex] = useState(0);
     const [openModal, setOpenModal] = useState(false);
-    const [pageName, setPageName] = useState("products");
+    const [pageName, setPageName] = useState("services");
     const swiperRef = useRef(null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -266,7 +267,11 @@ const ServicedetailCard = ({ data }) => {
                                 }}
                             ></Box>
                         </Button>
-                        <OrderModel open={openModal} namePage={pageName} Id={data._id} handleClose={toggleModal} />
+                        <ServiceModel
+                         open={openModal} 
+                         
+                         Id={data._id} 
+                         handleClose={toggleModal} />
 
                     </Box>
                 </Box>

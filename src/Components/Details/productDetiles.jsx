@@ -147,14 +147,14 @@ const ProductDetiles = ({ data }) => {
                 >
                   <SwiperSlide>
                     <img
-                      style={{ width: "60%", marginRight: "9%" }}
+                      style={{ width: "60%", marginRight: "9%" ,height:"300px"}}
                       src={data?.photos[0]}
                       alt="slide1"
                     />
                   </SwiperSlide>
                   <SwiperSlide>
                     <img
-                      style={{ width: "60%", marginRight: "9%" }}
+                      style={{ width: "60%", marginRight: "9%" ,height:"300px"}}
                       src={data?.photos[1]}
                       alt="slide2"
                     />
