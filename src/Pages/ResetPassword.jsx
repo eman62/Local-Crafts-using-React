@@ -41,6 +41,7 @@ const ResetPassword = () => {
       );
       setTimeout(() => {
         navigate("/", { replace: true });
+        window.location.reload();
       }, 6000);
     }
   }, [feedback]);

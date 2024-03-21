@@ -28,7 +28,7 @@ const VendorOrdersPage = () => {
             token,
           },
         });
-        setOrders(response.data);
+        setOrders(response.data.data);
         console.log(orders);
       } catch (error) {
         console.error("Error fetching orders:", error);
@@ -141,8 +141,8 @@ const VendorOrdersPage = () => {
                   onSlideChange={handleSlideChange}
                 >
                   <Grid container>
-                    {orders.map((order) => (
-                      <Grid item key={order.id} xs={12} mb={5}>
+                    {orders.map((order, index) => (
+                      <Grid item key={index} xs={12} mb={5}>
                         <SwiperSlide>
                           <VendorOrderCard data={order} />
                         </SwiperSlide>

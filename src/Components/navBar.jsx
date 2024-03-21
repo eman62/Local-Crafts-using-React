@@ -25,8 +25,8 @@ import { useDispatch } from "react-redux";
 import { clearUserData, clearUserToken } from "../stores/slice/user";
 import LogoutIcon from "@mui/icons-material/Logout";
 
-const pages = ["الرئيسية", "منتجات", "خدمات", ]
-const pagePaths = ["/", "/products", "/services", ];
+const pages = ["الرئيسية", "منتجات", "خدمات"];
+const pagePaths = ["/", "/products", "/services"];
 
 function NaveBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -57,6 +57,7 @@ function NaveBar() {
 
     localStorage.removeItem("userData");
     localStorage.removeItem("token");
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -432,7 +433,12 @@ function NaveBar() {
                             تسجيل الخروج
                           </Link>
                         </Box>
-                        <IconButton onClick={() => navigate("/user-login")}>
+                        <IconButton
+                          onClick={() => {
+                            navigate("/user-login");
+                            handleLogout();
+                          }}
+                        >
                           <LogoutIcon
                             sx={{
                               fontSize: { xs: "1.8rem", md: "1.5rem" },
@@ -553,7 +559,12 @@ function NaveBar() {
                             تسجيل الخروج
                           </Link>
                         </Box>
-                        <IconButton onClick={() => navigate("/user-login")}>
+                        <IconButton
+                          onClick={() => {
+                            navigate("/user-login");
+                            handleLogout();
+                          }}
+                        >
                           <LogoutIcon
                             sx={{
                               fontSize: { xs: "1.8rem", md: "1.5rem" },

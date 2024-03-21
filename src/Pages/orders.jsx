@@ -40,8 +40,8 @@ const Orders = () => {
     const fetchData = async () => {
       try {
         const response = await getCustomerOrders(token);
-        console.log("Orders data:", response.data);
-        setOrders(response.data);
+        console.log("Orders data:", response.data.data);
+        setOrders(response.data.data);
       } catch (error) {
         console.error("Error fetching orders:", error);
       }

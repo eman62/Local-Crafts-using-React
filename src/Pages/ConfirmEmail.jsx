@@ -21,7 +21,7 @@ const ConfirmEmail = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const [email] = useState(location.state?.email)
+  const [email] = useState(location.state?.email);
 
   useEffect(() => {
     dispatch(loadUserDataFromLocalStorage());
@@ -33,11 +33,13 @@ const ConfirmEmail = () => {
       setTimeout(() => setFeedback([]), 4000);
     }
     if (feedback[2]) {
-      setTimeout(() =>
-        setFeedback(["جاري تحويلك للصفحة الرئيسية", "gray"]
-        ), 4000);
+      setTimeout(
+        () => setFeedback(["جاري تحويلك للصفحة الرئيسية", "gray"]),
+        4000
+      );
       setTimeout(() => {
         navigate("/", { replace: true });
+        window.location.reload();
       }, 6000);
     }
   }, [feedback]);
@@ -45,7 +47,7 @@ const ConfirmEmail = () => {
     try {
       if (code.length !== 5) {
         setErrorMessage("الرجاء إدخال كود التفعيل المكون من ٥ أرقام");
-        return
+        return;
       }
       const response = await axiosInstance.post("/auth/confirm", {
         email,
@@ -173,16 +175,14 @@ const ConfirmEmail = () => {
             >
               تفعيل الحساب
               <Typography
-                variant='subtitle1'
+                variant="subtitle1"
                 sx={{
                   display: "block",
                   fontSize: "16px",
                 }}
               >
                 لقد تم ارسال كود التفعيل الى بريدك الالكتروني:
-                <Typography variant="subtitle2">
-                  {email}
-                </Typography>
+                <Typography variant="subtitle2">{email}</Typography>
               </Typography>
             </Typography>
           </Box>
@@ -237,14 +237,16 @@ const ConfirmEmail = () => {
               </Link>
             </Typography>
             {feedback[0] && (
-              <Typography sx={{
-                mt: "2vh",
-                width: "30vw",
-                textAlign: "center",
-                fontFamily: "Rubik",
-                fontSize: "1.2vw",
-                color: feedback[1],
-              }}>
+              <Typography
+                sx={{
+                  mt: "2vh",
+                  width: "30vw",
+                  textAlign: "center",
+                  fontFamily: "Rubik",
+                  fontSize: "1.2vw",
+                  color: feedback[1],
+                }}
+              >
                 {feedback[0]}
               </Typography>
             )}

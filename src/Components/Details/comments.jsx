@@ -42,16 +42,17 @@ const Comments = ({ data }) => {
   useEffect(() => {
     const fetchProductComments = async () => {
       try {
-        const response = await axiosInstance.get(`/products/${data._id}/feedback`);
+        const response = await axiosInstance.get(
+          `/products/${data._id}/feedback`
+        );
         setComments(response.data);
-        console.log(response.data)
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching comments:", error);
       }
     };
     fetchProductComments();
   }, []);
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -73,6 +74,7 @@ const Comments = ({ data }) => {
         comment: "",
         rating: 0,
       });
+      window.location.reload();
     } catch (error) {
       console.error("Error submitting order:", error);
     }
