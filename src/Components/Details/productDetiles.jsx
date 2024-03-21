@@ -145,16 +145,16 @@ const ProductDetiles = ({ data }) => {
                     prevEl: ".swiper-button-prev",
                   }}
                 >
-                  <SwiperSlide>
+                  <SwiperSlide  style={{height:"70vh"}}>
                     <img
-                      style={{ width: "60%", marginRight: "9%" ,height:"300px"}}
+                      style={{ width: "60%", marginRight: "9%" }}
                       src={data?.photos[0]}
                       alt="slide1"
                     />
                   </SwiperSlide>
-                  <SwiperSlide>
+                  <SwiperSlide style={{height:"70vh"}}>
                     <img
-                      style={{ width: "60%", marginRight: "9%" ,height:"300px"}}
+                      style={{ width: "60%", marginRight: "9%" }}
                       src={data?.photos[1]}
                       alt="slide2"
                     />
