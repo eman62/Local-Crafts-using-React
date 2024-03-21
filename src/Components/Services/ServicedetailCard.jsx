@@ -202,11 +202,13 @@ const ServicedetailCard = ({ data }) => {
             </Grid>
 
             <Grid xs={12} md={6}>
+            <Grid xs={12} md={6}>
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                 <Box sx={{ display: "flex" }}>
                   <Box ml={5}>
                     {data.vendor.photo ? (
                       <IconButton onClick={HandleViewVendor}>
+                        <img
                         <img
                           height="35"
                           width="35"
@@ -263,6 +265,7 @@ const ServicedetailCard = ({ data }) => {
                 السعر : {data.price} ج
               </Typography>
             </Grid>
+          </Grid>
           </Grid>
 
           <Box mt={3} sx={{ display: "flex", justifyContent: "flex-end" }}>
